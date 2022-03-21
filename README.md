@@ -1,0 +1,2 @@
+# nbmanager
+Jupyter notebook manager.
