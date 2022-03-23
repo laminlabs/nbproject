@@ -7,3 +7,4 @@ Guides:
    :maxdepth: 1
 
    example-after-init
+   example-before-init

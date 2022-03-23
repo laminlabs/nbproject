@@ -34,9 +34,15 @@ class Display:
 class Header:
     # filename should disappear as here but be auto-detected
     # from the jupyter notebook that calls this
-    def __init__(self):
-        filepath = ipynbname.path()
-        nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
+    def __init__(self, filepath=None):
+        if filepath is None:
+            filepath = ipynbname.path()
+        try:
+            nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
+        except FileNotFoundError:
+            raise RuntimeError(
+                "try passing the filepath manually to nbproject.Header()"
+            )
         if "nbproject_uuid" not in nb.metadata:
             logger.info(
                 "to initialize nbproject: hit save, load notebook from disk ('revert')"
