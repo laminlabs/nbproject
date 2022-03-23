@@ -4,6 +4,7 @@ import pandas as pd  # mere hack for html rep
 from ._logger import logger
 from pydantic import BaseModel
 from typing import Union
+import ipynbname
 
 
 def uuid4_hex():
@@ -33,8 +34,9 @@ class Display:
 class Header:
     # filename should disappear as here but be auto-detected
     # from the jupyter notebook that calls this
-    def __init__(self, filename="guide.ipynb"):
-        nb = nbf.read(filename, as_version=nbf.NO_CONVERT)
+    def __init__(self):
+        filepath = ipynbname.path()
+        nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
         if "nbproject_uuid" not in nb.metadata:
             logger.info(
                 "to initialize nbproject: hit save, load notebook from disk ('revert')"
@@ -44,7 +46,7 @@ class Header:
             # we *do* want UUID.hex as we don't need hyphens for user intuition
             # user intuition comes through a shortened version of the hex string
             nb.metadata["nbproject_uuid"] = uuid4().hex
-            nbf.write(nb, filename)
+            nbf.write(nb, filepath)
         else:
             display_ = Display(nb.metadata)
             df = pd.DataFrame(
