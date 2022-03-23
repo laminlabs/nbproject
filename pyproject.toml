@@ -1,0 +1,42 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "nbproject"
+authors = [{name = "Lamin Labs", email = "laminlabs@gmail.com"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+dependencies = [
+    "anndata",
+    "boto3",
+    "hjson",
+    "cloudpathlib",
+    "loguru",
+    "requests",
+    "sqlmodel",
+]
+
+[project.urls]
+Home = "https://github.com/laminlabs/nbproject"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "black",
+]
+doc = [
+    "sphinx-book-theme",
+    "sphinx_autodoc_typehints",
+    "myst_nb",
+]
+test = [
+    "pytest>=6.0",
+    "nbmake",
+]
+
+[project.scripts]
+lamin = "lamin.__main__:main"
+
+[tool.black]
+experimental-string-processing = true
