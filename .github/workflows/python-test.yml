@@ -27,4 +27,4 @@ jobs:
         flit install --extras test
     - name: Test with pytest
       run: |
-        pytest --nbmake docs/guides/*ipynb
+        pytest --nbmake docs/*ipynb
