@@ -9,7 +9,7 @@ pkgs_dists = packages_distributions()
 
 
 def cell_imports(cell_source):
-    # based on https://github.com/bndr/pipreqs
+    # based on the package https://github.com/bndr/pipreqs for python scripts
     tree = parse(cell_source)
     for node in walk(tree):
         if isinstance(node, Import):
