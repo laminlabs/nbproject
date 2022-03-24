@@ -5,6 +5,7 @@ from stdlib_list import stdlib_list
 
 # todo: maybe infer proper python version for the libs from the notebook metadata
 std_libs = set(stdlib_list())
+pkgs_dists = packages_distributions()
 
 
 def cell_imports(cell_source):
@@ -34,8 +35,6 @@ def get_deps_nb(content, versions=False):
         raise ValueError("Invalid content - neither notebook nor cells.")
 
     pkgs = set()
-
-    pkgs_dists = packages_distributions()
 
     for cell in cells:
         if cell["cell_type"] != "code":
