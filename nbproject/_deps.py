@@ -3,7 +3,7 @@ from nbformat import NotebookNode
 from ast import parse, walk, Import, ImportFrom
 from stdlib_list import stdlib_list
 
-# todo: infer proper python version for the libs from the notebook
+# todo: maybe infer proper python version for the libs from the notebook metadata
 std_libs = set(stdlib_list())
 
 
@@ -38,18 +38,20 @@ def get_deps_nb(content, versions=False):
     pkgs_dists = packages_distributions()
 
     for cell in cells:
-        if cell["cell_type"] == "code":
-            cell_source = cell["source"]
-            if "import" not in cell_source:
-                continue
-            else:
-                for imp in cell_imports(cell_source):
-                    if imp in std_libs:
-                        continue
-                    if imp in pkgs_dists:
-                        pkgs.update(pkgs_dists[imp])
-                    else:
-                        pkgs.add(imp)
+        if cell["cell_type"] != "code":
+            continue
+
+        cell_source = cell["source"]
+        if "import" not in cell_source:
+            continue
+        else:
+            for imp in cell_imports(cell_source):
+                if imp in std_libs:
+                    continue
+                if imp in pkgs_dists:
+                    pkgs.update(pkgs_dists[imp])
+                else:
+                    pkgs.add(imp)
 
     pkgs = list(pkgs)
     if not versions:
