@@ -56,10 +56,10 @@ def get_deps_nb(content, versions=False):
     if not versions:
         return pkgs
 
-    versions = []
+    with_versions = []
     for pkg in pkgs:
         try:
-            versions.append(version(pkg))
+            with_versions.append(pkg + "==" + version(pkg))
         except PackageNotFoundError:
-            versions.append("")
-    return pkgs, versions
+            with_versions.append(pkg)
+    return with_versions
