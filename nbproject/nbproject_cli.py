@@ -2,6 +2,7 @@ import yaml
 import nbformat as nbf
 
 from pathlib import Path
+from itertools import chain
 
 from ._header import uuid4_hex
 
@@ -28,12 +29,29 @@ def find_upwards(cwd: Path, filename: str):
     return fullpath if fullpath.exists() else find_upwards(cwd.parent, filename)
 
 
-def init(cwd: Path):
-    yaml_exists = find_upwards(cwd, "nbproject.yamp")
+def nbs_from_files_dirs(files_dirs):
+    nbs = []
+
+    for file_dir in files_dirs:
+        file_dir = Path(file_dir)
+        if file_dir.is_dir():
+            nbs.append(file_dir.glob("**/*.ipynb"))
+        else:
+            if file_dir.suffix == ".ipynb":
+                nbs.append([file_dir])
+            else:
+                print("The file", file_dir, "is not a notebook, ignoring.")
+
+    return chain(*nbs)
+
+
+def init():
+    cwd = Path.cwd()
+
+    yaml_exists = find_upwards(cwd, "nbproject.yaml")
     if yaml_exists is not None:
-        yaml_exists = yaml_exists.relative_to(cwd)
         print("You are already in the nbproject (sub)folder.")
-        print("Yaml of the project is:", yaml_exists.relative_to(cwd).as_posix())
+        print("Yaml of the project is:", yaml_exists.as_posix())
         return
 
     nbs = cwd.glob("**/*.ipynb")
@@ -57,28 +75,32 @@ def init(cwd: Path):
 
         init_yaml[nb_uuid] = nb_record
 
-    with open("nbproject.yaml", "w") as stream:
+    new_file = "nbproject.yaml"
+    with open(new_file, "w") as stream:
         yaml.dump(init_yaml, stream, sort_keys=False)
+    print("Created", cwd / new_file)
 
 
-def sync(cwd: Path, deps=False, versions=False):
+def sync(files_dirs, deps=False, versions=False):
+    cwd = Path.cwd()
+    print(cwd)
+
     yaml_file = find_upwards(cwd, "nbproject.yaml")
 
     if yaml_file is None:
         print("You are not inside an nbproject folder, use init.")
         return
     else:
-        yaml_file = yaml_file.relative_to(cwd)
         print("Yaml of the project is:", yaml_file.as_posix())
+
+    proj_dir = yaml_file.parent
 
     with open(yaml_file, "r") as stream:
         yaml_proj = yaml.load(stream, Loader=yaml.FullLoader)
 
-    nbs = cwd.glob("**/*.ipynb")
+    nbs = nbs_from_files_dirs(files_dirs)
 
     for nb_path in nbs:
-        nb_path = nb_path.relative_to(cwd)
-
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
@@ -92,6 +114,8 @@ def sync(cwd: Path, deps=False, versions=False):
             nb_record = yaml_proj[nb_uuid]
         else:
             nb_record = yaml_proj[nb_uuid]
+
+        nb_path = nb_path.resolve().relative_to(proj_dir)
         PathRecord(nb_path).compare_write(nb_record)
 
         if deps:
