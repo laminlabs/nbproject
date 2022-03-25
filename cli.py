@@ -1,5 +1,5 @@
 import argparse
-from nbproject.nbproject_cli import init, sync
+from nbproject._nbproject_cli import init, sync
 
 
 parser = argparse.ArgumentParser(prog="PROG")

@@ -59,6 +59,9 @@ def init():
     init_yaml = {}
 
     for nb_path in nbs:
+        if ".ipynb_checkpoints/" in nb_path.as_posix():
+            continue
+
         nb_path = nb_path.relative_to(cwd)
 
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
@@ -83,7 +86,6 @@ def init():
 
 def sync(files_dirs, deps=False, versions=False):
     cwd = Path.cwd()
-    print(cwd)
 
     yaml_file = find_upwards(cwd, "nbproject.yaml")
 
@@ -100,7 +102,14 @@ def sync(files_dirs, deps=False, versions=False):
 
     nbs = nbs_from_files_dirs(files_dirs)
 
+    n_nbs = 0
+
     for nb_path in nbs:
+        if ".ipynb_checkpoints/" in nb_path.as_posix():
+            continue
+
+        n_nbs += 1
+
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
@@ -126,3 +135,4 @@ def sync(files_dirs, deps=False, versions=False):
 
     with open(yaml_file, "w") as stream:
         yaml.dump(yaml_proj, stream, sort_keys=False)
+    print("Synced", n_nbs, "notebooks.")
