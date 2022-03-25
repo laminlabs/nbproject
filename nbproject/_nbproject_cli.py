@@ -128,7 +128,7 @@ def sync(files_dirs, deps=False, versions=False):
         PathRecord(nb_path).compare_write(nb_record)
 
         if deps:
-            from ._deps import get_deps_nb
+            from ._dependencies import get_deps_nb
 
             deps = get_deps_nb(nb_content, versions=versions)
             nb_record["dependencies"] = deps
