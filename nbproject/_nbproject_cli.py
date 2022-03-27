@@ -3,6 +3,7 @@ import nbformat as nbf
 
 from pathlib import Path
 from itertools import chain
+from datetime import datetime, timezone
 
 from ._header import uuid4_hex
 from ._logger import logger
@@ -11,7 +12,7 @@ from typing import Iterator
 
 
 # todo: replace with configurable schema
-class PathRecord:
+class ProjSchema:
     def __init__(self, filepath: Path):
         self.name = filepath.name
         self.loc = filepath.parent.as_posix()
@@ -52,7 +53,7 @@ def nbs_from_files_dirs(files_dirs: Iterator[str]):
 def init():
     cwd = Path.cwd()
 
-    yaml_exists = find_upwards(cwd, "nbproject.yaml")
+    yaml_exists = find_upwards(cwd, "nbproject.yml")
     if yaml_exists is not None:
         logger.info("You are already in the nbproject (sub)folder.")
         logger.info(f"Yaml of the project is: {yaml_exists.as_posix()}.")
@@ -72,26 +73,33 @@ def init():
 
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
+            nb_time_init = datetime.now(timezone.utc).isoformat()
+
             nb_content.metadata["nbproject_uuid"] = nb_uuid
+            nb_content.metadata["nbproject_time_init"] = nb_time_init
             nbf.write(nb_content, nb_path)
         else:
             nb_uuid = nb_content.metadata["nbproject_uuid"]
+            nb_time_init = nb_content.metadata["nbproject_time_init"]
 
         nb_record = {}
-        PathRecord(nb_path).compare_write(nb_record)
+        nb_record["time_init"] = nb_time_init
+        ProjSchema(nb_path).compare_write(nb_record)
 
         init_yaml[nb_uuid] = nb_record
 
-    new_file = "nbproject.yaml"
+    new_file = "nbproject.yml"
     with open(new_file, "w") as stream:
         yaml.dump(init_yaml, stream, sort_keys=False)
-    logger.info("Created", cwd / new_file)
+    logger.info(f"Created {cwd / new_file}.")
 
 
-def sync(files_dirs: Iterator[str], deps: bool = False, versions: bool = False):
+def sync(
+    files_dirs: Iterator[str], parse_deps: bool = False, pin_versions: bool = False
+):
     cwd = Path.cwd()
 
-    yaml_file = find_upwards(cwd, "nbproject.yaml")
+    yaml_file = find_upwards(cwd, "nbproject.yml")
 
     if yaml_file is None:
         logger.info("You are not inside an nbproject folder, use init.")
@@ -117,10 +125,13 @@ def sync(files_dirs: Iterator[str], deps: bool = False, versions: bool = False):
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
+            nb_time_init = datetime.now(timezone.utc).isoformat()
+
             nb_content.metadata["nbproject_uuid"] = nb_uuid
-            nbf.write(nb_content, nb_path)
+            nb_content.metadata["nbproject_time_init"] = nb_time_init
         else:
             nb_uuid = nb_content.metadata["nbproject_uuid"]
+            nb_time_init = nb_content.metadata["nbproject_time_init"]
 
         if nb_uuid not in yaml_proj:
             yaml_proj[nb_uuid] = {}
@@ -128,15 +139,53 @@ def sync(files_dirs: Iterator[str], deps: bool = False, versions: bool = False):
         else:
             nb_record = yaml_proj[nb_uuid]
 
-        nb_path = nb_path.resolve().relative_to(proj_dir)
-        PathRecord(nb_path).compare_write(nb_record)
+        nb_record["time_init"] = nb_time_init
 
-        if deps:
+        nb_path_format = nb_path.resolve().relative_to(proj_dir)
+        ProjSchema(nb_path_format).compare_write(nb_record)
+
+        if parse_deps:
             from ._dependencies import get_deps_nb
 
-            deps = get_deps_nb(nb_content, versions=versions)
+            deps = get_deps_nb(nb_content, pin_versions=pin_versions)
             nb_record["dependencies"] = deps
+
+        deps = nb_record.get("dependencies", [])
+        deps_field = "nbproject_dependencies"
+        if (
+            deps_field not in nb_content.metadata
+            or nb_content.metadata[deps_field] != deps
+        ):
+            nb_content.metadata[deps_field] = deps
+
+        nbf.write(nb_content, nb_path)
 
     with open(yaml_file, "w") as stream:
         yaml.dump(yaml_proj, stream, sort_keys=False)
     logger.info(f"Synced {n_nbs} notebooks.")
+
+
+def reqs(files_dirs: Iterator[str]):
+    # todo: check different versions and do some resolution for conflicting versions
+    nbs = nbs_from_files_dirs(files_dirs)
+
+    deps = set()
+
+    for nb_path in nbs:
+        if ".ipynb_checkpoints/" in nb_path.as_posix():
+            continue
+
+        nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
+        if "nbproject_dependencies" not in nb_content.metadata:
+            logger.info(
+                "Uninitialized or unsynced notebooks, use > nbproject init or >"
+                " nbproject sync ."
+            )
+            return
+        nb_deps = nb_content.metadata["nbproject_dependencies"]
+        deps.update(nb_deps)
+
+    requirments = "\n".join(deps)
+    with open("requirments.txt", "w") as stream:
+        stream.write(requirments)
+    logger.info("Created requirments.txt.")

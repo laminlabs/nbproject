@@ -1,5 +1,5 @@
 import argparse
-from ._nbproject_cli import init, sync
+from ._nbproject_cli import init, sync, reqs
 
 
 def main():
@@ -27,9 +27,16 @@ def main():
         help="also pin the versions from the current environment",
     )
 
+    parser_reqs = subparsers.add_parser("reqs", help="create requirments.txt")
+    parser_reqs.add_argument(
+        "files_dirs", nargs="+", help="create requirments.txt for these files"
+    )
+
     args = parser.parse_args()
 
     if args.cmd == "init":
         init()
     elif args.cmd == "sync":
         sync(args.files_dirs, args.deps, args.versions)
+    elif args.cmd == "reqs":
+        reqs(args.files_dirs)

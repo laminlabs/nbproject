@@ -25,7 +25,7 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def get_deps_nb(content: Union[NotebookNode, dict, list], versions: bool = False):
+def get_deps_nb(content: Union[NotebookNode, dict, list], pin_versions: bool = False):
     # parse the notebook content and infer all dependencies
     if (
         isinstance(content, NotebookNode) or isinstance(content, dict)
@@ -55,7 +55,7 @@ def get_deps_nb(content: Union[NotebookNode, dict, list], versions: bool = False
                     pkgs.add(imp)
 
     pkgs = list(pkgs)
-    if not versions:
+    if not pin_versions:
         return pkgs
 
     with_versions = []
