@@ -1,3 +1,5 @@
+# This file contains the functions to process the cli commands.
+
 import yaml
 import nbformat as nbf
 
