@@ -5,8 +5,8 @@ from ._logger import logger
 from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
-import ipynbname
 from enum import Enum
+from ._ipynbname import notebook_path
 
 
 def uuid4_hex():
@@ -66,7 +66,12 @@ class Header:
     # from the jupyter notebook that calls this
     def __init__(self, filepath=None):
         if filepath is None:
-            filepath = ipynbname.path()
+            filepath = notebook_path()
+            if filepath is None:
+                raise RuntimeError(
+                    "can't infer the name of the current notebook, "
+                    "you are probably not inside a jupyter notebook"
+                )
         try:
             nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
         except FileNotFoundError:
