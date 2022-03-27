@@ -3,12 +3,14 @@ from nbformat import NotebookNode
 from ast import parse, walk, Import, ImportFrom
 from stdlib_list import stdlib_list
 
+from typing import Union
+
 # todo: maybe infer proper python version for the libs from the notebook metadata
 std_libs = set(stdlib_list())
 pkgs_dists = packages_distributions()
 
 
-def cell_imports(cell_source):
+def cell_imports(cell_source: str):
     # based on the package https://github.com/bndr/pipreqs for python scripts
     tree = parse(cell_source)
     for node in walk(tree):
@@ -23,7 +25,7 @@ def cell_imports(cell_source):
                 yield name
 
 
-def get_deps_nb(content, versions=False):
+def get_deps_nb(content: Union[NotebookNode, dict, list], versions: bool = False):
     # parse the notebook content and infer all dependencies
     if (
         isinstance(content, NotebookNode) or isinstance(content, dict)

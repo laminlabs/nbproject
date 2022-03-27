@@ -5,8 +5,12 @@ from pathlib import Path
 from itertools import chain
 
 from ._header import uuid4_hex
+from ._logger import logger
+
+from typing import Iterator
 
 
+# todo: replace with configurable schema
 class PathRecord:
     def __init__(self, filepath: Path):
         self.name = filepath.name
@@ -29,7 +33,7 @@ def find_upwards(cwd: Path, filename: str):
     return fullpath if fullpath.exists() else find_upwards(cwd.parent, filename)
 
 
-def nbs_from_files_dirs(files_dirs):
+def nbs_from_files_dirs(files_dirs: Iterator[str]):
     nbs = []
 
     for file_dir in files_dirs:
@@ -40,7 +44,7 @@ def nbs_from_files_dirs(files_dirs):
             if file_dir.suffix == ".ipynb":
                 nbs.append([file_dir])
             else:
-                print("The file", file_dir, "is not a notebook, ignoring.")
+                logger.info(f"The file {file_dir} is not a notebook, ignoring.")
 
     return chain(*nbs)
 
@@ -50,8 +54,8 @@ def init():
 
     yaml_exists = find_upwards(cwd, "nbproject.yaml")
     if yaml_exists is not None:
-        print("You are already in the nbproject (sub)folder.")
-        print("Yaml of the project is:", yaml_exists.as_posix())
+        logger.info("You are already in the nbproject (sub)folder.")
+        logger.info(f"Yaml of the project is: {yaml_exists.as_posix()}.")
         return
 
     nbs = cwd.glob("**/*.ipynb")
@@ -81,19 +85,19 @@ def init():
     new_file = "nbproject.yaml"
     with open(new_file, "w") as stream:
         yaml.dump(init_yaml, stream, sort_keys=False)
-    print("Created", cwd / new_file)
+    logger.info("Created", cwd / new_file)
 
 
-def sync(files_dirs, deps=False, versions=False):
+def sync(files_dirs: Iterator[str], deps: bool = False, versions: bool = False):
     cwd = Path.cwd()
 
     yaml_file = find_upwards(cwd, "nbproject.yaml")
 
     if yaml_file is None:
-        print("You are not inside an nbproject folder, use init.")
+        logger.info("You are not inside an nbproject folder, use init.")
         return
     else:
-        print("Yaml of the project is:", yaml_file.as_posix())
+        logger.info(f"Yaml of the project is: {yaml_file.as_posix()}.")
 
     proj_dir = yaml_file.parent
 
@@ -135,4 +139,4 @@ def sync(files_dirs, deps=False, versions=False):
 
     with open(yaml_file, "w") as stream:
         yaml.dump(yaml_proj, stream, sort_keys=False)
-    print("Synced", n_nbs, "notebooks.")
+    logger.info(f"Synced {n_nbs} notebooks.")
