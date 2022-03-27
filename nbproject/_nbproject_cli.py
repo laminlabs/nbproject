@@ -1,4 +1,5 @@
 # This file contains the functions to process the cli commands.
+# todo: untangle hardcoded fields into configurable schema
 
 import yaml
 import nbformat as nbf
@@ -14,7 +15,7 @@ from typing import Iterator
 
 
 # todo: replace with configurable schema
-class ProjSchema:
+class ProjSchemaApply:
     def __init__(self, filepath: Path):
         self.name = filepath.name
         self.loc = filepath.parent.as_posix()
@@ -73,12 +74,16 @@ def init():
 
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
 
+        nb_time_edit = datetime.now(timezone.utc).isoformat()
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
             nb_time_init = datetime.now(timezone.utc).isoformat()
 
             nb_content.metadata["nbproject_uuid"] = nb_uuid
             nb_content.metadata["nbproject_time_init"] = nb_time_init
+            nb_content.metadata["nbproject_time_edit"] = nb_time_edit
+            nb_content.metadata["nbproject_dependencies"] = []
+
             nbf.write(nb_content, nb_path)
         else:
             nb_uuid = nb_content.metadata["nbproject_uuid"]
@@ -86,7 +91,8 @@ def init():
 
         nb_record = {}
         nb_record["time_init"] = nb_time_init
-        ProjSchema(nb_path).compare_write(nb_record)
+        nb_record["time_edit"] = nb_time_edit
+        ProjSchemaApply(nb_path).compare_write(nb_record)
 
         init_yaml[nb_uuid] = nb_record
 
@@ -125,6 +131,8 @@ def sync(
         n_nbs += 1
 
         nb_content = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
+
+        nb_time_edit = datetime.now(timezone.utc).isoformat()
         if "nbproject_uuid" not in nb_content.metadata:
             nb_uuid = uuid4_hex()
             nb_time_init = datetime.now(timezone.utc).isoformat()
@@ -134,6 +142,7 @@ def sync(
         else:
             nb_uuid = nb_content.metadata["nbproject_uuid"]
             nb_time_init = nb_content.metadata["nbproject_time_init"]
+        nb_content.metadata["nbproject_time_edit"] = nb_time_edit
 
         if nb_uuid not in yaml_proj:
             yaml_proj[nb_uuid] = {}
@@ -142,9 +151,10 @@ def sync(
             nb_record = yaml_proj[nb_uuid]
 
         nb_record["time_init"] = nb_time_init
+        nb_record["time_edit"] = nb_time_edit
 
         nb_path_format = nb_path.resolve().relative_to(proj_dir)
-        ProjSchema(nb_path_format).compare_write(nb_record)
+        ProjSchemaApply(nb_path_format).compare_write(nb_record)
 
         if parse_deps:
             from ._dependencies import get_deps_nb
@@ -191,3 +201,21 @@ def reqs(files_dirs: Iterator[str]):
     with open("requirments.txt", "w") as stream:
         stream.write(requirments)
     logger.info("Created requirments.txt.")
+
+
+def create(name):
+    name = Path(name)
+    if name.suffix != ".ipynb":
+        logger.info("The extension should be .ipynb, ignoring.")
+        return
+
+    new_nb = nbf.v4.new_notebook()
+
+    new_nb.metadata["nbproject_uuid"] = uuid4_hex()
+    new_nb.metadata["nbproject_time_init"] = datetime.now(timezone.utc).isoformat()
+    new_nb.metadata["nbproject_time_edit"] = datetime.now(timezone.utc).isoformat()
+    new_nb.metadata["nbproject_dependencies"] = []
+
+    nbf.write(new_nb, name)
+
+    logger.info(f"Created the notebook {name.as_posix()}.")

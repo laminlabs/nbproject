@@ -19,6 +19,7 @@ class JSONSchema(BaseModel):
     nbproject_uuid: str  # a full 32 digit uuid4.hex string
     nbproject_time_init: datetime
     nbproject_time_edited: datetime
+    nbproject_dependencies: list
 
 
 # user visible name & type configuration
@@ -26,6 +27,7 @@ class UserSchema(BaseModel):
     id: Union[str, int] = uuid4_hex  # the user only sees the first couple of digits
     time_init: Union[date, datetime]
     time_edit: Union[date, datetime]
+    dependencies: list
 
 
 # display configuration
@@ -60,10 +62,14 @@ class Display:
         else:
             return dt.isoformat()  # probably something more reduced is better
 
+    def dependencies(self):
+        return self.metadata["nbproject_dependencies"]
+
 
 class Header:
     # filename should disappear as here but be auto-detected
     # from the jupyter notebook that calls this
+    # maybe better to move display out of init
     def __init__(self, filepath=None):
         if filepath is None:
             filepath = ipynbname.path()
@@ -81,9 +87,10 @@ class Header:
             # return string JSON-serializable string representation
             # we *do* want UUID.hex as we don't need hyphens for user intuition
             # user intuition comes through a shortened version of the hex string
-            nb.metadata["nbproject_uuid"] = uuid4().hex
+            nb.metadata["nbproject_uuid"] = uuid4_hex()
             nb.metadata["nbproject_time_init"] = datetime.now(timezone.utc).isoformat()
             nb.metadata["nbproject_time_edit"] = datetime.now(timezone.utc).isoformat()
+            nb.metadata["nbproject_dependencies"] = []
             nbf.write(nb, filepath)
         else:
             display_ = Display(nb.metadata)
@@ -96,3 +103,8 @@ class Header:
                 index=[" "],
             )
             display(df.T)  # noqa
+
+            deps_list = display_.dependencies()
+            if len(deps_list) > 0:
+                deps = pd.DataFrame({"dependencies": deps_list})
+                display(deps.style.hide_index())  # noqa

@@ -1,5 +1,5 @@
 import argparse
-from ._nbproject_cli import init, sync, reqs
+from ._nbproject_cli import init, sync, reqs, create
 
 
 def main():
@@ -32,6 +32,11 @@ def main():
         "files_dirs", nargs="+", help="create requirments.txt for these files"
     )
 
+    parser_create = subparsers.add_parser("create", help="create a notebook")
+    parser_create.add_argument(
+        "filename", nargs=1, help="filename of the notebook to create"
+    )
+
     args = parser.parse_args()
 
     if args.cmd == "init":
@@ -40,3 +45,5 @@ def main():
         sync(args.files_dirs, args.deps, args.versions)
     elif args.cmd == "reqs":
         reqs(args.files_dirs)
+    elif args.cmd == "create":
+        create(args.filename[0])
