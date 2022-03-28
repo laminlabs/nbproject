@@ -1,4 +1,3 @@
-from IPython import get_ipython
 from pathlib import PurePath
 import urllib.error
 import urllib.request
@@ -32,6 +31,11 @@ def notebook_path():
         except ModuleNotFoundError:
             # we are in an environment without the notebook libs
             return None
+
+    try:
+        from IPython import get_ipython
+    except ModuleNotFoundError:
+        return None
 
     ipython_instance = get_ipython()
 
