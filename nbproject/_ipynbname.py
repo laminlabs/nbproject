@@ -1,8 +1,3 @@
-try:
-    from jupyter_server.serverapp import list_running_servers
-except ModuleNotFoundError:
-    from notebook.notebookapp import list_running_servers
-
 from IPython import get_ipython
 from pathlib import PurePath
 import urllib.error
@@ -29,6 +24,15 @@ def query_server(server):
 
 
 def notebook_path():
+    try:
+        from jupyter_server.serverapp import list_running_servers
+    except ModuleNotFoundError:
+        try:
+            from notebook.notebookapp import list_running_servers
+        except ModuleNotFoundError:
+            # we are in an environment without the notebook libs
+            return None
+
     ipython_instance = get_ipython()
 
     # not in an ipython kernel
