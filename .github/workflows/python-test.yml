@@ -23,8 +23,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Python packages
       run: |
-        pip install flit
-        flit install --extras test
+        pip install -e ".[dev,doc,test]"
+    - name: Run pre-commit
+      run: |
+        pip install pre-commit
+        pre-commit install
+        pre-commit run --all-files
     - name: Test with pytest
       run: |
         pytest --nbmake docs/*ipynb
