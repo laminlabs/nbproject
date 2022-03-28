@@ -62,4 +62,3 @@ Other notebook platforms:
   * relevant for data provenance at loading time
     - tell user whether a notebook has already been instantiated, has been used to deposit data, if so, potentially show graph
     - tell user that no data was ever deposited with the notebook
-
