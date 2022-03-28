@@ -28,3 +28,22 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --nbmake docs/*ipynb
+    - name: Build docs
+      run: |
+        cd docs
+        make html
+    - name: Setup node
+      uses: actions/setup-node@v3.0.0
+      with:
+        node-version: '16'
+    - name: Install netlify CLI
+      run: |
+        npm install --save-dev netlify-cli
+    - name: Deploy to test site
+      if: github.event_name == 'pull_request'
+      run: |
+        netlify deploy --dir docs/_build/html
+    - name: Deploy to production
+      if: github.event_name == 'push'
+      run: |
+        netlify deploy --dir docs/_build/html --prod
