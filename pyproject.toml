@@ -35,7 +35,7 @@ test = [
 ]
 
 [project.scripts]
-nbproject = "nbproject.cli:main"
+nbproject = "nbproject.__main__:main"
 
 [tool.black]
 experimental-string-processing = true
