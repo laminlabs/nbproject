@@ -1,4 +1,5 @@
 from pathlib import PurePath
+from itertools import chain
 import urllib.error
 import urllib.request
 import json
@@ -25,12 +26,21 @@ def query_server(server):
 def notebook_path():
     try:
         from notebook.notebookapp import list_running_servers
+
+        servers_nbapp = list_running_servers()
     except ModuleNotFoundError:
-        try:
-            from jupyter_server.serverapp import list_running_servers
-        except ModuleNotFoundError:
-            # we are in an environment without the notebook libs
-            return None
+        servers_nbapp = []
+
+    try:
+        from jupyter_server.serverapp import list_running_servers
+
+        servers_juserv = list_running_servers()
+    except ModuleNotFoundError:
+        servers_juserv = []
+
+    # no running servers
+    if servers_nbapp == [] and servers_juserv == []:
+        return None
 
     try:
         from IPython import get_ipython
@@ -52,9 +62,7 @@ def notebook_path():
         config["IPKernelApp"]["connection_file"].partition("-")[2].split(".", -1)[0]
     )
 
-    servers = list_running_servers()
-
-    for server in servers:
+    for server in chain(servers_nbapp, servers_juserv):
         session = query_server(server)
         for notebook in session:
             if notebook["kernel"]["id"] == kernel_id:
