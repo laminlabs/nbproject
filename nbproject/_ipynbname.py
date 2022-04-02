@@ -24,10 +24,10 @@ def query_server(server):
 
 def notebook_path():
     try:
-        from jupyter_server.serverapp import list_running_servers
+        from notebook.notebookapp import list_running_servers
     except ModuleNotFoundError:
         try:
-            from notebook.notebookapp import list_running_servers
+            from jupyter_server.serverapp import list_running_servers
         except ModuleNotFoundError:
             # we are in an environment without the notebook libs
             return None
