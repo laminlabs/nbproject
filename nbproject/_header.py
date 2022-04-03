@@ -18,7 +18,7 @@ def uuid4_hex():
 class JSONSchema(BaseModel):
     nbproject_uuid: str  # a full 32 digit uuid4.hex string
     nbproject_time_init: datetime
-    nbproject_time_edited: datetime
+    nbproject_time_edit: datetime
 
 
 # user visible name & type configuration
@@ -86,7 +86,7 @@ class Header:
             # return string JSON-serializable string representation
             # we *do* want UUID.hex as we don't need hyphens for user intuition
             # user intuition comes through a shortened version of the hex string
-            nb.metadata["nbproject_uuid"] = uuid4().hex
+            nb.metadata["nbproject_uuid"] = uuid4_hex()
             nb.metadata["nbproject_time_init"] = datetime.now(timezone.utc).isoformat()
             nb.metadata["nbproject_time_edit"] = datetime.now(timezone.utc).isoformat()
             nbf.write(nb, filepath)
