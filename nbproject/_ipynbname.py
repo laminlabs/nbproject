@@ -5,14 +5,19 @@ import urllib.request
 import json
 
 
-def query_server(server):
+def prepare_url(server: dict, query_str: str = ""):
+    token = server["token"]
+    if token:
+        query_str = f"{query_str}?token={token}"
+    url = f"{server['url']}api/sessions{query_str}"
+
+    return url
+
+
+def query_server(server: dict):
     # based on https://github.com/msm1089/ipynbname
     try:
-        query_str = ""
-        token = server["token"]
-        if token:
-            query_str = f"?token={token}"
-        url = f"{server['url']}api/sessions{query_str}"
+        url = prepare_url(server)
         with urllib.request.urlopen(url) as req:
             return json.load(req)
     except Exception:
@@ -23,7 +28,7 @@ def query_server(server):
         raise urllib.error.HTTPError(CONN_ERROR)
 
 
-def notebook_path():
+def running_servers():
     try:
         from notebook.notebookapp import list_running_servers
 
@@ -37,6 +42,13 @@ def notebook_path():
         servers_juserv = list_running_servers()
     except ModuleNotFoundError:
         servers_juserv = []
+
+    return servers_nbapp, servers_juserv
+
+
+def notebook_path():
+
+    servers_nbapp, servers_juserv = running_servers()
 
     # no running servers
     if servers_nbapp == [] and servers_juserv == []:
