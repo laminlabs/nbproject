@@ -1,5 +1,6 @@
+import os
+from base64 import b32encode
 import nbformat as nbf
-from uuid import uuid4
 import pandas as pd  # mere hack for html rep
 from ._logger import logger
 from pydantic import BaseModel
@@ -9,9 +10,10 @@ import ipynbname
 from enum import Enum
 
 
-def uuid4_hex():
-    """Convert to hex string."""
-    return uuid4().hex
+def nbproject_uuid():
+    """A base32 8 byte ID."""
+    # See https://github.com/lamindev/notes/blob/main/2022-04-04-uuids-base32.ipynb
+    return b32encode(os.urandom(8)).rstrip(b"=").decode("ascii").lower()
 
 
 # schema within the metadata section
@@ -23,7 +25,7 @@ class JSONSchema(BaseModel):
 
 # user visible name & type configuration
 class UserSchema(BaseModel):
-    id: Union[str, int] = uuid4_hex  # the user only sees the first couple of digits
+    id: Union[str, int] = nbproject_uuid  # the user only sees the first couple of digits
     time_init: Union[date, datetime]
     time_edit: Union[date, datetime]
 
@@ -81,7 +83,7 @@ class Header:
             # return string JSON-serializable string representation
             # we *do* want UUID.hex as we don't need hyphens for user intuition
             # user intuition comes through a shortened version of the hex string
-            nb.metadata["nbproject_uuid"] = uuid4().hex
+            nb.metadata["nbproject_uuid"] = nbproject_uuid()
             nb.metadata["nbproject_time_init"] = datetime.now(timezone.utc).isoformat()
             nb.metadata["nbproject_time_edit"] = datetime.now(timezone.utc).isoformat()
             nbf.write(nb, filepath)
