@@ -16,20 +16,12 @@ def kill_process(process):
         os.kill(process.pid, SIGTERM)
 
 
-def test_notebooks():
-    # thread?
-    p = Popen(
-        ["jupyter", "notebook", "../docs/", "--no-browser"], stdout=PIPE, stderr=PIPE
-    )
-
-    # todo: this should be replaced by check of server availability
-    sleep(5)
-
+def execute_notebooks():
     nb, js = running_servers()
     servers = list(nb) + list(js)
     n_servers = len(servers)
+
     if n_servers > 1:
-        kill_process(p)
         raise ValueError("More than 1 server is running.")
     elif n_servers == 0:
         raise ValueError("No servers running.")
@@ -43,11 +35,7 @@ def test_notebooks():
     for nb in notebooks:
         nb_name = str(nb.relative_to(cwd.parent / "tests/../docs"))
 
-        try:
-            nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
-        except Exception as e:
-            kill_process(p)
-            raise e
+        nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
 
         kernel_name = nb_content["metadata"]["kernelspec"]["name"]
 
@@ -66,12 +54,27 @@ def test_notebooks():
                 ename = resp_content["ename"]
                 evalue = resp_content["evalue"]
 
-                kill_process(p)
                 raise ValueError(
                     f"Error {ename} with msg {evalue} in the notebook {nb}"
                 )
 
         close_session(server, session)
+
+
+def test_notebooks():
+    # thread?
+    p = Popen(
+        ["jupyter", "notebook", "../docs/", "--no-browser"], stdout=PIPE, stderr=PIPE
+    )
+
+    # todo: this should be replaced by check of server availability
+    sleep(5)
+
+    try:
+        execute_notebooks()
+    except Exception as e:
+        kill_process(p)
+        raise e
 
     kill_process(p)
     # pytest hangs for some reason with the following:
