@@ -6,8 +6,8 @@ from ._logger import logger
 from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
-import ipynbname
 from enum import Enum
+from ._ipynbname import notebook_path
 
 
 def nbproject_uuid():
@@ -20,7 +20,7 @@ def nbproject_uuid():
 class JSONSchema(BaseModel):
     nbproject_uuid: str  # a full 32 digit uuid4.hex string
     nbproject_time_init: datetime
-    nbproject_time_edited: datetime
+    nbproject_time_edit: datetime
 
 
 # user visible name & type configuration
@@ -48,7 +48,7 @@ class Display:
 
     def time_init(self):
         """Shorten ID display."""
-        dt = datetime.fromisoformat(self.metadata["nbproject_time_edit"])
+        dt = datetime.fromisoformat(self.metadata["nbproject_time_init"])
         if self.conf.time_init == "date":
             return dt.date()
         else:
@@ -68,7 +68,12 @@ class Header:
     # from the jupyter notebook that calls this
     def __init__(self, filepath=None):
         if filepath is None:
-            filepath = ipynbname.path()
+            filepath = notebook_path()
+            if filepath is None:
+                raise RuntimeError(
+                    "can't infer the name of the current notebook, "
+                    "you are probably not inside a jupyter notebook"
+                )
         try:
             nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
         except FileNotFoundError:
