@@ -25,7 +25,9 @@ class JSONSchema(BaseModel):
 
 # user visible name & type configuration
 class UserSchema(BaseModel):
-    id: Union[str, int] = nbproject_uuid  # the user only sees the first couple of digits
+    id: Union[
+        str, int
+    ] = nbproject_uuid  # the user only sees the first couple of digits
     time_init: Union[date, datetime]
     time_edit: Union[date, datetime]
 
