@@ -5,8 +5,8 @@ from ._logger import logger
 from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
-import ipynbname
 from enum import Enum
+from ._ipynbname import notebook_path
 
 
 def uuid4_hex():
@@ -18,7 +18,7 @@ def uuid4_hex():
 class JSONSchema(BaseModel):
     nbproject_uuid: str  # a full 32 digit uuid4.hex string
     nbproject_time_init: datetime
-    nbproject_time_edited: datetime
+    nbproject_time_edit: datetime
 
 
 # user visible name & type configuration
@@ -46,7 +46,7 @@ class Display:
 
     def time_init(self):
         """Shorten ID display."""
-        dt = datetime.fromisoformat(self.metadata["nbproject_time_edit"])
+        dt = datetime.fromisoformat(self.metadata["nbproject_time_init"])
         if self.conf.time_init == "date":
             return dt.date()
         else:
@@ -66,7 +66,12 @@ class Header:
     # from the jupyter notebook that calls this
     def __init__(self, filepath=None):
         if filepath is None:
-            filepath = ipynbname.path()
+            filepath = notebook_path()
+            if filepath is None:
+                raise RuntimeError(
+                    "can't infer the name of the current notebook, "
+                    "you are probably not inside a jupyter notebook"
+                )
         try:
             nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
         except FileNotFoundError:
@@ -81,7 +86,7 @@ class Header:
             # return string JSON-serializable string representation
             # we *do* want UUID.hex as we don't need hyphens for user intuition
             # user intuition comes through a shortened version of the hex string
-            nb.metadata["nbproject_uuid"] = uuid4().hex
+            nb.metadata["nbproject_uuid"] = uuid4_hex()
             nb.metadata["nbproject_time_init"] = datetime.now(timezone.utc).isoformat()
             nb.metadata["nbproject_time_edit"] = datetime.now(timezone.utc).isoformat()
             nbf.write(nb, filepath)
