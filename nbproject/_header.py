@@ -10,9 +10,9 @@ from enum import Enum
 from ._ipynbname import notebook_path
 
 
-def nbproject_uuid():
-    """A base32 8 byte ID."""
-    # See https://github.com/lamindev/notes/blob/main/2022-04-04-uuids-base32.ipynb
+def nbproject_uuid():  # rename to nbproject_uid with metadata slot?
+    """An 8-byte ID encoded as a 13-character base32 string."""
+    # See https://github.com/laminlabs/notes/blob/main/2022-04-04-uuids-base32.ipynb
     return b32encode(os.urandom(8)).rstrip(b"=").decode("ascii").lower()
 
 
