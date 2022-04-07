@@ -46,7 +46,7 @@ class Display:
 
     def time_init(self):
         """Shorten ID display."""
-        dt = datetime.fromisoformat(self.metadata["nbproject_time_edit"])
+        dt = datetime.fromisoformat(self.metadata["nbproject_time_init"])
         if self.conf.time_init == "date":
             return dt.date()
         else:

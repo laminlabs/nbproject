@@ -6,6 +6,7 @@ from subprocess import Popen, PIPE
 from time import sleep
 from nbproject._jupyter_communicate import start_session, close_session
 from nbproject._ipynbname import running_servers
+from nbproject._logger import logger
 
 
 def kill_process(process):
@@ -31,9 +32,11 @@ def execute_notebooks():
     cwd = Path.cwd()
 
     notebooks = cwd.glob("../docs/**/*.ipynb")
+    logger.debug(list(notebooks))
 
     for nb in notebooks:
         nb_name = str(nb.relative_to(cwd.parent / "tests/../docs"))
+        logger.debug(nb_name)
 
         nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
 
