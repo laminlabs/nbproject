@@ -32,11 +32,10 @@ def execute_notebooks():
     cwd = Path.cwd()
 
     notebooks = cwd.glob("../docs/**/*.ipynb")
-    logger.debug(list(notebooks))
 
     for nb in notebooks:
         nb_name = str(nb.relative_to(cwd.parent / "tests/../docs"))
-        logger.debug(nb_name)
+        logger.debug(f"\n\n{nb_name}")
 
         nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
 

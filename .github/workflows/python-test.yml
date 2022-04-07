@@ -34,4 +34,4 @@ jobs:
     - name: Test with pytest
       run: |
         cd tests
-        pytest
+        pytest -s  # write output instead of capturing it (more verbose)
