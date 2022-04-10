@@ -1,6 +1,5 @@
 from pathlib import PurePath
 from itertools import chain
-import urllib.error
 import urllib.request
 import json
 
@@ -25,7 +24,7 @@ def query_server(server: dict):
             "Unable to access server;\n"
             + "ipynbname requires either no security or token based security."
         )
-        raise urllib.error.HTTPError(CONN_ERROR)
+        raise Exception(CONN_ERROR)
 
 
 def running_servers():

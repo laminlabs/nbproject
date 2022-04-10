@@ -3,6 +3,7 @@ import nbformat as nbf
 from signal import SIGTERM
 from pathlib import Path
 from subprocess import Popen, PIPE
+from functools import partial
 from time import sleep
 from nbproject._jupyter_communicate import start_session, close_session
 from nbproject._ipynbname import running_servers
@@ -17,15 +18,35 @@ def kill_process(process):
         os.kill(process.pid, SIGTERM)
 
 
-def execute_notebooks():
+def write_cell(msg: dict, cell: nbf.NotebookNode, ex_count: int):
+    if msg["msg_type"] in ("status", "execute_input", "error"):
+        return
+
+    cell["execution_count"] = ex_count
+
+    output = nbf.NotebookNode()
+    output.update(msg["content"])
+
+    msg_type = msg["msg_type"]
+    output["output_type"] = msg_type
+    if msg_type == "execute_result":
+        output["execution_count"] = ex_count
+
+    if "transient" in output:
+        del output["transient"]
+
+    cell["outputs"].append(output)
+
+
+def execute_notebooks(write: bool = True):
     nb, js = running_servers()
     servers = list(nb) + list(js)
     n_servers = len(servers)
 
     if n_servers > 1:
-        raise ValueError("More than 1 server is running.")
+        raise Exception("More than 1 server is running.")
     elif n_servers == 0:
-        raise ValueError("No servers running.")
+        raise Exception("No servers running.")
     else:
         server = servers[0]
 
@@ -45,22 +66,33 @@ def execute_notebooks():
 
         cells = nb_content["cells"]
 
+        ex_count = 1
         for cell in cells:
             if cell["cell_type"] != "code":
                 continue
             cell_source = cell["source"]
 
-            resp = km.execute_interactive(cell_source)
+            if write:
+                output_hook = partial(write_cell, cell=cell, ex_count=ex_count)
+            else:
+                output_hook = None
+
+            resp = km.execute_interactive(
+                cell_source, allow_stdin=False, output_hook=output_hook
+            )
             resp_content = resp["content"]
             if resp_content["status"] == "error":
                 ename = resp_content["ename"]
                 evalue = resp_content["evalue"]
 
-                raise ValueError(
-                    f"Error {ename} with msg {evalue} in the notebook {nb}"
-                )
+                raise Exception(f"Error {ename} with msg {evalue} in the notebook {nb}")
+
+            ex_count += 1
 
         close_session(server, session)
+
+        if write:
+            nbf.write(nb_content, nb)
 
 
 def test_notebooks():
