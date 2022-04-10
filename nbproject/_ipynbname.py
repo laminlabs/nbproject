@@ -4,6 +4,8 @@ import urllib.error
 import urllib.request
 import json
 
+DIR_KEYS = ("notebook_dir", "root_dir")
+
 
 def prepare_url(server: dict, query_str: str = ""):
     token = server["token"]
@@ -78,6 +80,8 @@ def notebook_path():
         session = query_server(server)
         for notebook in session:
             if notebook["kernel"]["id"] == kernel_id:
-                return PurePath(server["notebook_dir"]) / notebook["notebook"]["path"]
+                for dir_key in DIR_KEYS:
+                    if dir_key in server:
+                        return PurePath(server[dir_key]) / notebook["notebook"]["path"]
 
     return None
