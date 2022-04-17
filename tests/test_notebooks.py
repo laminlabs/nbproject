@@ -38,7 +38,7 @@ def write_cell(msg: dict, cell: nbf.NotebookNode, ex_count: int):
     cell["outputs"].append(output)
 
 
-def execute_notebooks(write: bool = True):
+def execute_notebooks(nb_folder: Path, write: bool = True):
     nb, js = running_servers()
     servers = list(nb) + list(js)
     n_servers = len(servers)
@@ -50,12 +50,10 @@ def execute_notebooks(write: bool = True):
     else:
         server = servers[0]
 
-    cwd = Path.cwd()
-
-    notebooks = cwd.glob("../docs/**/*.ipynb")
+    notebooks = nb_folder.glob("**/*.ipynb")
 
     for nb in notebooks:
-        nb_name = str(nb.relative_to(cwd.parent / "tests/../docs"))
+        nb_name = str(nb.relative_to(nb_folder))
         logger.debug(f"\n\n{nb_name}")
 
         nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
@@ -96,16 +94,20 @@ def execute_notebooks(write: bool = True):
 
 
 def test_notebooks():
+    # assuming this is in the tests folder
+    nb_folder = Path(__file__).parents[1] / "docs"
     # thread?
     p = Popen(
-        ["jupyter", "notebook", "../docs/", "--no-browser"], stdout=PIPE, stderr=PIPE
+        ["jupyter", "notebook", str(nb_folder), "--no-browser"],
+        stdout=PIPE,
+        stderr=PIPE,
     )
 
     # todo: this should be replaced by check of server availability
     sleep(5)
 
     try:
-        execute_notebooks()
+        execute_notebooks(nb_folder, write=True)
     except Exception as e:
         kill_process(p)
         raise e
