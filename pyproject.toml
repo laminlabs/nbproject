@@ -36,4 +36,4 @@ test = [
 lamin = "lamin.__main__:main"
 
 [tool.black]
-experimental-string-processing = true
+preview = true
