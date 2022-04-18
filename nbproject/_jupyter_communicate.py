@@ -1,5 +1,4 @@
 import json
-from jupyter_client import find_connection_file, BlockingKernelClient
 from pathlib import PurePath
 from itertools import chain
 from urllib import request
@@ -88,6 +87,8 @@ def notebook_path():
 
 
 def start_session(server: dict, nb_name: str, kernel_name: str = "python3"):
+    from jupyter_client import find_connection_file, BlockingKernelClient
+
     data = dict(type="notebook", path=nb_name, kernel={"name": kernel_name})
     data = json.dumps(data).encode("utf-8")
 
