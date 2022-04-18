@@ -5,8 +5,7 @@ from pathlib import Path
 from subprocess import Popen, PIPE
 from functools import partial
 from time import sleep
-from nbproject._jupyter_communicate import start_session, close_session
-from nbproject._ipynbname import running_servers
+from nbproject._jupyter_communicate import running_servers, start_session, close_session
 from nbproject._logger import logger
 
 
