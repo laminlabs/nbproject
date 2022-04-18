@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
-from ._ipynbname import notebook_path
+from ._jupyter_communicate import notebook_path
 
 
 def nbproject_uuid():  # rename to nbproject_uid also in metadata slot?
