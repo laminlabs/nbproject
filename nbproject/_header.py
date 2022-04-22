@@ -2,11 +2,11 @@ import string
 import secrets
 import nbformat as nbf
 import pandas as pd  # mere hack for html rep
-from ._logger import logger
 from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
+from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
 
