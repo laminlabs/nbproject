@@ -4,8 +4,6 @@
 import yaml
 import nbformat as nbf
 from pathlib import Path
-from itertools import chain
-from typing import Iterator
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
 
@@ -17,22 +15,6 @@ def find_upwards(cwd: Path, filename: str):
     fullpath = cwd / filename
 
     return fullpath if fullpath.exists() else find_upwards(cwd.parent, filename)
-
-
-def nbs_from_files_dirs(files_dirs: Iterator[str]):
-    nbs = []
-
-    for file_dir in files_dirs:
-        file_dir = Path(file_dir)
-        if file_dir.is_dir():
-            nbs.append(file_dir.glob("**/*.ipynb"))
-        else:
-            if file_dir.suffix == ".ipynb":
-                nbs.append([file_dir])
-            else:
-                logger.info(f"The file {file_dir} is not a notebook, ignoring.")
-
-    return chain(*nbs)
 
 
 def init():
