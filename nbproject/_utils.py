@@ -1,4 +1,4 @@
-def public_vars(obj):
+def public_fields(obj):
     vars_props_dict = {}
     for key in dir(obj):
         if key[0] != "_":

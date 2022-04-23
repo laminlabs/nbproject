@@ -2,7 +2,7 @@ import nbformat as nbf
 from pathlib import Path
 from datetime import datetime, timezone
 from ._header import nbproject_uid
-from ._utils import public_vars
+from ._utils import public_fields
 
 
 class NBRecord:
@@ -17,22 +17,31 @@ class NBRecord:
         else:
             self._filled = False
 
+    def check_attr(self, attr):
+        if hasattr(self, attr):
+            return getattr(self, attr)
+        else:
+            self._filled = False
+            return None
+
     @property
     def uid(self):
-        if not hasattr(self, "_uid"):
-            self._filled = False
-            self._uid = nbproject_uid()
-        return self._uid
+        uid = self.check_attr("_uid")
+        if uid is None:
+            uid = nbproject_uid()
+            self._uid = uid
+        return uid
 
     @property
     def time_init(self):
-        if not hasattr(self, "_time_init"):
-            self._filled = False
-            self._time_init = datetime.now(timezone.utc).isoformat()
-        return self._time_init
+        time_init = self.check_attr("_time_init")
+        if time_init is None:
+            time_init = datetime.now(timezone.utc).isoformat()
+            self._time_init = time_init
+        return time_init
 
     def write(self, nb_path: Path, overwrite: bool):
-        nbproj_data = nbf.NotebookNode(public_vars(self))
+        nbproj_data = nbf.NotebookNode(public_fields(self))
         if overwrite or not self._filled:
             self._nb.metadata["nbproject"] = nbproj_data
             nbf.write(self._nb, nb_path)
@@ -45,7 +54,7 @@ class YAMLRecord:
 
     def __init__(self, nb_path: Path, nb_record: NBRecord):
         # load fields from the notebooks' metadata
-        nb_record_fields = public_vars(nb_record)
+        nb_record_fields = public_fields(nb_record)
 
         self._uid = nb_record_fields.pop("uid")
 
@@ -64,7 +73,7 @@ class YAMLRecord:
             yaml_project[self._uid] = {}
 
         yaml_record = yaml_project[self._uid]
-        fields = public_vars(self)
+        fields = public_fields(self)
         for key in self._take_keys:
             yaml_record[key] = fields.pop(key)
         yaml_record.update(fields)
