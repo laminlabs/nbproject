@@ -20,7 +20,7 @@ def find_upwards(cwd: Path, filename: str):
 def init():
     cwd = Path.cwd()
 
-    yaml_filled = find_upwards(cwd, "nbproject.yml")
+    yaml_filled = find_upwards(cwd, "nbproject_metadata.yml")
     if yaml_filled is not None:
         logger.info("You are already in the nbproject (sub)folder.")
         logger.info(f"Yaml of the project is: {yaml_filled.as_posix()}.")
@@ -44,7 +44,7 @@ def init():
         yaml_record = YAMLRecord(nb_path, nbproj_record)
         yaml_record.put(init_yaml)
 
-    new_file = "nbproject.yml"
+    new_file = "nbproject_metadata.yml"
     with open(new_file, "w") as stream:
         yaml.dump(init_yaml, stream, sort_keys=False)
     logger.info(f"Created {cwd / new_file}.")
