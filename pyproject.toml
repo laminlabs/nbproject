@@ -33,7 +33,7 @@ test = [
 ]
 
 [project.scripts]
-lamin = "lamin.__main__:main"
+nbproject = "nbproject.__main__:main"
 
 [tool.black]
 preview = true
