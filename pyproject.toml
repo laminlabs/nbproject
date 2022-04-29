@@ -30,6 +30,7 @@ doc = [
 test = [
     "pytest>=6.0",
     "nbmake",
+    "notebook"
 ]
 
 [project.scripts]
