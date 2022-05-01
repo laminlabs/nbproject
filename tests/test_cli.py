@@ -34,6 +34,7 @@ def test_cli():
 
     p = Popen(["nbproject", "init"], cwd=nb_folder, shell=True)
     ecode = p.wait()
+    print(ecode)
     if ecode != 0:
         raise Exception(f"Something happened with the cli, the exit code is {ecode}.")
 
