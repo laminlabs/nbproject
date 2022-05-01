@@ -33,11 +33,14 @@ def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
 def test_cli():
     nb_folder = Path(__file__).parents[1] / "docs"
 
-    p = Popen(["nbproject", "init"], stdout=PIPE, cwd=nb_folder, shell=True)
+    p = Popen(
+        ["nbproject", "init"], stdout=PIPE, stderr=PIPE, cwd=nb_folder, shell=True
+    )
     ecode = p.wait()
 
     logger.debug(f"\nExitcode: {ecode}.")
     logger.debug(p.stdout.read().decode())
+    logger.debug(p.stderr.read().decode())
 
     if ecode != 0:
         raise Exception(f"Something happened with the cli, the exit code is {ecode}.")
