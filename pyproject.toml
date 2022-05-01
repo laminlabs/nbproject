@@ -12,6 +12,7 @@ dependencies = [
     "loguru",
     "pandas",
     "pydantic",
+    "pyyaml"
 ]
 
 [project.urls]
