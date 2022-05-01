@@ -34,11 +34,7 @@ def test_cli():
     nb_folder = Path(__file__).parents[1] / "docs"
 
     p = Popen(
-        ["python", "-m", "nbproject", "init"],
-        stdout=PIPE,
-        stderr=PIPE,
-        cwd=nb_folder,
-        shell=True,
+        ["python", "-m", "nbproject", "init"], stdout=PIPE, stderr=PIPE, cwd=nb_folder
     )
     ecode = p.wait()
 
