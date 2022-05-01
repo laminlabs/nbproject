@@ -12,3 +12,7 @@ def main():
 
     if args.cmd == "init":
         init()
+
+
+if __name__ == "__main__":
+    main()
