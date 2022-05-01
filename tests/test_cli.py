@@ -3,6 +3,7 @@ from typing import Optional, Sequence
 from pathlib import Path
 from subprocess import Popen, PIPE
 from nbproject._schemas import NBRecord, public_fields
+from nbproject._logger import logger
 
 
 def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
@@ -34,8 +35,10 @@ def test_cli():
 
     p = Popen(["nbproject", "init"], stdout=PIPE, cwd=nb_folder, shell=True)
     ecode = p.wait()
-    print(ecode)
-    print(p.stdout.read())
+
+    logger.debug(f"\nExitcode: {ecode}.")
+    logger.debug(p.stdout.read().decode())
+
     if ecode != 0:
         raise Exception(f"Something happened with the cli, the exit code is {ecode}.")
 
