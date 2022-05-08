@@ -1,8 +1,11 @@
 import sys
+import packaging
 from importlib_metadata import packages_distributions, version, PackageNotFoundError
 from nbformat import NotebookNode
 from ast import parse, walk, Import, ImportFrom
-from typing import Union
+from typing import Union, List, Literal
+from operator import gt, lt
+
 
 major, minor = sys.version_info[0], sys.version_info[1]
 if major == 3 and minor > 9:
@@ -72,3 +75,34 @@ def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool =
         pkgs[pkg] = pkg_ver
 
     return pkgs
+
+
+def resolve_versions(
+    notebooks_pkgs: List[dict], strategy: Literal["older", "newer"] = "newer"
+):
+    parse_version = packaging.version.parse
+
+    if strategy == "newer":
+        cmp = gt
+    elif strategy == "older":
+        cmp = lt
+    else:
+        raise ValueError("Unknown package resolution strategy.")
+
+    def resolve(a, b):
+        if a == "":
+            return b
+        elif b == "":
+            return a
+        else:
+            return a if cmp(parse_version(a), parse_version(b)) else b
+
+    resolved = {}
+    for pkgs in notebooks_pkgs:
+        for pkg, ver in pkgs.items():
+            if pkg not in resolved:
+                resolved[pkg] = ver
+            else:
+                resolved[pkg] = resolve(resolved[pkg], ver)
+
+    return resolved
