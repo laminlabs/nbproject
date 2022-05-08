@@ -1,10 +1,9 @@
 # nbproject: Manage your notebooks
 
-Guides:
+Check out our guides!
 
 ```{toctree}
 :maxdepth: 1
 
-example-at-init
-example-after-init
+guides
 ```
