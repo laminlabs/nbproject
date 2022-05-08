@@ -1,12 +1,17 @@
+import sys
 from importlib_metadata import packages_distributions, version, PackageNotFoundError
 from nbformat import NotebookNode
 from ast import parse, walk, Import, ImportFrom
-from stdlib_list import stdlib_list
-
 from typing import Union
 
-# todo: maybe infer proper python version for the libs from the notebook metadata
-std_libs = set(stdlib_list())
+major, minor = sys.version_info[0], sys.version_info[1]
+if major == 3 and minor > 9:
+    std_libs = sys.stdlib_module_names
+else:
+    from stdlib_list import stdlib_list
+
+    std_libs = set(stdlib_list(f"{major}.{minor}"))
+
 pkgs_dists = packages_distributions()
 
 
