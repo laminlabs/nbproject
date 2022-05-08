@@ -2,13 +2,12 @@ name: python-test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,22 +15,39 @@ jobs:
         python-version: ["3.9"]
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Python packages
-      run: |
-        pip install -e ".[dev,doc,test]"
-    - name: Run pre-commit
-      run: |
-        pip install pre-commit
-        pre-commit install
-        pre-commit run --all-files
-    - name: Test with pytest
-      run: |
-        cd tests
-        pytest -s  # write output instead of capturing it (more verbose)
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.ACCESS_TOKEN_ALEX }}
+          fetch-depth: 0
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Python packages
+        run: |
+          pip install -e ".[dev,doc,test]"
+      - name: Run pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
+      - name: Test with pytest
+        run: |
+          pytest -s  # write output instead of capturing it (more verbose)
+      - name: Build docs
+        run: |
+          cd docs
+          make html
+      - name: Deploy docs
+        id: netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: "_build/html"
+          production-deploy: ${{ github.event_name == 'push' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
