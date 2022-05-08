@@ -43,13 +43,14 @@ jobs:
       - name: Change base URL to project-slug # for Netlify URL prettification
         if: github.event_name == 'push'
         run: |
-          mv docs/_build/html docs/_build/nbproject  # this is the slug
-          rm -r docs/_build/doctrees
+          mv docs/_build/html docs/_build/html_tmp
+          mkdir docs/_build/html
+          mv docs/_build/html_tmp docs/_build/html/nbproject
       - name: Deploy docs
         id: netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: "docs/_build"
+          publish-dir: "docs/_build/html"
           production-deploy: ${{ github.event_name == 'push' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           enable-commit-comment: false
