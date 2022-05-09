@@ -15,4 +15,6 @@ release = nbproject.__version__
 html_context["github_repo"] = "nbproject"  # noqa
 html_sidebars = {
     "*": [],
+    "guides": ["sidebar-nav-bs"],
+    "guides/*": ["sidebar-nav-bs"],
 }
