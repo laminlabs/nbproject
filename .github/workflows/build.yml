@@ -37,12 +37,9 @@ jobs:
       - name: Lint
         run: |
           nox -s lint
-      - name: Test
+      - name: Build
         run: |
-          nox -s test
-      - name: Build docs
-        run: |
-          nox -s docs
+          nox -s build
       - name: Change base URL to project-slug # for Netlify URL prettification
         if: github.event_name == 'push'
         run: |
