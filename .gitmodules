@@ -1,3 +1,3 @@
 [submodule "docs/lamin-sphinx-theme"]
-	path = docs/lamin-sphinx-theme
+	path = docs/lamin_sphinx
 	url = https://github.com/laminlabs/lamin-sphinx-theme
