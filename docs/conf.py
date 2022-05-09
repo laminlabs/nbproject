@@ -13,8 +13,6 @@ project = "nbproject"
 html_title = f"{nbproject} | Lamin Labs"
 release = nbproject.__version__
 html_context["github_repo"] = "lamin-profile"  # noqa
-html_sidebars.update(  # noqa
-    {
-        "guides*": ["sidebar-nav-bs"],
-    }
-)
+html_sidebars = {
+    "guides*": ["sidebar-nav-bs"],
+}
