@@ -12,7 +12,7 @@ for generated in HERE.glob("nbproject.*.rst"):
 project = "nbproject"
 html_title = f"{nbproject} | Lamin Labs"
 release = nbproject.__version__
-html_context["github_repo"] = "lamin-profile"  # noqa
+html_context["github_repo"] = "nbproject"  # noqa
 html_sidebars = {
-    "guides*": ["sidebar-nav-bs"],
+    "*": [],
 }

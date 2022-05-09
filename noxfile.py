@@ -19,4 +19,4 @@ def test(session):
 @nox.session
 def docs(session: nox.Session):
     session.install("-r", "docs/lamin_sphinx/requirements.txt")
-    session.run(*"sphinx-build -b html source _build/html".split())
+    session.run(*"sphinx-build -b html docs _build/html".split())
