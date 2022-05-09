@@ -1,11 +1,11 @@
 from datetime import datetime
-import nbproject  # noqa
 import sys
 from pathlib import Path
 from sphinx.application import Sphinx
 
 HERE = Path(__file__).parent
 sys.path[:0] = [str(HERE.parent), str(HERE / "extensions")]
+
 import nbproject  # noqa
 
 for generated in HERE.glob("nbproject.*.rst"):
