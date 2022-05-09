@@ -23,11 +23,6 @@ dev = [
     "pre-commit",
     "black",
 ]
-doc = [
-    "sphinx-book-theme",
-    "sphinx_autodoc_typehints",
-    "myst_nb",
-]
 test = [
     "pytest>=6.0",
     "nbmake",

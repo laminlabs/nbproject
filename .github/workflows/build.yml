@@ -21,25 +21,31 @@ jobs:
           submodules: recursive
           token: ${{ secrets.ACCESS_TOKEN_ALEX }}
           fetch-depth: 0
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+      - name: Cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-all
         with:
-          python-version: ${{ matrix.python-version }}
+          path: |
+            .nox
+            ~/.cache/pre-commit
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('source/lamin_sphinx/requirements.txt') }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install pip and nox
+        run: |
+          python -m pip install --upgrade pip
+          pip install nox
+      - name: Lint
+        run: |
+          nox -s lint
+      - name: Build docs
+        run: |
+          nox -s docs
       - name: Install Python packages
         run: |
-          pip install -e ".[dev,doc,test]"
-      - name: Run pre-commit
-        run: |
-          pip install pre-commit
-          pre-commit install
-          pre-commit run --all-files
+          pip install -e ".[dev,test]"
       - name: Test with pytest
         run: |
           pytest -s  # write output instead of capturing it (more verbose)
-      - name: Build docs
-        run: |
-          cd docs
-          make html
       - name: Change base URL to project-slug # for Netlify URL prettification
         if: github.event_name == 'push'
         run: |
