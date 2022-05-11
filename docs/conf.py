@@ -10,7 +10,5 @@ project = "nbproject"
 html_title = f"{project} | Lamin Labs"
 release = nbproject.__version__
 html_context["github_repo"] = "nbproject"  # noqa
-html_sidebars = {
-    "*": ["sidebar-nav-bs"],
-    "**/*": ["sidebar-nav-bs"],
-}
+
+ogp_site_url = "https://lamin.ai/nbproject"
