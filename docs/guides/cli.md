@@ -1,4 +1,4 @@
-# Initializing `nbproject` and tracking dependencies for existing notebooks
+# Initializing and tracking dependencies for a notebook collection via the CLI
 
 Here we consider that you have a collection of existing notebooks that you'd like to become
 
