@@ -1,3 +1,5 @@
+# Using the CLI to initialize the project and infer dependencies
+
 To init the project, `cd` to the folder where you want to initialize your project and run the `nbproject` cli with the `init` command.
 
 ```
