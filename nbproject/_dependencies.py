@@ -21,6 +21,11 @@ pkgs_dists = packages_distributions()
 def cell_imports(cell_source: str):
     # based on the package https://github.com/bndr/pipreqs for python scripts
     # parses python import statements in the code cells
+
+    # quck hack to ignore jupyter magics
+    if cell_source[:2] == "%%":
+        cell_source = cell_source.partition("\n")[2]
+
     tree = parse(cell_source)
     for node in walk(tree):
         if isinstance(node, Import):
