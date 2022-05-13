@@ -68,6 +68,14 @@ class Display:
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
 
+    def dependencies(self):
+        deps = None
+        if "dependencies" in self.metadata["nbproject"]:
+            deps = self.metadata["nbproject"]["dependencies"]
+            deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
+            deps = None if deps == [] else deps
+        return deps
+
 
 class Header:
     def __init__(self, filepath=None):
@@ -108,3 +116,9 @@ class Header:
                 index=[" "],
             )
             display(df.T.style)  # noqa
+
+            deps = display_.dependencies()
+            if deps is not None:
+                display(  # noqa
+                    pd.DataFrame({"dependencies": deps}).style.hide(axis="index")
+                )

@@ -12,7 +12,9 @@ dependencies = [
     "loguru",
     "pandas",
     "pydantic",
-    "pyyaml"
+    "pyyaml",
+    "packaging",
+    "stdlib_list; python_version < '3.10'"
 ]
 
 [project.urls]
