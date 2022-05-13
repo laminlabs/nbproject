@@ -72,6 +72,7 @@ class Display:
         deps = None
         if "dependencies" in self.metadata["nbproject"]:
             deps = self.metadata["nbproject"]["dependencies"]
+            deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
             deps = None if deps == [] else deps
         return deps
 

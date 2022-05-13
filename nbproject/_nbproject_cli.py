@@ -8,7 +8,7 @@ from itertools import chain
 from typing import Iterator
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
-from ._dependencies import notebook_deps
+from ._dependencies import notebook_deps, resolve_versions
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -97,7 +97,6 @@ def sync(
         overwrite = False
         if parse_deps:
             deps = notebook_deps(nb, pin_versions=pin_versions)
-            deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
             nbproj_record.dependencies = deps
             overwrite = True
         nbproj_record.write(nb_path, overwrite=overwrite)
@@ -108,3 +107,32 @@ def sync(
     with open(yaml_file, "w") as stream:
         yaml.dump(yaml_proj, stream, sort_keys=False)
     logger.info(f"Synced {n_nbs} notebooks.")
+
+
+def reqs(files_dirs: Iterator[str]):
+    # todo: check different versions and do some resolution for conflicting versions
+    gather_deps = []
+
+    nbs = notebooks_from_files_dirs(files_dirs)
+    for nb_path in nbs:
+        if ".ipynb_checkpoints/" in nb_path.as_posix():
+            continue
+
+        nb = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
+        if "nbproject" not in nb.metadata:
+            logger.info(
+                "Uninitialized or unsynced notebooks, use > nbproject init or >"
+                " nbproject sync ."
+            )
+            return
+        nbproj_metadata = nb.metadata["nbproject"]
+        if "dependencies" in nbproj_metadata:
+            gather_deps.append(nbproj_metadata["dependencies"])
+
+    deps = resolve_versions(gather_deps)
+    deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
+
+    requirments = "\n".join(deps)
+    with open("requirments.txt", "w") as stream:
+        stream.write(requirments)
+    logger.info("Created requirments.txt.")
