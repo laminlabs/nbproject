@@ -1,0 +1,8 @@
+TGSzoypjSKoj:
+  time_init: 2022-05-14 19:15
+  name: 2022-05-13-my-task-x.ipynb
+  location: .
+  dependencies:
+    pydantic: 1.9.0
+    pandas: 1.4.2
+    nbproject: 0.0.5+3.g8b2e3e2
