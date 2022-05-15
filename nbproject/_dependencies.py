@@ -1,4 +1,5 @@
 import sys
+import re
 import packaging
 from importlib_metadata import packages_distributions, version, PackageNotFoundError
 from nbformat import NotebookNode
@@ -23,8 +24,10 @@ def cell_imports(cell_source: str):
     # parses python import statements in the code cells
 
     # quck hack to ignore jupyter magics
-    if cell_source[:2] == "%%":
-        cell_source = cell_source.partition("\n")[2]
+    if "%" in cell_source:
+        pattern = "^ *%{1,2}\w+ *"  # noqa: W605
+        cell_source = re.split(pattern, cell_source, flags=re.MULTILINE)
+        cell_source = "".join(cell_source)
 
     tree = parse(cell_source)
     for node in walk(tree):
