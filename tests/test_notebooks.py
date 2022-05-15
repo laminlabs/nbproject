@@ -51,7 +51,15 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     notebooks = nb_folder.glob("**/*.ipynb")
 
+    #  if the last notebook in a subfolder, pytest hangs forever...
+    reorder_notebooks = []
     for nb in notebooks:
+        if nb.parent == nb_folder:
+            reorder_notebooks.append(nb)
+        else:
+            reorder_notebooks.insert(0, nb)
+
+    for nb in reorder_notebooks:
         nb_name = str(nb.relative_to(nb_folder))
         logger.debug(f"\n\n{nb_name}")
 
@@ -94,7 +102,7 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
 def test_notebooks():
     # assuming this is in the tests folder
-    nb_folder = Path(__file__).parents[1] / "docs"
+    nb_folder = Path(__file__).parents[1] / "docs/guides"
     # thread?
     p = Popen(
         ["jupyter", "notebook", str(nb_folder), "--no-browser"],

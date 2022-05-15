@@ -31,7 +31,7 @@ def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
 
 
 def test_cli():
-    nb_folder = Path(__file__).parents[1] / "docs"
+    nb_folder = Path(__file__).parents[1] / "docs/guides"
 
     p = Popen(
         ["python", "-m", "nbproject", "init"], stdout=PIPE, stderr=PIPE, cwd=nb_folder
@@ -45,4 +45,7 @@ def test_cli():
     if ecode != 0:
         raise Exception(f"Something happened with the cli, the exit code is {ecode}.")
 
-    check_notebooks(nb_folder, ignore_cleanup=["example-after-init.ipynb"])
+    check_notebooks(
+        nb_folder,
+        ignore_cleanup=["example-after-init.ipynb", "2022-05-13-my-task-x.ipynb"],
+    )
