@@ -31,7 +31,7 @@ def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
 
 
 def test_cli():
-    nb_folder = Path(__file__).parents[1] / "docs"
+    nb_folder = Path(__file__).parents[1] / "docs/guides"
 
     p = Popen(
         ["python", "-m", "nbproject", "init"], stdout=PIPE, stderr=PIPE, cwd=nb_folder
