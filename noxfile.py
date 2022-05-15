@@ -13,6 +13,8 @@ def lint(session: nox.Session) -> None:
 @nox.session
 def build(session):
     session.install(".[dev, test]")
-    session.run("pytest", "-s")  # write output instead of capturing it (more verbose)
+    # write output instead of capturing it (more verbose)
+    # disable cache
+    session.run("python", "-m", "pytest", "-s", "-p", "no:cacheprovider")
     session.install("-r", "docs/lamin_sphinx/requirements.txt")
     session.run(*"sphinx-build -b html docs _build/html".split())
