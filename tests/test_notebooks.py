@@ -51,13 +51,13 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     notebooks = nb_folder.glob("**/*.ipynb")
 
+    #  if the last notebook in a subfolder, pytest hangs forever...
     reorder_notebooks = []
     for nb in notebooks:
         if nb.parent == nb_folder:
             reorder_notebooks.append(nb)
         else:
             reorder_notebooks.insert(0, nb)
-    print(reorder_notebooks)
 
     for nb in reorder_notebooks:
         nb_name = str(nb.relative_to(nb_folder))
