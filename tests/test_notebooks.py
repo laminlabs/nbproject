@@ -50,7 +50,6 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         server = servers[0]
 
     notebooks = nb_folder.glob("**/*.ipynb")
-    print(list(notebooks))
 
     for nb in notebooks:
         nb_name = str(nb.relative_to(nb_folder))
