@@ -10,6 +10,15 @@ from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
 
+def style_hide_index(df: pd.DataFrame):
+    # to avoid warning in pandas 1.4
+    style = df.style
+    if hasattr(style, "hide"):
+        return style.hide(axis="index")
+    else:
+        return style.hide_index()
+
+
 def nbproject_uid():  # rename to nbproject_uid also in metadata slot?
     """An 8-byte ID encoded as a 12-character base62 string."""
     # https://github.com/laminlabs/notes/blob/main/2022-04-04-human-friendly-ids.ipynb
@@ -119,6 +128,4 @@ class Header:
 
             deps = display_.dependencies()
             if deps is not None:
-                display(  # noqa
-                    pd.DataFrame({"dependencies": deps}).style.hide(axis="index")
-                )
+                display(style_hide_index(pd.DataFrame({"dependencies": deps})))  # noqa
