@@ -1,6 +1,6 @@
 import string
 import secrets
-import nbformat as nbf
+import orjson
 import pandas as pd  # mere hack for html rep
 from pydantic import BaseModel
 from typing import Union
@@ -96,26 +96,29 @@ class Header:
                     "you are probably not inside a jupyter notebook"
                 )
         try:
-            nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
+            with open(filepath, "rb") as f:
+                nb = orjson.loads(f.read())
         except FileNotFoundError:
             raise RuntimeError(
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        if "nbproject" not in nb.metadata:
+        if "nbproject" not in nb["metadata"]:
             logger.info(
                 "To initialize nbproject for this notebook:\n* in Jupyter Lab: hit"
                 " save, load notebook from disk ('revert') & restart"
             )
-            nb.metadata["nbproject"] = {}
-            nb.metadata["nbproject"]["uid"] = nbproject_uid()
-            nb.metadata["nbproject"]["time_init"] = datetime.now(
+            nb["metadata"]["nbproject"] = {}
+            nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
+            nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
-            nbf.write(nb, filepath)
+
+            with open(filepath, "wb") as f:
+                f.write(orjson.dumps(nb))
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
-            display_ = Display(nb.metadata)
+            display_ = Display(nb["metadata"])
             df = pd.DataFrame(
                 {
                     "uid": [display_.id()],
