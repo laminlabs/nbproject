@@ -6,7 +6,6 @@ from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
-from IPython.display import display, HTML
 from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
@@ -20,7 +19,13 @@ def table_html(rows: list):
             html += f"<td style='text-align: left;'>{col}</td>"
         html += "</tr>"
     html += "</tbody></table>"
-    return HTML(html)
+    return html
+
+
+def display_html(html: str):
+    from IPython.display import display, HTML
+
+    display(HTML(html))
 
 
 def nbproject_uid():  # rename to nbproject_uid also in metadata slot?
@@ -134,4 +139,4 @@ class Header:
             if deps is not None:
                 table.append(["dependencies", "<br>".join(wrap(", ".join(deps)))])
 
-            display(table_html(table))
+            display_html(table_html(table))
