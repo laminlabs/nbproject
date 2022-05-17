@@ -6,6 +6,9 @@ from types import ModuleType
 from ._header import Header  # noqa
 
 
+_module = sys.modules[__name__]
+
+
 class LazyVersion(ModuleType):
     @property
     def __version__(self):
@@ -14,7 +17,7 @@ class LazyVersion(ModuleType):
         return get_versions()["version"]
 
 
-sys.modules[__name__].__class__ = LazyVersion
+_module.__class__ = LazyVersion
 
 
 def within_flit():
@@ -25,4 +28,4 @@ def within_flit():
 
 
 if within_flit():
-    sys.modules[__name__].__dict__["__version__"] = sys.modules[__name__].__version__
+    _module.__dict__["__version__"] = _module.__version__
