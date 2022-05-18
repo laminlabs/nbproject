@@ -22,13 +22,6 @@ pkgs_dists = packages_distributions()
 def cell_imports(cell_source: str):
     # based on the package https://github.com/bndr/pipreqs for python scripts
     # parses python import statements in the code cells
-
-    # quck hack to ignore jupyter magics
-    if "%" in cell_source:
-        pattern = "^ *%{1,2}\w+ *"  # noqa: W605
-        cell_source = re.split(pattern, cell_source, flags=re.MULTILINE)
-        cell_source = "".join(cell_source)
-
     tree = parse(cell_source)
     for node in walk(tree):
         if isinstance(node, Import):
@@ -54,6 +47,7 @@ def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool =
         raise ValueError("Invalid content - neither notebook nor cells.")
 
     pkgs = set()
+    magics_re = None
 
     for cell in cells:
         if cell["cell_type"] != "code":
@@ -63,6 +57,12 @@ def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool =
         if "import" not in cell_source:
             continue
         else:
+            # quck hack to ignore jupyter magics
+            if "%" in cell_source:
+                if magics_re is None:
+                    magics_re = re.compile(r"^( *)%{1,2}\w+ *", flags=re.MULTILINE)
+                cell_source = magics_re.sub(r"\1", cell_source)
+
             for imp in cell_imports(cell_source):
                 if imp in std_libs:
                     continue
