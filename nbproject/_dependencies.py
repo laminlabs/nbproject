@@ -57,7 +57,7 @@ def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool =
         if "import" not in cell_source:
             continue
         else:
-            # quck hack to ignore jupyter magics
+            # quick hack to ignore jupyter magics
             if "%" in cell_source:
                 if magics_re is None:
                     magics_re = re.compile(r"^( *)%{1,2}\w+ *", flags=re.MULTILINE)
