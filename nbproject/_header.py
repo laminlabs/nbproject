@@ -1,22 +1,31 @@
 import string
 import secrets
-import nbformat as nbf
-import pandas as pd  # mere hack for html rep
+import orjson
 from pydantic import BaseModel
 from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
+from textwrap import wrap
 from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
 
-def style_hide_index(df: pd.DataFrame):
-    # to avoid warning in pandas 1.4
-    style = df.style
-    if hasattr(style, "hide"):
-        return style.hide(axis="index")
-    else:
-        return style.hide_index()
+def table_html(rows: list):
+    html = "<table><tbody>"
+    for row in rows:
+        html += "<tr>"
+        html += f"<td style='text-align: left;'><b>{row.pop(0)}</b></td>"
+        for col in row:
+            html += f"<td style='text-align: left;'>{col}</td>"
+        html += "</tr>"
+    html += "</tbody></table>"
+    return html
+
+
+def display_html(html: str):
+    from IPython.display import display, HTML
+
+    display(HTML(html))
 
 
 def nbproject_uid():  # rename to nbproject_uid also in metadata slot?
@@ -96,36 +105,38 @@ class Header:
                     "you are probably not inside a jupyter notebook"
                 )
         try:
-            nb = nbf.read(filepath, as_version=nbf.NO_CONVERT)
+            with open(filepath, "rb") as f:
+                nb = orjson.loads(f.read())
         except FileNotFoundError:
             raise RuntimeError(
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        if "nbproject" not in nb.metadata:
+        if "nbproject" not in nb["metadata"]:
             logger.info(
                 "To initialize nbproject for this notebook:\n* in Jupyter Lab: hit"
                 " save, load notebook from disk ('revert') & restart"
             )
-            nb.metadata["nbproject"] = {}
-            nb.metadata["nbproject"]["uid"] = nbproject_uid()
-            nb.metadata["nbproject"]["time_init"] = datetime.now(
+            nb["metadata"]["nbproject"] = {}
+            nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
+            nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
-            nbf.write(nb, filepath)
+
+            with open(filepath, "wb") as f:
+                f.write(orjson.dumps(nb))
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
-            display_ = Display(nb.metadata)
-            df = pd.DataFrame(
-                {
-                    "uid": [display_.id()],
-                    "time_init": [display_.time_init()],
-                    "time_run": [display_.time_run(datetime.now(timezone.utc))],
-                },
-                index=[" "],
-            )
-            display(df.T.style)  # noqa
+
+            display_ = Display(nb["metadata"])
+
+            table = []
+            table.append(["uid", display_.id()])
+            table.append(["time_init", display_.time_init()])
+            table.append(["time_run", display_.time_run(datetime.now(timezone.utc))])
 
             deps = display_.dependencies()
             if deps is not None:
-                display(style_hide_index(pd.DataFrame({"dependencies": deps})))  # noqa
+                table.append(["dependencies", "<br>".join(wrap(", ".join(deps)))])
+
+            display_html(table_html(table))
