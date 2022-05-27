@@ -1,4 +1,4 @@
-import nbformat as nbf
+import orjson
 from pathlib import Path
 from datetime import datetime, timezone
 from ._header import nbproject_uid
@@ -6,10 +6,10 @@ from ._utils import public_fields
 
 
 class NBRecord:
-    def __init__(self, nb: nbf.NotebookNode):
+    def __init__(self, nb: dict):
         self._nb = nb
 
-        metadata = nb.metadata
+        metadata = nb["metadata"]
         if "nbproject" in metadata:
             self._filled = True
             for key, value in metadata["nbproject"].items():
@@ -41,10 +41,11 @@ class NBRecord:
         return time_init
 
     def write(self, nb_path: Path, overwrite: bool):
-        nbproj_data = nbf.NotebookNode(public_fields(self))
+        nbproj_data = public_fields(self)
         if overwrite or not self._filled:
-            self._nb.metadata["nbproject"] = nbproj_data
-            nbf.write(self._nb, nb_path)
+            self._nb["metadata"]["nbproject"] = nbproj_data
+            with open(nb_path, "wb") as f:
+                f.write(orjson.dumps(self._nb))
             self._filled = True
 
 
