@@ -24,6 +24,15 @@ class NBRecord:
             self._filled = False
             return None
 
+    def __setattr__(self, attr_name, value):
+        if attr_name[0] != "_":
+            present_value = self.check_attr(attr_name)
+            if present_value != value:
+                self.__dict__[attr_name] = value
+                self._filled = False
+        else:
+            self.__dict__[attr_name] = value
+
     @property
     def uid(self):
         uid = self.check_attr("_uid")
@@ -50,10 +59,12 @@ class NBRecord:
 
 
 class YAMLRecord:
-    # this is for ordering
+    # this is for ordering and also ignore this than reading yaml fields
     _take_keys = ("time_init", "name", "location")
 
-    def __init__(self, nb_path: Path, nb_record: NBRecord):
+    def __init__(self, nb_path: Path, nb_record: NBRecord, yaml_proj: dict):
+        self._yaml_proj = yaml_proj
+        self._nb_record = nb_record
         # load fields from the notebooks' metadata
         nb_record_fields = public_fields(nb_record)
 
@@ -62,6 +73,12 @@ class YAMLRecord:
         for key, value in nb_record_fields.items():
             setattr(self, key, value)
 
+        # take field from yaml, takes precedence over nb_record
+        if self._uid in self._yaml_proj:
+            for key, value in self._yaml_proj[self._uid].items():
+                if key not in self._take_keys:
+                    setattr(self, key, value)
+
         # here set fields specific to yaml
         self.time_init = datetime.fromisoformat(self.time_init)
         self.time_init = self.time_init.strftime("%Y-%m-%d %H:%M")
@@ -69,7 +86,14 @@ class YAMLRecord:
         self.location = nb_path.parent.as_posix()
         self.name = nb_path.name
 
-    def put(self, yaml_project: dict):
+    def put_metadata(self):
+        for key, value in public_fields(self).items():
+            if key not in self._take_keys:
+                setattr(self._nb_record, key, value)
+
+    def put_yaml(self):
+        yaml_project = self._yaml_proj
+
         if self._uid not in yaml_project:
             yaml_project[self._uid] = {}
 
