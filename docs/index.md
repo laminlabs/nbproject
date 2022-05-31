@@ -21,6 +21,7 @@ from nbproject import header
 This will both initialize `nbproject` and interactively display notebook metadata! Done.
 
 If you want more configuration, call the class
+
 ```
 from nbproject import Header
 header = Header(*args, **kwargs, show=False)
