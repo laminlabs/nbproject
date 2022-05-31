@@ -2,7 +2,6 @@ import sys
 import re
 import packaging
 from importlib_metadata import packages_distributions, version, PackageNotFoundError
-from nbformat import NotebookNode
 from ast import parse, walk, Import, ImportFrom
 from typing import Union, List, Literal
 from operator import gt, lt
@@ -35,11 +34,9 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool = False):
+def notebook_deps(content: Union[dict, list], pin_versions: bool = False):
     # parse the notebook content and infer all dependencies
-    if (
-        isinstance(content, NotebookNode) or isinstance(content, dict)
-    ) and "cells" in content:
+    if isinstance(content, dict) and "cells" in content:
         cells = content["cells"]
     elif isinstance(content, list) and len(content) > 0 and "cell_type" in content[0]:
         cells = content
@@ -53,7 +50,8 @@ def notebook_deps(content: Union[NotebookNode, dict, list], pin_versions: bool =
         if cell["cell_type"] != "code":
             continue
 
-        cell_source = cell["source"]
+        # assuming we read the notebook with a json reader
+        cell_source = "".join(cell["source"])
         if "import" not in cell_source:
             continue
         else:

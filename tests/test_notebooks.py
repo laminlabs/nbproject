@@ -1,5 +1,5 @@
 import os
-import nbformat as nbf
+import orjson
 from signal import SIGTERM
 from pathlib import Path
 from subprocess import Popen, PIPE
@@ -17,13 +17,13 @@ def kill_process(process):
         os.kill(process.pid, SIGTERM)
 
 
-def write_cell(msg: dict, cell: nbf.NotebookNode, ex_count: int):
+def write_cell(msg: dict, cell: dict, ex_count: int):
     if msg["msg_type"] in ("status", "execute_input", "error"):
         return
 
     cell["execution_count"] = ex_count
 
-    output = nbf.NotebookNode()
+    output = {}
     output.update(msg["content"])
 
     msg_type = msg["msg_type"]
@@ -63,7 +63,8 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         nb_name = str(nb.relative_to(nb_folder))
         logger.debug(f"\n\n{nb_name}")
 
-        nb_content = nbf.read(nb, as_version=nbf.NO_CONVERT)
+        with open(nb, "rb") as f:
+            nb_content = orjson.loads(f.read())
 
         kernel_name = nb_content["metadata"]["kernelspec"]["name"]
 
@@ -75,13 +76,12 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         for cell in cells:
             if cell["cell_type"] != "code":
                 continue
-            cell_source = cell["source"]
+            cell_source = "".join(cell["source"])
 
             if write:
                 output_hook = partial(write_cell, cell=cell, ex_count=ex_count)
             else:
                 output_hook = None
-
             resp = km.execute_interactive(
                 cell_source, allow_stdin=False, output_hook=output_hook
             )
@@ -97,7 +97,8 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         close_session(server, session)
 
         if write:
-            nbf.write(nb_content, nb)
+            with open(nb, "wb") as f:
+                f.write(orjson.dumps(nb_content))
 
 
 def test_notebooks():

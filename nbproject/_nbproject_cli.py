@@ -1,8 +1,6 @@
 # This file contains the functions to process the cli commands.
-
-
 import yaml
-import nbformat as nbf
+import orjson
 from pathlib import Path
 from itertools import chain
 from typing import Iterator
@@ -55,7 +53,8 @@ def init():
 
         nb_path = nb_path.relative_to(cwd)
 
-        nb = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
+        with open(nb_path, "rb") as f:
+            nb = orjson.loads(f.read())
 
         nbproj_record = NBRecord(nb)
         nbproj_record.write(nb_path, overwrite=False)
@@ -91,7 +90,8 @@ def sync(
             continue
         n_nbs += 1
 
-        nb = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
+        with open(nb_path, "rb") as f:
+            nb = orjson.loads(f.read())
 
         nbproj_record = NBRecord(nb)
         overwrite = False
@@ -118,14 +118,16 @@ def reqs(files_dirs: Iterator[str]):
         if ".ipynb_checkpoints/" in nb_path.as_posix():
             continue
 
-        nb = nbf.read(nb_path, as_version=nbf.NO_CONVERT)
-        if "nbproject" not in nb.metadata:
+        with open(nb_path, "rb") as f:
+            nb = orjson.loads(f.read())
+
+        if "nbproject" not in nb["metadata"]:
             logger.info(
                 "Uninitialized or unsynced notebooks, use > nbproject init or >"
                 " nbproject sync ."
             )
             return
-        nbproj_metadata = nb.metadata["nbproject"]
+        nbproj_metadata = nb["metadata"]["nbproject"]
         if "dependencies" in nbproj_metadata:
             gather_deps.append(nbproj_metadata["dependencies"])
 
