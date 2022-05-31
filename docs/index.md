@@ -20,6 +20,16 @@ from nbproject import header
 
 This will both initialize `nbproject` and interactively display notebook metadata! Done.
 
+If you want more configuration, call the class
+```
+from nbproject import Header
+header = Header(*args, **kwargs, show=False)
+header.infer_dependencies()
+header.add_dependency("pytorch")
+header.check_for_integrity()
+header.show()
+```
+
 For more functionality, check out the [guides](guides)! A comprehensive API documentation is to come.
 
 ```{toctree}
