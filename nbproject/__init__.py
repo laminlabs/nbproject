@@ -4,7 +4,7 @@ Display `nbproject` metadata with default arguments::
 
    from nbproject import header
 
-Display with configurable arguments & update:
+Display with configurable arguments & update::
 
    from nbproject import Header
    header = Header(*args, **kwargs)
