@@ -1,4 +1,17 @@
-"""nbproject: Manage your notebooks."""
+"""nbproject: Manage Jupyter notebooks.
+
+Import the package::
+
+   import nbproject
+
+This is the complete API reference:
+
+.. autosummary::
+   :toctree: .
+
+   header
+   Header
+"""
 import traceback
 import sys
 from types import ModuleType

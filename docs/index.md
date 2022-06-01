@@ -1,4 +1,7 @@
-# nbproject: Manage Jupyter notebooks
+```{include} ../README.md
+:start-line: 0
+:end-line: 1
+```
 
 - Make your data science projects reproducible through dependency tracking.
 - Keep track of the notebooks themselves through time stamps, unique IDs & metadata. Integrate into your team's project management software & data platform.
@@ -38,4 +41,5 @@ For more functionality, check out the [guides](guides)! A comprehensive API docu
 :hidden:
 
 guides
+api
 ```
