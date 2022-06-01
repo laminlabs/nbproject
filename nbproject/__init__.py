@@ -1,15 +1,21 @@
 """nbproject: Manage Jupyter notebooks.
 
-Import the package::
+Display `nbproject` metadata with default arguments::
 
-   import nbproject
+   from nbproject import header
 
-This is the complete API reference:
+Display with configurable arguments & update:
+
+   from nbproject import Header
+   header = Header(*args, **kwargs)
+   header.infer_dependencies()
+
+The API consists of a class `Header`.
+The "module" `header` offers a mere shortcut for initializing it with default arguments.
 
 .. autosummary::
    :toctree: .
 
-   header
    Header
 """
 import traceback
@@ -17,7 +23,6 @@ import sys
 from types import ModuleType
 
 from ._header import Header  # noqa
-
 
 _module = sys.modules[__name__]
 

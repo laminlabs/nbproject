@@ -1,4 +1,4 @@
-"""Call `Header` with default arguments."""
+"""Shortcut to initialize `Header` with default arguments."""
 
 from ._header import Header
 
