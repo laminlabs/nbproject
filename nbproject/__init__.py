@@ -10,13 +10,15 @@ Display with configurable arguments & update::
    header = Header(*args, **kwargs)
    header.infer_dependencies()
 
-The API consists of a class `Header`.
-The "module" `header` offers a mere shortcut for initializing it with default arguments.
+The API consists of a single class `Header`.
 
 .. autosummary::
    :toctree: .
 
    Header
+
+The one-liner `from nbproject import header` offers a mere shortcut for
+initializing `Header` with default arguments!
 """
 import traceback
 import sys
