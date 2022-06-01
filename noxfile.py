@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import nox
 
 nox.options.reuse_existing_virtualenvs = True
@@ -10,11 +12,10 @@ def lint(session: nox.Session) -> None:
     session.run("pre-commit", "run", "--all-files")
 
 
-@nox.session
+@nox.session(python=["3.9"])
 def build(session):
-    session.install(".[dev, test]")
-    # write output instead of capturing it (more verbose)
-    # disable cache
+    session.install(".[dev,test]")
     session.run("python", "-m", "pytest", "-s", "-p", "no:cacheprovider")
-    session.install("-r", "docs/lamin_sphinx/requirements.txt")
-    session.run(*"sphinx-build -b html docs _build/html".split())
+    prefix = "." if Path("./lndocs").exists() else ".."
+    session.install(f"{prefix}/lndocs")
+    session.run("lndocs")

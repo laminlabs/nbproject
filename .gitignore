@@ -129,3 +129,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Lamin
+_build
+docs/nbproject.*
+lamin_sphinx
+docs/conf.py

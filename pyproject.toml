@@ -37,3 +37,9 @@ nbproject = "nbproject.__main__:main"
 
 [tool.black]
 preview = true
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+    "docs/guides",
+]

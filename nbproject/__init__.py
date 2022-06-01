@@ -1,10 +1,30 @@
-"""nbproject: Manage your notebooks."""
+"""nbproject: Manage Jupyter notebooks.
+
+Display `nbproject` metadata with default arguments::
+
+   from nbproject import header
+
+Display with configurable arguments & update::
+
+   from nbproject import Header
+   header = Header(*args, **kwargs)
+   header.infer_dependencies()
+
+The API consists of a single class `Header`.
+
+.. autosummary::
+   :toctree: .
+
+   Header
+
+The one-liner `from nbproject import header` offers a mere shortcut for
+initializing `Header` with default arguments!
+"""
 import traceback
 import sys
 from types import ModuleType
 
 from ._header import Header  # noqa
-
 
 _module = sys.modules[__name__]
 

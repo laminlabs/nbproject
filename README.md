@@ -1,5 +1,7 @@
 # nbproject: Manage Jupyter notebooks
 
-This is a highly experimental & undocumented package at this moment.
+This package is in private beta at this moment!
 
-Stay tuned for a first proper release by following https://twitter.com/laminlabs.
+Follow https://twitter.com/laminlabs to learn about a first public release.
+
+For beta users: Read the [docs](https://lamin.ai/nbproject).
