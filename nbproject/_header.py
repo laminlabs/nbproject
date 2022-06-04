@@ -106,12 +106,6 @@ class Header:
                     "can't infer the name of the current notebook, "
                     "you are probably not inside a jupyter notebook"
                 )
-        app = JupyterFrontEnd()
-        # ensure that any user edits are saved before the current
-        # notebook for metadata writing is loaded
-        app.commands.execute("docmanager:save")
-        # it's important that the frontend is done saving when the backend loads
-        sleep(1)
         try:
             with open(filepath, "rb") as f:
                 nb = orjson.loads(f.read())
@@ -125,6 +119,16 @@ class Header:
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
             )
+            app = JupyterFrontEnd()
+            # ensure that any user edits are saved before the current
+            # notebook for metadata writing is loaded
+            app.commands.execute("docmanager:save")
+            # it's important that the frontend is done saving when the backend loads
+            sleep(1)
+            # load the notebook again with everything being saved
+            with open(filepath, "rb") as f:
+                nb = orjson.loads(f.read())
+            # write metadata
             nb["metadata"]["nbproject"] = {}
             nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
             nb["metadata"]["nbproject"]["time_init"] = datetime.now(
@@ -133,12 +137,11 @@ class Header:
 
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
-            # reload the notebook with metadata (NOT SURE IF NECESSARY!)
+            # reload the notebook with metadata
+            # otherwise Jupyter lab will notice a mismatch
             app.commands.execute("docmanager:reload")
             # restart and re-execute `from nbproject import header`
-            app.commands.execute("runmenu:restart-and-run-all")
-            # there is also "notebook:restart-and-run-to-selected", which
-            # seems more likely to break in the future
+            app.commands.execute("notebook:restart-and-run-to-selected")
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
