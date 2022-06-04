@@ -120,25 +120,25 @@ class Header:
                 " restart when asked!"
             )
             app = JupyterFrontEnd()
-            # ensure that any user edits are saved before the current
-            # notebook for metadata writing is loaded
+            # ensure that all user edits are saved before the
+            # notebook will be loaded by the backend
             app.commands.execute("docmanager:save")
-            # it's important that the frontend is done saving when the backend loads
+            # it's important that the frontend is done saving before the backend loads
             sleep(1)
-            # load the notebook again with everything being saved
+            # now load the notebook with the backend
             with open(filepath, "rb") as f:
                 nb = orjson.loads(f.read())
-            # write metadata
+            # write metadata from the backend
             nb["metadata"]["nbproject"] = {}
             nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
             nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
-
+            # write the file from the backend
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
-            # reload the notebook with metadata
-            # otherwise Jupyter lab will notice a mismatch
+            # reload the notebook with metadata by the frontend
+            # otherwise Jupyter lab notices the mismatch and shows a confusing dialogue
             app.commands.execute("docmanager:reload")
             # restart and re-execute `from nbproject import header`
             app.commands.execute("notebook:restart-and-run-to-selected")
