@@ -7,6 +7,7 @@ from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
 from ipylab import JupyterFrontEnd
+from time import sleep
 from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
@@ -105,6 +106,12 @@ class Header:
                     "can't infer the name of the current notebook, "
                     "you are probably not inside a jupyter notebook"
                 )
+        app = JupyterFrontEnd()
+        # ensure that any user edits are saved before the current
+        # notebook for metadata writing is loaded
+        app.commands.execute("docmanager:save")
+        # it's important that the frontend is done saving when the backend loads
+        sleep(1)
         try:
             with open(filepath, "rb") as f:
                 nb = orjson.loads(f.read())
@@ -126,10 +133,9 @@ class Header:
 
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
-
-            # let the above changes take effect for the user
-            # this currently only works in jupyterlab
-            app = JupyterFrontEnd()
+            # reload the notebook with metadata (NOT SURE IF NECESSARY!)
+            app.commands.execute("docmanager:reload")
+            # restart and re-execute `from nbproject import header`
             app.commands.execute("runmenu:restart-and-run-all")
             # there is also "notebook:restart-and-run-to-selected", which
             # seems more likely to break in the future
