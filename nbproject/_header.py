@@ -6,6 +6,8 @@ from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
+from ipylab import JupyterFrontEnd
+from time import sleep
 from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
@@ -114,17 +116,32 @@ class Header:
         # initialize
         if "nbproject" not in nb["metadata"]:
             logger.info(
-                "To initialize nbproject for this notebook:\n* in Jupyter Lab: hit"
-                " save, load notebook from disk ('revert') & restart"
+                "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
+                " restart when asked!"
             )
+            app = JupyterFrontEnd()
+            # ensure that all user edits are saved before the
+            # notebook will be loaded by the backend
+            app.commands.execute("docmanager:save")
+            # it's important that the frontend is done saving before the backend loads
+            sleep(1)
+            # now load the notebook with the backend
+            with open(filepath, "rb") as f:
+                nb = orjson.loads(f.read())
+            # write metadata from the backend
             nb["metadata"]["nbproject"] = {}
             nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
             nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
-
+            # write the file from the backend
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
+            # reload the notebook with metadata by the frontend
+            # otherwise Jupyter lab notices the mismatch and shows a confusing dialogue
+            app.commands.execute("docmanager:reload")
+            # restart and re-execute `from nbproject import header`
+            app.commands.execute("notebook:restart-and-run-to-selected")
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
