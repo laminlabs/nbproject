@@ -6,6 +6,7 @@ from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
+from ipylab import JupyterFrontEnd
 from ._logger import logger
 from ._jupyter_communicate import notebook_path
 
@@ -114,8 +115,8 @@ class Header:
         # initialize
         if "nbproject" not in nb["metadata"]:
             logger.info(
-                "To initialize nbproject for this notebook:\n* in Jupyter Lab: hit"
-                " save, load notebook from disk ('revert') & restart"
+                "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
+                " restart when asked!"
             )
             nb["metadata"]["nbproject"] = {}
             nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
@@ -125,6 +126,13 @@ class Header:
 
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
+
+            # let the above changes take effect for the user
+            # this currently only works in jupyterlab
+            app = JupyterFrontEnd()
+            app.commands.execute("runmenu:restart-and-run-all")
+            # there is also "notebook:restart-and-run-to-selected", which
+            # seems more likely to break in the future
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
