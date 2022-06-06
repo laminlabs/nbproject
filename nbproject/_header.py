@@ -122,6 +122,8 @@ class Header:
             )
         # initialize
         if "nbproject" not in nb["metadata"]:
+            from ._dependency import notebook_deps
+
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
@@ -147,6 +149,10 @@ class Header:
             nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
+            nb["metadata"]["nbproject"]["dependency"] = notebook_deps(
+                nb, pin_versions=True
+            )
+
             # write the file from the backend
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
