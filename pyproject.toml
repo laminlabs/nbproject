@@ -29,7 +29,6 @@ dev = [
 test = [
     "pytest>=6.0",
     "pandas",
-    "nbmake",
     "notebook"
 ]
 
