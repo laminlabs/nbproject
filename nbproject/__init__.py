@@ -28,8 +28,9 @@ import traceback
 import sys
 from types import ModuleType
 
-from ._header import Header  # noqa
 from ._meta import meta  # noqa
+from ._header import Header  # noqa
+
 
 _module = sys.modules[__name__]
 

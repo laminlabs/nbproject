@@ -8,10 +8,9 @@ from enum import Enum
 from textwrap import wrap
 from ipylab import JupyterFrontEnd
 from time import sleep
-import nbproject
-from nbproject._logger import logger
-from nbproject._meta import Meta
-from nbproject._jupyter_communicate import notebook_path
+from ._logger import logger
+from ._meta import Meta
+from ._jupyter_communicate import notebook_path
 
 
 def table_html(rows: list):
@@ -164,6 +163,8 @@ class Header:
             display_html(table_html(table))
 
             # make metadata available through API
+            import nbproject
+
             nbproject.meta = Meta(
                 uid=nb["metadata"]["nbproject"]["uid"],
                 time_init=nb["metadata"]["nbproject"]["time_init"],
