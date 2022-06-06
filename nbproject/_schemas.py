@@ -49,6 +49,15 @@ class NBRecord:
             self._time_init = time_init
         return time_init
 
+    @property
+    def dependencies(self):
+        if "dependencies" in self.__dict__:
+            return self.__dict__["dependencies"]
+        elif hasattr(self, "_dependencies"):
+            return self._dependencies
+        else:
+            return None
+
     def write(self, nb_path: Path, overwrite: bool):
         nbproj_data = public_fields(self)
         if overwrite or not self._filled:
