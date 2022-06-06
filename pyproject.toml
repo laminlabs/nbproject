@@ -9,7 +9,6 @@ readme = "README.md"
 dynamic = ["version", "description"]
 dependencies = [
     "loguru",
-    "pandas",
     "pydantic",
     "pyyaml",
     "packaging",
@@ -29,6 +28,7 @@ dev = [
 ]
 test = [
     "pytest>=6.0",
+    "pandas",
     "nbmake",
     "notebook"
 ]
