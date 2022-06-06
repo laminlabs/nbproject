@@ -59,8 +59,8 @@ def init():
         nbproj_record = NBRecord(nb)
         nbproj_record.write(nb_path, overwrite=False)
 
-        yaml_record = YAMLRecord(nb_path, nbproj_record)
-        yaml_record.put(init_yaml)
+        yaml_record = YAMLRecord(nb_path, nbproj_record, init_yaml)
+        yaml_record.put_yaml()
 
     new_file = "nbproject_metadata.yml"
     with open(new_file, "w") as stream:
@@ -94,15 +94,16 @@ def sync(
             nb = orjson.loads(f.read())
 
         nbproj_record = NBRecord(nb)
-        overwrite = False
+        yaml_record = YAMLRecord(nb_path, nbproj_record, yaml_proj)
+
         if parse_deps:
             deps = notebook_deps(nb, pin_versions=pin_versions)
-            nbproj_record.dependencies = deps
-            overwrite = True
-        nbproj_record.write(nb_path, overwrite=overwrite)
+            yaml_record.dependencies = deps
 
-        yaml_record = YAMLRecord(nb_path, nbproj_record)
-        yaml_record.put(yaml_proj)
+        yaml_record.put_metadata()
+        yaml_record.put_yaml()
+
+        nbproj_record.write(nb_path, overwrite=False)
 
     with open(yaml_file, "w") as stream:
         yaml.dump(yaml_proj, stream, sort_keys=False)
