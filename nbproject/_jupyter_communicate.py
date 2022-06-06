@@ -1,4 +1,4 @@
-import json
+import orjson
 from pathlib import PurePath
 from itertools import chain
 from urllib import request
@@ -20,7 +20,7 @@ def query_server(server: dict):
     try:
         url = prepare_url(server)
         with request.urlopen(url) as req:
-            return json.load(req)
+            return orjson.loads(req.read())
     except Exception:
         CONN_ERROR = (
             "Unable to access server;\n"
@@ -99,12 +99,12 @@ def start_session(server: dict, nb_name: str, kernel_name: str = "python3"):
     from jupyter_client import find_connection_file, BlockingKernelClient
 
     data = dict(type="notebook", path=nb_name, kernel={"name": kernel_name})
-    data = json.dumps(data).encode("utf-8")
+    data = orjson.dumps(data).encode("utf-8")
 
     url = prepare_url(server)
     req = request.Request(url, data=data)
     with request.urlopen(req) as resp:
-        session = json.load(resp)
+        session = orjson.loads(resp.read())
 
     kernel_id = session["kernel"]["id"]
 
