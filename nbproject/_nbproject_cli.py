@@ -6,7 +6,7 @@ from itertools import chain
 from typing import Iterator
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
-from ._dependencies import notebook_deps, resolve_versions
+from ._dependency import notebook_deps, resolve_versions
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -98,7 +98,7 @@ def sync(
 
         if parse_deps:
             deps = notebook_deps(nb, pin_versions=pin_versions)
-            yaml_record.dependencies = deps
+            yaml_record.dependency = deps
 
         yaml_record.put_metadata()
         yaml_record.put_yaml()
@@ -129,8 +129,8 @@ def reqs(files_dirs: Iterator[str]):
             )
             return
         nbproj_metadata = nb["metadata"]["nbproject"]
-        if "dependencies" in nbproj_metadata:
-            gather_deps.append(nbproj_metadata["dependencies"])
+        if "dependency" in nbproj_metadata:
+            gather_deps.append(nbproj_metadata["dependency"])
 
     deps = resolve_versions(gather_deps)
     deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]

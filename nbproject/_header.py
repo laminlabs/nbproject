@@ -88,10 +88,10 @@ class Display:
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
 
-    def dependencies(self):
+    def dependency(self):
         deps = None
-        if "dependencies" in self.metadata["nbproject"]:
-            deps = self.metadata["nbproject"]["dependencies"]
+        if "dependency" in self.metadata["nbproject"]:
+            deps = self.metadata["nbproject"]["dependency"]
             deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
             deps = None if deps == [] else deps
         return deps
@@ -171,9 +171,9 @@ class Header:
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", time_run])
 
-            deps = display_.dependencies()
+            deps = display_.dependency()
             if deps is not None:
-                table.append(["dependencies", "<br>".join(wrap(", ".join(deps)))])
+                table.append(["dependency", "<br>".join(wrap(", ".join(deps)))])
 
             display_html(table_html(table))
 

@@ -50,11 +50,11 @@ class NBRecord:
         return time_init
 
     @property
-    def dependencies(self):
-        if "dependencies" in self.__dict__:
-            return self.__dict__["dependencies"]
-        elif hasattr(self, "_dependencies"):
-            return self._dependencies
+    def dependency(self):
+        if "dependency" in self.__dict__:
+            return self.__dict__["dependency"]
+        elif hasattr(self, "_dependency"):
+            return self._dependency
         else:
             return None
 
