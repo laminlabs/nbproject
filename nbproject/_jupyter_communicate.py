@@ -47,7 +47,7 @@ def running_servers():
     return servers_nbapp, servers_juserv
 
 
-def notebook_path():
+def notebook_path(return_env=False):
 
     servers_nbapp, servers_juserv = running_servers()
 
@@ -81,7 +81,16 @@ def notebook_path():
             if notebook["kernel"]["id"] == kernel_id:
                 for dir_key in DIR_KEYS:
                     if dir_key in server:
-                        return PurePath(server[dir_key]) / notebook["notebook"]["path"]
+                        nb_path = (
+                            PurePath(server[dir_key]) / notebook["notebook"]["path"]
+                        )
+                        if return_env:
+                            return (
+                                nb_path,
+                                "lab" if dir_key == "root_dir" else "notebook",
+                            )
+                        else:
+                            return nb_path
 
     return None
 
