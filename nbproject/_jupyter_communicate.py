@@ -99,7 +99,7 @@ def start_session(server: dict, nb_name: str, kernel_name: str = "python3"):
     from jupyter_client import find_connection_file, BlockingKernelClient
 
     data = dict(type="notebook", path=nb_name, kernel={"name": kernel_name})
-    data = orjson.dumps(data).encode("utf-8")
+    data = orjson.dumps(data)
 
     url = prepare_url(server)
     req = request.Request(url, data=data)
