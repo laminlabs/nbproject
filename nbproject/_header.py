@@ -9,6 +9,7 @@ from textwrap import wrap
 from ipylab import JupyterFrontEnd
 from time import sleep
 from ._logger import logger
+from ._meta import Meta
 from ._jupyter_communicate import notebook_path
 
 
@@ -145,15 +146,27 @@ class Header:
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
+            # display metadata
             display_ = Display(nb["metadata"])
+
+            time_run = display_.time_run(datetime.now(timezone.utc))
 
             table = []
             table.append(["uid", display_.id()])
             table.append(["time_init", display_.time_init()])
-            table.append(["time_run", display_.time_run(datetime.now(timezone.utc))])
+            table.append(["time_run", time_run])
 
             deps = display_.dependencies()
             if deps is not None:
                 table.append(["dependencies", "<br>".join(wrap(", ".join(deps)))])
 
             display_html(table_html(table))
+
+            # make metadata available through API
+            import nbproject
+
+            nbproject.meta = Meta(
+                uid=nb["metadata"]["nbproject"]["uid"],
+                time_init=nb["metadata"]["nbproject"]["time_init"],
+                time_run=time_run,
+            )

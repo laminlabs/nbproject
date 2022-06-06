@@ -4,6 +4,10 @@ Display `nbproject` metadata with default arguments::
 
    from nbproject import header
 
+Access `nbproject` metadata through the API::
+
+   from nbproject import meta
+
 Display with configurable arguments & update::
 
    from nbproject import Header
@@ -24,7 +28,9 @@ import traceback
 import sys
 from types import ModuleType
 
+from ._meta import meta  # noqa
 from ._header import Header  # noqa
+
 
 _module = sys.modules[__name__]
 
