@@ -6,7 +6,6 @@ from typing import Union
 from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
-from ipylab import JupyterFrontEnd
 from time import sleep
 from ._logger import logger
 from ._meta import Meta
@@ -99,14 +98,21 @@ class Display:
 
 
 class Header:
-    def __init__(self, filepath=None):
+    def __init__(self, filepath=None, env=None):
+        filepath_env = filepath, env
+
         if filepath is None:
-            filepath = notebook_path()
-            if filepath is None:
+            filepath_env = notebook_path(return_env=True)
+            if filepath_env is None:
                 raise RuntimeError(
                     "can't infer the name of the current notebook, "
                     "you are probably not inside a jupyter notebook"
                 )
+
+        filepath = filepath_env[0]
+        if env is None:
+            env = filepath_env[1]
+
         try:
             with open(filepath, "rb") as f:
                 nb = orjson.loads(f.read())
@@ -120,12 +126,18 @@ class Header:
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
             )
-            app = JupyterFrontEnd()
-            # ensure that all user edits are saved before the
-            # notebook will be loaded by the backend
-            app.commands.execute("docmanager:save")
-            # it's important that the frontend is done saving before the backend loads
-            sleep(1)
+
+            if env == "lab":
+                from ipylab import JupyterFrontEnd
+
+                app = JupyterFrontEnd()
+                # ensure that all user edits are saved before the
+                # notebook will be loaded by the backend
+                app.commands.execute("docmanager:save")
+                # it's important that the frontend is done saving
+                # before the backend loads
+                sleep(1)
+
             # now load the notebook with the backend
             with open(filepath, "rb") as f:
                 nb = orjson.loads(f.read())
@@ -138,11 +150,14 @@ class Header:
             # write the file from the backend
             with open(filepath, "wb") as f:
                 f.write(orjson.dumps(nb))
-            # reload the notebook with metadata by the frontend
-            # otherwise Jupyter lab notices the mismatch and shows a confusing dialogue
-            app.commands.execute("docmanager:reload")
-            # restart and re-execute `from nbproject import header`
-            app.commands.execute("notebook:restart-and-run-to-selected")
+
+            if env == "lab":
+                # reload the notebook with metadata by the frontend
+                # otherwise Jupyter lab notices the mismatch
+                # and shows a confusing dialogue
+                app.commands.execute("docmanager:reload")
+                # restart and re-execute `from nbproject import header`
+                app.commands.execute("notebook:restart-and-run-to-selected")
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
