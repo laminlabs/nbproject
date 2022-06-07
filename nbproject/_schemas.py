@@ -1,6 +1,8 @@
-import orjson
-from pathlib import Path
 from datetime import datetime, timezone
+from pathlib import Path
+
+import orjson
+
 from ._header import nbproject_uid
 from ._utils import public_fields
 
@@ -89,8 +91,8 @@ class YAMLRecord:
                     setattr(self, key, value)
 
         # here set fields specific to yaml
-        self.time_init = datetime.fromisoformat(self.time_init)
-        self.time_init = self.time_init.strftime("%Y-%m-%d %H:%M")
+        self.time_init = datetime.fromisoformat(self.time_init)  # type: ignore
+        self.time_init = self.time_init.strftime("%Y-%m-%d %H:%M")  # type: ignore
 
         self.location = nb_path.parent.as_posix()
         self.name = nb_path.name

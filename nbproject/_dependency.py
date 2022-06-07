@@ -1,15 +1,15 @@
-import sys
 import re
-import packaging
-from importlib_metadata import packages_distributions, version, PackageNotFoundError
-from ast import parse, walk, Import, ImportFrom
-from typing import Union, List, Literal
+import sys
+from ast import Import, ImportFrom, parse, walk
 from operator import gt, lt
+from typing import List, Literal, Union  # noqa
 
+import packaging
+from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
 major, minor = sys.version_info[0], sys.version_info[1]
 if major == 3 and minor > 9:
-    std_libs = sys.stdlib_module_names
+    std_libs = sys.stdlib_module_names  # type: ignore
 else:
     from stdlib_list import stdlib_list
 
@@ -29,7 +29,7 @@ def cell_imports(cell_source: str):
                 if name != "":
                     yield name
         elif isinstance(node, ImportFrom):
-            name = node.module.partition(".")[0]
+            name = node.module.partition(".")[0]  # type: ignore
             if name != "":
                 yield name
 
@@ -69,7 +69,7 @@ def notebook_deps(content: Union[dict, list], pin_versions: bool = False):
                 else:
                     pkgs.add(imp)
 
-    pkgs = {pkg: "" for pkg in pkgs}
+    pkgs = {pkg: "" for pkg in pkgs}  # type: ignore
     if not pin_versions:
         return pkgs
 
@@ -78,7 +78,7 @@ def notebook_deps(content: Union[dict, list], pin_versions: bool = False):
             pkg_ver = version(pkg)
         except PackageNotFoundError:
             pkg_ver = ""
-        pkgs[pkg] = pkg_ver
+        pkgs[pkg] = pkg_ver  # type: ignore
 
     return pkgs
 
