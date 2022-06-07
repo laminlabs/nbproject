@@ -42,4 +42,5 @@ For more functionality, check out the [guides](guides)! A comprehensive API docu
 
 guides
 api
+changelog.md
 ```
