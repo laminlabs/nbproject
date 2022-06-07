@@ -1,15 +1,17 @@
-import string
 import secrets
-import orjson
-from pydantic import BaseModel
-from typing import Union
+import string
 from datetime import date, datetime, timezone
 from enum import Enum
 from textwrap import wrap
 from time import sleep
+from typing import Union
+
+import orjson
+from pydantic import BaseModel
+
+from ._jupyter_communicate import notebook_path
 from ._logger import logger
 from ._meta import Meta
-from ._jupyter_communicate import notebook_path
 
 
 def table_html(rows: list):
@@ -25,7 +27,7 @@ def table_html(rows: list):
 
 
 def display_html(html: str):
-    from IPython.display import display, HTML
+    from IPython.display import HTML, display
 
     display(HTML(html))
 
@@ -46,15 +48,15 @@ class JSONSchema(BaseModel):
 
 # user visible name & type configuration
 class UserSchema(BaseModel):
-    id: Union[str, int] = nbproject_uid  # the user only sees the first couple of digits
-    time_init: Union[date, datetime]
+    id: Union[str, int] = nbproject_uid  # type: ignore
+    time_init: Union[date, datetime]  # type: ignore
     time_run: Union[date, datetime]  # not part of the ipynb metadata section
 
 
 # display configuration
 class DisplayConf(BaseModel):
-    time_init: Enum("choice", ["date", "datetime"]) = "datetime"  # noqa: F821
-    time_run: Enum("choice", ["date", "datetime"]) = "datetime"  # noqa: F821
+    time_init: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore # noqa
+    time_run: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore # noqa
 
 
 # displays fields within the ipynb metadata section and on-the-fly computed

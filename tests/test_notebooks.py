@@ -1,11 +1,13 @@
 import os
-import orjson
-from signal import SIGTERM
-from pathlib import Path
-from subprocess import Popen, PIPE
 from functools import partial
+from pathlib import Path
+from signal import SIGTERM
+from subprocess import PIPE, Popen
 from time import sleep
-from nbproject._jupyter_communicate import running_servers, start_session, close_session
+
+import orjson
+
+from nbproject._jupyter_communicate import close_session, running_servers, start_session
 from nbproject._logger import logger
 
 

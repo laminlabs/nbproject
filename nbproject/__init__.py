@@ -24,13 +24,12 @@ The API consists of a single class `Header`.
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments!
 """
-import traceback
 import sys
+import traceback
 from types import ModuleType
 
-from ._meta import meta  # noqa
 from ._header import Header  # noqa
-
+from ._meta import meta  # noqa
 
 _module = sys.modules[__name__]
 

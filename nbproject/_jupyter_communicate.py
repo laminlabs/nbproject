@@ -1,7 +1,8 @@
-import orjson
-from pathlib import PurePath
 from itertools import chain
+from pathlib import PurePath
 from urllib import request
+
+import orjson
 
 DIR_KEYS = ("notebook_dir", "root_dir")
 
@@ -24,7 +25,7 @@ def query_server(server: dict):
     except Exception:
         CONN_ERROR = (
             "Unable to access server;\n"
-            + "ipynbname requires either no security or token based security."
+            "ipynbname requires either no security or token based security."
         )
         raise Exception(CONN_ERROR)
 
@@ -96,13 +97,13 @@ def notebook_path(return_env=False):
 
 
 def start_session(server: dict, nb_name: str, kernel_name: str = "python3"):
-    from jupyter_client import find_connection_file, BlockingKernelClient
+    from jupyter_client import BlockingKernelClient, find_connection_file
 
     data = dict(type="notebook", path=nb_name, kernel={"name": kernel_name})
     data = orjson.dumps(data)
 
     url = prepare_url(server)
-    req = request.Request(url, data=data)
+    req = request.Request(url, data=data)  # type: ignore
     with request.urlopen(req) as resp:
         session = orjson.loads(resp.read())
 

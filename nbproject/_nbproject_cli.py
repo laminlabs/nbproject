@@ -1,12 +1,14 @@
 # This file contains the functions to process the cli commands.
-import yaml
-import orjson
-from pathlib import Path
 from itertools import chain
-from typing import Iterator
+from pathlib import Path
+from typing import Iterator, Union
+
+import orjson
+import yaml  # type: ignore
+
+from ._dependency import notebook_deps, resolve_versions
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
-from ._dependency import notebook_deps, resolve_versions
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -18,7 +20,7 @@ def find_upwards(cwd: Path, filename: str):
     return fullpath if fullpath.exists() else find_upwards(cwd.parent, filename)
 
 
-def notebooks_from_files_dirs(files_dirs: Iterator[str]):
+def notebooks_from_files_dirs(files_dirs: Iterator[Union[str, Path]]):
     nbs = []
 
     for file_dir in files_dirs:
@@ -27,7 +29,7 @@ def notebooks_from_files_dirs(files_dirs: Iterator[str]):
             nbs.append(file_dir.glob("**/*.ipynb"))
         else:
             if file_dir.suffix == ".ipynb":
-                nbs.append([file_dir])
+                nbs.append([file_dir])  # type: ignore
             else:
                 logger.info(f"The file {file_dir} is not a notebook, ignoring.")
 
@@ -98,7 +100,7 @@ def sync(
 
         if parse_deps:
             deps = notebook_deps(nb, pin_versions=pin_versions)
-            yaml_record.dependency = deps
+            yaml_record.dependency = deps  # type: ignore
 
         yaml_record.put_metadata()
         yaml_record.put_yaml()

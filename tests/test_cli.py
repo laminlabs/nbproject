@@ -1,9 +1,11 @@
-import orjson
-from typing import Optional, Sequence
 from pathlib import Path
-from subprocess import Popen, PIPE
-from nbproject._schemas import NBRecord, public_fields
+from subprocess import PIPE, Popen
+from typing import Optional, Sequence
+
+import orjson
+
 from nbproject._logger import logger
+from nbproject._schemas import NBRecord, public_fields
 
 
 def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
