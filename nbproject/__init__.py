@@ -24,10 +24,11 @@ The API consists of a single class `Header`.
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments!
 """
+__version__ = "0.0.7"
+
 from ._header import Header  # noqa
 from ._meta import _load_meta  # noqa
 
-__version__ = "0.0.7"
 
 # see this for context: https://stackoverflow.com/questions/880530
 def __getattr__(name):  # user experience is that of a property on a class!
