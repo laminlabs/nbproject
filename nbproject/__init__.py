@@ -29,7 +29,15 @@ import traceback
 from types import ModuleType
 
 from ._header import Header  # noqa
-from ._meta import meta  # noqa
+from ._meta import _load_meta  # noqa
+
+
+# see this for context: https://stackoverflow.com/questions/880530
+def __getattr__(name):  # user experience is that of a property on a class!
+    if name == "meta":  # there is a bit of weird behavior because it seems
+        return _load_meta()  # to be called twice only upon from nbproject import meta
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
 
 _module = sys.modules[__name__]
 
