@@ -11,7 +11,6 @@ from pydantic import BaseModel
 
 from ._jupyter_communicate import notebook_path
 from ._logger import logger
-from ._meta import Meta
 
 
 def table_html(rows: list):
@@ -186,11 +185,7 @@ class Header:
 
             display_html(table_html(table))
 
-            # make metadata available through API
-            import nbproject
+        # make filepath available through API
+        import nbproject._meta
 
-            nbproject.meta = Meta(
-                id=nb["metadata"]["nbproject"]["id"],
-                time_init=nb["metadata"]["nbproject"]["time_init"],
-                time_run=time_run,
-            )
+        nbproject._meta._filepath = filepath
