@@ -67,7 +67,8 @@ class Display:
 
     def id(self):
         """Shorten ID display."""
-        id = self.metadata["nbproject"]["id"]
+        metadata = self.metadata["nbproject"]
+        id = metadata["id"] if "id" in metadata else metadata["uid"]  # backward compat
         return f"{id[:4]}<span style='opacity:0.3'>{id[4:]}"
 
     def time_init(self):
