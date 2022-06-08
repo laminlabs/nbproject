@@ -3,7 +3,7 @@ from pathlib import Path
 
 import orjson
 
-from ._header import nbproject_uid
+from ._header import nbproject_id
 from ._utils import public_fields
 
 
@@ -36,12 +36,12 @@ class NBRecord:
             self.__dict__[attr_name] = value
 
     @property
-    def uid(self):
-        uid = self.check_attr("_uid")
-        if uid is None:
-            uid = nbproject_uid()
-            self._uid = uid
-        return uid
+    def id(self):
+        id = self.check_attr("_id")
+        if id is None:
+            id = nbproject_id()
+            self._id = id
+        return id
 
     @property
     def time_init(self):
@@ -79,14 +79,14 @@ class YAMLRecord:
         # load fields from the notebooks' metadata
         nb_record_fields = public_fields(nb_record)
 
-        self._uid = nb_record_fields.pop("uid")
+        self._id = nb_record_fields.pop("id")
 
         for key, value in nb_record_fields.items():
             setattr(self, key, value)
 
         # take field from yaml, takes precedence over nb_record
-        if self._uid in self._yaml_proj:
-            for key, value in self._yaml_proj[self._uid].items():
+        if self._id in self._yaml_proj:
+            for key, value in self._yaml_proj[self._id].items():
                 if key not in self._take_keys:
                     setattr(self, key, value)
 
@@ -105,10 +105,10 @@ class YAMLRecord:
     def put_yaml(self):
         yaml_project = self._yaml_proj
 
-        if self._uid not in yaml_project:
-            yaml_project[self._uid] = {}
+        if self._id not in yaml_project:
+            yaml_project[self._id] = {}
 
-        yaml_record = yaml_project[self._uid]
+        yaml_record = yaml_project[self._id]
         fields = public_fields(self)
         for key in self._take_keys:
             yaml_record[key] = fields.pop(key)
