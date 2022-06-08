@@ -24,7 +24,7 @@ The API consists of a single class `Header`.
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments!
 """
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 
 from ._header import Header  # noqa
 from ._meta import _load_meta  # noqa
