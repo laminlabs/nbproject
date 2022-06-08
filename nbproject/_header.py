@@ -32,23 +32,23 @@ def display_html(html: str):
     display(HTML(html))
 
 
-def nbproject_uid():  # rename to nbproject_uid also in metadata slot?
+def nbproject_id():  # rename to nbproject_id also in metadata slot?
     """An 8-byte ID encoded as a 12-character base62 string."""
     # https://github.com/laminlabs/notes/blob/main/2022-04-04-human-friendly-ids.ipynb
     base62 = string.digits + string.ascii_letters.swapcase()
-    uid = "".join(secrets.choice(base62) for i in range(12))
-    return uid
+    id = "".join(secrets.choice(base62) for i in range(12))
+    return id
 
 
 # schema within the metadata section
 class JSONSchema(BaseModel):
-    nbproject_uid: str  # a full 32 digit uuid4.hex string
+    nbproject_id: str  # a full 32 digit uid4.hex string
     nbproject_time_init: datetime
 
 
 # user visible name & type configuration
 class UserSchema(BaseModel):
-    id: Union[str, int] = nbproject_uid  # type: ignore
+    id: Union[str, int] = nbproject_id  # type: ignore
     time_init: Union[date, datetime]  # type: ignore
     time_run: Union[date, datetime]  # not part of the ipynb metadata section
 
@@ -67,8 +67,8 @@ class Display:
 
     def id(self):
         """Shorten ID display."""
-        uid = self.metadata["nbproject"]["uid"]
-        return f"{uid[:4]}<span style='opacity:0.3'>{uid[4:]}"
+        id = self.metadata["nbproject"]["id"]
+        return f"{id[:4]}<span style='opacity:0.3'>{id[4:]}"
 
     def time_init(self):
         """Shorten ID display."""
@@ -147,7 +147,7 @@ class Header:
                 nb = orjson.loads(f.read())
             # write metadata from the backend
             nb["metadata"]["nbproject"] = {}
-            nb["metadata"]["nbproject"]["uid"] = nbproject_uid()
+            nb["metadata"]["nbproject"]["id"] = nbproject_id()
             nb["metadata"]["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
@@ -175,7 +175,7 @@ class Header:
             time_run = display_.time_run(datetime.now(timezone.utc))
 
             table = []
-            table.append(["uid", display_.id()])
+            table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", time_run])
 
@@ -189,7 +189,7 @@ class Header:
             import nbproject
 
             nbproject.meta = Meta(
-                uid=nb["metadata"]["nbproject"]["uid"],
+                id=nb["metadata"]["nbproject"]["id"],
                 time_init=nb["metadata"]["nbproject"]["time_init"],
                 time_run=time_run,
             )
