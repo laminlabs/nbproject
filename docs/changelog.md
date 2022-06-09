@@ -2,6 +2,7 @@
 
 ## Latest changes
 
+- :adhesive_bandage: Fix title formatting. [PR79](https://github.com/laminlabs/nbproject/pull/79) by [@falexwolf](https://github.com/falexwolf).
 - Nothing yet.
 
 ## 0.0.8
