@@ -2,6 +2,7 @@
 
 ## Latest changes
 
+- :building_construction: Always infer & display dependencies. [PR80](https://github.com/laminlabs/nbproject/pull/80) by [@falexwolf](https://github.com/falexwolf).
 - :adhesive_bandage: Fix title formatting. [PR79](https://github.com/laminlabs/nbproject/pull/79) by [@falexwolf](https://github.com/falexwolf).
 - Nothing yet.
 
