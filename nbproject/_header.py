@@ -92,12 +92,19 @@ class Display:
     def dependency(self, deps: Mapping = None):
         if deps is None and "dependency" in self.metadata["nbproject"]:
             deps = self.metadata["nbproject"]["dependency"]
-        if deps is not None:
-            deps_list = [
-                pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()
-            ]
-            deps_display = None if deps_list == [] else " ".join(deps_list)
-        return deps_display
+
+        if deps is None:
+            return None
+
+        deps_list = []
+        for pkg, ver in deps.items():
+            if ver != "":
+                deps_list.append(pkg + f"=={ver}")
+            else:
+                deps_list.append(pkg)
+
+        deps = None if deps == [] else deps
+        return deps
 
 
 class Header:
