@@ -1,17 +1,10 @@
 # Changelog
 
-## Latest changes
-
-- :green_heart:Remove server initialization from test_notebooks. [PR83](https://github.com/laminlabs/nbproject/pull/83) by [@Koncopd](https://github.com/Koncopd).
-- Nothing yet.
-
-## 0.0.9: Always infer & display dependencies
-
-- :building_construction: Always infer & display dependencies. [PR80](https://github.com/laminlabs/nbproject/pull/80) by [@falexwolf](https://github.com/falexwolf).
-- :adhesive_bandage: Fix title formatting. [PR79](https://github.com/laminlabs/nbproject/pull/79) by [@falexwolf](https://github.com/falexwolf).
-
-## 0.0.8: Expose title in API
-
-- :fire: Remove versioneer. [PR78](https://github.com/laminlabs/nbproject/pull/78) by [@falexwolf](https://github.com/falexwolf).
-- :sparkles: Expose title in `nbproject.meta` & refactor to loading it dynamically. [PR77](https://github.com/laminlabs/nbproject/pull/77) by [@falexwolf](https://github.com/falexwolf).
-- :recycle: Rename uid to id. [PR75](https://github.com/laminlabs/nbproject/pull/75) by [@falexwolf](https://github.com/falexwolf).
+<!-- prettier-ignore -->
+Name | PR | User | Date | Patch
+--- | --- | --- | --- | ---
+:green_heart: Remove server initialization from tests | [83](https://github.com/laminlabs/nbproject/pull/83) | [Koncopd](https://github.com/Koncopd) | 2022-06-09 |
+:building_construction: Always infer & display dependencies | [80](https://github.com/laminlabs/nbproject/pull/80) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.9
+:adhesive_bandage: Fix `meta.title` formatting | [79](https://github.com/laminlabs/nbproject/pull/79) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 |
+:sparkles: Expose title in `nbproject.meta` & refactor to loading it dynamically | [77](https://github.com/laminlabs/nbproject/pull/77) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.8
+:recycle: Rename `meta.uid` to `meta.id`. [75](https://github.com/laminlabs/nbproject/pull/75) | [falexwolf](https://github.com/falexwolf) | 2022-06-08
