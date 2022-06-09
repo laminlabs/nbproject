@@ -29,7 +29,8 @@ dev = [
 test = [
     "pytest>=6.0",
     "pandas",
-    "notebook"
+    "nbformat",
+    "nbclient"
 ]
 
 [project.scripts]
