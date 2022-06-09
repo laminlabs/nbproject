@@ -1,5 +1,5 @@
 from collections import namedtuple
-from typing import Union
+from typing import Mapping, Union
 
 import orjson
 
@@ -9,7 +9,7 @@ Meta = namedtuple("Meta", ["id", "time_init", "title"])
 _filepath = ""
 
 
-def get_title(nb) -> Union[str, None]:
+def get_title(nb: Mapping) -> Union[str, None]:
     title_error = (
         "Warning: No title! Please update & save your notebook so that it has a"
         " markdown cell with the title: # My title"
@@ -22,7 +22,7 @@ def get_title(nb) -> Union[str, None]:
         if not title.startswith("# "):
             print(title_error)
         else:
-            title = title.lstrip("# ")
+            title = title.lstrip("#").strip(" .")
     return title
 
 
@@ -36,5 +36,5 @@ def _load_meta():
     return Meta(
         id=nb["metadata"]["nbproject"]["id"],
         time_init=nb["metadata"]["nbproject"]["time_init"],
-        title=get_title(),
+        title=get_title(nb),
     )
