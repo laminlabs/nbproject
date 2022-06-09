@@ -62,6 +62,11 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         else:
             reorder_notebooks.insert(0, nb)
 
+    reorder_notebooks[0], reorder_notebooks[1] = (
+        reorder_notebooks[1],
+        reorder_notebooks[0],
+    )
+
     for nb in reorder_notebooks:
         nb_name = str(nb.relative_to(nb_folder))
         logger.debug(f"\n\n{nb_name}")
