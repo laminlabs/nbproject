@@ -54,7 +54,7 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     notebooks = nb_folder.glob("**/*.ipynb")
 
-    print(f"will now run {notebooks}")
+    print(f"will now run {list(notebooks)}")
 
     #  if the last notebook in a subfolder, pytest hangs forever...
     reorder_notebooks = []
