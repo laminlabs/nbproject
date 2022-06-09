@@ -1,3 +1,4 @@
+import os
 from itertools import chain
 from pathlib import PurePath
 from urllib import request
@@ -49,6 +50,13 @@ def running_servers():
 
 
 def notebook_path(return_env=False):
+
+    if "NBPRJ_TEST_NBPATH" in os.environ:
+        nb_path = os.environ["NBPRJ_TEST_NBPATH"]
+        if return_env:
+            return nb_path, "test"
+        else:
+            return nb_path
 
     servers_nbapp, servers_juserv = running_servers()
 
