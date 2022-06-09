@@ -5,11 +5,11 @@ Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
 💚 Remove server initialization from tests | [83](https://github.com/laminlabs/nbproject/pull/83) | [Koncopd](https://github.com/Koncopd) | 2022-06-09 |
 🏗️ Always infer & display dependencies | [80](https://github.com/laminlabs/nbproject/pull/80) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.9
-:adhesive_bandage: Fix `meta.title` formatting | [79](https://github.com/laminlabs/nbproject/pull/79) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 |
+🩹 Fix `meta.title` formatting | [79](https://github.com/laminlabs/nbproject/pull/79) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 |
 ✨ Expose title in `nbproject.meta` & refactor to loading it dynamically | [77](https://github.com/laminlabs/nbproject/pull/77) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.8
 ♻️ Rename `meta.uid` to `meta.id` | [75](https://github.com/laminlabs/nbproject/pull/75) | [falexwolf](https://github.com/falexwolf) | 2022-06-08
 ✨ Infer dependencies on header import | [65](https://github.com/laminlabs/nbproject/pull/65) | [Koncopd](https://github.com/Koncopd) | 2022-06-07 |
-:building_construction: Access metadata through API | [59](https://github.com/laminlabs/nbproject/pull/59) | [falexwolf](https://github.com/falexwolf) | 2022-06-06 |
+🏗️ Access metadata through API | [59](https://github.com/laminlabs/nbproject/pull/59) | [falexwolf](https://github.com/falexwolf) | 2022-06-06 |
 ✨ Upon interactive init, auto-restart & run | [57](https://github.com/laminlabs/nbproject/pull/57) | [falexwolf](https://github.com/falexwolf) | 2022-06-04 |
 ♻️ Replace nbformat with orjson everywhere | [50](https://github.com/laminlabs/nbproject/pull/50) | [Koncopd](https://github.com/Koncopd) | 2022-05-31 |
 ⚡ Improve runtime for `nbproject.header` | [47](https://github.com/laminlabs/nbproject/pull/47) | [Koncopd](https://github.com/Koncopd) | 2022-05-23 |
