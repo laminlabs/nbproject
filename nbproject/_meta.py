@@ -28,8 +28,8 @@ def get_title(nb: Mapping) -> Union[str, None]:
     return title
 
 
-def get_dependency(nb: dict) -> str:
-    return Display(nb).dependency()
+def get_dependency(nb_meta: dict) -> str:
+    return Display(nb_meta).dependency()
 
 
 def _load_meta():
