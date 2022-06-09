@@ -1,9 +1,12 @@
 from collections import namedtuple
-from typing import Mapping, Union
+from typing import Any, Dict, List, Mapping, Union
 
 import orjson
 
-Meta = namedtuple("Meta", ["id", "time_init", "title"])
+from ._dependency import notebook_deps
+from ._header import Display
+
+Meta = namedtuple("Meta", ["id", "time_init", "title", "dependency"])
 
 
 _filepath = ""
@@ -26,6 +29,11 @@ def get_title(nb: Mapping) -> Union[str, None]:
     return title
 
 
+def get_dependency(nb: Union[Dict[Any, Any], List[Any]]) -> str:
+    deps = notebook_deps(nb, pin_versions=True)
+    return Display().dependency(deps)
+
+
 def _load_meta():
     if _filepath == "":
         return Meta(id=None, time_init=None, title=None)
@@ -37,4 +45,5 @@ def _load_meta():
         id=nb["metadata"]["nbproject"]["id"],
         time_init=nb["metadata"]["nbproject"]["time_init"],
         title=get_title(nb),
+        dependency=get_dependency(nb),
     )
