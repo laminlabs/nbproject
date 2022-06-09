@@ -45,6 +45,7 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
     n_servers = len(servers)
 
     if n_servers > 1:
+        print(servers)
         raise Exception("More than 1 server is running.")
     elif n_servers == 0:
         raise Exception("No servers running.")
@@ -52,6 +53,8 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
         server = servers[0]
 
     notebooks = nb_folder.glob("**/*.ipynb")
+
+    print(f"will now run {notebooks}")
 
     #  if the last notebook in a subfolder, pytest hangs forever...
     reorder_notebooks = []
