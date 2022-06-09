@@ -29,7 +29,7 @@ def test_notebooks():
     sleep(5)
 
     try:
-        execute_notebooks(nb_folder, write=False)
+        execute_notebooks(nb_folder, write=True)
     except Exception as e:
         kill_process(p)
         raise e
