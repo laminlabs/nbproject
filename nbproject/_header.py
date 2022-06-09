@@ -2,9 +2,8 @@ import secrets
 import string
 from datetime import date, datetime, timezone
 from enum import Enum
-from textwrap import wrap
 from time import sleep
-from typing import Union
+from typing import Mapping, Union
 
 import orjson
 from pydantic import BaseModel
@@ -60,7 +59,7 @@ class DisplayConf(BaseModel):
 
 # displays fields within the ipynb metadata section and on-the-fly computed
 class Display:
-    def __init__(self, nb_metadata):
+    def __init__(self, nb_metadata=None):
         self.metadata = nb_metadata
         self.conf = DisplayConf()
 
@@ -90,13 +89,15 @@ class Display:
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
 
-    def dependency(self):
-        deps = None
-        if "dependency" in self.metadata["nbproject"]:
+    def dependency(self, deps: Mapping = None):
+        if deps is None and "dependency" in self.metadata["nbproject"]:
             deps = self.metadata["nbproject"]["dependency"]
-            deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
-            deps = None if deps == [] else deps
-        return deps
+        if deps is not None:
+            deps_list = [
+                pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()
+            ]
+            deps_display = None if deps_list == [] else " ".join(deps_list)
+        return deps_display
 
 
 class Header:
@@ -123,9 +124,9 @@ class Header:
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        if "nbproject" not in nb["metadata"]:
-            from ._dependency import notebook_deps
+        from ._dependency import notebook_deps
 
+        if "nbproject" not in nb["metadata"]:
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
@@ -178,10 +179,10 @@ class Header:
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", time_run])
-
-            deps = display_.dependency()
-            if deps is not None:
-                table.append(["dependency", "<br>".join(wrap(", ".join(deps)))])
+            deps = notebook_deps(nb, pin_versions=True)
+            deps_display = display_.dependency(deps)
+            if deps_display is not None:
+                table.append(["dependency", deps_display])
 
             display_html(table_html(table))
 
