@@ -2,6 +2,7 @@
 
 ## Latest changes
 
+- :green_heart:Remove server initialization from test_notebooks. [PR83](https://github.com/laminlabs/nbproject/pull/83) by [@Koncopd](https://github.com/Koncopd).
 - Nothing yet.
 
 ## 0.0.9: Always infer & display dependencies
