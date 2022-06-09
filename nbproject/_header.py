@@ -103,8 +103,10 @@ class Display:
             else:
                 deps_list.append(pkg)
 
-        deps = None if deps == [] else deps
-        return deps
+        if deps_list == []:
+            return None
+        else:
+            return deps_list
 
 
 class Header:
