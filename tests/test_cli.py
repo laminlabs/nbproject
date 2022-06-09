@@ -8,9 +8,9 @@ from nbproject._logger import logger
 from nbproject._schemas import NBRecord, public_fields
 
 
-def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
-    if ignore_cleanup is None:
-        ignore_cleanup = []
+def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
+    if cleanup is None:
+        cleanup = []
 
     notebooks = nb_folder.glob("**/*.ipynb")
 
@@ -28,7 +28,7 @@ def check_notebooks(nb_folder: Path, ignore_cleanup: Optional[Sequence] = None):
             if field not in nbproj_metadata:
                 raise Exception(f"No field {field} in the nbproject metadata.")
 
-        if nb.name not in ignore_cleanup:
+        if nb.name in cleanup:
             del nb_content["metadata"]["nbproject"]
             with open(nb, "wb") as f:
                 f.write(orjson.dumps(nb_content))
@@ -57,5 +57,5 @@ def test_cli():
 
     check_notebooks(
         nb_folder,
-        ignore_cleanup=["example-after-init.ipynb", "2022-05-13-my-task-x.ipynb"],
+        cleanup=["example-at-init.ipynb"],
     )

@@ -9,6 +9,8 @@ from nbproject._logger import logger
 
 def execute_notebooks(nb_folder: Path, write: bool = True):
 
+    env = dict(os.environ)
+
     notebooks = nb_folder.glob("**/*.ipynb")
 
     for nb in notebooks:
@@ -19,9 +21,9 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
         client = NotebookClient(nb_content)
 
-        os.environ["NBPRJ_TEST_NBPATH"] = str(nb)
+        env["NBPRJ_TEST_NBPATH"] = str(nb)
 
-        client.execute(env=os.environ)
+        client.execute(env=env)
 
         if write:
             nbf.write(nb_content, nb)

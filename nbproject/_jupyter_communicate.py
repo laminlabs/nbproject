@@ -102,31 +102,3 @@ def notebook_path(return_env=False):
                             return nb_path
 
     return None
-
-
-def start_session(server: dict, nb_name: str, kernel_name: str = "python3"):
-    from jupyter_client import BlockingKernelClient, find_connection_file
-
-    data = dict(type="notebook", path=nb_name, kernel={"name": kernel_name})
-    data = orjson.dumps(data)
-
-    url = prepare_url(server)
-    req = request.Request(url, data=data)  # type: ignore
-    with request.urlopen(req) as resp:
-        session = orjson.loads(resp.read())
-
-    kernel_id = session["kernel"]["id"]
-
-    cf = find_connection_file(kernel_id)
-    km = BlockingKernelClient()
-    km.load_connection_file(connection_file=cf)
-
-    return session, km
-
-
-def close_session(server: dict, session: dict):
-    session_id = session["id"]
-
-    url = prepare_url(server, "/" + session_id)
-    req = request.Request(url, method="DELETE")
-    request.urlopen(req)
