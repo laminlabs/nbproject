@@ -179,8 +179,8 @@ class Header:
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", time_run])
-            deps = notebook_deps(nb, pin_versions=True)
-            deps_display = display_.dependency(deps)
+
+            deps_display = display_.dependency()
             if deps_display is not None:
                 table.append(["dependency", deps_display])
 

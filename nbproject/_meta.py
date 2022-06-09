@@ -1,9 +1,8 @@
 from collections import namedtuple
-from typing import Any, Dict, List, Mapping, Union
+from typing import Mapping, Union
 
 import orjson
 
-from ._dependency import notebook_deps
 from ._header import Display
 
 Meta = namedtuple("Meta", ["id", "time_init", "title", "dependency"])
@@ -29,9 +28,8 @@ def get_title(nb: Mapping) -> Union[str, None]:
     return title
 
 
-def get_dependency(nb: Union[Dict[Any, Any], List[Any]]) -> str:
-    deps = notebook_deps(nb, pin_versions=True)
-    return Display().dependency(deps)
+def get_dependency(nb: dict) -> str:
+    return Display(nb).dependency()
 
 
 def _load_meta():
@@ -45,5 +43,5 @@ def _load_meta():
         id=nb["metadata"]["nbproject"]["id"],
         time_init=nb["metadata"]["nbproject"]["time_init"],
         title=get_title(nb),
-        dependency=get_dependency(nb),
+        dependency=get_dependency(nb["metadata"]),
     )
