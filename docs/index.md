@@ -34,13 +34,13 @@ header.check_for_integrity()
 header.show()
 ```
 
-For more functionality, check out the [guides](guides)! A comprehensive API documentation is to come.
+For more functionality, check out the [guides](guides/index)! A comprehensive API documentation is to come.
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
-guides
+guides/index
 api
-changelog.md
+changelog
 ```
