@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:green_heart: Fix broken docs link | [86](https://github.com/laminlabs/nbproject/pull/86) | [falexwolf](https://github.com/falexwolf) | 2022-06-10 |
 🩹 Always display dependencies pinned in the metadata | [84](https://github.com/laminlabs/nbproject/pull/84) | [Koncopd](https://github.com/Koncopd) | 2022-06-10 |
 💚 Remove server initialization from tests | [83](https://github.com/laminlabs/nbproject/pull/83) | [Koncopd](https://github.com/Koncopd) | 2022-06-09 |
 🏗️ Always infer & display dependencies | [80](https://github.com/laminlabs/nbproject/pull/80) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.9
