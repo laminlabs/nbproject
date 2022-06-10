@@ -40,7 +40,7 @@ For more functionality, check out the [guides](guides)! A comprehensive API docu
 :maxdepth: 1
 :hidden:
 
-guides
+guides/index
 api
-changelog.md
+changelog
 ```
