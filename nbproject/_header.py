@@ -92,12 +92,21 @@ class Display:
     def dependency(self, deps: Mapping = None):
         if deps is None and "dependency" in self.metadata["nbproject"]:
             deps = self.metadata["nbproject"]["dependency"]
-        if deps is not None:
-            deps_list = [
-                pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()
-            ]
-            deps_display = None if deps_list == [] else " ".join(deps_list)
-        return deps_display
+
+        if deps is None:
+            return None
+
+        deps_list = []
+        for pkg, ver in deps.items():
+            if ver != "":
+                deps_list.append(pkg + f"=={ver}")
+            else:
+                deps_list.append(pkg)
+
+        if deps_list == []:
+            return None
+        else:
+            return deps_list
 
 
 class Header:
@@ -179,10 +188,10 @@ class Header:
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", time_run])
-            deps = notebook_deps(nb, pin_versions=True)
-            deps_display = display_.dependency(deps)
+
+            deps_display = display_.dependency()
             if deps_display is not None:
-                table.append(["dependency", deps_display])
+                table.append(["dependency", ", ".join(deps_display)])
 
             display_html(table_html(table))
 
