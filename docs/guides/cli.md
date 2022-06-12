@@ -49,14 +49,15 @@ $ nbproject sync . --deps
 synchronized my_notebook_collection/nbproject_metadata.yml
 ```
 
-This command parses the notebooks, infers all dependencies within the notebooks and writes them to metadata of the notebooks.
+This command parses the notebooks, infers all dependencies within the notebooks with their versions
+from the current python environment and writes them to metadata of the notebooks.
 
 ## Pin dependencies
 
-If you also want to pin the dependencies versions from the current python environment, use the option `--versions` (or `-v`):
+If you want to avaoid pining the dependencies versions, use the option `--no-versions` (or `-nv`):
 
 ```
-$ nbproject sync . --deps --versions
+$ nbproject sync . --deps --no-versions
 synchronized my_notebook_collection/nbproject_metadata.yml
 ```
 
