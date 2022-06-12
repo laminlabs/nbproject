@@ -19,13 +19,16 @@ def main():
         "--deps",
         "-d",
         action="store_true",
-        help="parse dependencies from the notebooks",
+        help=(
+            "parse dependencies from the notebooks and pin versions from the current"
+            " environment"
+        ),
     )
     parser_sync.add_argument(
-        "--versions",
-        "-v",
+        "--no-versions",
+        "-nv",
         action="store_true",
-        help="also pin the versions from the current environment",
+        help="do not pin the versions from the current environment",
     )
 
     parser_reqs = subparsers.add_parser("reqs", help="create requirments.txt")
@@ -38,7 +41,7 @@ def main():
     if args.cmd == "init":
         init()
     elif args.cmd == "sync":
-        sync(args.files_dirs, args.deps, args.versions)
+        sync(args.files_dirs, args.deps, not args.no_versions)
     elif args.cmd == "reqs":
         reqs(args.files_dirs)
 
