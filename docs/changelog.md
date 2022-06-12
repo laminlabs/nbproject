@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:memo: Corrections to CLI docs and changelog | [88](https://github.com/laminlabs/nbproject/pull/88) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
 :technologist: Make CLI --deps command infer dependencies with versions by default | [87](https://github.com/laminlabs/nbproject/pull/87) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
 :green_heart: Fix broken docs link | [86](https://github.com/laminlabs/nbproject/pull/86) | [falexwolf](https://github.com/falexwolf) | 2022-06-10 |
 🩹 Always display dependencies pinned in the metadata | [84](https://github.com/laminlabs/nbproject/pull/84) | [Koncopd](https://github.com/Koncopd) | 2022-06-10 |
