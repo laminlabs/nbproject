@@ -191,7 +191,7 @@ class Header:
 
             deps_display = display_.dependency()
             if deps_display is not None:
-                table.append(["dependency", ", ".join(deps_display)])
+                table.append(["dependency", " ".join(deps_display)])
 
             display_html(table_html(table))
 
