@@ -133,9 +133,9 @@ class Header:
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        from ._dependency import notebook_deps
-
         if "nbproject" not in nb["metadata"]:
+            from ._dependency import notebook_deps
+
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
@@ -151,10 +151,10 @@ class Header:
                 # it's important that the frontend is done saving
                 # before the backend loads
                 sleep(1)
+                # now load the notebook with the backend
+                with open(filepath, "rb") as f:
+                    nb = orjson.loads(f.read())
 
-            # now load the notebook with the backend
-            with open(filepath, "rb") as f:
-                nb = orjson.loads(f.read())
             # write metadata from the backend
             nb["metadata"]["nbproject"] = {}
             nb["metadata"]["nbproject"]["id"] = nbproject_id()
