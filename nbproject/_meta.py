@@ -3,12 +3,9 @@ from typing import Mapping, Union
 
 import orjson
 
-from ._header import Display
+from ._header import Display, _filepath
 
 Meta = namedtuple("Meta", ["id", "time_init", "title", "dependency"])
-
-
-_filepath = ""
 
 
 def get_title(nb: Mapping) -> Union[str, None]:
@@ -34,7 +31,7 @@ def get_dependency(nb_meta: dict) -> str:
 
 def _load_meta():
     if _filepath == "":
-        return Meta(id=None, time_init=None, title=None)
+        return Meta(id=None, time_init=None, title=None, dependency=None)
     else:
         with open(_filepath, "rb") as f:
             nb = orjson.loads(f.read())

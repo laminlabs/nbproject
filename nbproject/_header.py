@@ -11,6 +11,8 @@ from pydantic import BaseModel
 from ._jupyter_communicate import notebook_path
 from ._logger import logger
 
+_filepath = ""
+
 
 def table_html(rows: list):
     html = "<table><tbody>"
@@ -196,6 +198,5 @@ class Header:
             display_html(table_html(table))
 
         # make filepath available through API
-        import nbproject._meta
-
-        nbproject._meta._filepath = filepath
+        global _filepath
+        _filepath = filepath
