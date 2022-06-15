@@ -11,7 +11,7 @@ from pydantic import BaseModel
 from ._jupyter_communicate import notebook_path
 from ._logger import logger
 
-_filepath = ""
+_filepath = None
 
 
 def table_html(rows: list):

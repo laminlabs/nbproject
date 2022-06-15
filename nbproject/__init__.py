@@ -35,11 +35,16 @@ _module = sys.modules[__name__]
 
 
 class LazyMeta(ModuleType):
+    _meta = None
+
     @property
     def meta(self):
-        from ._meta import _load_meta
+        if self._meta is None:
+            from ._meta import _load_meta
 
-        return _load_meta()
+            self._meta = _load_meta()
+
+        return _meta
 
 
 _module.__class__ = LazyMeta

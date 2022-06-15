@@ -30,7 +30,7 @@ def get_dependency(nb_meta: dict) -> str:
 
 
 def _load_meta():
-    if _filepath == "":
+    if _filepath is None:
         return Meta(id=None, time_init=None, title=None, dependency=None)
     else:
         with open(_filepath, "rb") as f:
