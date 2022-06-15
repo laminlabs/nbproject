@@ -26,12 +26,25 @@ initializing `Header` with default arguments!
 """
 __version__ = "0.0.9"
 
+import sys
+from types import ModuleType
+
 from ._header import Header  # noqa
-from ._meta import _load_meta  # noqa
+
+_module = sys.modules[__name__]
 
 
-# see this for context: https://stackoverflow.com/questions/880530
-def __getattr__(name):  # user experience is that of a property on a class!
-    if name == "meta":  # there is a bit of weird behavior because it seems
-        return _load_meta()  # to be called twice only upon from nbproject import meta
-    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+class LazyMeta(ModuleType):
+    _meta = None
+
+    @property
+    def meta(self):
+        if self._meta is None:
+            from ._meta import _load_meta
+
+            self._meta = _load_meta()
+
+        return _meta
+
+
+_module.__class__ = LazyMeta
