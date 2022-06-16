@@ -1,9 +1,9 @@
 from collections import namedtuple
 from typing import Union
 
+from ._dev._notebook import Notebook, read_notebook
 from ._header import Display, _filepath
 from ._logger import logger
-from ._notebook import Notebook, read_notebook
 
 Meta = namedtuple("Meta", ["id", "time_init", "title", "dependency"])
 

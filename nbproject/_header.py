@@ -7,9 +7,9 @@ from typing import Mapping, Union
 
 from pydantic import BaseModel
 
-from ._jupyter_communicate import notebook_path
+from ._dev._jupyter_communicate import notebook_path
+from ._dev._notebook import read_notebook, write_notebook
 from ._logger import logger
-from ._notebook import read_notebook, write_notebook
 
 _filepath = None
 
@@ -135,7 +135,7 @@ class Header:
             )
         # initialize
         if "nbproject" not in nb.metadata:
-            from ._dependency import infer_dependencies
+            from ._dev._dependency import infer_dependencies
 
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"

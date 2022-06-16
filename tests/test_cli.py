@@ -3,8 +3,8 @@ from subprocess import PIPE, Popen
 from typing import Optional, Sequence
 
 from nbproject._logger import logger
-from nbproject._notebook import read_notebook, write_notebook
 from nbproject._schemas import NBRecord, public_fields
+from nbproject.dev import read_notebook, write_notebook
 
 
 def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):

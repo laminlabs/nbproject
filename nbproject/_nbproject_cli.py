@@ -5,9 +5,9 @@ from typing import Iterator, Union
 
 import yaml  # type: ignore
 
-from ._dependency import infer_dependencies, resolve_versions
+from ._dev._dependency import infer_dependencies, resolve_versions
+from ._dev._notebook import read_notebook
 from ._logger import logger
-from ._notebook import read_notebook
 from ._schemas import NBRecord, YAMLRecord
 
 
