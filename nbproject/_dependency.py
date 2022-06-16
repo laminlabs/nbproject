@@ -7,6 +7,8 @@ from typing import List, Literal, Union  # noqa
 import packaging
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
+from ._notebook import Notebook
+
 major, minor = sys.version_info[0], sys.version_info[1]
 if major == 3 and minor > 9:
     std_libs = sys.stdlib_module_names  # type: ignore
@@ -34,10 +36,10 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def notebook_deps(content: Union[dict, list], pin_versions: bool = False):
+def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = False):
     # parse the notebook content and infer all dependencies
-    if isinstance(content, dict) and "cells" in content:
-        cells = content["cells"]
+    if isinstance(content, Notebook):
+        cells = content.cells
     elif isinstance(content, list) and len(content) > 0 and "cell_type" in content[0]:
         cells = content
     else:

@@ -5,11 +5,11 @@ from enum import Enum
 from time import sleep
 from typing import Mapping, Union
 
-import orjson
 from pydantic import BaseModel
 
 from ._jupyter_communicate import notebook_path
 from ._logger import logger
+from ._notebook import read_notebook, write_notebook
 
 _filepath = None
 
@@ -128,15 +128,14 @@ class Header:
             env = filepath_env[1]
 
         try:
-            with open(filepath, "rb") as f:
-                nb = orjson.loads(f.read())
+            nb = read_notebook(filepath)
         except FileNotFoundError:
             raise RuntimeError(
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        if "nbproject" not in nb["metadata"]:
-            from ._dependency import notebook_deps
+        if "nbproject" not in nb.metadata:
+            from ._dependency import infer_dependencies
 
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
@@ -154,22 +153,20 @@ class Header:
                 # before the backend loads
                 sleep(1)
                 # now load the notebook with the backend
-                with open(filepath, "rb") as f:
-                    nb = orjson.loads(f.read())
+                nb = read_notebook(filepath)
 
             # write metadata from the backend
-            nb["metadata"]["nbproject"] = {}
-            nb["metadata"]["nbproject"]["id"] = nbproject_id()
-            nb["metadata"]["nbproject"]["time_init"] = datetime.now(
+            nb.metadata["nbproject"] = {}
+            nb.metadata["nbproject"]["id"] = nbproject_id()
+            nb.metadata["nbproject"]["time_init"] = datetime.now(
                 timezone.utc
             ).isoformat()
-            nb["metadata"]["nbproject"]["dependency"] = notebook_deps(
+            nb.metadata["nbproject"]["dependency"] = infer_dependencies(
                 nb, pin_versions=True
             )
 
             # write the file from the backend
-            with open(filepath, "wb") as f:
-                f.write(orjson.dumps(nb))
+            write_notebook(nb, filepath)
 
             if env == "lab":
                 # reload the notebook with metadata by the frontend
@@ -182,7 +179,7 @@ class Header:
         else:
 
             # display metadata
-            display_ = Display(nb["metadata"])
+            display_ = Display(nb.metadata)
 
             time_run = display_.time_run(datetime.now(timezone.utc))
 
