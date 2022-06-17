@@ -5,6 +5,7 @@ from typing import Mapping, Optional, Union
 from pydantic import BaseModel
 
 from ._dev._dependency import infer_dependencies
+from ._dev._integrity import check_integrity
 from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import Notebook, read_notebook
 from ._header import _filepath, _time_run
@@ -48,6 +49,12 @@ class Live:
     def dependency(self):
         nb = read_notebook(self._nb_path)
         return infer_dependencies(nb, pin_versions=True)
+
+    @property
+    def integrity(self):
+        logger.info("Save the notebook before running the integrity check.")
+        nb = read_notebook(self._nb_path)
+        return check_integrity(nb, ignore_code=".live.integrity")
 
     @property
     def time_run(self):
