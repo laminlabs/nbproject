@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping, Optional, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Extra
 
 from ._dev._dependency import infer_dependencies
 from ._dev._integrity import check_integrity
@@ -31,9 +31,12 @@ def get_title(nb: Notebook) -> Union[str, None]:
 
 
 class Store(BaseModel):
-    id: Optional[str] = None
-    time_init: Optional[str] = None
+    id: str
+    time_init: str
     dependency: Optional[Mapping[str, str]] = None
+
+    class Config:  # noqa
+        extra = Extra.allow
 
 
 class Live:
@@ -82,7 +85,7 @@ class Meta:
         if "nbproject" in nb_meta:
             self._store = Store(**nb_meta["nbproject"])
         else:
-            self._store = Store()
+            self._store = None
 
     @property
     def live(self):
