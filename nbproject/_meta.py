@@ -66,6 +66,9 @@ class Live:
     def time_passed(self):
         return (datetime.now(timezone.utc) - self._time_run).total_seconds()
 
+    def __repr__(self):
+        return " ".join([key for key in dir(self) if key[0] != "_"])
+
 
 class Meta:
     def __init__(self, filepath, time_run):
@@ -87,6 +90,13 @@ class Meta:
     @property
     def store(self):
         return self._store
+
+    def __repr__(self):
+        return (
+            "Metadata object with .live and .store metadata fields:\n"
+            f"  .store: {self.store}\n"
+            f"  .live: {self.live}"
+        )
 
 
 meta = Meta(_filepath, _time_run)
