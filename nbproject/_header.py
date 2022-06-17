@@ -1,12 +1,11 @@
-import secrets
-import string
 from datetime import date, datetime, timezone
 from enum import Enum
 from time import sleep
-from typing import Mapping, Union
+from typing import Mapping
 
 from pydantic import BaseModel
 
+from ._dev._initialize import initialize_metadata
 from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import read_notebook, write_notebook
 from ._logger import logger
@@ -31,27 +30,6 @@ def display_html(html: str):
     from IPython.display import HTML, display
 
     display(HTML(html))
-
-
-def nbproject_id():  # rename to nbproject_id also in metadata slot?
-    """An 8-byte ID encoded as a 12-character base62 string."""
-    # https://github.com/laminlabs/notes/blob/main/2022-04-04-human-friendly-ids.ipynb
-    base62 = string.digits + string.ascii_letters.swapcase()
-    id = "".join(secrets.choice(base62) for i in range(12))
-    return id
-
-
-# schema within the metadata section
-class JSONSchema(BaseModel):
-    nbproject_id: str  # a full 32 digit uid4.hex string
-    nbproject_time_init: datetime
-
-
-# user visible name & type configuration
-class UserSchema(BaseModel):
-    id: Union[str, int] = nbproject_id  # type: ignore
-    time_init: Union[date, datetime]  # type: ignore
-    time_run: Union[date, datetime]  # not part of the ipynb metadata section
 
 
 # display configuration
@@ -136,8 +114,6 @@ class Header:
             )
         # initialize
         if "nbproject" not in nb.metadata:
-            from ._dev._dependency import infer_dependencies
-
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
@@ -157,14 +133,7 @@ class Header:
                 nb = read_notebook(filepath)
 
             # write metadata from the backend
-            nb.metadata["nbproject"] = {}
-            nb.metadata["nbproject"]["id"] = nbproject_id()
-            nb.metadata["nbproject"]["time_init"] = datetime.now(
-                timezone.utc
-            ).isoformat()
-            nb.metadata["nbproject"]["dependency"] = infer_dependencies(
-                nb, pin_versions=True
-            )
+            nb.metadata["nbproject"] = initialize_metadata(nb).dict()
 
             # write the file from the backend
             write_notebook(nb, filepath)

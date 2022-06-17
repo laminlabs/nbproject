@@ -1,9 +1,8 @@
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Mapping, Optional, Union
+from typing import Optional, Union
 
-from pydantic import BaseModel, Extra
-
+from ._dev._initialize import Metadata
 from ._dev._integrity import check_integrity
 from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import Notebook, read_notebook
@@ -27,15 +26,6 @@ def get_title(nb: Notebook) -> Union[str, None]:
         else:
             title = title.lstrip("#").strip(" .")
     return title
-
-
-class Store(BaseModel):
-    id: str
-    time_init: str
-    dependency: Optional[Mapping[str, str]] = None
-
-    class Config:  # noqa
-        extra = Extra.allow
 
 
 class Live:
@@ -84,7 +74,7 @@ class Meta:
 
         nb_meta = read_notebook(filepath).metadata
         if "nbproject" in nb_meta:
-            self._store = Store(**nb_meta["nbproject"])
+            self._store = Metadata(**nb_meta["nbproject"])
         else:
             self._store = None
 

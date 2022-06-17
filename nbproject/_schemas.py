@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 from pathlib import Path
 
+from ._dev._initialize import nbproject_id
 from ._dev._notebook import Notebook, write_notebook
-from ._header import nbproject_id
 from ._utils import public_fields
 
 
