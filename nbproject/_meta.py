@@ -1,11 +1,14 @@
-from collections import namedtuple
-from typing import Union
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Mapping, Optional, Union
 
+from pydantic import BaseModel
+
+from ._dev._dependency import infer_dependencies
+from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import Notebook, read_notebook
-from ._header import Display, _filepath
+from ._header import _filepath, _time_run
 from ._logger import logger
-
-Meta = namedtuple("Meta", ["id", "time_init", "title", "dependency"])
 
 
 def get_title(nb: Notebook) -> Union[str, None]:
@@ -25,19 +28,58 @@ def get_title(nb: Notebook) -> Union[str, None]:
     return title
 
 
-def get_dependency(nb_meta: dict) -> str:
-    return Display(nb_meta).dependency()
+class Store(BaseModel):
+    id: Optional[str] = None
+    time_init: Optional[str] = None
+    dependency: Optional[Mapping[str, str]] = None
 
 
-def _load_meta():
-    if _filepath is None:
-        return Meta(id=None, time_init=None, title=None, dependency=None)
-    else:
-        nb = read_notebook(_filepath)
+class Live:
+    def __init__(self, nb_path: Union[str, Path], time_run: Optional[datetime] = None):
+        self._nb_path = nb_path
+        self._time_run = time_run
 
-    return Meta(
-        id=nb.metadata["nbproject"]["id"],
-        time_init=nb.metadata["nbproject"]["time_init"],
-        title=get_title(nb),
-        dependency=get_dependency(nb.metadata),
-    )
+    @property
+    def title(self):
+        nb = read_notebook(self._nb_path)
+        return get_title(nb)
+
+    @property
+    def dependency(self):
+        nb = read_notebook(self._nb_path)
+        return infer_dependencies(nb, pin_versions=True)
+
+    @property
+    def time_run(self):
+        if self._time_run is None:
+            self._time_run = datetime.now(timezone.utc)
+        return self._time_run.isoformat()
+
+    @property
+    def time_passed(self):
+        return (datetime.now(timezone.utc) - self._time_run).total_seconds()
+
+
+class Meta:
+    def __init__(self, filepath, time_run):
+        if filepath is None:
+            filepath = notebook_path()
+
+        self._live = Live(filepath, time_run)
+
+        nb_meta = read_notebook(filepath).metadata
+        if "nbproject" in nb_meta:
+            self._store = Store(**nb_meta["nbproject"])
+        else:
+            self._store = Store()
+
+    @property
+    def live(self):
+        return self._live
+
+    @property
+    def store(self):
+        return self._store
+
+
+meta = Meta(_filepath, _time_run)

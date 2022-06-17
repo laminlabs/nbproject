@@ -28,18 +28,14 @@ __version__ = "0.0.9"
 
 from ._header import Header  # noqa
 
-_meta = None
 
 # see this for context: https://stackoverflow.com/questions/880530
 def __getattr__(name):  # user experience is that of a property on a class!
-    global _meta
 
     if name == "meta":
-        if _meta is None:
-            from ._meta import _load_meta
+        from ._meta import meta
 
-            _meta = _load_meta()
-        return _meta
+        return meta
 
     if name == "dev":
         from ._dev import init_dev

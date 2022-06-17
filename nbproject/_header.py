@@ -12,6 +12,7 @@ from ._dev._notebook import read_notebook, write_notebook
 from ._logger import logger
 
 _filepath = None
+_time_run = None
 
 
 def table_html(rows: list):
@@ -181,12 +182,16 @@ class Header:
             # display metadata
             display_ = Display(nb.metadata)
 
-            time_run = display_.time_run(datetime.now(timezone.utc))
+            time_run = datetime.now(timezone.utc)
+
+            # make time_run available through API
+            global _time_run
+            _time_run = time_run
 
             table = []
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
-            table.append(["time_run", time_run])
+            table.append(["time_run", display_.time_run(time_run)])
 
             deps_display = display_.dependency()
             if deps_display is not None:
