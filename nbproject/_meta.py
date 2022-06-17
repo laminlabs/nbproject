@@ -24,6 +24,7 @@ def get_title(nb: Notebook) -> Union[str, None]:
         title = nb.cells[0]["source"][0]
         if not title.startswith("# "):
             logger.info(title_error)
+            title = None
         else:
             title = title.lstrip("#").strip(" .")
     return title
