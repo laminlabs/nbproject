@@ -4,7 +4,6 @@ from typing import Mapping, Optional, Union
 
 from pydantic import BaseModel, Extra
 
-from ._dev._dependency import infer_dependencies
 from ._dev._integrity import check_integrity
 from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import Notebook, read_notebook
@@ -51,6 +50,8 @@ class Live:
 
     @property
     def dependency(self):
+        from ._dev._dependency import infer_dependencies
+
         nb = read_notebook(self._nb_path)
         return infer_dependencies(nb, pin_versions=True)
 
