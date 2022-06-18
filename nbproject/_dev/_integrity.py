@@ -4,6 +4,18 @@ from ._notebook import Notebook
 
 
 def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> bool:
+    """Get current integrity status of the passed notebook.
+
+    For `True` the code cells of the notebook must be executed consequently, i.e.
+    execution count for each code cell should increase by one.
+
+    Params
+    ------
+    nb
+        The notebook to check.
+    ignore_code
+        Ignore all cells which contain this code.
+    """
     cells = nb.cells
 
     integrity = True

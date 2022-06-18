@@ -36,8 +36,21 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = False):
-    # parse the notebook content and infer all dependencies
+def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True):
+    """Parse the notebook content and infer all dependencies.
+
+    Params
+    ------
+    nb
+        A notebook or a list of cells to parse for dependencies.
+    pin_versions
+        If `True`, fixes versions from the current environment.
+
+    Example:
+        >>> dependencies = nbproject.dev.infer_dependencies(nb)
+    >>> dependencies
+                {"scanpy": "1.8.7", "pandas": "1.4.3"}
+    """
     if isinstance(content, Notebook):
         cells = content.cells
     elif isinstance(content, list) and len(content) > 0 and "cell_type" in content[0]:
@@ -88,6 +101,7 @@ def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = Fals
 def resolve_versions(
     notebooks_pkgs: List[dict], strategy: Literal["older", "newer"] = "newer"
 ):
+    """Harmonize packages' versions from lists of packages."""
     parse_version = packaging.version.parse
 
     if strategy == "newer":

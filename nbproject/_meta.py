@@ -11,10 +11,12 @@ from ._logger import logger
 
 
 def get_title(nb: Notebook) -> Union[str, None]:
+    """Get title of the notebook."""
     title_error = (
         "Warning: No title! Please update & save your notebook so that it has a"
         " markdown cell with the title: # My title"
     )
+
     if nb.cells[0]["cell_type"] != "markdown":
         logger.info(title_error)
         title = None
@@ -29,17 +31,28 @@ def get_title(nb: Notebook) -> Union[str, None]:
 
 
 class Live:
+    """Access live properties of the notebook.
+
+    All attributes represent either the execution information or properties inferred
+    on access from the notebook's content.
+    """
+
     def __init__(self, nb_path: Union[str, Path], time_run: Optional[datetime] = None):
         self._nb_path = nb_path
         self._time_run = time_run
 
     @property
     def title(self):
+        """Get the title of the notebook.
+
+        The first cell should contain markdown text formatted as a title.
+        """
         nb = read_notebook(self._nb_path)
         return get_title(nb)
 
     @property
     def dependency(self):
+        """Infer dependencies for the notebook on access."""
         from ._dev._dependency import infer_dependencies
 
         nb = read_notebook(self._nb_path)
@@ -47,18 +60,29 @@ class Live:
 
     @property
     def integrity(self):
+        """Check integrity of the notebook.
+
+        The notebook should be saved before accessing this attribute.
+        """
         logger.info("Save the notebook before running the integrity check.")
         nb = read_notebook(self._nb_path)
         return check_integrity(nb, ignore_code=".live.integrity")
 
     @property
     def time_run(self):
+        """The time when the current session started.
+
+        To get the proper time run, you need to use `from nbproject import header`
+        at the beginning of the notebook. Otherwise, the time run is set to the time
+        of the first access to this attribute.
+        """
         if self._time_run is None:
             self._time_run = datetime.now(timezone.utc)
         return self._time_run.isoformat()
 
     @property
     def time_passed(self):
+        """Number of seconds elapsed from `time_run`."""
         return (datetime.now(timezone.utc) - self._time_run).total_seconds()
 
     def __repr__(self):
@@ -66,6 +90,13 @@ class Live:
 
 
 class Meta:
+    """nbproject metadata class.
+
+    A metadata object has the `store` attribute to access the nbproject metadata
+    of the notebook and `live` for the execution info and properties
+    derived from the notebook's content.
+    """
+
     def __init__(self, filepath, time_run):
         if filepath is None:
             filepath = notebook_path()
@@ -80,10 +111,12 @@ class Meta:
 
     @property
     def live(self):
+        """Contains execution info and properties of the notebook content."""
         return self._live
 
     @property
     def store(self):
+        """Nbproject metadata of the notebook."""
         return self._store
 
     def __repr__(self):
