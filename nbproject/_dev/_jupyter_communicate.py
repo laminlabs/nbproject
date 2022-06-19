@@ -55,11 +55,9 @@ def running_servers():
 def notebook_path(return_env=False):
     """Return the path to the current notebook.
 
-    Params
-    ------
-    return_env
-        If `True`, return the environment of execution:
-        `'lab'` for jupyter lab and `'notebook'` for jupyter notebook.
+    Args:
+        return_env: If `True`, return the environment of execution:
+            `'lab'` for jupyter lab and `'notebook'` for jupyter notebook.
     """
     if "NBPRJ_TEST_NBPATH" in os.environ:
         nb_path = os.environ["NBPRJ_TEST_NBPATH"]

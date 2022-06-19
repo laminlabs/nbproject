@@ -28,10 +28,8 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
 def initialize_metadata(nb: Optional[Notebook]) -> Metadata:
     """Initialize nbproject metadata.
 
-    Params
-    ------
-    nb
-        If a notebook is provided, also infer dependencies from the notebook.
+    Args:
+        nb: If a notebook is provided, also infer dependencies from the notebook.
     """
     meta = Metadata(id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat())
 

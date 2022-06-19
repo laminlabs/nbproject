@@ -39,17 +39,14 @@ def cell_imports(cell_source: str):
 def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True):
     """Parse the notebook content and infer all dependencies.
 
-    Params
-    ------
-    nb
-        A notebook or a list of cells to parse for dependencies.
-    pin_versions
-        If `True`, fixes versions from the current environment.
+    Args:
+        nb: A notebook or a list of cells to parse for dependencies.
+        pin_versions: If `True`, fixes versions from the current environment.
 
-    Example:
+    Examples:
         >>> dependencies = nbproject.dev.infer_dependencies(nb)
-    >>> dependencies
-                {"scanpy": "1.8.7", "pandas": "1.4.3"}
+        >>> dependencies
+        {"scanpy": "1.8.7", "pandas": "1.4.3"}
     """
     if isinstance(content, Notebook):
         cells = content.cells

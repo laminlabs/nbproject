@@ -9,12 +9,9 @@ def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> bool:
     For `True` the code cells of the notebook must be executed consequently, i.e.
     execution count for each code cell should increase by one.
 
-    Params
-    ------
-    nb
-        The notebook to check.
-    ignore_code
-        Ignore all cells which contain this code.
+    Args:
+        nb: The notebook to check.
+        ignore_code: Ignore all cells which contain this code.
     """
     cells = nb.cells
 

@@ -15,10 +15,8 @@ class Notebook(BaseModel):
 def read_notebook(filepath: Union[str, Path]) -> Notebook:
     """Read a notebook from disk.
 
-    Params
-    ------
-    filepath
-        A path to the notebook to read.
+    Args:
+        filepath: A path to the notebook to read.
     """
     with open(filepath, "rb") as f:
         nb = orjson.loads(f.read())
@@ -29,12 +27,9 @@ def read_notebook(filepath: Union[str, Path]) -> Notebook:
 def write_notebook(nb: Notebook, filepath: Union[str, Path]):
     """Write the notebook to disk.
 
-    Params
-    ------
-    nb
-        Notebook to write.
-    filepath
-        Path where to write the notebook.
+    Args:
+        nb: Notebook to write.
+        filepath: Path where to write the notebook.
     """
     with open(filepath, "wb") as f:
         f.write(orjson.dumps(nb.dict()))
