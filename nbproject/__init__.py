@@ -10,6 +10,11 @@ Access `nbproject` metadata through the API::
    meta.store
    meta.live.dependency
    meta.live.title
+   meta.live.integrity
+   meta.live.time_run
+   meta.live.time_passed
+
+You can access developer functions via `nbproject.dev`.
 
 Display with configurable arguments & update::
 

@@ -9,7 +9,7 @@ from ._notebook import Notebook
 
 
 class MetaStore(BaseModel):
-    """The metadata stored in the notebook file ."""
+    """The metadata stored in the notebook file."""
 
     id: str
     time_init: str
