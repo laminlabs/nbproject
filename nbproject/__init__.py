@@ -21,7 +21,10 @@ The API consists of.
 .. autosummary::
    :toctree: .
 
-   meta
+   Header
+   Meta
+   Metadata
+   Live
 
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments!
@@ -29,16 +32,19 @@ initializing `Header` with default arguments!
 __version__ = "0.0.9"
 
 from ._header import Header  # noqa
-from ._meta import meta
+from ._meta import Live, Meta, Metadata
 
-
+_meta = None
 # see this for context: https://stackoverflow.com/questions/880530
 def __getattr__(name):  # user experience is that of a property on a class!
+    global _meta
 
     if name == "meta":
-        from ._meta import meta
+        if _meta is None:
+            from ._meta import _load_meta
 
-        return meta
+            _meta = _load_meta()
+        return _meta
 
     if name == "dev":
         from ._dev import init_dev

@@ -127,4 +127,6 @@ class Meta:
         )
 
 
-meta = Meta(_filepath, _time_run)
+def _load_meta():
+    meta = Meta(_filepath, _time_run)
+    return meta
