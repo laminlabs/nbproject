@@ -22,6 +22,7 @@ The API consists of.
    :toctree: .
 
    Header
+   nbproject.meta
 
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments!
