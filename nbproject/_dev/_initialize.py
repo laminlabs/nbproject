@@ -8,7 +8,9 @@ from pydantic import BaseModel, Extra
 from ._notebook import Notebook
 
 
-class Metadata(BaseModel):
+class MetaStore(BaseModel):
+    """The metadata stored in the notebook file ."""
+
     id: str
     time_init: str
     dependency: Optional[Mapping[str, str]] = None
@@ -25,13 +27,15 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
     return id
 
 
-def initialize_metadata(nb: Optional[Notebook]) -> Metadata:
+def initialize_metadata(nb: Optional[Notebook]) -> MetaStore:
     """Initialize nbproject metadata.
 
     Args:
         nb: If a notebook is provided, also infer dependencies from the notebook.
     """
-    meta = Metadata(id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat())
+    meta = MetaStore(
+        id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat()
+    )
 
     if nb is not None:
         from ._dependency import infer_dependencies

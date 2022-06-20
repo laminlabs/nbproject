@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
 
-from ._dev._initialize import Metadata
+from ._dev._initialize import MetaStore
 from ._dev._integrity import check_integrity
 from ._dev._jupyter_communicate import notebook_path
 from ._dev._notebook import Notebook, read_notebook
@@ -30,7 +30,7 @@ def get_title(nb: Notebook) -> Union[str, None]:
     return title
 
 
-class Live:
+class MetaLive:
     """Access live properties of the notebook.
 
     All attributes represent either the execution information or properties inferred
@@ -90,7 +90,7 @@ class Live:
 
 
 class Meta:
-    """nbproject metadata class.
+    """Nbproject metadata class.
 
     A metadata object has the `store` attribute to access the nbproject metadata
     of the notebook and `live` for the execution info and properties
@@ -101,21 +101,21 @@ class Meta:
         if filepath is None:
             filepath = notebook_path()
 
-        self._live = Live(filepath, time_run)
+        self._live = MetaLive(filepath, time_run)
 
         nb_meta = read_notebook(filepath).metadata
         if "nbproject" in nb_meta:
-            self._store = Metadata(**nb_meta["nbproject"])
+            self._store = MetaStore(**nb_meta["nbproject"])
         else:
             self._store = None
 
     @property
-    def live(self):
+    def live(self) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
         return self._live
 
     @property
-    def store(self):
+    def store(self) -> Union[MetaStore, None]:
         """Nbproject metadata of the notebook."""
         return self._store
 

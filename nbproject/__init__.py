@@ -29,7 +29,14 @@ For more detailed control, we offer an instance of `Meta` via `nbproject.meta`.
    :members:
    :undoc-members:
 
-The `nbproject.meta.live` stores live metadata of the current notebook and is an instance of
+The `nbproject.meta.live` gives access to live metadata of the current notebook
+and is an instance of
+
+.. autoclass:: Live
+   :members:
+   :undoc-members:
+
+The `nbproject.meta.store` stores live metadata of the current notebook and is an instance of
 
 .. autoclass:: Live
    :members:
@@ -38,7 +45,7 @@ The `nbproject.meta.live` stores live metadata of the current notebook and is an
 __version__ = "0.0.9"
 
 from ._header import Header  # noqa
-from ._meta import Live, Meta
+from ._meta import Meta, MetaLive, MetaStore
 
 _meta = None
 # see this for context: https://stackoverflow.com/questions/880530
