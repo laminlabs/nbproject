@@ -23,7 +23,6 @@ The API consists of.
 
    Header
    Meta
-   Metadata
    Live
 
 The one-liner `from nbproject import header` offers a mere shortcut for
@@ -32,7 +31,7 @@ initializing `Header` with default arguments!
 __version__ = "0.0.9"
 
 from ._header import Header  # noqa
-from ._meta import Live, Meta, Metadata
+from ._meta import Live, Meta
 
 _meta = None
 # see this for context: https://stackoverflow.com/questions/880530
