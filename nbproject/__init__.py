@@ -32,13 +32,14 @@ For more detailed control, we offer an instance of `Meta` via `nbproject.meta`.
 The `nbproject.meta.live` gives access to live metadata of the current notebook
 and is an instance of
 
-.. autoclass:: Live
+.. autoclass:: MetaLive
    :members:
    :undoc-members:
 
-The `nbproject.meta.store` stores live metadata of the current notebook and is an instance of
+The `nbproject.meta.store` stores nbproject metadata from the current notebook file
+and is an instance of
 
-.. autoclass:: Live
+.. autoclass:: MetaStore
    :members:
    :undoc-members:
 """
