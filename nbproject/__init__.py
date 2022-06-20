@@ -7,14 +7,16 @@ Display `nbproject` metadata with default arguments::
 Access `nbproject` metadata through the API::
 
    from nbproject import meta
+   meta.store
+   meta.live.dependency
+   meta.live.title
 
 Display with configurable arguments & update::
 
    from nbproject import Header
    header = Header(*args, **kwargs)
-   header.infer_dependencies()
 
-The API consists of a single class `Header`.
+The API consists of.
 
 .. autosummary::
    :toctree: .
