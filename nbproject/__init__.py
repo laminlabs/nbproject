@@ -16,17 +16,24 @@ Display with configurable arguments & update::
    from nbproject import Header
    header = Header(*args, **kwargs)
 
-The API consists of.
-
-.. autosummary::
-   :toctree: .
-
-   Header
-   Meta
-   Live
-
 The one-liner `from nbproject import header` offers a mere shortcut for
-initializing `Header` with default arguments!
+initializing `Header` with default arguments.
+
+.. autoclass:: Header
+   :members:
+   :undoc-members:
+
+For more detailed control, we offer an instance of `Meta` via `nbproject.meta`.
+
+.. autoclass:: Meta
+   :members:
+   :undoc-members:
+
+The `nbproject.meta.live` stores live metadata of the current notebook and is an instance of
+
+.. autoclass:: Live
+   :members:
+   :undoc-members:
 """
 __version__ = "0.0.9"
 
