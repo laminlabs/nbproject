@@ -5,12 +5,12 @@ from typing import Optional, Union
 from ._dev._initialize import MetaStore
 from ._dev._integrity import check_integrity
 from ._dev._jupyter_communicate import notebook_path
-from ._dev._notebook import Notebook, read_notebook
+from ._dev._notebook import Notebook, read_notebook, write_notebook
 from ._header import _filepath, _time_run
 from ._logger import logger
 
 
-def get_title(nb: Notebook) -> Union[str, None]:
+def get_title(nb: Notebook) -> Optional[str]:
     """Get title of the notebook."""
     title_error = (
         "Warning: No title! Please update & save your notebook so that it has a"
@@ -101,6 +101,8 @@ class Meta:
         if filepath is None:
             filepath = notebook_path()
 
+        self._filepath = filepath
+
         self._live = MetaLive(filepath, time_run)
 
         nb_meta = read_notebook(filepath).metadata
@@ -115,9 +117,21 @@ class Meta:
         return self._live
 
     @property
-    def store(self) -> Union[MetaStore, None]:
+    def store(self) -> Optional[MetaStore]:
         """Nbproject metadata of the notebook."""
         return self._store
+
+    def write(self):
+        """Write nbproject metadata in `.store` to the current file.
+
+        You can edit the nbproject metadata of the current notebook
+        by changing `.store` fields and then using this function
+        to write the changes to the file. Save the notebook before writing.
+        """
+        logger.info("Restart the notebook.")
+        nb = read_notebook(self._filepath)
+        nb.metadata["nbproject"] = self.store.dict()
+        write_notebook(nb, self._filepath)
 
     def __repr__(self):
         return (
