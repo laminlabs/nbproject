@@ -9,6 +9,7 @@ DIR_KEYS = ("notebook_dir", "root_dir")
 
 
 def prepare_url(server: dict, query_str: str = ""):
+    """Prepare url to query the jupyter server."""
     token = server["token"]
     if token:
         query_str = f"{query_str}?token={token}"
@@ -18,6 +19,7 @@ def prepare_url(server: dict, query_str: str = ""):
 
 
 def query_server(server: dict):
+    """Query the jupyter server for sessions' info."""
     # based on https://github.com/msm1089/ipynbname
     try:
         url = prepare_url(server)
@@ -32,6 +34,7 @@ def query_server(server: dict):
 
 
 def running_servers():
+    """Return the info about running jupyter servers."""
     try:
         from notebook.notebookapp import list_running_servers
 
@@ -50,7 +53,12 @@ def running_servers():
 
 
 def notebook_path(return_env=False):
+    """Return the path to the current notebook.
 
+    Args:
+        return_env: If `True`, return the environment of execution:
+            `'lab'` for jupyter lab and `'notebook'` for jupyter notebook.
+    """
     if "NBPRJ_TEST_NBPATH" in os.environ:
         nb_path = os.environ["NBPRJ_TEST_NBPATH"]
         if return_env:

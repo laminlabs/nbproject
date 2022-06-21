@@ -3,10 +3,10 @@ from itertools import chain
 from pathlib import Path
 from typing import Iterator, Union
 
-import orjson
 import yaml  # type: ignore
 
-from ._dependency import notebook_deps, resolve_versions
+from ._dev._dependency import infer_dependencies, resolve_versions
+from ._dev._notebook import read_notebook
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
 
@@ -55,8 +55,7 @@ def init():
 
         nb_path = nb_path.relative_to(cwd)
 
-        with open(nb_path, "rb") as f:
-            nb = orjson.loads(f.read())
+        nb = read_notebook(nb_path)
 
         nbproj_record = NBRecord(nb)
         nbproj_record.write(nb_path, overwrite=False)
@@ -92,14 +91,13 @@ def sync(
             continue
         n_nbs += 1
 
-        with open(nb_path, "rb") as f:
-            nb = orjson.loads(f.read())
+        nb = read_notebook(nb_path)
 
         nbproj_record = NBRecord(nb)
         yaml_record = YAMLRecord(nb_path, nbproj_record, yaml_proj)
 
         if parse_deps:
-            deps = notebook_deps(nb, pin_versions=pin_versions)
+            deps = infer_dependencies(nb, pin_versions=pin_versions)
             yaml_record.dependency = deps  # type: ignore
 
         yaml_record.put_metadata()
@@ -121,16 +119,15 @@ def reqs(files_dirs: Iterator[str]):
         if ".ipynb_checkpoints/" in nb_path.as_posix():
             continue
 
-        with open(nb_path, "rb") as f:
-            nb = orjson.loads(f.read())
+        nb = read_notebook(nb_path)
 
-        if "nbproject" not in nb["metadata"]:
+        if "nbproject" not in nb.metadata:
             logger.info(
                 "Uninitialized or unsynced notebooks, use > nbproject init or >"
                 " nbproject sync ."
             )
             return
-        nbproj_metadata = nb["metadata"]["nbproject"]
+        nbproj_metadata = nb.metadata["nbproject"]
         if "dependency" in nbproj_metadata:
             gather_deps.append(nbproj_metadata["dependency"])
 

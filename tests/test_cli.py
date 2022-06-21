@@ -2,10 +2,9 @@ from pathlib import Path
 from subprocess import PIPE, Popen
 from typing import Optional, Sequence
 
-import orjson
-
 from nbproject._logger import logger
 from nbproject._schemas import NBRecord, public_fields
+from nbproject.dev import read_notebook, write_notebook
 
 
 def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
@@ -15,23 +14,21 @@ def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
     notebooks = nb_folder.glob("**/*.ipynb")
 
     for nb in notebooks:
-        with open(nb, "rb") as f:
-            nb_content = orjson.loads(f.read())
+        nb_content = read_notebook(nb)
 
         nb_record = NBRecord(nb_content)
         if not nb_record._filled:
             raise Exception(f"No nbproject metadata present in {nb}.")
 
         fields = public_fields(nb_record)
-        nbproj_metadata = nb_content["metadata"]["nbproject"]
+        nbproj_metadata = nb_content.metadata["nbproject"]
         for field in fields:
             if field not in nbproj_metadata:
                 raise Exception(f"No field {field} in the nbproject metadata.")
 
         if nb.name in cleanup:
-            del nb_content["metadata"]["nbproject"]
-            with open(nb, "wb") as f:
-                f.write(orjson.dumps(nb_content))
+            del nb_content.metadata["nbproject"]
+            write_notebook(nb_content, nb)
 
 
 def test_cli():

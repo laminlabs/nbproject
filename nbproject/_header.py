@@ -1,17 +1,17 @@
-import secrets
-import string
 from datetime import date, datetime, timezone
 from enum import Enum
 from time import sleep
-from typing import Mapping, Union
+from typing import Mapping
 
-import orjson
 from pydantic import BaseModel
 
-from ._jupyter_communicate import notebook_path
+from ._dev._initialize import initialize_metadata
+from ._dev._jupyter_communicate import notebook_path
+from ._dev._notebook import read_notebook, write_notebook
 from ._logger import logger
 
 _filepath = None
+_time_run = None
 
 
 def table_html(rows: list):
@@ -30,27 +30,6 @@ def display_html(html: str):
     from IPython.display import HTML, display
 
     display(HTML(html))
-
-
-def nbproject_id():  # rename to nbproject_id also in metadata slot?
-    """An 8-byte ID encoded as a 12-character base62 string."""
-    # https://github.com/laminlabs/notes/blob/main/2022-04-04-human-friendly-ids.ipynb
-    base62 = string.digits + string.ascii_letters.swapcase()
-    id = "".join(secrets.choice(base62) for i in range(12))
-    return id
-
-
-# schema within the metadata section
-class JSONSchema(BaseModel):
-    nbproject_id: str  # a full 32 digit uid4.hex string
-    nbproject_time_init: datetime
-
-
-# user visible name & type configuration
-class UserSchema(BaseModel):
-    id: Union[str, int] = nbproject_id  # type: ignore
-    time_init: Union[date, datetime]  # type: ignore
-    time_run: Union[date, datetime]  # not part of the ipynb metadata section
 
 
 # display configuration
@@ -112,6 +91,13 @@ class Display:
 
 
 class Header:
+    """Metadata header class.
+
+    An object of this class displays nbproject metadata fields
+    for the current notebook on initialization. If the notebook doesn't have
+    nbproject metadata, it will be initialized and written to the notebook.
+    """
+
     def __init__(self, filepath=None, env=None):
         filepath_env = filepath, env
 
@@ -128,16 +114,13 @@ class Header:
             env = filepath_env[1]
 
         try:
-            with open(filepath, "rb") as f:
-                nb = orjson.loads(f.read())
+            nb = read_notebook(filepath)
         except FileNotFoundError:
             raise RuntimeError(
                 "try passing the filepath manually to nbproject.Header()"
             )
         # initialize
-        if "nbproject" not in nb["metadata"]:
-            from ._dependency import notebook_deps
-
+        if "nbproject" not in nb.metadata:
             logger.info(
                 "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
                 " restart when asked!"
@@ -154,22 +137,13 @@ class Header:
                 # before the backend loads
                 sleep(1)
                 # now load the notebook with the backend
-                with open(filepath, "rb") as f:
-                    nb = orjson.loads(f.read())
+                nb = read_notebook(filepath)
 
             # write metadata from the backend
-            nb["metadata"]["nbproject"] = {}
-            nb["metadata"]["nbproject"]["id"] = nbproject_id()
-            nb["metadata"]["nbproject"]["time_init"] = datetime.now(
-                timezone.utc
-            ).isoformat()
-            nb["metadata"]["nbproject"]["dependency"] = notebook_deps(
-                nb, pin_versions=True
-            )
+            nb.metadata["nbproject"] = initialize_metadata(nb).dict()
 
             # write the file from the backend
-            with open(filepath, "wb") as f:
-                f.write(orjson.dumps(nb))
+            write_notebook(nb, filepath)
 
             if env == "lab":
                 # reload the notebook with metadata by the frontend
@@ -182,14 +156,18 @@ class Header:
         else:
 
             # display metadata
-            display_ = Display(nb["metadata"])
+            display_ = Display(nb.metadata)
 
-            time_run = display_.time_run(datetime.now(timezone.utc))
+            time_run = datetime.now(timezone.utc)
+
+            # make time_run available through API
+            global _time_run
+            _time_run = time_run
 
             table = []
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
-            table.append(["time_run", time_run])
+            table.append(["time_run", display_.time_run(time_run)])
 
             deps_display = display_.dependency()
             if deps_display is not None:

@@ -27,11 +27,21 @@ If you want more configuration, call the class
 
 ```
 from nbproject import Header
-header = Header(*args, **kwargs, show=False)
-header.infer_dependencies()
-header.add_dependency("pytorch")
-header.check_for_integrity()
-header.show()
+header = Header(*args, **kwargs)
+```
+
+If you want to access the nbproject metadata
+
+```
+from nbproject import meta
+
+meta.store
+
+meta.live.dependency
+meta.live.title
+meta.live.integrity
+meta.live.time_run
+meta.live.time_passed
 ```
 
 For more functionality, check out the [guides](guides/index)! A comprehensive API documentation is to come.
