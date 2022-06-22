@@ -16,21 +16,20 @@ Install:
 pip install nbproject
 ```
 
-At the top of any notebook, call
+Get started:
 
 ```
 from nbproject import header
 ```
 
-This will both initialize `nbproject` and interactively display notebook metadata! Done.
-
-For more functionality, check out the [API reference](api) and the [guides](guides/index)!
+- This will initialize `nbproject`, display notebook metadata, and start tracking! Done.
+- For more control, check out the [API reference](api) and the [guides](guides/index)!
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
-guides/index
 api
+guides/index
 changelog
 ```
