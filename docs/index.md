@@ -3,10 +3,12 @@
 :end-line: 1
 ```
 
-- Make notebooks reproducible through dependency & integrity tracking.
+Features:
+
 - Keep track of notebooks through metadata like time stamps & unique IDs.
+- Make notebooks reproducible through dependency & integrity tracking.
 - Integrate notebooks into your team's project management & data platform.
-- Track data flow in and out of notebooks: Treat notebooks as analytics steps in a wider inference graph of collaborative R&D.
+- Track data flow in and out of notebooks through [LaminDB](https://lamin.ai/lamindb): Treat notebooks as analytics steps in a wider inference graph of collaborative R&D.
 
 Install:
 
