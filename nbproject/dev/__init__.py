@@ -1,4 +1,4 @@
-# flake8: noqa
+"""Developer functions."""
 from . import _test as test
 from ._dependency import infer_dependencies
 from ._initialize import initialize_metadata

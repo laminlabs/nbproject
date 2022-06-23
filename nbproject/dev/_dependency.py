@@ -9,15 +9,23 @@ from importlib_metadata import PackageNotFoundError, packages_distributions, ver
 
 from ._notebook import Notebook
 
-major, minor = sys.version_info[0], sys.version_info[1]
-if major == 3 and minor > 9:
-    std_libs = sys.stdlib_module_names  # type: ignore
-else:
-    from stdlib_list import stdlib_list
+std_libs = None
+pkgs_dists = None
 
-    std_libs = set(stdlib_list(f"{major}.{minor}"))
 
-pkgs_dists = packages_distributions()
+def _load_pkg_info():
+    global std_libs
+    global pkgs_dists
+
+    major, minor = sys.version_info[0], sys.version_info[1]
+    if major == 3 and minor > 9:
+        std_libs = sys.stdlib_module_names  # type: ignore
+    else:
+        from stdlib_list import stdlib_list
+
+        std_libs = set(stdlib_list(f"{major}.{minor}"))
+
+    pkgs_dists = packages_distributions()
 
 
 def cell_imports(cell_source: str):
@@ -55,6 +63,9 @@ def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True
     else:
         raise ValueError("Invalid content - neither notebook nor cells.")
 
+    if std_libs is None or pkgs_dists is None:
+        _load_pkg_info()
+
     pkgs = set()
     magics_re = None
 
@@ -74,10 +85,10 @@ def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True
                 cell_source = magics_re.sub(r"\1", cell_source)
 
             for imp in cell_imports(cell_source):
-                if imp in std_libs:
+                if imp in std_libs:  # type: ignore
                     continue
-                if imp in pkgs_dists:
-                    pkgs.update(pkgs_dists[imp])
+                if imp in pkgs_dists:  # type: ignore
+                    pkgs.update(pkgs_dists[imp])  # type: ignore
                 else:
                     pkgs.add(imp)
 

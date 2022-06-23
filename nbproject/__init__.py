@@ -50,6 +50,7 @@ and is an instance of
 """
 __version__ = "0.0.9"
 
+from . import dev
 from ._header import Header  # noqa
 from ._meta import Meta, MetaLive, MetaStore
 
@@ -64,10 +65,5 @@ def __getattr__(name):  # user experience is that of a property on a class!
 
             _meta = _load_meta()
         return _meta
-
-    if name == "dev":
-        from ._dev import init_dev
-
-        return init_dev
 
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

@@ -5,10 +5,10 @@ from typing import Mapping
 
 from pydantic import BaseModel
 
-from ._dev._initialize import initialize_metadata
-from ._dev._jupyter_communicate import notebook_path
-from ._dev._notebook import read_notebook, write_notebook
 from ._logger import logger
+from .dev._initialize import initialize_metadata
+from .dev._jupyter_communicate import notebook_path
+from .dev._notebook import read_notebook, write_notebook
 
 _filepath = None
 _time_run = None
