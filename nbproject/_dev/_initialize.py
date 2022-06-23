@@ -27,7 +27,7 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
     return id
 
 
-def initialize_metadata(nb: Optional[Notebook]) -> MetaStore:
+def initialize_metadata(nb: Optional[Notebook] = None) -> MetaStore:
     """Initialize nbproject metadata.
 
     Args:
