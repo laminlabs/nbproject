@@ -13,7 +13,7 @@ std_libs = None
 pkgs_dists = None
 
 
-def _load_pkg_info():
+def _load_pkgs_info():
     global std_libs
     global pkgs_dists
 
@@ -64,7 +64,7 @@ def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True
         raise ValueError("Invalid content - neither notebook nor cells.")
 
     if std_libs is None or pkgs_dists is None:
-        _load_pkg_info()
+        _load_pkgs_info()
 
     pkgs = set()
     magics_re = None
