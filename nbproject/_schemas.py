@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
 from pathlib import Path
 
-from ._dev._initialize import nbproject_id
-from ._dev._notebook import Notebook, write_notebook
 from ._utils import public_fields
+from .dev._initialize import nbproject_id
+from .dev._notebook import Notebook, write_notebook
 
 
 class NBRecord:

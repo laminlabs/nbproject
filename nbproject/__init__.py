@@ -16,6 +16,10 @@ Access `nbproject` metadata through the API::
 
 You can access developer functions via `nbproject.dev`.
 
+.. automodule:: nbproject.dev
+    :members:
+    :imported-members:
+
 Display with configurable arguments & update::
 
    from nbproject import Header
@@ -23,6 +27,8 @@ Display with configurable arguments & update::
 
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments.
+
+.. currentmodule:: nbproject
 
 .. autoclass:: Header
    :members:
@@ -50,6 +56,7 @@ and is an instance of
 """
 __version__ = "0.1a2"
 
+from . import dev
 from ._header import Header  # noqa
 from ._meta import Meta, MetaLive, MetaStore
 
@@ -64,10 +71,5 @@ def __getattr__(name):  # user experience is that of a property on a class!
 
             _meta = _load_meta()
         return _meta
-
-    if name == "dev":
-        from ._dev import init_dev
-
-        return init_dev
 
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

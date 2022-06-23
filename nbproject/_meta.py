@@ -2,12 +2,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
 
-from ._dev._initialize import MetaStore
-from ._dev._integrity import check_integrity
-from ._dev._jupyter_communicate import notebook_path
-from ._dev._notebook import Notebook, read_notebook, write_notebook
-from ._header import _filepath, _time_run
 from ._logger import logger
+from .dev._initialize import MetaStore
+from .dev._integrity import check_integrity
+from .dev._jupyter_communicate import notebook_path
+from .dev._notebook import Notebook, read_notebook, write_notebook
 
 
 def get_title(nb: Notebook) -> Optional[str]:
@@ -53,7 +52,7 @@ class MetaLive:
     @property
     def dependency(self):
         """Infer dependencies for the notebook on access."""
-        from ._dev._dependency import infer_dependencies
+        from .dev._dependency import infer_dependencies
 
         nb = read_notebook(self._nb_path)
         return infer_dependencies(nb, pin_versions=True)
@@ -142,5 +141,7 @@ class Meta:
 
 
 def _load_meta():
+    from ._header import _filepath, _time_run
+
     meta = Meta(_filepath, _time_run)
     return meta

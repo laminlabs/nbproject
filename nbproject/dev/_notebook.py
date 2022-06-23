@@ -6,6 +6,8 @@ from pydantic import BaseModel
 
 
 class Notebook(BaseModel):
+    """Jupyter notebook model."""
+
     metadata: dict
     nbformat: int
     nbformat_minor: int
