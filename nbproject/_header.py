@@ -108,8 +108,8 @@ class Header:
                     "can't infer the name of the current notebook, "
                     "you are probably not inside a jupyter notebook"
                 )
+            filepath = filepath_env[0]
 
-        filepath = filepath_env[0]
         if env is None:
             env = filepath_env[1]
 
