@@ -3,11 +3,9 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 |
-:adhesive_bandage: Small fixes for header and meta | [89](https://github.com/laminlabs/nbproject/pull/89) | [Koncopd](https://github.com/Koncopd) | 2022-06-15 |
-:memo: Corrections to CLI docs and changelog | [88](https://github.com/laminlabs/nbproject/pull/88) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
-:technologist: Make CLI --deps command infer dependencies with versions by default | [87](https://github.com/laminlabs/nbproject/pull/87) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
-:green_heart: Fix broken docs link | [86](https://github.com/laminlabs/nbproject/pull/86) | [falexwolf](https://github.com/falexwolf) | 2022-06-10 |
+🐛 Fix the case when a notebook filename is specified | [94](https://github.com/laminlabs/nbproject/pull/94) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a2
+♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 | 0.1a1
+🧑‍💻 Make CLI `--deps` infer versions by default | [87](https://github.com/laminlabs/nbproject/pull/87) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
 🩹 Always display dependencies pinned in the metadata | [84](https://github.com/laminlabs/nbproject/pull/84) | [Koncopd](https://github.com/Koncopd) | 2022-06-10 |
 💚 Remove server initialization from tests | [83](https://github.com/laminlabs/nbproject/pull/83) | [Koncopd](https://github.com/Koncopd) | 2022-06-09 |
 🏗️ Always infer & display dependencies | [80](https://github.com/laminlabs/nbproject/pull/80) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.9

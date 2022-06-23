@@ -54,7 +54,7 @@ and is an instance of
    :members:
    :undoc-members:
 """
-__version__ = "0.0.9"
+__version__ = "0.1a2"
 
 from . import dev
 from ._header import Header  # noqa
