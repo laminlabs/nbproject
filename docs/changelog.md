@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:bug: Fix the case when a notebook filename is specified | [94](https://github.com/laminlabs/nbproject/pull/94) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 |
 ♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 | 0.1a1
 🧑‍💻 Make CLI `--deps` infer versions by default | [87](https://github.com/laminlabs/nbproject/pull/87) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
 🩹 Always display dependencies pinned in the metadata | [84](https://github.com/laminlabs/nbproject/pull/84) | [Koncopd](https://github.com/Koncopd) | 2022-06-10 |
