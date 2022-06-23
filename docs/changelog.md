@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:recycle: Restructure dev submodule | [93](https://github.com/laminlabs/nbproject/pull/93) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 |
 🐛 Fix the case when a notebook filename is specified | [94](https://github.com/laminlabs/nbproject/pull/94) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a2
 ♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 | 0.1a1
 🧑‍💻 Make CLI `--deps` infer versions by default | [87](https://github.com/laminlabs/nbproject/pull/87) | [Koncopd](https://github.com/Koncopd) | 2022-06-12 |
