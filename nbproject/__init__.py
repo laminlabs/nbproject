@@ -16,6 +16,10 @@ Access `nbproject` metadata through the API::
 
 You can access developer functions via `nbproject.dev`.
 
+.. automodule:: nbproject.dev
+    :members:
+    :imported-members:
+
 Display with configurable arguments & update::
 
    from nbproject import Header
@@ -23,6 +27,8 @@ Display with configurable arguments & update::
 
 The one-liner `from nbproject import header` offers a mere shortcut for
 initializing `Header` with default arguments.
+
+.. currentmodule:: nbproject
 
 .. autoclass:: Header
    :members:
