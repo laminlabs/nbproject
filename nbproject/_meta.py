@@ -2,7 +2,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
 
-from ._header import _filepath, _time_run
 from ._logger import logger
 from .dev._initialize import MetaStore
 from .dev._integrity import check_integrity
@@ -142,5 +141,7 @@ class Meta:
 
 
 def _load_meta():
+    from ._header import _filepath, _time_run
+
     meta = Meta(_filepath, _time_run)
     return meta
