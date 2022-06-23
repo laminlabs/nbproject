@@ -1,6 +1,7 @@
 """Developer functions.
 
 .. autoclass:: Notebook
+   :noindex:
    :members:
    :undoc-members:
 
