@@ -18,6 +18,8 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     env = dict(os.environ)
 
+    os.chdir(nb_folder)
+
     notebooks = nb_folder.glob("**/*.ipynb")
 
     for nb in notebooks:
