@@ -48,7 +48,7 @@ and is an instance of
    :members:
    :undoc-members:
 """
-__version__ = "0.0.9"
+__version__ = "0.1a1"
 
 from ._header import Header  # noqa
 from ._meta import Meta, MetaLive, MetaStore
