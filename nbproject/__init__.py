@@ -36,7 +36,7 @@ For more fine-grained access, we offer a developer API:
    dev
 
 """
-__version__ = "0.1a3"
+__version__ = "0.1.0"
 
 from . import dev
 from ._header import Header  # noqa

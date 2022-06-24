@@ -10,6 +10,11 @@ Features:
 - Integrate notebooks into your team's project management & data platform.
 - Track data flow in and out of notebooks through [LaminDB](https://lamin.ai/lamindb): Treat notebooks as analytics steps in a wider inference graph of collaborative R&D.
 
+Supported editors:
+
+- Jupyter Lab
+- Jupyter notebook does not provide an intuitive interactive experience
+
 Install:
 
 ```
