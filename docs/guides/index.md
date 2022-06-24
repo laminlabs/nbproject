@@ -7,7 +7,7 @@ Interactive initialization and metadata display:
 
 {doc}`cli`.
 
-{doc}{example-project/index}.
+{doc}`example-project/index`.
 
 Edge cases, warnings, and errors:
 
