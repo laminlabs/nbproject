@@ -1,10 +1,10 @@
 """Developer functions.
 
-.. autoclass:: Notebook
-   :noindex:
-   :members:
-   :undoc-members:
+.. currentmodule:: nbproject
 
+.. automodule:: dev
+    :members:
+    :imported-members:
 """
 from . import _test as test
 from ._dependency import infer_dependencies
