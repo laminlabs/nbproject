@@ -1,58 +1,40 @@
 """nbproject: Manage Jupyter notebooks.
 
-Display `nbproject` metadata with default arguments::
+.. currentmodule:: nbproject
+
+Display metadata with default arguments and start tracking with class instance `header`::
 
    from nbproject import header
 
-Access `nbproject` metadata through the API::
+.. autosummary::
+   :toctree:
+
+   Header
+
+To access metadata use the class instance `meta`::
 
    from nbproject import meta
-   meta.store
-   meta.live.dependency
-   meta.live.title
-   meta.live.integrity
-   meta.live.time_run
-   meta.live.time_passed
 
-You can access developer functions via `nbproject.dev`.
+.. autosummary::
+   :toctree:
 
-.. automodule:: nbproject.dev
-    :members:
-    :imported-members:
+   Meta
 
-Display with configurable arguments & update::
+It offers access to `meta.store` and `meta.live`:
 
-   from nbproject import Header
-   header = Header(*args, **kwargs)
+.. autosummary::
+   :toctree:
 
-The one-liner `from nbproject import header` offers a mere shortcut for
-initializing `Header` with default arguments.
+   MetaStore
+   MetaLive
 
-.. currentmodule:: nbproject
+For more fine-grained access, we offer a developer API:
 
-.. autoclass:: Header
-   :members:
-   :undoc-members:
+.. autosummary::
+   :toctree: .
 
-For more detailed control, we offer an instance of `Meta` via `nbproject.meta`.
+   dev
 
-.. autoclass:: Meta
-   :members:
-   :undoc-members:
-
-The `nbproject.meta.live` gives access to live metadata of the current notebook
-and is an instance of
-
-.. autoclass:: MetaLive
-   :members:
-   :undoc-members:
-
-The `nbproject.meta.store` stores nbproject metadata from the current notebook file
-and is an instance of
-
-.. autoclass:: MetaStore
-   :members:
-   :undoc-members:
 """
 __version__ = "0.1a3"
 

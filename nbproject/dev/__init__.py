@@ -1,10 +1,19 @@
-"""Developer functions.
+"""Developer API.
 
+Features
+--------
+
+.. autofunction:: infer_dependencies
+.. autofunction:: check_integrity
+
+Backend
+-------
+
+.. autofunction:: initialize_metadata
+.. autofunction:: notebook_path
 .. autoclass:: Notebook
-   :noindex:
-   :members:
-   :undoc-members:
-
+.. autofunction:: read_notebook
+.. autofunction:: write_notebook
 """
 from . import _test as test
 from ._dependency import infer_dependencies
