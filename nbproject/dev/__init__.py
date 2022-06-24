@@ -1,4 +1,4 @@
-"""Developer functions.
+"""Developer API.
 
 Features
 --------
