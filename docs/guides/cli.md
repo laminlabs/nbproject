@@ -1,4 +1,4 @@
-# Initialize and track dependencies for a collection of notebooks via the CLI
+# Manage a collection of notebooks with the CLI
 
 Here we consider that you have a collection of existing notebooks that you'd like to become
 
