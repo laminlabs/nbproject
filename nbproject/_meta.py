@@ -30,7 +30,7 @@ def get_title(nb: Notebook) -> Optional[str]:
 
 
 class MetaLive:
-    """Access live properties of the notebook.
+    """Live properties of the notebook.
 
     All attributes represent either the execution information or properties inferred
     on access from the notebook's content.
@@ -89,7 +89,7 @@ class MetaLive:
 
 
 class Meta:
-    """Nbproject metadata class.
+    """Access live and stored metadata.
 
     A metadata object has the `store` attribute to access the nbproject metadata
     of the notebook and `live` for the execution info and properties
@@ -111,14 +111,14 @@ class Meta:
             self._store = None
 
     @property
+    def store(self) -> Optional[MetaStore]:
+        """Metadata stored in the notebook."""
+        return self._store
+
+    @property
     def live(self) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
         return self._live
-
-    @property
-    def store(self) -> Optional[MetaStore]:
-        """Nbproject metadata of the notebook."""
-        return self._store
 
     def write(self):
         """Write nbproject metadata in `.store` to the current file.

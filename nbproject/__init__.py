@@ -2,38 +2,33 @@
 
 .. currentmodule:: nbproject
 
-Display `nbproject` metadata with default arguments::
+Display metadata with default arguments and start tracking with class instance `header`::
 
    from nbproject import header
-
-Get fine-grained access to `nbproject` via::
-
-   from nbproject import meta
-
-The static class `meta` allows access to live and an on-disk metadata store via:
-
-   meta.store
-   meta.live
-
-These return instances of the corresponding classes:
-
-.. autoclass:: MetaStore
-   :members:
-   :undoc-members:
-
-.. autoclass:: MetaLive
-   :members:
-   :undoc-members:
-
-Similarly, `header` is an instance of `Header` and `meta` an instance of `Meta`:
 
 .. autosummary::
    :toctree:
 
    Header
+
+To access metadata use the class instance `meta`::
+
+   from nbproject import meta
+
+.. autosummary::
+   :toctree:
+
    Meta
 
-For even more fine-grained access, we offer a developer API:
+It offers access to `meta.store` and `meta.live`:
+
+.. autosummary::
+   :toctree:
+
+   MetaStore
+   MetaLive
+
+For more fine-grained access, we offer a developer API:
 
 .. autosummary::
    :toctree: .

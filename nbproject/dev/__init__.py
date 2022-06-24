@@ -1,10 +1,19 @@
 """Developer functions.
 
-.. currentmodule:: nbproject
+Features
+--------
 
-.. automodule:: dev
-    :members:
-    :imported-members:
+.. autofunction:: infer_dependencies
+.. autofunction:: check_integrity
+
+Backend
+-------
+
+.. autofunction:: initialize_metadata
+.. autofunction:: notebook_path
+.. autoclass:: Notebook
+.. autofunction:: read_notebook
+.. autofunction:: write_notebook
 """
 from . import _test as test
 from ._dependency import infer_dependencies
