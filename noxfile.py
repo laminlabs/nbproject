@@ -20,7 +20,7 @@ def build(session):
         "-m",
         "pytest",
         "-s",
-        "--cov=lamindb",
+        "--cov=nbproject",
         "--cov-append",
         "--cov-report=term-missing",
     )
