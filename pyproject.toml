@@ -28,6 +28,7 @@ dev = [
 ]
 test = [
     "pytest>=6.0",
+    "pytest-cov",
     "pandas",
     "nbformat",
     "nbclient"
@@ -43,4 +44,9 @@ preview = true
 testpaths = [
     "tests",
     "docs/guides",
+]
+
+[tool.coverage.run]
+omit = [
+    "lamindb/*",
 ]
