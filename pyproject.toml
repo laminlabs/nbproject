@@ -48,5 +48,5 @@ testpaths = [
 
 [tool.coverage.run]
 omit = [
-    "lamindb/*",
+    "nbproject/*",
 ]
