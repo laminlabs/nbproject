@@ -5,7 +5,7 @@ Interactive initialization and metadata display:
 - {doc}`example-at-init`.
 - {doc}`example-after-init`.
 - {doc}`example-after-init-with-inferred-dependencies`.
-- {doc}`example-after-init-with-inferred-dependencies-published`.
+- {doc}`example-after-init-with-inferred-dependencies-published` introduces {func}`nbproject.publish`.
 
 {doc}`cli`.
 
