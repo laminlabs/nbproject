@@ -5,6 +5,7 @@ Interactive initialization and metadata display:
 - {doc}`example-at-init`.
 - {doc}`example-after-init`.
 - {doc}`example-after-init-with-inferred-dependencies`.
+- {doc}`example-after-init-with-inferred-dependencies-published`.
 
 {doc}`cli`.
 
@@ -22,6 +23,7 @@ Edge cases, warnings, and errors:
 example-at-init
 example-after-init
 example-after-init-with-inferred-dependencies
+example-after-init-with-inferred-dependencies-published
 cli
 example-project/index
 example-after-init-set-filename
