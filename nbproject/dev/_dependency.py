@@ -2,7 +2,7 @@ import re
 import sys
 from ast import Import, ImportFrom, parse, walk
 from operator import gt, lt
-from typing import List, Literal, Union  # noqa
+from typing import Iterable, List, Literal, Optional, Union  # noqa
 
 import packaging
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
@@ -28,6 +28,14 @@ def _load_pkgs_info():
     pkgs_dists = packages_distributions()
 
 
+def _get_version(pkg):
+    try:
+        pkg_ver = version(pkg)
+    except PackageNotFoundError:
+        pkg_ver = ""
+    return pkg_ver
+
+
 def cell_imports(cell_source: str):
     # based on the package https://github.com/bndr/pipreqs for python scripts
     # parses python import statements in the code cells
@@ -44,11 +52,16 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True):
+def infer_dependencies(
+    content: Union[Notebook, list],
+    add_pkgs: Optional[Iterable] = None,
+    pin_versions: bool = True,
+):
     """Parse the notebook content and infer all dependencies.
 
     Args:
         nb: A notebook or a list of cells to parse for dependencies.
+        add_pkgs: Additional packages to add.
         pin_versions: If `True`, fixes versions from the current environment.
 
     Examples:
@@ -92,16 +105,15 @@ def infer_dependencies(content: Union[Notebook, list], pin_versions: bool = True
                 else:
                     pkgs.add(imp)
 
+    if add_pkgs is not None:
+        pkgs.update(add_pkgs)
+
     pkgs = {pkg: "" for pkg in pkgs}  # type: ignore
     if not pin_versions:
         return pkgs
 
     for pkg in pkgs:
-        try:
-            pkg_ver = version(pkg)
-        except PackageNotFoundError:
-            pkg_ver = ""
-        pkgs[pkg] = pkg_ver  # type: ignore
+        pkgs[pkg] = _get_version(pkg)  # type: ignore
 
     return pkgs
 
