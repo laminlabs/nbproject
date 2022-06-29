@@ -21,6 +21,7 @@ Edge cases, warnings, and errors:
 
 example-at-init
 example-after-init
+example-after-init-with-inferred-dependencies
 cli
 example-project/index
 example-after-init-set-filename
