@@ -28,12 +28,18 @@ from nbproject import header
 ```
 
 - This will initialize `nbproject`, display notebook metadata, and start tracking! Done.
-- For more control, check out the [API reference](api) and the [guides](guides/index)!
+
+Documentation:
+
+- Learn using nbproject in [tutorials](tutorials/index).
+- Check out the [API reference](api).
+- If you get stuck, see our [guides](guides/index) for edge cases & errors.
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
+tutorials/index
 api
 guides/index
 changelog
