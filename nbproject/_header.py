@@ -6,6 +6,7 @@ from typing import Mapping
 from pydantic import BaseModel
 
 from ._logger import logger
+from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
 from .dev._notebook import read_notebook, write_notebook
@@ -69,6 +70,12 @@ class Display:
             return dt.strftime(
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
+
+    def version(self):
+        if "version" in self.metadata["nbproject"]:
+            return self.metadata["nbproject"]["version"]
+        else:
+            return "draft"  # for backward-compat right now
 
     def dependency(self, deps: Mapping = None):
         if deps is None and "dependency" in self.metadata["nbproject"]:
@@ -168,10 +175,13 @@ class Header:
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", display_.time_run(time_run)])
+            table.append(["version", display_.version()])
 
-            deps_display = display_.dependency()
-            if deps_display is not None:
-                table.append(["dependency", " ".join(deps_display)])
+            dep_store = display_.dependency()
+            if dep_store is not None:
+                table.append(["dependency_store", " ".join(dep_store)])
+            dep_live = display_.dependency(infer_dependencies(nb))
+            table.append(["dependency_live", " ".join(dep_live)])
 
             display_html(table_html(table))
 
