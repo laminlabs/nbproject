@@ -1,6 +1,5 @@
 from datetime import date, datetime, timezone
 from enum import Enum
-from time import sleep
 from typing import Mapping
 
 from pydantic import BaseModel
@@ -9,9 +8,11 @@ from ._logger import logger
 from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
+from .dev._jupyter_lab_commands import _restart_notebook, _save_notebook
 from .dev._notebook import read_notebook, write_notebook
 
 _filepath = None
+_env = None
 _time_run = None
 
 
@@ -135,16 +136,7 @@ class Header:
             )
 
             if env == "lab":
-                from ipylab import JupyterFrontEnd
-
-                app = JupyterFrontEnd()
-                # ensure that all user edits are saved before the
-                # notebook will be loaded by the backend
-                app.commands.execute("docmanager:save")
-                # it's important that the frontend is done saving
-                # before the backend loads
-                sleep(1)
-                # now load the notebook with the backend
+                _save_notebook()
                 nb = read_notebook(filepath)
 
             # write metadata from the backend
@@ -157,9 +149,8 @@ class Header:
                 # reload the notebook with metadata by the frontend
                 # otherwise Jupyter lab notices the mismatch
                 # and shows a confusing dialogue
-                app.commands.execute("docmanager:reload")
-                # restart and re-execute `from nbproject import header`
-                app.commands.execute("notebook:restart-and-run-to-selected")
+                _restart_notebook()
+
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
 
@@ -194,4 +185,7 @@ class Header:
 
         # make filepath available through API
         global _filepath
+        global _env
+
         _filepath = filepath
+        _env = env
