@@ -31,6 +31,8 @@ def publish(
 
     if meta._env == "lab":
         _save_notebook()
+    else:
+        logger.info("Save the notebook before publishing.")
 
     if ignore_integrity:
         integrity = True
