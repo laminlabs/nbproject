@@ -15,6 +15,8 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 
 You can also manage a collection of notebooks with the {doc}`CLI <cli>`.
 
+If you want to build APIs on top of nbproject metadata: {doc}`meta`.
+
 ```{toctree}
 :maxdepth: 1
 :hidden:
@@ -24,4 +26,5 @@ basic-metadata
 dependency-tracking
 publish
 cli
+meta
 ```
