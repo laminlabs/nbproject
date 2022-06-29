@@ -13,7 +13,7 @@ Features:
 Supported editors:
 
 - Jupyter Lab (best experience)
-- VScode & Jupyter Notebook (no interactive experience, some quirks)
+- VS Code & Jupyter Notebook (no interactive experience, some quirks)
 
 Install:
 
