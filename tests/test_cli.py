@@ -54,5 +54,5 @@ def test_cli():
 
     check_notebooks(
         nb_folder,
-        cleanup=["initializing.ipynb"],
+        cleanup=["initialize.ipynb"],
     )

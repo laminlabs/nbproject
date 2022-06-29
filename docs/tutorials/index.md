@@ -8,10 +8,10 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 
 ```
 
-- {doc}`initializing`
+- {doc}`initialize`
 - {doc}`basic-metadata`
 - {doc}`dependency-tracking`
-- {doc}`publishing`
+- {doc}`publish`
 
 Manage a collection of notebooks with the CLI.
 
@@ -21,9 +21,9 @@ Manage a collection of notebooks with the CLI.
 :maxdepth: 1
 :hidden:
 
-initializing
+initialize
 basic-metadata
 dependency-tracking
-publishing
+publish
 cli
 ```
