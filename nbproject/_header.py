@@ -1,6 +1,5 @@
 from datetime import date, datetime, timezone
 from enum import Enum
-from pathlib import Path
 from typing import Mapping
 
 from pydantic import BaseModel
@@ -113,10 +112,6 @@ class Header:
 
         if filepath is None:
             filepath_env = notebook_path(return_env=True)
-            # VScode adaption
-            if "-jvsc-" in str(filepath_env[0]):
-                split = str(filepath_env[0]).split("-jvsc-")
-                filepath_env = Path(f"{split[0]}.ipynb"), filepath_env[1]
             if filepath_env is None:
                 raise RuntimeError(
                     "can't infer the name of the current notebook, "
