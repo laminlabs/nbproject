@@ -14,9 +14,11 @@ class MetaStore(BaseModel):
     id: str
     """A universal 8-digit base62 ID."""
     time_init: str
-    """Time of nbproject initialization. Often coincides with notebook creation."""
+    """Time of nbproject init in UTC. Often coincides with notebook creation."""
     dependency: Optional[Mapping[str, str]] = None
     """Dictionary of notebook dependencies and their versions."""
+    version: Optional[str] = "draft"
+    """Published version of notebook."""
 
     class Config:  # noqa
         extra = Extra.allow

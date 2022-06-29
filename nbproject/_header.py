@@ -70,6 +70,12 @@ class Display:
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
 
+    def version(self):
+        if "version" in self.metadata["nbproject"]:
+            return self.metadata["nbproject"]["version"]
+        else:
+            return "draft"  # for backward-compat right now
+
     def dependency(self, deps: Mapping = None):
         if deps is None and "dependency" in self.metadata["nbproject"]:
             deps = self.metadata["nbproject"]["dependency"]
@@ -168,6 +174,7 @@ class Header:
             table.append(["id", display_.id()])
             table.append(["time_init", display_.time_init()])
             table.append(["time_run", display_.time_run(time_run)])
+            table.append(["version", display_.version()])
 
             deps_display = display_.dependency()
             if deps_display is not None:
