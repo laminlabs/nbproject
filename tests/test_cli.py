@@ -32,7 +32,7 @@ def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
 
 
 def test_cli():
-    nb_folder = Path(__file__).parents[1] / "docs/guides"
+    nb_folder = Path(__file__).parents[1] / "docs/tutorials"
 
     commands = dict(init=["init"], sync=["sync", "."])
 
@@ -54,5 +54,5 @@ def test_cli():
 
     check_notebooks(
         nb_folder,
-        cleanup=["example-at-init.ipynb"],
+        cleanup=["before-and-during-init.ipynb"],
     )
