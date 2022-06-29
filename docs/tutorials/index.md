@@ -21,4 +21,5 @@ before-and-during-init
 after-init
 example-after-init-with-inferred-dependencies
 example-after-init-with-inferred-dependencies-published
+cli
 ```
