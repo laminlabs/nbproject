@@ -6,6 +6,7 @@ from typing import Mapping
 from pydantic import BaseModel
 
 from ._logger import logger
+from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
 from .dev._notebook import read_notebook, write_notebook
@@ -176,9 +177,11 @@ class Header:
             table.append(["time_run", display_.time_run(time_run)])
             table.append(["version", display_.version()])
 
-            deps_display = display_.dependency()
-            if deps_display is not None:
-                table.append(["dependency", " ".join(deps_display)])
+            dep_store = display_.dependency()
+            if dep_store is not None:
+                table.append(["dependency_store", " ".join(dep_store)])
+            dep_live = display_.dependency(infer_dependencies(nb))
+            table.append(["dependency_live", " ".join(dep_live)])
 
             display_html(table_html(table))
 
