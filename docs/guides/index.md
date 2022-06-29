@@ -2,8 +2,6 @@
 
 Look up guides for edges cases, warnings, and errors.
 
-{doc}`cli`.
-
 {doc}`example-project/index`.
 
 - {doc}`example-after-init-set-filename` shows how to manually pass a notebook filename.
@@ -13,7 +11,6 @@ Look up guides for edges cases, warnings, and errors.
 :maxdepth: 1
 :hidden:
 
-cli
 example-project/index
 example-after-init-set-filename
 example-after-init-without-title

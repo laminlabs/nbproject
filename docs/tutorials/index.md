@@ -2,19 +2,23 @@
 
 Get started and learn how to use nbproject.
 
-Interactive initialization and metadata display:
+## Manage single notebooks
 
-- {doc}`example-at-init`.
-- {doc}`example-after-init`.
-- {doc}`example-after-init-with-inferred-dependencies`.
-- {doc}`example-after-init-with-inferred-dependencies-published` introduces {func}`nbproject.publish`.
+- {doc}`before-and-during-init` introduces `from nbproject import header`.
+- {doc}`after-init` explains basic metadata: an ID, time stamps, and a version field.
+- {doc}`example-after-init-with-inferred-dependencies` explains live dependency tracking.
+- {doc}`example-after-init-with-inferred-dependencies-published` explains the publishing workflow.
+
+## Manage a collection of notebooks
+
+- {doc}`cli`.
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
-example-at-init
-example-after-init
+before-and-during-init
+after-init
 example-after-init-with-inferred-dependencies
 example-after-init-with-inferred-dependencies-published
 ```
