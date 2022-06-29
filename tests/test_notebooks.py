@@ -8,3 +8,7 @@ def test_notebooks():
     nb_folder = Path(__file__).parents[1] / "docs/guides"
 
     test.execute_notebooks(nb_folder, write=True)
+
+    nb_folder = Path(__file__).parents[1] / "docs/tutorials"
+
+    test.execute_notebooks(nb_folder, write=True)
