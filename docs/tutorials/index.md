@@ -10,8 +10,8 @@ Each of the following guides is a Jupyter notebook, which you can download and e
 
 ```
 
-- {doc}`before-and-during-init`.
-- {doc}`after-init`.
+- {doc}`initializing`.
+- {doc}`basic-metadata`.
 - {doc}`dependency-tracking`.
 - {doc}`publishing`.
 
