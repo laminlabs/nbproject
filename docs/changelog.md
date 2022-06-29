@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:sparkles: Implement the publish function | [106](https://github.com/laminlabs/nbproject/pull/106) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 📝 Add proper tutorials | [105](https://github.com/laminlabs/nbproject/pull/105) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 📝 Prototype the `nbproject.publish` workflow | [103](https://github.com/laminlabs/nbproject/pull/103) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 :sparkles: Take into account packages from store when showing live dependency | [104](https://github.com/laminlabs/nbproject/pull/104) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
