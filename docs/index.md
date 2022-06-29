@@ -27,7 +27,7 @@ Get started:
 from nbproject import header
 ```
 
-- This will initialize nbproject, display notebook metadata, and start tracking! Done.
+→ This will initialize nbproject, display notebook metadata, and start tracking! Done.
 
 Documentation:
 
