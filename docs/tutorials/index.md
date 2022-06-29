@@ -23,8 +23,8 @@ Each of the following guides is a Jupyter notebook, which you can download and e
 :maxdepth: 1
 :hidden:
 
-before-and-during-init
-after-init
+initializing
+basic-metadata
 dependency-tracking
 publishing
 cli
