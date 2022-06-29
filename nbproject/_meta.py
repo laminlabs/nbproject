@@ -6,6 +6,7 @@ from ._logger import logger
 from .dev._initialize import MetaStore
 from .dev._integrity import check_integrity
 from .dev._jupyter_communicate import notebook_path
+from .dev._jupyter_lab_commands import _restart_notebook, _save_notebook
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
 
@@ -36,8 +37,14 @@ class MetaLive:
     on access from the notebook's content.
     """
 
-    def __init__(self, nb_path: Union[str, Path], time_run: Optional[datetime] = None):
+    def __init__(
+        self,
+        nb_path: Union[str, Path],
+        time_run: Optional[datetime] = None,
+        env: Optional[str] = None,
+    ):
         self._nb_path = nb_path
+        self._env = env
         self._time_run = time_run
 
     @property
@@ -66,7 +73,10 @@ class MetaLive:
 
         The notebook should be saved before accessing this attribute.
         """
-        logger.info("Save the notebook before running the integrity check.")
+        if self._env == "lab":
+            _save_notebook()
+        else:
+            logger.info("Save the notebook before running the integrity check.")
         nb = read_notebook(self._nb_path)
         return check_integrity(nb, ignore_code=".live.integrity")
 
@@ -99,13 +109,20 @@ class Meta:
     derived from the notebook's content.
     """
 
-    def __init__(self, filepath, time_run):
+    def __init__(self, filepath, time_run, env):
+        filepath_env = filepath, env
+
         if filepath is None:
-            filepath = notebook_path()
+            filepath_env = notebook_path(return_env=True)
+            filepath = filepath_env[0]
+
+        if env is None:
+            env = filepath_env[1]
 
         self._filepath = filepath
+        self._env = env
 
-        self._live = MetaLive(filepath, time_run)
+        self._live = MetaLive(filepath, time_run, env)
 
         nb_meta = read_notebook(filepath).metadata
         if "nbproject" in nb_meta:
@@ -130,10 +147,17 @@ class Meta:
         by changing `.store` fields and then using this function
         to write the changes to the file. Save the notebook before writing.
         """
-        logger.info("Restart the notebook.")
+        if self._env == "lab":
+            _save_notebook()
+
         nb = read_notebook(self._filepath)
         nb.metadata["nbproject"] = self.store.dict()
         write_notebook(nb, self._filepath)
+
+        if self._env == "lab":
+            _restart_notebook()
+        else:
+            logger.info("Restart the notebook.")
 
     def __repr__(self):
         return (
@@ -144,7 +168,7 @@ class Meta:
 
 
 def _load_meta():
-    from ._header import _filepath, _time_run
+    from ._header import _env, _filepath, _time_run
 
-    meta = Meta(_filepath, _time_run)
+    meta = Meta(_filepath, _time_run, _env)
     return meta
