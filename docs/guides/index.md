@@ -4,6 +4,7 @@ Interactive initialization and metadata display:
 
 - {doc}`example-at-init`.
 - {doc}`example-after-init`.
+- {doc}`example-after-init-with-inferred-dependencies`.
 
 {doc}`cli`.
 
