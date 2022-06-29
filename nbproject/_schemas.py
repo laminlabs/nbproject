@@ -51,6 +51,14 @@ class NBRecord:
         return time_init
 
     @property
+    def version(self):
+        version = self.check_attr("_version")
+        if version is None:
+            version = "draft"
+            self._version = "draft"
+        return version
+
+    @property
     def dependency(self):
         if "dependency" in self.__dict__:
             return self.__dict__["dependency"]
@@ -68,8 +76,8 @@ class NBRecord:
 
 
 class YAMLRecord:
-    # this is for ordering and also ignore this than reading yaml fields
-    _take_keys = ("time_init", "name", "location")
+    # this is for ordering and also ignore this when reading yaml fields
+    _take_keys = ("time_init", "name", "version", "location")
 
     def __init__(self, nb_path: Path, nb_record: NBRecord, yaml_proj: dict):
         self._yaml_proj = yaml_proj
