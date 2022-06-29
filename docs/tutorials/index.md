@@ -13,9 +13,7 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 - {doc}`dependency-tracking`
 - {doc}`publish`
 
-Manage a collection of notebooks with the CLI.
-
-- {doc}`cli`.
+You can also manage a collection of notebooks with the {doc}`CLI <cli>`.
 
 ```{toctree}
 :maxdepth: 1
