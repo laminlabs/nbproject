@@ -94,6 +94,7 @@ class Display:
         if deps_list == []:
             return None
         else:
+            deps_list.sort()
             return deps_list
 
 
@@ -178,9 +179,15 @@ class Header:
             table.append(["version", display_.version()])
 
             dep_store = display_.dependency()
+            add_pkgs = None
+
             if dep_store is not None:
                 table.append(["dependency_store", " ".join(dep_store)])
-            dep_live = display_.dependency(infer_dependencies(nb))
+                add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
+
+            dep_live = display_.dependency(
+                infer_dependencies(nb, add_pkgs, pin_versions=True)
+            )
             table.append(["dependency_live", " ".join(dep_live)])
 
             display_html(table_html(table))

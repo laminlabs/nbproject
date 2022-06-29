@@ -2,7 +2,7 @@ import re
 import sys
 from ast import Import, ImportFrom, parse, walk
 from operator import gt, lt
-from typing import List, Literal, Optional, Union  # noqa
+from typing import Iterable, List, Literal, Optional, Union  # noqa
 
 import packaging
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
@@ -54,7 +54,7 @@ def cell_imports(cell_source: str):
 
 def infer_dependencies(
     content: Union[Notebook, list],
-    add_pkgs: Optional[list] = None,
+    add_pkgs: Optional[Iterable] = None,
     pin_versions: bool = True,
 ):
     """Parse the notebook content and infer all dependencies.

@@ -17,7 +17,7 @@ class MetaStore(BaseModel):
     """Time of nbproject init in UTC. Often coincides with notebook creation."""
     dependency: Optional[Mapping[str, str]] = None
     """Dictionary of notebook dependencies and their versions."""
-    version: Optional[str] = "draft"
+    version: str = "draft"
     """Published version of notebook."""
 
     class Config:  # noqa

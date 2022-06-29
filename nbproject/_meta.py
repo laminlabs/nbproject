@@ -55,7 +55,10 @@ class MetaLive:
         from .dev._dependency import infer_dependencies
 
         nb = read_notebook(self._nb_path)
-        return infer_dependencies(nb, pin_versions=True)
+        add_pkgs = None
+        if "nbproject" in nb.metadata and "dependency" in nb.metadata["nbproject"]:
+            add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
+        return infer_dependencies(nb, add_pkgs, pin_versions=True)
 
     @property
     def integrity(self):
