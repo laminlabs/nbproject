@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+📝 Prototype the `nbproject.publish` workflow | [103](https://github.com/laminlabs/nbproject/pull/103) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 :sparkles: Take into account packages from store when showing live dependency | [104](https://github.com/laminlabs/nbproject/pull/104) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 ✨ Add field `version` and display live dependencies in header | [102](https://github.com/laminlabs/nbproject/pull/102) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 👷 Update coverage CI setup | [101](https://github.com/laminlabs/nbproject/pull/101) | [falexwolf](https://github.com/falexwolf) | 2022-06-26 |
