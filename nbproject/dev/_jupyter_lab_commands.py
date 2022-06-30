@@ -20,6 +20,9 @@ def _reload_shutdown():
         _app = JupyterFrontEnd()
 
     _app.commands.execute("docmanager:reload")  # reload notebook from disk
+    # the following line would be desirable but pops up another dialogue,
+    # which is confusing
+    # _app.commands.execute("docmanager:save")  # orjson writes non-diffable json
     _app.commands.execute("kernelmenu:shutdown")
 
 
