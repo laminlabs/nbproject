@@ -191,7 +191,10 @@ class Header:
             if dep_store is not None:
                 # only display stored dependencies for published notebooks
                 # for draft notebooks, they have little meaning
-                if nb.metadata["nbproject"]["version"] != "draft":
+                if (
+                    "version" in nb.metadata["nbproject"]
+                    and nb.metadata["nbproject"]["version"] != "draft"  # noqa
+                ):
                     table.append(["dependency_store", " ".join(dep_store)])
                 add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
@@ -199,7 +202,10 @@ class Header:
                 infer_dependencies(nb, add_pkgs, pin_versions=True)
             )
             suffix = ""
-            if nb.metadata["nbproject"]["version"] != "draft":
+            if (
+                "version" in nb.metadata["nbproject"]
+                and nb.metadata["nbproject"]["version"] != "draft"  # noqa
+            ):
                 suffix = "_live"
             table.append([f"dependency{suffix}", " ".join(dep_live)])
 
