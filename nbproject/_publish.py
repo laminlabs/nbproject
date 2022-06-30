@@ -11,7 +11,7 @@ def publish(
     version: Optional[str] = None,
     store_dependency: bool = True,
     integrity: bool = True,
-) -> Optional[bool]:
+):
     """Publish the notebook.
 
     1. Sets the version.
