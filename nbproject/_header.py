@@ -1,10 +1,11 @@
+import sys
 from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Mapping
 
+from loguru import logger
 from pydantic import BaseModel
 
-from ._logger import logger
 from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
@@ -119,8 +120,23 @@ class Header:
                 )
             filepath = filepath_env[0]
 
+        # without this, we have ugly timestamps
+        logger.configure(
+            handlers=[
+                dict(
+                    sink=sys.stdout,
+                    format="{message}",
+                ),
+            ],
+        )
+
         if env is None:
             env = filepath_env[1]
+        # This is a quirk we run into when passing filepath manually!
+        # We just assume jupyter lab as an environment for now
+        if env is None:
+            env = "lab"
+            logger.info("... assuming editor is Jupyter Lab")
 
         try:
             nb = read_notebook(filepath)
