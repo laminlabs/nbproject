@@ -32,4 +32,10 @@ def check_integrity(
 
         prev = ccount
 
+    # ignore the very last code cell of the notebook
+    # which is where `check_integrity` is being run
+    # hence, that cell has ccount is None
+    if ccount is None:
+        violations.pop()
+
     return violations  # type: ignore

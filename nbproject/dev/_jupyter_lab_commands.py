@@ -14,6 +14,15 @@ def _save_notebook():
     sleep(1)
 
 
+def _reload_shutdown():
+    global _app
+    if _app is None:
+        _app = JupyterFrontEnd()
+
+    _app.commands.execute("docmanager:reload")  # reload notebook from disk
+    _app.commands.execute("kernelmenu:shutdown")
+
+
 def _restart_notebook():
     global _app
     if _app is None:

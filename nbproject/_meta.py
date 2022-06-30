@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
@@ -6,7 +7,11 @@ from ._logger import logger
 from .dev._initialize import MetaStore
 from .dev._integrity import check_integrity
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import _restart_notebook, _save_notebook
+from .dev._jupyter_lab_commands import (
+    _reload_shutdown,
+    _restart_notebook,
+    _save_notebook,
+)
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
 
@@ -140,8 +145,8 @@ class Meta:
         """Contains execution info and properties of the notebook content."""
         return self._live
 
-    def write(self):
-        """Write nbproject metadata in `.store` to the current file.
+    def write(self, restart=True):
+        """Write metadata in `.store` to file and shutdown notebook kernel.
 
         You can edit the nbproject metadata of the current notebook
         by changing `.store` fields and then using this function
@@ -152,12 +157,47 @@ class Meta:
 
         nb = read_notebook(self._filepath)
         nb.metadata["nbproject"] = self.store.dict()
+        # also update displayed version number
+        # this is ugly right now but important
+        version_icell = None
+        version_ioutput = None
+        for icell, cell in enumerate(nb.cells):
+            if "outputs" in cell:
+                for ioutput, output in enumerate(cell["outputs"]):
+                    if "data" in output:
+                        if "text/html" in output["data"]:
+                            if "<b>version</b>" in output["data"]["text/html"][0]:
+                                version_icell = icell
+                                version_ioutput = ioutput
+                                break
+        if version_icell is not None:
+            nb.cells[version_icell]["outputs"][version_ioutput]["data"]["text/html"][
+                0
+            ] = nb.cells[version_icell]["outputs"][version_ioutput]["data"][
+                "text/html"
+            ][
+                0
+            ].replace(
+                "<b>version</b></td><td style='text-align: left;'>draft</td>",
+                "<b>version</b></td><td style='text-align:"
+                f" left;'>{self.store.version}</td>",  # noqa
+            )
+        else:
+            logger.warning("... could not update displayed version")
         write_notebook(nb, self._filepath)
 
         if self._env == "lab":
-            _restart_notebook()
+            if restart:
+                _restart_notebook()
+            else:
+                logger.info("... reload notebook from disk & shutdown kernel")
+                _reload_shutdown()
         else:
-            logger.info("Restart the notebook.")
+            logger.info(
+                "Shutting down as file changed on disk. Reload and restart the notebook"
+                " if you want to continue."
+            )
+            sys.exit(0)
 
     def __repr__(self):
         return (
