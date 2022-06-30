@@ -3,11 +3,11 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-✨ Add VS Code integration | [107](https://github.com/laminlabs/nbproject/pull/107) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
-:sparkles: Implement the publish function | [106](https://github.com/laminlabs/nbproject/pull/106) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
+✨ Add VS Code integration | [107](https://github.com/laminlabs/nbproject/pull/107) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 | 0.1.1
+✨ Implement the publish function | [106](https://github.com/laminlabs/nbproject/pull/106) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 📝 Add proper tutorials | [105](https://github.com/laminlabs/nbproject/pull/105) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 📝 Prototype the `nbproject.publish` workflow | [103](https://github.com/laminlabs/nbproject/pull/103) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
-:sparkles: Take into account packages from store when showing live dependency | [104](https://github.com/laminlabs/nbproject/pull/104) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
+✨ Take into account packages from store for live dependencies | [104](https://github.com/laminlabs/nbproject/pull/104) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 ✨ Add field `version` and display live dependencies in header | [102](https://github.com/laminlabs/nbproject/pull/102) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 👷 Update coverage CI setup | [101](https://github.com/laminlabs/nbproject/pull/101) | [falexwolf](https://github.com/falexwolf) | 2022-06-26 |
 👷 Integrate Codecov to CI | [100](https://github.com/laminlabs/nbproject/pull/100) | [sunnyosun](https://github.com/sunnyosun) | 2022-06-26 |
