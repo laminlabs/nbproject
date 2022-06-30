@@ -42,7 +42,7 @@ class DisplayConf(BaseModel):
 
 
 # displays fields within the ipynb metadata section and on-the-fly computed
-class Display:
+class DisplayMeta:
     def __init__(self, nb_metadata=None):
         self.metadata = nb_metadata
         self.conf = DisplayConf()
@@ -171,7 +171,7 @@ class Header:
         else:
 
             # display metadata
-            display_ = Display(nb.metadata)
+            dm = DisplayMeta(nb.metadata)
 
             time_run = datetime.now(timezone.utc)
 
@@ -180,12 +180,12 @@ class Header:
             _time_run = time_run
 
             table = []
-            table.append(["id", display_.id()])
-            table.append(["time_init", display_.time_init()])
-            table.append(["time_run", display_.time_run(time_run)])
-            table.append(["version", display_.version()])
+            table.append(["id", dm.id()])
+            table.append(["time_init", dm.time_init()])
+            table.append(["time_run", dm.time_run(time_run)])
+            table.append(["version", dm.version()])
 
-            dep_store = display_.dependency()
+            dep_store = dm.dependency()
             add_pkgs = None
 
             if dep_store is not None:
@@ -195,7 +195,7 @@ class Header:
                     table.append(["dependency_store", " ".join(dep_store)])
                 add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
-            dep_live = display_.dependency(
+            dep_live = dm.dependency(
                 infer_dependencies(nb, add_pkgs, pin_versions=True)
             )
             suffix = ""
