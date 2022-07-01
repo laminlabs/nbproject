@@ -136,7 +136,7 @@ class Header:
         if "nbproject" not in nb.metadata:
             logger.info(
                 "To initialize nbproject for this notebook:\n"  # noqa
-                "- In Jupyter Lab: confirm restart when asked."
+                "- In Jupyter Lab: confirm restart when asked.\n"
                 "- In Jupyter Notebook & VS Code: reload the notebook from disk."
             )
 
