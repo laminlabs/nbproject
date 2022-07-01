@@ -20,7 +20,25 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     os.chdir(nb_folder)
 
-    notebooks = nb_folder.glob("**/*.ipynb")
+    # notebooks are part of documentation and indexed
+    # by a sphinx myst index.md file
+    # the order of execution matters!
+    if (nb_folder / "index.md").exists():
+        with open(nb_folder / "index.md") as f:
+            index = f.read()
+
+        # parse out indexed file list
+        content = index.split("```{toctree}")[1]
+        content = content.split("\n\n")[1]
+        content = content.split("```")[0]
+
+        # if a file is a notebook, add it
+        notebooks = []
+        for name in content.split():
+            if (nb_folder / f"{name}.ipynb").exists():
+                notebooks.append(nb_folder / f"{name}.ipynb")
+    else:
+        notebooks = nb_folder.glob("**/*.ipynb")  # type: ignore
 
     for nb in notebooks:
         if ".ipynb_checkpoints/" in str(nb):
