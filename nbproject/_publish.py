@@ -31,7 +31,7 @@ def publish(
 
     if meta._env == "lab":
         _save_notebook()
-    else:
+    elif meta._env != "test":
         logger.warning(
             "If not on Jupyter Lab, save the notebook before publishing!\n"
             "The file changes on disk during publishing and the buffer is overwritten."
@@ -55,11 +55,11 @@ def publish(
                 " string."
             )
 
-    info = f"Set notebook version to {version}."
+    info = f"Bumped notebook version to {version}."
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        info += "\nWrote dependencies to dependency store."
+        info += " Wrote dependencies to dependency store."
 
     logger.info(info)
 

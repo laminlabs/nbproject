@@ -95,7 +95,7 @@ class MetaLive:
         """
         if self._env == "lab":
             _save_notebook()
-        else:
+        elif self._env != "test":
             logger.info("Save the notebook before running the integrity check.")
         nb = read_notebook(self._nb_path)
         return check_integrity(nb, ignore_code=".live.integrity")
@@ -194,7 +194,7 @@ class Meta:
             else:
                 logger.info("Reload notebook from disk & shutdown kernel.")
                 _reload_shutdown()
-        else:
+        elif self._env != "test":
             logger.info(
                 "File changed on disk! Reload and restart the"
                 " notebook if you want to continue."
