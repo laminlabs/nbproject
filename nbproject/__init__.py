@@ -43,7 +43,7 @@ For more fine-grained access, we offer a developer API:
    dev
 
 """
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 from . import _logger  # noqa  # this *should* configure the logger, but does not
 from . import dev
