@@ -192,7 +192,7 @@ class Meta:
             if restart:
                 _restart_notebook()
             else:
-                logger.info("... reload notebook from disk & shutdown kernel")
+                logger.info("Reload notebook from disk & shutdown kernel.")
                 _reload_shutdown()
         else:
             logger.info(
