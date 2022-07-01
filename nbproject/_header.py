@@ -1,11 +1,10 @@
-import sys
 from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Mapping
 
-from loguru import logger
 from pydantic import BaseModel
 
+from ._logger import logger
 from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
@@ -119,16 +118,6 @@ class Header:
                     "you are probably not inside a jupyter notebook"
                 )
             filepath = filepath_env[0]
-
-        # without this, we have ugly timestamps
-        logger.configure(
-            handlers=[
-                dict(
-                    sink=sys.stdout,
-                    format="{message}",
-                ),
-            ],
-        )
 
         if env is None:
             env = filepath_env[1]

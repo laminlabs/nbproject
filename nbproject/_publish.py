@@ -58,7 +58,7 @@ def publish(
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        info += "Wrote dependencies to dependency store."
+        info += "\nWrote dependencies to dependency store."
 
     logger.info(info)
 
