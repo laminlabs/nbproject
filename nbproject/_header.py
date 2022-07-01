@@ -100,11 +100,10 @@ class DisplayMeta:
 
 
 class Header:
-    """Metadata header class.
+    """Metadata header.
 
-    An object of this class displays nbproject metadata fields
-    for the current notebook on initialization. If the notebook doesn't have
-    nbproject metadata, it will be initialized and written to the notebook.
+    - Displays nbproject metadata fields for the current notebook.
+    - If the notebook doesn't have nbproject metadata, initializes & writes it to disk.
     """
 
     def __init__(self, filepath=None, env=None):
