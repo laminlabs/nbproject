@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
@@ -12,6 +13,20 @@ from .dev._jupyter_lab_commands import (
     _save_notebook,
 )
 from .dev._notebook import Notebook, read_notebook, write_notebook
+
+
+def _change_display_version(cells: list, version):
+    for cell in cells:
+        if cell["cell_type"] == "code":
+            for out in cell["outputs"]:
+                if "data" in out and "text/html" in out["data"]:
+                    html = out["data"]["text/html"][0]
+                    if "<b>version</b>" in html:
+                        pattern = r"(.+version.+?<td.+?>).+?(</td>.+)"
+                        html = re.sub(pattern, rf"\1!!!!{version}\2", html)
+                        html = html.replace("!!!!", "")
+                        out["data"]["text/html"][0] = html
+                        break
 
 
 def get_title(nb: Notebook) -> Optional[str]:
@@ -119,6 +134,10 @@ class Meta:
 
         if filepath is None:
             filepath_env = notebook_path(return_env=True)
+
+            if filepath_env is None:
+                filepath_env = None, None
+
             filepath = filepath_env[0]
 
         if env is None:
@@ -129,14 +148,20 @@ class Meta:
 
         self._live = MetaLive(filepath, time_run, env)
 
-        nb_meta = read_notebook(filepath).metadata
-        if "nbproject" in nb_meta:
+        if self._filepath is not None:
+            nb_meta = read_notebook(filepath).metadata
+        else:
+            logger.warning("You are probably not inside a jupyter notebook.")
+            nb_meta = None
+
+        if nb_meta is not None and "nbproject" in nb_meta:
             self._store = MetaStore(**nb_meta["nbproject"])
         else:
-            self._store = None
+            empty = "not initialized"
+            self._store = MetaStore(id=empty, time_init=empty, version=empty)
 
     @property
-    def store(self) -> Optional[MetaStore]:
+    def store(self) -> MetaStore:
         """Metadata stored in the notebook."""
         return self._store
 
@@ -159,31 +184,8 @@ class Meta:
         nb.metadata["nbproject"] = self.store.dict()
         # also update displayed version number
         # this is ugly right now but important
-        version_icell = None
-        version_ioutput = None
-        for icell, cell in enumerate(nb.cells):
-            if "outputs" in cell:
-                for ioutput, output in enumerate(cell["outputs"]):
-                    if "data" in output:
-                        if "text/html" in output["data"]:
-                            if "<b>version</b>" in output["data"]["text/html"][0]:
-                                version_icell = icell
-                                version_ioutput = ioutput
-                                break
-        if version_icell is not None:
-            nb.cells[version_icell]["outputs"][version_ioutput]["data"]["text/html"][
-                0
-            ] = nb.cells[version_icell]["outputs"][version_ioutput]["data"][
-                "text/html"
-            ][
-                0
-            ].replace(
-                "<b>version</b></td><td style='text-align: left;'>draft</td>",
-                "<b>version</b></td><td style='text-align:"
-                f" left;'>{self.store.version}</td>",  # noqa
-            )
-        else:
-            logger.warning("... could not update displayed version")
+        _change_display_version(nb.cells, self.store.version)
+
         write_notebook(nb, self._filepath)
 
         if self._env == "lab":

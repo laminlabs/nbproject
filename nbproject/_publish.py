@@ -36,7 +36,7 @@ def publish(
 
     check = None
     if integrity:
-        check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
+        check = check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
 
     if version is not None:
         meta.store.version = version
@@ -62,7 +62,4 @@ def publish(
 
     meta.write(restart=False)
 
-    if integrity:
-        return check
-    else:
-        return None
+    return check
