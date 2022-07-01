@@ -114,8 +114,8 @@ class Header:
             filepath_env = notebook_path(return_env=True)
             if filepath_env is None:
                 raise RuntimeError(
-                    "can't infer the name of the current notebook, "
-                    "you are probably not inside a jupyter notebook"
+                    "Can't infer the name of the current notebook, "
+                    "you are probably not inside a jupyter notebook."
                 )
             filepath = filepath_env[0]
 
@@ -125,19 +125,19 @@ class Header:
         # We just assume jupyter lab as an environment for now
         if env is None:
             env = "lab"
-            logger.info("... assuming editor is Jupyter Lab")
+            logger.info("Assuming editor is Jupyter Lab.")
 
         try:
             nb = read_notebook(filepath)
         except FileNotFoundError:
             raise RuntimeError(
-                "try passing the filepath manually to nbproject.Header()"
+                "Try passing the filepath manually to nbproject.Header()."
             )
         # initialize
         if "nbproject" not in nb.metadata:
             logger.info(
-                "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
-                " restart when asked!"
+                "To initialize nbproject for this notebook:\n"  # noqa
+                "* In Jupyter Lab: hit restart when asked!"
             )
 
             if env == "lab":
