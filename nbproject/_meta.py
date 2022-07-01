@@ -73,9 +73,10 @@ class MetaLive:
 
     @property
     def integrity(self):
-        """Check integrity of the notebook.
+        """Compute integrity of the notebook.
 
-        The notebook should be saved before accessing this attribute.
+        Returns those cell transitions that violate execution at increments of 1
+        as a list of tuples.
         """
         if self._env == "lab":
             _save_notebook()

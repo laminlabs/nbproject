@@ -36,13 +36,7 @@ def publish(
 
     check = None
     if integrity:
-        violations = check_integrity(
-            read_notebook(meta._filepath), ignore_code="publish("
-        )
-        if len(violations) > 0:
-            logger.warning(f"... cells {violations} were not run consecutively")
-        else:
-            logger.info("... notebook was consecutively executed: Awesome!")
+        check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
 
     if version is not None:
         meta.store.version = version
@@ -64,7 +58,7 @@ def publish(
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        logger.info("... wrote live dependencies to dependency store")
+        logger.info("... wrote dependencies to dependency store")
 
     meta.write(restart=False)
 

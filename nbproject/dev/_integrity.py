@@ -1,14 +1,17 @@
 from typing import Optional
 
+from loguru import logger
+
 from ._notebook import Notebook
 
 
 def check_integrity(
     nb: Notebook, ignore_code: Optional[str] = None
 ) -> list[tuple[Optional[int], Optional[int]]]:
-    """Get current integrity status of the passed notebook.
+    """Get integrity status of the passed notebook.
 
-    Returns list of violations of consecutive execution as tuples of cell numbers.
+    Returns those cell transitions that violate execution at increments of 1
+    as a list of tuples.
 
     Args:
         nb: The notebook to check.
@@ -37,5 +40,10 @@ def check_integrity(
     # hence, that cell has ccount is None
     if ccount is None:
         violations.pop()
+
+    if len(violations) > 0:
+        logger.warning(f"... cells {violations} were not run consecutively")
+    else:
+        logger.info("... notebook cells increment at 1: Awesome!")
 
     return violations  # type: ignore
