@@ -54,11 +54,20 @@ from the current python environment and writes them to metadata of the notebooks
 
 ## Pin dependencies
 
-If you want to avaoid pining the dependencies versions, use the option `--no-versions` (or `-nv`):
+If you want to avoid pining the dependencies versions, use the option `--no-versions` (or `-nv`):
 
 ```
 $ nbproject sync . --deps --no-versions
 synchronized my_notebook_collection/nbproject_metadata.yml
+```
+
+## Pin dependencies
+
+You can use CLI to publish a list of notebooks (see the publish tutorial also):
+
+```
+$ nbproject publish notebook.ipynb another_notebook.ipynb
+Published 2 notebooks.
 ```
 
 ## Generate a requirements file
