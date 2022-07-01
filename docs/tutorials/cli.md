@@ -61,13 +61,13 @@ $ nbproject sync . --deps --no-versions
 synchronized my_notebook_collection/nbproject_metadata.yml
 ```
 
-## Pin dependencies
+## Publish a list of notebooks
 
 You can use CLI to publish a list of notebooks (see the publish tutorial also):
 
 ```
 $ nbproject publish notebook.ipynb another_notebook.ipynb
-Published 2 notebooks.
+published 2 notebooks.
 ```
 
 ## Generate a requirements file
