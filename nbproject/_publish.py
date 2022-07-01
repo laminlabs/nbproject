@@ -55,11 +55,11 @@ def publish(
                 " string."
             )
 
-    info = f"Set notebook version to {version}."
+    info = f"Bumped notebook version to {version}."
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        info += "\nWrote dependencies to dependency store."
+        info += " Wrote dependencies to dependency store."
 
     logger.info(info)
 
