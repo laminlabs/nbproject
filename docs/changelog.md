@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Avoid non-lab logg messages on CI | [114](https://github.com/laminlabs/nbproject/pull/114) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 |
 ✅ Execute notebooks in order of index | [113](https://github.com/laminlabs/nbproject/pull/113) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 |
 💄 More compact logging and other small fixes | [111](https://github.com/laminlabs/nbproject/pull/111) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.4
 ♻️ Refactor meta and header | [110](https://github.com/laminlabs/nbproject/pull/110) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
