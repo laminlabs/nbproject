@@ -42,6 +42,6 @@ def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> list:
     if len(violations) > 0:
         logger.warning(f"Cells {violations} were not run consecutively.")
     else:
-        logger.info("Notebook cells increment at 1: Awesome!")
+        logger.info("Cell numbers increase at increments of 1: Awesome!")
 
     return violations  # type: ignore

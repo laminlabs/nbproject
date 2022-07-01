@@ -33,7 +33,7 @@ def publish(
         _save_notebook()
     else:
         logger.warning(
-            "If not on Jupyter Lab, save the notebook before publishing!"
+            "If not on Jupyter Lab, save the notebook before publishing!\n"
             "The file changes on disk during publishing and the buffer is overwritten."
         )
 
