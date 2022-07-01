@@ -134,6 +134,10 @@ class Meta:
 
         if filepath is None:
             filepath_env = notebook_path(return_env=True)
+
+            if filepath_env is None:
+                filepath_env = None, None
+
             filepath = filepath_env[0]
 
         if env is None:
@@ -144,14 +148,20 @@ class Meta:
 
         self._live = MetaLive(filepath, time_run, env)
 
-        nb_meta = read_notebook(filepath).metadata
-        if "nbproject" in nb_meta:
+        if self._filepath is not None:
+            nb_meta = read_notebook(filepath).metadata
+        else:
+            logger.warning("You are probably not inside a jupyter notebook.")
+            nb_meta = None
+
+        if nb_meta is not None and "nbproject" in nb_meta:
             self._store = MetaStore(**nb_meta["nbproject"])
         else:
-            self._store = None
+            empty = "not initialized"
+            self._store = MetaStore(id=empty, time_init=empty, version=empty)
 
     @property
-    def store(self) -> Optional[MetaStore]:
+    def store(self) -> MetaStore:
         """Metadata stored in the notebook."""
         return self._store
 
