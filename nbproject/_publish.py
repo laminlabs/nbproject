@@ -50,15 +50,17 @@ def publish(
             meta.store.version = version
         except ValueError:
             raise ValueError(
-                "The nbproject version is not an integer, please specify a version"
-                " string to set."
+                "The nbproject version cannot be cast to integer. Please pass a version"
+                " string."
             )
 
-    logger.info(f"... set notebook version to {version}")
+    info = f"Set notebook version to {version}."
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        logger.info("... wrote dependencies to dependency store")
+        info += "Wrote dependencies to dependency store."
+
+    logger.info(info)
 
     meta.write(restart=False)
 
