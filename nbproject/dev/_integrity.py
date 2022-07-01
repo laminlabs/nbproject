@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional, Tuple
 
 from loguru import logger
 
@@ -7,7 +7,7 @@ from ._notebook import Notebook
 
 def check_integrity(
     nb: Notebook, ignore_code: Optional[str] = None
-) -> list[tuple[Optional[int], Optional[int]]]:
+) -> List[Tuple[Optional[int], Optional[int]]]:
     """Get integrity status of the passed notebook.
 
     Returns those cell transitions that violate execution at increments of 1
