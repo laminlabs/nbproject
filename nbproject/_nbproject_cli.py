@@ -137,7 +137,8 @@ def reqs(files_dirs: Iterator[str]):
     requirments = "\n".join(deps)
     with open("requirments.txt", "w") as stream:
         stream.write(requirments)
-    logger.info("Created requirments.txt.")
+
+    logger.info("Created `requirements.txt`.")
 
 
 def publish(files_dirs: Iterator[str]):

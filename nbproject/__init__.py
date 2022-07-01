@@ -43,9 +43,8 @@ For more fine-grained access, we offer a developer API:
    dev
 
 """
-__version__ = "0.1.3"
+__version__ = "0.1.5"
 
-from . import _logger  # noqa  # this *should* configure the logger, but does not
 from . import dev
 from ._header import Header  # noqa
 from ._meta import Meta, MetaLive, MetaStore
