@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-🚸 Improve user experience during publishing | [109](https://github.com/laminlabs/nbproject/pull/109) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 |
+🚸 Improve user experience during publishing | [109](https://github.com/laminlabs/nbproject/pull/109) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.2
 ✨ Add VS Code integration | [107](https://github.com/laminlabs/nbproject/pull/107) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 | 0.1.1
 ✨ Implement the publish function | [106](https://github.com/laminlabs/nbproject/pull/106) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 📝 Add proper tutorials | [105](https://github.com/laminlabs/nbproject/pull/105) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
