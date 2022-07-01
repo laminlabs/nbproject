@@ -1,6 +1,6 @@
 import argparse
 
-from ._nbproject_cli import init, reqs, sync
+from ._nbproject_cli import init, publish, reqs, sync
 
 
 def main():
@@ -36,6 +36,9 @@ def main():
         "files_dirs", nargs="+", help="create requirments.txt for these files"
     )
 
+    parser_publish = subparsers.add_parser("publish", help="pubish the notebooks")
+    parser_publish.add_argument("files_dirs", nargs="+", help="publish these notebooks")
+
     args = parser.parse_args()
 
     if args.cmd == "init":
@@ -44,6 +47,8 @@ def main():
         sync(args.files_dirs, args.deps, not args.no_versions)
     elif args.cmd == "reqs":
         reqs(args.files_dirs)
+    elif args.cmd == "publish":
+        publish(args.files_dirs)
 
 
 if __name__ == "__main__":

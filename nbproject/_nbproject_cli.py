@@ -8,7 +8,7 @@ import yaml  # type: ignore
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
 from .dev._dependency import infer_dependencies, resolve_versions
-from .dev._notebook import read_notebook
+from .dev._notebook import read_notebook, write_notebook
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -138,3 +138,34 @@ def reqs(files_dirs: Iterator[str]):
     with open("requirments.txt", "w") as stream:
         stream.write(requirments)
     logger.info("Created requirments.txt.")
+
+
+def publish(files_dirs: Iterator[str]):
+    nbs = notebooks_from_files_dirs(files_dirs)
+    n_nbs = 0
+    for nb_path in nbs:
+        if ".ipynb_checkpoints/" in nb_path.as_posix():
+            continue
+
+        nb = read_notebook(nb_path)
+
+        if "nbproject" in nb.metadata:
+            nbproject_meta = nb.metadata["nbproject"]
+            add_pkgs = None
+            if "dependency" in nbproject_meta:
+                add_pkgs = nbproject_meta["dependency"].keys()
+            nbproject_meta["dependency"] = infer_dependencies(
+                nb, add_pkgs, pin_versions=True
+            )
+
+            version = "draft"
+            if "version" in nbproject_meta:
+                version = nbproject_meta["version"]
+            version = "1" if version == "draft" else str(int(version) + 1)
+            nbproject_meta["version"] = version
+
+            write_notebook(nb, nb_path)
+
+            n_nbs += 1
+
+        logger.info(f"Pubished {n_nbs} notebooks.")
