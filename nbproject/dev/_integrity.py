@@ -3,19 +3,20 @@ from typing import Optional
 from ._notebook import Notebook
 
 
-def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> bool:
+def check_integrity(
+    nb: Notebook, ignore_code: Optional[str] = None
+) -> list[tuple[Optional[int], Optional[int]]]:
     """Get current integrity status of the passed notebook.
 
-    For `True` the code cells of the notebook must be executed consequently, i.e.
-    execution count for each code cell should increase by one.
+    Returns list of violations of consecutive execution as tuples of cell numbers.
 
     Args:
         nb: The notebook to check.
-        ignore_code: Ignore all cells which contain this code.
+        ignore_code: Ignore cells that contain this code.
     """
     cells = nb.cells
 
-    integrity = True
+    violations = []
     prev = 0
 
     for cell in cells:
@@ -27,9 +28,14 @@ def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> bool:
 
         ccount = cell["execution_count"]
         if ccount is None or ccount - prev != 1:
-            integrity = False
-            break
+            violations.append((prev, ccount))
 
         prev = ccount
 
-    return integrity
+    # ignore the very last code cell of the notebook
+    # which is where `check_integrity` is being run
+    # hence, that cell has ccount is None
+    if ccount is None:
+        violations.pop()
+
+    return violations  # type: ignore

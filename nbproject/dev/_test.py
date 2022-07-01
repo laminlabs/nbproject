@@ -24,7 +24,7 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
     for nb in notebooks:
         nb_name = str(nb.relative_to(nb_folder))
-        logger.debug(f"\n{nb_name}")
+        logger.debug(f"{nb_name}")
 
         nb_content = read_nb(nb, as_version=NO_CONVERT)
 

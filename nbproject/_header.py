@@ -1,10 +1,11 @@
+import sys
 from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Mapping
 
+from loguru import logger
 from pydantic import BaseModel
 
-from ._logger import logger
 from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
@@ -41,7 +42,7 @@ class DisplayConf(BaseModel):
 
 
 # displays fields within the ipynb metadata section and on-the-fly computed
-class Display:
+class DisplayMeta:
     def __init__(self, nb_metadata=None):
         self.metadata = nb_metadata
         self.conf = DisplayConf()
@@ -119,8 +120,23 @@ class Header:
                 )
             filepath = filepath_env[0]
 
+        # without this, we have ugly timestamps
+        logger.configure(
+            handlers=[
+                dict(
+                    sink=sys.stdout,
+                    format="{message}",
+                ),
+            ],
+        )
+
         if env is None:
             env = filepath_env[1]
+        # This is a quirk we run into when passing filepath manually!
+        # We just assume jupyter lab as an environment for now
+        if env is None:
+            env = "lab"
+            logger.info("... assuming editor is Jupyter Lab")
 
         try:
             nb = read_notebook(filepath)
@@ -153,9 +169,8 @@ class Header:
 
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
-
             # display metadata
-            display_ = Display(nb.metadata)
+            dm = DisplayMeta(nb.metadata)
 
             time_run = datetime.now(timezone.utc)
 
@@ -164,22 +179,34 @@ class Header:
             _time_run = time_run
 
             table = []
-            table.append(["id", display_.id()])
-            table.append(["time_init", display_.time_init()])
-            table.append(["time_run", display_.time_run(time_run)])
-            table.append(["version", display_.version()])
+            table.append(["id", dm.id()])
+            table.append(["time_init", dm.time_init()])
+            table.append(["time_run", dm.time_run(time_run)])
+            table.append(["version", dm.version()])
 
-            dep_store = display_.dependency()
+            dep_store = dm.dependency()
             add_pkgs = None
 
             if dep_store is not None:
-                table.append(["dependency_store", " ".join(dep_store)])
+                # only display stored dependencies for published notebooks
+                # for draft notebooks, they have little meaning
+                if (
+                    "version" in nb.metadata["nbproject"]
+                    and nb.metadata["nbproject"]["version"] != "draft"  # noqa
+                ):
+                    table.append(["dependency_store", " ".join(dep_store)])
                 add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
-            dep_live = display_.dependency(
+            dep_live = dm.dependency(
                 infer_dependencies(nb, add_pkgs, pin_versions=True)
             )
-            table.append(["dependency_live", " ".join(dep_live)])
+            suffix = ""
+            if (
+                "version" in nb.metadata["nbproject"]
+                and nb.metadata["nbproject"]["version"] != "draft"  # noqa
+            ):
+                suffix = "_live"
+            table.append([f"dependency{suffix}", " ".join(dep_live)])
 
             display_html(table_html(table))
 

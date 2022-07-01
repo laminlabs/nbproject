@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: flake8
         additional_dependencies:
-          - flake8-black>=0.1.1
+          - flake8-black==0.3.3
           - flake8-typing-imports==1.10.0
         language_version: python3
         args:
@@ -39,7 +39,8 @@ repos:
       - id: nbstripout
         exclude: |
           (?x)(
-              docs/tasks/
+              docs/tasks/|
+              docs/tutorials/publish.ipynb
           )
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.9

@@ -14,6 +14,18 @@ def _save_notebook():
     sleep(1)
 
 
+def _reload_shutdown():
+    global _app
+    if _app is None:
+        _app = JupyterFrontEnd()
+
+    _app.commands.execute("docmanager:reload")  # reload notebook from disk
+    # the following line would be desirable but pops up another dialogue,
+    # which is confusing
+    # _app.commands.execute("docmanager:save")  # orjson writes non-diffable json
+    _app.commands.execute("kernelmenu:shutdown")
+
+
 def _restart_notebook():
     global _app
     if _app is None:

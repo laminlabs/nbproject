@@ -34,4 +34,6 @@ def write_notebook(nb: Notebook, filepath: Union[str, Path]):
         filepath: Path where to write the notebook.
     """
     with open(filepath, "wb") as f:
+        # the formatting orjson dumps doesn't match jupyter lab
+        # maybe one can homogenize it at some point
         f.write(orjson.dumps(nb.dict()))
