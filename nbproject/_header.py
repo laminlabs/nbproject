@@ -169,7 +169,6 @@ class Header:
 
         # read from ipynb metadata and add on-the-fly computed metadata
         else:
-
             # display metadata
             dm = DisplayMeta(nb.metadata)
 
