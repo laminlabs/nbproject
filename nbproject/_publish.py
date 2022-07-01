@@ -32,11 +32,13 @@ def publish(
     if meta._env == "lab":
         _save_notebook()
     else:
-        logger.info("Save the notebook before publishing.")
+        logger.warning(
+            "If not on Jupyter Lab, save the notebook before publishing!\n"
+            "The file changes on disk during publishing and the buffer is overwritten."
+        )
 
-    check = None
     if integrity:
-        check = check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
+        check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
 
     if version is not None:
         meta.store.version = version
@@ -45,21 +47,20 @@ def publish(
             if meta.store.version == "draft":
                 version = "1"
             else:
-                # bump version by 1
-                version = str(int(meta.store.version) + 1)
+                version = str(int(meta.store.version) + 1)  # bump version by 1
             meta.store.version = version
         except ValueError:
             raise ValueError(
-                "The nbproject version is not an integer, please specify a version"
-                " string to set."
+                "The nbproject version cannot be cast to integer. Please pass a version"
+                " string."
             )
 
-    logger.info(f"... set notebook version to {version}")
+    info = f"Set notebook version to {version}."
 
     if store_dependency:
         meta.store.dependency = meta.live.dependency
-        logger.info("... wrote dependencies to dependency store")
+        info += "\nWrote dependencies to dependency store."
+
+    logger.info(info)
 
     meta.write(restart=False)
-
-    return check

@@ -1,11 +1,10 @@
-import sys
 from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Mapping
 
-from loguru import logger
 from pydantic import BaseModel
 
+from ._logger import logger
 from .dev._dependency import infer_dependencies
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
@@ -101,11 +100,10 @@ class DisplayMeta:
 
 
 class Header:
-    """Metadata header class.
+    """Metadata header.
 
-    An object of this class displays nbproject metadata fields
-    for the current notebook on initialization. If the notebook doesn't have
-    nbproject metadata, it will be initialized and written to the notebook.
+    - Displays nbproject metadata fields for the current notebook.
+    - If the notebook doesn't have nbproject metadata, initializes & writes it to disk.
     """
 
     def __init__(self, filepath=None, env=None):
@@ -115,20 +113,10 @@ class Header:
             filepath_env = notebook_path(return_env=True)
             if filepath_env is None:
                 raise RuntimeError(
-                    "can't infer the name of the current notebook, "
-                    "you are probably not inside a jupyter notebook"
+                    "Can't infer the name of the current notebook, "
+                    "you are probably not inside a jupyter notebook."
                 )
             filepath = filepath_env[0]
-
-        # without this, we have ugly timestamps
-        logger.configure(
-            handlers=[
-                dict(
-                    sink=sys.stdout,
-                    format="{message}",
-                ),
-            ],
-        )
 
         if env is None:
             env = filepath_env[1]
@@ -136,19 +124,20 @@ class Header:
         # We just assume jupyter lab as an environment for now
         if env is None:
             env = "lab"
-            logger.info("... assuming editor is Jupyter Lab")
+            logger.info("Assuming editor is Jupyter Lab.")
 
         try:
             nb = read_notebook(filepath)
         except FileNotFoundError:
             raise RuntimeError(
-                "try passing the filepath manually to nbproject.Header()"
+                "Try passing the filepath manually to nbproject.Header()."
             )
         # initialize
         if "nbproject" not in nb.metadata:
             logger.info(
-                "To initialize nbproject for this notebook:\n* In Jupyter Lab: hit"
-                " restart when asked!"
+                "To initialize nbproject for this notebook:\n"  # noqa
+                "- In Jupyter Lab: confirm restart when asked.\n"
+                "- In Jupyter Notebook & VS Code: reload the notebook from disk."
             )
 
             if env == "lab":

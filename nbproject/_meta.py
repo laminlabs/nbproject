@@ -192,11 +192,11 @@ class Meta:
             if restart:
                 _restart_notebook()
             else:
-                logger.info("... reload notebook from disk & shutdown kernel")
+                logger.info("Reload notebook from disk & shutdown kernel.")
                 _reload_shutdown()
         else:
             logger.info(
-                "Shut down kernel as file changed on disk. Reload and restart the"
+                "File changed on disk! Reload and restart the"
                 " notebook if you want to continue."
             )
             # sys.exit(0)  # makes CI fail, need to think of a decent way of exiting

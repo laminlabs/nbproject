@@ -23,6 +23,8 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
     notebooks = nb_folder.glob("**/*.ipynb")
 
     for nb in notebooks:
+        if ".ipynb_checkpoints/" in str(nb):
+            continue
         nb_name = str(nb.relative_to(nb_folder))
         logger.debug(f"{nb_name}")
 
