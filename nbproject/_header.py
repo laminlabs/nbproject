@@ -182,7 +182,9 @@ class Header:
             table.append(["id", dm.id()])
             table.append(["time_init", dm.time_init()])
             table.append(["time_run", dm.time_run(time_run)])
-            table.append(["version", dm.version()])
+
+            version = dm.version()
+            table.append(["version", version])
 
             dep_store = dm.dependency()
             add_pkgs = None
@@ -190,22 +192,15 @@ class Header:
             if dep_store is not None:
                 # only display stored dependencies for published notebooks
                 # for draft notebooks, they have little meaning
-                if (
-                    "version" in nb.metadata["nbproject"]
-                    and nb.metadata["nbproject"]["version"] != "draft"  # noqa
-                ):
+                if version != "draft":
                     table.append(["dependency_store", " ".join(dep_store)])
                 add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
             dep_live = dm.dependency(
                 infer_dependencies(nb, add_pkgs, pin_versions=True)
             )
-            suffix = ""
-            if (
-                "version" in nb.metadata["nbproject"]
-                and nb.metadata["nbproject"]["version"] != "draft"  # noqa
-            ):
-                suffix = "_live"
+
+            suffix = "" if version == "draft" else "_live"
             table.append([f"dependency{suffix}", " ".join(dep_live)])
 
             display_html(table_html(table))
