@@ -24,8 +24,10 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
     # by a sphinx myst index.md file
     # the order of execution matters!
     notebooks = []
-    if (nb_folder / "index.md").exists():
-        with open(nb_folder / "index.md") as f:
+
+    index_path = nb_folder / "index.md"
+    if index_path.exists():
+        with open(index_path) as f:
             index = f.read()
 
         # parse out indexed file list
@@ -36,17 +38,19 @@ def execute_notebooks(nb_folder: Path, write: bool = True):
 
             # if a file is a notebook, add it
             for name in content.split():
-                if (nb_folder / f"{name}.ipynb").exists():
-                    notebooks.append(nb_folder / f"{name}.ipynb")
+                nb = nb_folder / f"{name}.ipynb"
+                if nb.exists():
+                    notebooks.append(nb)
 
-    if len(notebooks) == 0:
-        notebooks = nb_folder.glob("**/*.ipynb")  # type: ignore
+    for nb in nb_folder.glob("./*.ipynb"):
+        if nb not in notebooks:
+            notebooks.append(nb)
 
     for nb in notebooks:
         if ".ipynb_checkpoints/" in str(nb):
             continue
         nb_name = str(nb.relative_to(nb_folder))
-        logger.debug(f"{nb_name}")
+        logger.debug(f"\n{nb_name}")
 
         nb_content = read_nb(nb, as_version=NO_CONVERT)
 
