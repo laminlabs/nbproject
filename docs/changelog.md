@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:memo: Edits to the citation file | [118](https://github.com/laminlabs/nbproject/pull/118) | [Koncopd](https://github.com/Koncopd) | 2022-07-04 |
 📝 Create CITATION.cff | [117](https://github.com/laminlabs/nbproject/pull/117) | [falexwolf](https://github.com/falexwolf) | 2022-07-04 |
 :white_check_mark: Fix execution of notebooks in tests | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 |
 :sparkles: Publish notebooks from CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
