@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "nbproject: Manage Jupyter notebooks"
+authors:
+- family-names: Koncopd
+  given-names: Sergey
+  orcid: https://orcid.org/0000-0000-0000-0000
+- family-names: Wolf
+  given-names: F. Alexander
+  orcid: https://orcid.org/0000-0002-8760-7838
+date-released: 2022-07-04
+url: "https://lamin.ai/notes/2020/nbproject"
+journal: Lamin Blog
+message: "If you use this software, please cite it as below."
