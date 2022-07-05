@@ -3,11 +3,9 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-:memo: Edits to the citation file | [118](https://github.com/laminlabs/nbproject/pull/118) | [Koncopd](https://github.com/Koncopd) | 2022-07-04 |
-📝 Create CITATION.cff | [117](https://github.com/laminlabs/nbproject/pull/117) | [falexwolf](https://github.com/falexwolf) | 2022-07-04 |
-:white_check_mark: Fix execution of notebooks in tests | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 |
-:sparkles: Publish notebooks from CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
-💄 Avoid non-lab logging messages in CI environment | [114](https://github.com/laminlabs/nbproject/pull/114) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.5
+✅ Improve notebook testing API | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 |
+✨ Publish notebooks from the CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
+💄 Avoid non-JupyterLab env logging messages in CI env | [114](https://github.com/laminlabs/nbproject/pull/114) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.5
 ✅ Execute notebooks in order of index | [113](https://github.com/laminlabs/nbproject/pull/113) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 |
 💄 More compact logging and other small fixes | [111](https://github.com/laminlabs/nbproject/pull/111) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.4
 ♻️ Refactor meta and header | [110](https://github.com/laminlabs/nbproject/pull/110) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
