@@ -26,6 +26,7 @@ initialize
 basic-metadata
 dependency-tracking
 publish
+published
 cli
 meta
 ```
