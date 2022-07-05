@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-✅ Improve notebook testing API | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 |
+✅ Improve notebook testing API | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 | 0.1.6
 ✨ Publish notebooks from the CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
 💄 Avoid non-JupyterLab env logging messages in CI env | [114](https://github.com/laminlabs/nbproject/pull/114) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.5
 ✅ Execute notebooks in order of index | [113](https://github.com/laminlabs/nbproject/pull/113) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 |
