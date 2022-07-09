@@ -3,7 +3,7 @@ import string
 from datetime import datetime, timezone
 from typing import Optional
 
-from ._meta_store import MetaStore
+from ._meta_store import MetaContainer
 from ._notebook import Notebook
 
 
@@ -15,14 +15,16 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
     return id
 
 
-def initialize_metadata(nb: Optional[Notebook] = None, dependency=False) -> MetaStore:
+def initialize_metadata(
+    nb: Optional[Notebook] = None, dependency=False
+) -> MetaContainer:
     """Initialize nbproject metadata.
 
     Args:
         nb: If a notebook is provided, also infer dependencies from the notebook.
         dependency: If `True` and `nb` provided, infer dependencies.
     """
-    meta = MetaStore(
+    meta = MetaContainer(
         id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat()
     )
 

@@ -6,7 +6,7 @@ from ._logger import logger
 from .dev._integrity import check_integrity
 from .dev._jupyter_communicate import notebook_path
 from .dev._jupyter_lab_commands import _save_notebook
-from .dev._meta_store import MetaStore
+from .dev._meta_store import MetaContainer, MetaStore
 from .dev._notebook import Notebook, read_notebook
 
 
@@ -132,10 +132,12 @@ class Meta:
             nb_meta = None
 
         if nb_meta is not None and "nbproject" in nb_meta:
-            self._store = MetaStore(**nb_meta["nbproject"])
+            meta_container = MetaContainer(**nb_meta["nbproject"])
         else:
             empty = "not initialized"
-            self._store = MetaStore(id=empty, time_init=empty, version=empty)
+            meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
+
+        self._store = MetaStore(meta_container, filepath, env)
 
     @property
     def store(self) -> MetaStore:
