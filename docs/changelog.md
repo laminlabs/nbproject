@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚸  More intuitive API for updating dependency store and writing it to file | [126](https://github.com/laminlabs/nbproject/pull/126) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 ✨ Add a more convenient way of updating the dependency store | [125](https://github.com/laminlabs/nbproject/pull/125) | [Koncopd](https://github.com/Koncopd) | 2022-07-09 |
 :lipstick: Prettify logging during testing | [124](https://github.com/laminlabs/nbproject/pull/124) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 📝 Add a published notebook | [120](https://github.com/laminlabs/nbproject/pull/120) | [falexwolf](https://github.com/falexwolf) | 2022-07-05 |
