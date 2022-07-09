@@ -43,6 +43,12 @@ class MetaStore(BaseModel):
 
         return _filepath
 
+    @property
+    def _env(self):
+        from .._header import _env
+
+        return _env
+
     def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
         """Add dependencies in `.store`."""
         if self.dependency is None:
