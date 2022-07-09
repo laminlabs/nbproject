@@ -50,7 +50,7 @@ class MetaStore(BaseModel):
         return _env
 
     def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
-        """Add dependencies in `.store`."""
+        """Manually add dependencies."""
         if self.dependency is None:
             self.dependency = {}
 
@@ -63,7 +63,7 @@ class MetaStore(BaseModel):
                 deps_dict[dep] = ""  # type: ignore
 
     def write(self, restart=True):
-        """Write metadata in `.store` to file and shutdown notebook kernel.
+        """Write to file and shutdown notebook kernel.
 
         You can edit the nbproject metadata of the current notebook
         by changing `.store` fields and then using this function

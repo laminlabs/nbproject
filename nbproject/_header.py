@@ -5,7 +5,7 @@ from typing import Mapping
 from pydantic import BaseModel
 
 from ._logger import logger
-from .dev._dependency import infer_dependencies
+from .dev._dependency import infer_dependencies_from_nb
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
 from .dev._jupyter_lab_commands import _restart_notebook, _save_notebook
@@ -186,7 +186,7 @@ class Header:
                 add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
             dep_live = dm.dependency(
-                infer_dependencies(nb, add_pkgs, pin_versions=True)
+                infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
             )
             if dep_live is not None:
                 suffix = "" if version == "draft" else "_live"

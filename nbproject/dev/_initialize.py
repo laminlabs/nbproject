@@ -27,8 +27,8 @@ def initialize_metadata(nb: Optional[Notebook] = None, dependency=False) -> Meta
     )
 
     if nb is not None and dependency:
-        from ._dependency import infer_dependencies
+        from ._dependency import infer_dependencies_from_nb
 
-        meta.dependency = infer_dependencies(nb, pin_versions=True)
+        meta.dependency = infer_dependencies_from_nb(nb, pin_versions=True)
 
     return meta
