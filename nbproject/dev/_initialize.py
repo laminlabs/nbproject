@@ -1,27 +1,10 @@
 import secrets
 import string
 from datetime import datetime, timezone
-from typing import Mapping, Optional
+from typing import Optional
 
-from pydantic import BaseModel, Extra
-
+from ._meta_store import MetaStore
 from ._notebook import Notebook
-
-
-class MetaStore(BaseModel):
-    """The metadata stored in the notebook file."""
-
-    id: str
-    """A universal 8-digit base62 ID."""
-    time_init: str
-    """Time of nbproject init in UTC. Often coincides with notebook creation."""
-    dependency: Optional[Mapping[str, str]] = None
-    """Dictionary of notebook dependencies and their versions."""
-    version: str = "draft"
-    """Published version of notebook."""
-
-    class Config:  # noqa
-        extra = Extra.allow
 
 
 def nbproject_id():  # rename to nbproject_id also in metadata slot?

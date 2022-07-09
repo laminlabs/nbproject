@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import List, Mapping, Optional, Union
 
 from ._logger import logger
-from .dev._initialize import MetaStore
 from .dev._integrity import check_integrity
 from .dev._jupyter_communicate import notebook_path
 from .dev._jupyter_lab_commands import (
@@ -12,6 +11,7 @@ from .dev._jupyter_lab_commands import (
     _restart_notebook,
     _save_notebook,
 )
+from .dev._meta_store import MetaStore
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
 
@@ -171,7 +171,7 @@ class Meta:
         return self._live
 
     def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
-        """Add or update dependencies in `.store`."""
+        """Add dependencies in `.store`."""
         if self._store.dependency is None:
             self._store.dependency = {}
 
