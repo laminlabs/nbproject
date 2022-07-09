@@ -1,27 +1,10 @@
 import secrets
 import string
 from datetime import datetime, timezone
-from typing import Mapping, Optional
+from typing import Optional
 
-from pydantic import BaseModel, Extra
-
+from ._meta_store import MetaContainer
 from ._notebook import Notebook
-
-
-class MetaStore(BaseModel):
-    """The metadata stored in the notebook file."""
-
-    id: str
-    """A universal 8-digit base62 ID."""
-    time_init: str
-    """Time of nbproject init in UTC. Often coincides with notebook creation."""
-    dependency: Optional[Mapping[str, str]] = None
-    """Dictionary of notebook dependencies and their versions."""
-    version: str = "draft"
-    """Published version of notebook."""
-
-    class Config:  # noqa
-        extra = Extra.allow
 
 
 def nbproject_id():  # rename to nbproject_id also in metadata slot?
@@ -32,20 +15,22 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
     return id
 
 
-def initialize_metadata(nb: Optional[Notebook] = None, dependency=False) -> MetaStore:
+def initialize_metadata(
+    nb: Optional[Notebook] = None, dependency=False
+) -> MetaContainer:
     """Initialize nbproject metadata.
 
     Args:
         nb: If a notebook is provided, also infer dependencies from the notebook.
         dependency: If `True` and `nb` provided, infer dependencies.
     """
-    meta = MetaStore(
+    meta = MetaContainer(
         id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat()
     )
 
     if nb is not None and dependency:
-        from ._dependency import infer_dependencies
+        from ._dependency import infer_dependencies_from_nb
 
-        meta.dependency = infer_dependencies(nb, pin_versions=True)
+        meta.dependency = infer_dependencies_from_nb(nb, pin_versions=True)
 
     return meta

@@ -7,7 +7,7 @@ from typing import Iterable, List, Literal, Optional, Union  # noqa
 import packaging
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
-from ._notebook import Notebook
+from ._notebook import Notebook, read_notebook
 
 std_libs = None
 pkgs_dists = None
@@ -52,12 +52,25 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def infer_dependencies(
+def infer_dependencies_from_file(filepath: str):
+    """Parse notebook file and infer all dependencies.
+
+    This accounts for additional dependencies in the file metadata.
+    """
+    nb = read_notebook(filepath)
+    add_pkgs = None
+    if "nbproject" in nb.metadata and "dependency" in nb.metadata["nbproject"]:
+        if nb.metadata["nbproject"]["dependency"] is not None:
+            add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
+    return infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
+
+
+def infer_dependencies_from_nb(
     content: Union[Notebook, list],
     add_pkgs: Optional[Iterable] = None,
     pin_versions: bool = True,
 ):
-    """Parse the notebook content and infer all dependencies.
+    """Parse notebook object and infer all dependencies.
 
     Args:
         nb: A notebook or a list of cells to parse for dependencies.

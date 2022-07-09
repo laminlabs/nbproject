@@ -63,4 +63,4 @@ def publish(
 
     logger.info(info)
 
-    meta.write(restart=False)
+    meta.store.write(restart=False)

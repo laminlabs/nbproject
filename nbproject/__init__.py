@@ -32,6 +32,7 @@ It offers access to `meta.store` and `meta.live`:
 .. autosummary::
    :toctree:
 
+   MetaContainer
    MetaStore
    MetaLive
 
@@ -47,7 +48,7 @@ __version__ = "0.1.6"
 
 from . import dev
 from ._header import Header  # noqa
-from ._meta import Meta, MetaLive, MetaStore
+from ._meta import Meta, MetaContainer, MetaLive, MetaStore
 from ._publish import publish
 
 _meta = None

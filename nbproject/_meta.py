@@ -1,32 +1,13 @@
-import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import List, Mapping, Optional, Union
+from typing import Optional, Union
 
 from ._logger import logger
-from .dev._initialize import MetaStore
 from .dev._integrity import check_integrity
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import (
-    _reload_shutdown,
-    _restart_notebook,
-    _save_notebook,
-)
-from .dev._notebook import Notebook, read_notebook, write_notebook
-
-
-def _change_display_version(cells: list, version):
-    for cell in cells:
-        if cell["cell_type"] == "code":
-            for out in cell["outputs"]:
-                if "data" in out and "text/html" in out["data"]:
-                    html = out["data"]["text/html"][0]
-                    if "<b>version</b>" in html:
-                        pattern = r"(.+version.+?<td.+?>).+?(</td>.+)"
-                        html = re.sub(pattern, rf"\1!!!!{version}\2", html)
-                        html = html.replace("!!!!", "")
-                        out["data"]["text/html"][0] = html
-                        break
+from .dev._jupyter_lab_commands import _save_notebook
+from .dev._meta_store import MetaContainer, MetaStore
+from .dev._notebook import Notebook, read_notebook
 
 
 def get_title(nb: Notebook) -> Optional[str]:
@@ -78,13 +59,9 @@ class MetaLive:
     @property
     def dependency(self):
         """Infer dependencies for the notebook on access."""
-        from .dev._dependency import infer_dependencies
+        from .dev._dependency import infer_dependencies_from_file
 
-        nb = read_notebook(self._nb_path)
-        add_pkgs = None
-        if "nbproject" in nb.metadata and "dependency" in nb.metadata["nbproject"]:
-            add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
-        return infer_dependencies(nb, add_pkgs, pin_versions=True)
+        return infer_dependencies_from_file(self._nb_path)
 
     @property
     def integrity(self):
@@ -155,10 +132,12 @@ class Meta:
             nb_meta = None
 
         if nb_meta is not None and "nbproject" in nb_meta:
-            self._store = MetaStore(**nb_meta["nbproject"])
+            meta_container = MetaContainer(**nb_meta["nbproject"])
         else:
             empty = "not initialized"
-            self._store = MetaStore(id=empty, time_init=empty, version=empty)
+            meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
+
+        self._store = MetaStore(meta_container, filepath, env)
 
     @property
     def store(self) -> MetaStore:
@@ -169,50 +148,6 @@ class Meta:
     def live(self) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
         return self._live
-
-    def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
-        """Add or update dependencies in `.store`."""
-        if self._store.dependency is None:
-            self._store.dependency = {}
-
-        deps_dict = self._store.dependency
-
-        if isinstance(deps, dict):
-            deps_dict.update(deps)
-        elif isinstance(deps, list):
-            for dep in deps:
-                deps_dict[dep] = ""
-
-    def write(self, restart=True):
-        """Write metadata in `.store` to file and shutdown notebook kernel.
-
-        You can edit the nbproject metadata of the current notebook
-        by changing `.store` fields and then using this function
-        to write the changes to the file. Save the notebook before writing.
-        """
-        if self._env == "lab":
-            _save_notebook()
-
-        nb = read_notebook(self._filepath)
-        nb.metadata["nbproject"] = self.store.dict()
-        # also update displayed version number
-        # this is ugly right now but important
-        _change_display_version(nb.cells, self.store.version)
-
-        write_notebook(nb, self._filepath)
-
-        if self._env == "lab":
-            if restart:
-                _restart_notebook()
-            else:
-                logger.info("Reload notebook from disk & shutdown kernel.")
-                _reload_shutdown()
-        elif self._env != "test":
-            logger.info(
-                "File changed on disk! Reload and restart the"
-                " notebook if you want to continue."
-            )
-            # sys.exit(0)  # makes CI fail, need to think of a decent way of exiting
 
     def __repr__(self):
         return (

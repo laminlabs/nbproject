@@ -7,7 +7,7 @@ import yaml  # type: ignore
 
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
-from .dev._dependency import infer_dependencies, resolve_versions
+from .dev._dependency import infer_dependencies_from_nb, resolve_versions
 from .dev._notebook import read_notebook, write_notebook
 
 
@@ -97,7 +97,7 @@ def sync(
         yaml_record = YAMLRecord(nb_path, nbproj_record, yaml_proj)
 
         if parse_deps:
-            deps = infer_dependencies(nb, pin_versions=pin_versions)
+            deps = infer_dependencies_from_nb(nb, pin_versions=pin_versions)
             yaml_record.dependency = deps  # type: ignore
 
         yaml_record.put_metadata()
@@ -155,7 +155,7 @@ def publish(files_dirs: Iterator[str]):
             add_pkgs = None
             if "dependency" in nbproject_meta:
                 add_pkgs = nbproject_meta["dependency"].keys()
-            nbproject_meta["dependency"] = infer_dependencies(
+            nbproject_meta["dependency"] = infer_dependencies_from_nb(
                 nb, add_pkgs, pin_versions=True
             )
 
