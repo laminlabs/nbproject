@@ -60,7 +60,8 @@ def infer_dependencies_from_file(filepath: str):
     nb = read_notebook(filepath)
     add_pkgs = None
     if "nbproject" in nb.metadata and "dependency" in nb.metadata["nbproject"]:
-        add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
+        if nb.metadata["nbproject"]["dependency"] is not None:
+            add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
     return infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
 
 
