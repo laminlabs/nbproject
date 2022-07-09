@@ -50,9 +50,7 @@ class MetaStore(BaseModel):
 
         return _env
 
-    def add_dependencies(
-        self, deps: Union[List[str], Mapping[str, str]]
-    ) -> "MetaStore":
+    def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
         """Manually add dependencies."""
         if self.dependency is None:
             self.dependency = {}
@@ -65,9 +63,7 @@ class MetaStore(BaseModel):
             for dep in deps:
                 deps_dict[dep] = ""  # type: ignore
 
-        return self
-
-    def update_dependencies(self) -> "MetaStore":
+    def update_dependencies(self):
         """Update dependencies in store with live dependencies."""
         if self.dependency is None:
             self.dependency = {}
@@ -81,8 +77,6 @@ class MetaStore(BaseModel):
         elif isinstance(deps, list):
             for dep in deps:
                 deps_dict[dep] = ""  # type: ignore
-
-        return self
 
     def write(self, restart=True):
         """Write to file and shutdown notebook kernel.
