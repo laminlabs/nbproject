@@ -135,3 +135,4 @@ _build
 docs/nbproject.*
 lamin_sphinx
 docs/conf.py
+_docs_tmp*
