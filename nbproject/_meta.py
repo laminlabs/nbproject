@@ -1,7 +1,7 @@
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, Union
+from typing import List, Mapping, Optional, Union
 
 from ._logger import logger
 from .dev._initialize import MetaStore
@@ -169,6 +169,19 @@ class Meta:
     def live(self) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
         return self._live
+
+    def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
+        """Add or update dependencies in `.store`."""
+        if self._store.dependency is None:
+            self._store.dependency = {}
+
+        deps_dict = self._store.dependency
+
+        if isinstance(deps, dict):
+            deps_dict.update(deps)
+        elif isinstance(deps, list):
+            for dep in deps:
+                deps_dict[dep] = ""
 
     def write(self, restart=True):
         """Write metadata in `.store` to file and shutdown notebook kernel.
