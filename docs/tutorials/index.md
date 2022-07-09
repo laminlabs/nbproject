@@ -11,6 +11,7 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 - {doc}`initialize`
 - {doc}`basic-metadata`
 - {doc}`dependency-tracking`
+- {doc}`add-dependencies`
 - {doc}`publish`
 - {doc}`published`
 
@@ -25,6 +26,7 @@ If you want to build APIs on top of nbproject metadata: {doc}`meta`.
 initialize
 basic-metadata
 dependency-tracking
+add-dependencies
 publish
 published
 cli

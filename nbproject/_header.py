@@ -188,9 +188,9 @@ class Header:
             dep_live = dm.dependency(
                 infer_dependencies(nb, add_pkgs, pin_versions=True)
             )
-
-            suffix = "" if version == "draft" else "_live"
-            table.append([f"dependency{suffix}", " ".join(dep_live)])
+            if dep_live is not None:
+                suffix = "" if version == "draft" else "_live"
+                table.append([f"dependency{suffix}", " ".join(dep_live)])
 
             display_html(table_html(table))
 
