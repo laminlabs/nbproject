@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:lipstick: Prettify logging during testing | [124](https://github.com/laminlabs/nbproject/pull/124) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 📝 Add a published notebook | [120](https://github.com/laminlabs/nbproject/pull/120) | [falexwolf](https://github.com/falexwolf) | 2022-07-05 |
 ✅ Improve notebook testing API | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 | 0.1.6
 ✨ Publish notebooks from the CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
