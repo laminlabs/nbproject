@@ -32,17 +32,18 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
     return id
 
 
-def initialize_metadata(nb: Optional[Notebook] = None) -> MetaStore:
+def initialize_metadata(nb: Optional[Notebook] = None, dependency=False) -> MetaStore:
     """Initialize nbproject metadata.
 
     Args:
         nb: If a notebook is provided, also infer dependencies from the notebook.
+        dependency: If `True` and `nb` provided, infer dependencies.
     """
     meta = MetaStore(
         id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat()
     )
 
-    if nb is not None:
+    if nb is not None and dependency:
         from ._dependency import infer_dependencies
 
         meta.dependency = infer_dependencies(nb, pin_versions=True)
