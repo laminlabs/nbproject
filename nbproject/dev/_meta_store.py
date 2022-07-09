@@ -4,6 +4,7 @@ from typing import List, Mapping, Optional, Union
 from pydantic import BaseModel, Extra
 
 from .._logger import logger
+from ._dependency import infer_dependencies_from_file
 from ._jupyter_lab_commands import _reload_shutdown, _restart_notebook, _save_notebook
 from ._notebook import read_notebook, write_notebook
 
@@ -49,7 +50,9 @@ class MetaStore(BaseModel):
 
         return _env
 
-    def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
+    def add_dependencies(
+        self, deps: Union[List[str], Mapping[str, str]]
+    ) -> "MetaStore":
         """Manually add dependencies."""
         if self.dependency is None:
             self.dependency = {}
@@ -61,6 +64,25 @@ class MetaStore(BaseModel):
         elif isinstance(deps, list):
             for dep in deps:
                 deps_dict[dep] = ""  # type: ignore
+
+        return self
+
+    def update_dependencies(self) -> "MetaStore":
+        """Update dependencies in store with live dependencies."""
+        if self.dependency is None:
+            self.dependency = {}
+
+        deps = infer_dependencies_from_file(self._filepath)
+
+        deps_dict = self.dependency
+
+        if isinstance(deps, dict):
+            deps_dict.update(deps)  # type: ignore
+        elif isinstance(deps, list):
+            for dep in deps:
+                deps_dict[dep] = ""  # type: ignore
+
+        return self
 
     def write(self, restart=True):
         """Write to file and shutdown notebook kernel.
