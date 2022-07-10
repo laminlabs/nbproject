@@ -200,3 +200,10 @@ class Header:
 
         _filepath = filepath
         _env = env
+
+
+Header()
+
+
+def header(*args, **kwargs):
+    Header(*args, **kwargs)

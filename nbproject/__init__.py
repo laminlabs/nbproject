@@ -47,7 +47,7 @@ For more fine-grained access, we offer a developer API:
 __version__ = "0.1.6"
 
 from . import dev
-from ._header import Header  # noqa
+from ._header import Header, header  # noqa
 from ._meta import Meta, MetaContainer, MetaLive, MetaStore
 from ._publish import publish
 
