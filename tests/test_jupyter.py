@@ -6,6 +6,11 @@ from nbproject.dev._jupyter_communicate import (
     query_server,
     running_servers,
 )
+from nbproject.dev._jupyter_lab_commands import (
+    _reload_shutdown,
+    _restart_notebook,
+    _save_notebook,
+)
 
 
 def test_jupyter_not_running():
@@ -31,3 +36,9 @@ def test_jupyter_not_running():
         == "Unable to access server;\nipynbname requires either no security or token"  # noqa
         " based security."
     )
+
+
+def test_juplab_nothing_happens():
+    _save_notebook()
+    _reload_shutdown()
+    _restart_notebook()
