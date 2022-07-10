@@ -36,6 +36,7 @@ def test_cli():
     folders = ["guides", "guides/example-project"]
 
     commands = dict(
+        sync_noinit=["sync", "."],
         init=["init"],
         sync=["sync", "."],
         sync_list=["sync"],
