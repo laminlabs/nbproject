@@ -17,6 +17,7 @@ Publish your notebook before sharing it with someone to ensure they can reproduc
    :toctree:
 
    footer
+   publish
 
 To access metadata use the class instance `meta`::
 
