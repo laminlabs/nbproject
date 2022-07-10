@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+📝 Add a nutshell tutorial to demo canonical workflow | [135](https://github.com/laminlabs/nbproject/pull/135) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
 🚸 Turn `header()` from pseudo-module into function, remove `Header` class, keep auto-display upon import | [133](https://github.com/laminlabs/nbproject/pull/133) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
 :white_check_mark: Improve coverage | [130](https://github.com/laminlabs/nbproject/pull/130) | [Koncopd](https://github.com/Koncopd) | 2022-07-10 |
 🚸  More intuitive API for updating dependency store and writing it to file | [126](https://github.com/laminlabs/nbproject/pull/126) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
