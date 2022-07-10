@@ -1,6 +1,6 @@
 # Tutorials
 
-Get started with managing notebooks interactively, one by one.
+## 1: Manage tutorials interactively, one by one
 
 ```{note}
 
@@ -15,9 +15,13 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 - {doc}`publish`
 - {doc}`published`
 
-You can also manage a collection of existing notebooks: {doc}`cli`.
+## 2: Manage a collection of existing notebooks
 
-If you want to build APIs on top of nbproject metadata: {doc}`meta`.
+- {doc}`cli`
+
+## 3: Build APIs on top of nbproject metadata
+
+- {doc}`meta`
 
 ```{toctree}
 :maxdepth: 1
