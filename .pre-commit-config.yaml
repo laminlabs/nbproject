@@ -39,8 +39,8 @@ repos:
       - id: nbstripout
         exclude: |
           (?x)(
-              docs/tasks/|
-              docs/tutorials/publish.ipynb
+              docs/tutorials/publish.ipynb/|
+              docs/tutorials/nutshell.ipynb
           )
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.9
