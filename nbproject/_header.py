@@ -117,11 +117,12 @@ def header(filepath=None, env=None):
     if filepath is None:
         filepath_env = notebook_path(return_env=True)
         if filepath_env is None:
-            logger.debug(
-                "Can't infer the name of the current notebook, "
-                "you are probably not inside a Jupyter notebook. "
-                "Please call `header(filepath='your-file.ipynb')`."
-            )
+            if _time_header_executed is not None:
+                logger.info(
+                    "Can't infer the name of the current notebook, "
+                    "you are probably not inside a Jupyter notebook. "
+                    "Please call `header(filepath='your-file.ipynb')`."
+                )
             return None
         filepath = filepath_env[0]
 
