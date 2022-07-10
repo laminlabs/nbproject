@@ -23,14 +23,14 @@ pip install nbproject
 Get started:
 
 ```
-from nbproject import header
+from nbproject import header; header()
 ```
 
-→ This will initialize nbproject, display notebook metadata, and start tracking! Done.
+→ This will initialize nbproject, display notebook metadata, and start tracking! Done. 😅
 
 Documentation:
 
-- Learn usage patterns in the [tutorials](tutorials/index).
+- Learn more in the [tutorials](tutorials/index).
 - Check out the [API reference](api).
 - If you get stuck, see our [guides](guides/index) for edge cases & errors.
 

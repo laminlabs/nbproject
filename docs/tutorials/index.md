@@ -1,12 +1,10 @@
 # Tutorials
 
-Get started with managing notebooks interactively, one by one.
+## nbproject in a nutshell (#0)
 
-```{note}
+- {doc}`nutshell`
 
-Each of the following pages is a Jupyter notebook, which you can download and execute yourself.
-
-```
+## Manage tutorials interactively (#1)
 
 - {doc}`initialize`
 - {doc}`basic-metadata`
@@ -15,14 +13,19 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 - {doc}`publish`
 - {doc}`published`
 
-You can also manage a collection of existing notebooks: {doc}`cli`.
+## Manage a collection of existing notebooks (#3)
 
-If you want to build APIs on top of nbproject metadata: {doc}`meta`.
+- {doc}`cli`
+
+## Build APIs on top of nbproject metadata (#4)
+
+- {doc}`meta`
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
+nutshell
 initialize
 basic-metadata
 dependency-tracking
