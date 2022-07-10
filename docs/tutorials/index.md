@@ -15,7 +15,7 @@ Each of the following pages is a Jupyter notebook, which you can download and ex
 - {doc}`publish`
 - {doc}`published`
 
-You can also manage a collection of notebooks with the {doc}`CLI <cli>`.
+You can also manage a collection of existing notebooks: {doc}`cli`.
 
 If you want to build APIs on top of nbproject metadata: {doc}`meta`.
 
