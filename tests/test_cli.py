@@ -32,9 +32,15 @@ def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
 
 
 def test_cli():
-    nb_folder = Path(__file__).parents[1] / "docs/tutorials"
+    nb_folder = Path(__file__).parents[1] / "docs/guides"
 
-    commands = dict(init=["init"], sync=["sync", "."])
+    commands = dict(
+        init=["init"],
+        sync=["sync", "."],
+        sync_d_nv=["sync", ".", "-d", "-nv"],
+        sync_d=["sync", ".", "-d"],
+        reqs=["reqs", "."],
+    )
 
     for cmd_name, cmd in commands.items():
         p = Popen(
@@ -52,7 +58,4 @@ def test_cli():
                 f" {ecode}."
             )
 
-    check_notebooks(
-        nb_folder,
-        cleanup=["initialize.ipynb"],
-    )
+    check_notebooks(nb_folder)

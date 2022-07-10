@@ -14,5 +14,10 @@ def pytest_collection_modifyitems(session, config, items):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    nbproj_file = Path(__file__).parents[1] / "docs/tutorials/nbproject_metadata.yml"
+    test_cli_folder = Path(__file__).parents[1] / "docs/guides/"
+
+    nbproj_file = test_cli_folder / "nbproject_metadata.yml"
     nbproj_file.unlink(missing_ok=True)
+
+    reqs_file = test_cli_folder / "requirments.txt"
+    reqs_file.unlink(missing_ok=True)
