@@ -14,6 +14,7 @@ from .dev._notebook import read_notebook, write_notebook
 _filepath = None
 _env = None
 _time_run = None
+_time_header_executed = None
 
 
 def table_html(rows: list):
@@ -99,104 +100,113 @@ class DisplayMeta:
             return deps_list
 
 
-class Header:
+def header(filepath=None, env=None):
     """Metadata header.
 
     - Displays nbproject metadata fields for the current notebook.
     - If the notebook doesn't have nbproject metadata, initializes & writes it to disk.
     """
+    # We'll never want to immediately run this again as it's run on import
+    if (
+        _time_header_executed is not None  # noqa
+        and (datetime.now() - _time_header_executed).total_seconds() < 0.1  # noqa
+    ):
+        return None
+    filepath_env = filepath, env
 
-    def __init__(self, filepath=None, env=None):
-        filepath_env = filepath, env
-
-        if filepath is None:
-            filepath_env = notebook_path(return_env=True)
-            if filepath_env is None:
-                raise RuntimeError(
+    if filepath is None:
+        filepath_env = notebook_path(return_env=True)
+        if filepath_env is None:
+            if _time_header_executed is not None:
+                logger.info(
                     "Can't infer the name of the current notebook, "
-                    "you are probably not inside a jupyter notebook."
+                    "you are probably not inside a Jupyter notebook. "
+                    "Please call `header(filepath='your-file.ipynb')`."
                 )
-            filepath = filepath_env[0]
+            return None
+        filepath = filepath_env[0]
 
-        if env is None:
-            env = filepath_env[1]
-        # This is a quirk we run into when passing filepath manually!
-        # We just assume jupyter lab as an environment for now
-        if env is None:
-            env = "lab"
-            logger.info("Assuming editor is Jupyter Lab.")
+    if env is None:
+        env = filepath_env[1]
+    # This is a quirk we run into when passing filepath manually!
+    # We just assume jupyter lab as an environment for now
+    if env is None:
+        env = "lab"
+        logger.info("Assuming editor is Jupyter Lab.")
 
-        try:
+    try:
+        nb = read_notebook(filepath)
+    except FileNotFoundError:
+        raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
+    # initialize
+    if "nbproject" not in nb.metadata:
+        logger.info(
+            "To initialize nbproject for this notebook:\n"  # noqa
+            "- In Jupyter Lab: confirm restart when asked.\n"
+            "- In Jupyter Notebook & VS Code: reload the notebook from disk."
+        )
+
+        if env == "lab":
+            _save_notebook()
             nb = read_notebook(filepath)
-        except FileNotFoundError:
-            raise RuntimeError(
-                "Try passing the filepath manually to nbproject.Header()."
-            )
-        # initialize
-        if "nbproject" not in nb.metadata:
-            logger.info(
-                "To initialize nbproject for this notebook:\n"  # noqa
-                "- In Jupyter Lab: confirm restart when asked.\n"
-                "- In Jupyter Notebook & VS Code: reload the notebook from disk."
-            )
 
-            if env == "lab":
-                _save_notebook()
-                nb = read_notebook(filepath)
+        # write metadata from the backend
+        nb.metadata["nbproject"] = initialize_metadata(nb).dict()
 
-            # write metadata from the backend
-            nb.metadata["nbproject"] = initialize_metadata(nb).dict()
+        # write the file from the backend
+        write_notebook(nb, filepath)
 
-            # write the file from the backend
-            write_notebook(nb, filepath)
+        if env == "lab":
+            # reload the notebook with metadata by the frontend
+            # otherwise Jupyter lab notices the mismatch
+            # and shows a confusing dialogue
+            _restart_notebook()
 
-            if env == "lab":
-                # reload the notebook with metadata by the frontend
-                # otherwise Jupyter lab notices the mismatch
-                # and shows a confusing dialogue
-                _restart_notebook()
+    # read from ipynb metadata and add on-the-fly computed metadata
+    else:
+        # display metadata
+        dm = DisplayMeta(nb.metadata)
 
-        # read from ipynb metadata and add on-the-fly computed metadata
-        else:
-            # display metadata
-            dm = DisplayMeta(nb.metadata)
+        time_run = datetime.now(timezone.utc)
 
-            time_run = datetime.now(timezone.utc)
+        # make time_run available through API
+        global _time_run
+        _time_run = time_run
 
-            # make time_run available through API
-            global _time_run
-            _time_run = time_run
+        table = []
+        table.append(["id", dm.id()])
+        table.append(["time_init", dm.time_init()])
+        table.append(["time_run", dm.time_run(time_run)])
 
-            table = []
-            table.append(["id", dm.id()])
-            table.append(["time_init", dm.time_init()])
-            table.append(["time_run", dm.time_run(time_run)])
+        version = dm.version()
+        table.append(["version", version])
 
-            version = dm.version()
-            table.append(["version", version])
+        dep_store = dm.dependency()
+        add_pkgs = None
 
-            dep_store = dm.dependency()
-            add_pkgs = None
+        if dep_store is not None:
+            # only display stored dependencies for published notebooks
+            # for draft notebooks, they have little meaning
+            if version != "draft":
+                table.append(["dependency_store", " ".join(dep_store)])
+            add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
 
-            if dep_store is not None:
-                # only display stored dependencies for published notebooks
-                # for draft notebooks, they have little meaning
-                if version != "draft":
-                    table.append(["dependency_store", " ".join(dep_store)])
-                add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
+        dep_live = dm.dependency(
+            infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
+        )
+        if dep_live is not None:
+            suffix = "" if version == "draft" else "_live"
+            table.append([f"dependency{suffix}", " ".join(dep_live)])
 
-            dep_live = dm.dependency(
-                infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
-            )
-            if dep_live is not None:
-                suffix = "" if version == "draft" else "_live"
-                table.append([f"dependency{suffix}", " ".join(dep_live)])
+        display_html(table_html(table))
 
-            display_html(table_html(table))
+    # make filepath available through API
+    global _filepath
+    global _env
 
-        # make filepath available through API
-        global _filepath
-        global _env
+    _filepath = filepath
+    _env = env
 
-        _filepath = filepath
-        _env = env
+
+header()
+_time_header_executed = datetime.now()
