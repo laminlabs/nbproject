@@ -99,7 +99,7 @@ class DisplayMeta:
             return deps_list
 
 
-def header(self, filepath=None, env=None):
+def header(filepath=None, env=None):
     """Metadata header.
 
     - Displays nbproject metadata fields for the current notebook.
