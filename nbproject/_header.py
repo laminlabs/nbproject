@@ -196,3 +196,6 @@ def header(filepath=None, env=None):
 
     _filepath = filepath
     _env = env
+
+
+header()
