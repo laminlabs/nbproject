@@ -32,27 +32,45 @@ def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
 
 
 def test_cli():
-    nb_folder = Path(__file__).parents[1] / "docs/tutorials"
+    main_folder = Path(__file__).parents[1] / "docs"
+    folders = ["guides", "guides/example-project"]
 
-    commands = dict(init=["init"], sync=["sync", "."])
-
-    for cmd_name, cmd in commands.items():
-        p = Popen(
-            ["python", "-m", "nbproject"] + cmd, stdout=PIPE, stderr=PIPE, cwd=nb_folder
-        )
-        ecode = p.wait()
-
-        logger.debug(f"\n {cmd_name} exitcode: {ecode}.")
-        logger.debug(p.stdout.read().decode())
-        logger.debug(p.stderr.read().decode())
-
-        if ecode != 0:
-            raise Exception(
-                f"Something happened with the cli command {cmd_name}, the exit code is"
-                f" {ecode}."
-            )
-
-    check_notebooks(
-        nb_folder,
-        cleanup=["initialize.ipynb"],
+    commands = dict(
+        sync_noinit=["sync", "."],
+        init=["init"],
+        sync=["sync", "."],
+        sync_list=["sync"],
+        sync_d_nv=["sync", ".", "-d", "-nv"],
+        sync_d=["sync", ".", "-d"],
+        reqs_list=["reqs"],
+        reqs=["reqs", "."],
     )
+
+    for folder in folders:
+        nb_folder = main_folder / folder
+        logger.debug(f"\n{nb_folder}")
+
+        for cmd_name, cmd in commands.items():
+            if "list" in cmd_name:
+                files = [str(file) for file in nb_folder.glob("./*") if file.is_file()]
+                cmd = cmd + files
+
+            p = Popen(
+                ["python", "-m", "nbproject"] + cmd,
+                stdout=PIPE,
+                stderr=PIPE,
+                cwd=nb_folder,
+            )
+            ecode = p.wait()
+
+            logger.debug(f"\n {cmd_name} exitcode: {ecode}.")
+            logger.debug(p.stdout.read().decode())
+            logger.debug(p.stderr.read().decode())
+
+            if ecode != 0:
+                raise Exception(
+                    f"Something happened with the cli command {cmd_name}, the exit code"
+                    f" is {ecode}."
+                )
+
+        check_notebooks(nb_folder)
