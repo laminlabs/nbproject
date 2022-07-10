@@ -4,7 +4,7 @@
 
 Display metadata with default arguments and start tracking with class instance `header`::
 
-   from nbproject import header
+   from nbproject import header; header()
 
 .. autosummary::
    :toctree:
@@ -16,7 +16,7 @@ Publish your notebook before sharing it with someone to ensure they can reproduc
 .. autosummary::
    :toctree:
 
-   publish
+   footer
 
 To access metadata use the class instance `meta`::
 
@@ -50,6 +50,8 @@ from . import dev
 from ._header import header  # noqa
 from ._meta import Meta, MetaContainer, MetaLive, MetaStore
 from ._publish import publish
+
+footer = publish
 
 _meta = None
 # see this for context: https://stackoverflow.com/questions/880530
