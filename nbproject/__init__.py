@@ -43,8 +43,6 @@ from ._header import header  # noqa
 from ._meta import Meta, MetaContainer, MetaLive, MetaStore
 from ._publish import publish
 
-footer = publish
-
 _meta = None
 # see this for context: https://stackoverflow.com/questions/880530
 def __getattr__(name):  # user experience is that of a property on a class!
