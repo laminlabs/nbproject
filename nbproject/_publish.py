@@ -11,6 +11,7 @@ def publish(
     version: Optional[str] = None,
     dependency: bool = True,
     integrity: bool = True,
+    i_confirm_i_saved: bool = False,
 ):
     """Publish your notebook before sharing it to ensure it's reproducible.
 
@@ -26,16 +27,19 @@ def publish(
         dependency: If `True`, writes `dependency.live` to `dependency.store`.
             If `False`, leaves the current `dependency.store` as is.
         integrity: If `False`, does not check integrity.
+        i_confirm_i_saved: Only relevant outside Jupyter Lab as a save guard against
+            losing the editor buffer content because of accidentally publishing.
     """
     meta = _load_meta()
 
     if meta._env == "lab":
         _save_notebook()
     elif meta._env != "test":
-        logger.warning(
-            "If not on Jupyter Lab, save the notebook before publishing!\n"
-            "The file changes on disk during publishing and the buffer is overwritten."
-        )
+        if not i_confirm_i_saved:
+            raise RuntimeError(
+                "Make sure you save the notebook in your editor before publishing!\n"
+                "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
+            )
 
     if integrity:
         check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
