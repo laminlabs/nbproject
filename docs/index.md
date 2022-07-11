@@ -3,16 +3,15 @@
 :end-line: 4
 ```
 
-_For background, see [Lamin Blog #5 (2022)](https://lamin.ai/notes/2022/nbproject)._
+_For background, see [Lamin Reports #1 (2022)](https://lamin.ai/notes/2022/nbproject)._
 
-Track & reproduce notebooks through metadata like version, time stamps, dependencies, and integrity status.
-
-Monitor data flow in and out of notebooks by integrating with a data platform like [LaminDB](https://lamin.ai/lamindb).
+Manage reproducible notebooks with metadata, dependency, and integrity tracking.
+Share trustworthy published notebooks with collaborators.
 
 Supported editors:
 
-- Jupyter Lab (best experience)
-- VS Code & Jupyter Notebook (no interactive experience, some quirks)
+- Jupyter Lab (interactive experience)
+- VS Code & Jupyter Notebook (no interactive experience)
 
 Install:
 
@@ -30,9 +29,10 @@ from nbproject import header; header()
 
 Documentation:
 
-- Learn more in the [tutorials](tutorials/index).
-- Check out the [API reference](api).
-- If you get stuck, see our [guides](guides/index) for edge cases & errors.
+- {doc}`nutshell`.
+- Learn usage in the [tutorials](tutorials/index).
+- See the [API reference](api).
+- If you get stuck, see [guides](guides/index) for edge cases & errors.
 
 ```{toctree}
 :maxdepth: 1

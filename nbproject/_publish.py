@@ -12,7 +12,7 @@ def publish(
     store_dependency: bool = True,
     integrity: bool = True,
 ):
-    """Publish the notebook.
+    """Publish your notebook before sharing it to ensure it's reproducible.
 
     1. Sets the version.
     2. Stores dependencies.

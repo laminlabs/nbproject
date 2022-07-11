@@ -2,22 +2,17 @@
 
 .. currentmodule:: nbproject
 
-Display metadata with default arguments and start tracking with class instance `header`::
-
-   from nbproject import header; header()
+Most users will only need these two functions:
 
 .. autosummary::
    :toctree:
 
    header
-
-Publish your notebook before sharing it with someone to ensure they can reproduce it.
-
-.. autosummary::
-   :toctree:
-
-   footer
    publish
+
+Use them with default arguments after importing them like this::
+
+   from nbproject import header, publish
 
 To access metadata use the class instance `meta`::
 
@@ -51,8 +46,6 @@ from . import dev
 from ._header import header  # noqa
 from ._meta import Meta, MetaContainer, MetaLive, MetaStore
 from ._publish import publish
-
-footer = publish
 
 _meta = None
 # see this for context: https://stackoverflow.com/questions/880530

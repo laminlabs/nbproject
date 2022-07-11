@@ -1,10 +1,8 @@
 # Tutorials
 
-## nbproject in a nutshell (#0)
-
-- {doc}`nutshell`
-
 ## Manage tutorials interactively (#1)
+
+Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 
 - {doc}`initialize`
 - {doc}`basic-metadata`
@@ -25,7 +23,7 @@
 :maxdepth: 1
 :hidden:
 
-nutshell
+../nutshell
 initialize
 basic-metadata
 dependency-tracking
