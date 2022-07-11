@@ -40,7 +40,7 @@ def publish(
         dependency: If `True`, writes `dependency.live` to `dependency.store`.
             If `False`, leaves the current `dependency.store` as is.
         integrity: If `False`, does not check integrity.
-        i_confirm_i_saved: Only relevant outside Jupyter Lab as a save guard against
+        i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
             losing the editor buffer content because of accidentally publishing.
         last_cell: If `True`, checks that `publish` is in the last code cell
             of the notebook.
