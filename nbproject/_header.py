@@ -101,10 +101,11 @@ class DisplayMeta:
 
 
 def header(filepath=None, env=None):
-    """Metadata header.
+    """Display metadata and start tracking.
 
     - Displays nbproject metadata fields for the current notebook.
-    - If the notebook doesn't have nbproject metadata, initializes & writes it to disk.
+    - If the notebook has no nbproject metadata, initializes & writes metadata to disk.
+    - Starts tracking dependencies.
     """
     # We'll never want to immediately run this again as it's run on import
     if (
