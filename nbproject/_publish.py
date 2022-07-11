@@ -41,8 +41,18 @@ def publish(
                 "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
             )
 
+    nb = read_notebook(meta._filepath)
+
+    last_code_cell = None
+    for cell in nb.cells:
+        if cell["cell_type"] == "code" and cell["source"] != []:
+            last_code_cell = cell
+
+    if "publish(" not in "".join(last_code_cell["source"]):  # type: ignore
+        raise RuntimeError("publish is not at the end of the current notebook.")
+
     if integrity:
-        check_integrity(read_notebook(meta._filepath), ignore_code="publish(")
+        check_integrity(nb, ignore_code="publish(")
 
     if version is not None:
         meta.store.version = version
