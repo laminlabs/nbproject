@@ -10,6 +10,10 @@ Most users will only need these two functions:
    header
    publish
 
+Use them with default arguments after importing them like this::
+
+   from nbproject import header, publish
+
 To access metadata use the class instance `meta`::
 
    from nbproject import meta
