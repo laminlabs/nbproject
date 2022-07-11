@@ -4,7 +4,19 @@ from ._logger import logger
 from ._meta import _load_meta
 from .dev._integrity import check_integrity
 from .dev._jupyter_lab_commands import _save_notebook
-from .dev._notebook import read_notebook
+from .dev._notebook import Notebook, read_notebook
+
+
+def _check_last_cell(nb: Notebook, code: str) -> bool:
+    last_code_cell = None
+    for cell in nb.cells:
+        if cell["cell_type"] == "code" and cell["source"] != []:
+            last_code_cell = cell
+
+    if last_code_cell is not None and code in "".join(last_code_cell["source"]):
+        return True
+    else:
+        return False
 
 
 def publish(
@@ -12,6 +24,7 @@ def publish(
     dependency: bool = True,
     integrity: bool = True,
     i_confirm_i_saved: bool = False,
+    last_cell: bool = True,
 ):
     """Publish your notebook before sharing it to ensure it's reproducible.
 
@@ -29,6 +42,8 @@ def publish(
         integrity: If `False`, does not check integrity.
         i_confirm_i_saved: Only relevant outside Jupyter Lab as a save guard against
             losing the editor buffer content because of accidentally publishing.
+        last_cell: If `True`, checks that `publish` is in the last code cell
+            of the notebook.
     """
     meta = _load_meta()
 
@@ -43,12 +58,7 @@ def publish(
 
     nb = read_notebook(meta._filepath)
 
-    last_code_cell = None
-    for cell in nb.cells:
-        if cell["cell_type"] == "code" and cell["source"] != []:
-            last_code_cell = cell
-
-    if "publish(" not in "".join(last_code_cell["source"]):  # type: ignore
+    if last_cell and not _check_last_cell(nb, "publish("):
         raise RuntimeError("publish is not at the end of the current notebook.")
 
     if integrity:
