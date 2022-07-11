@@ -9,7 +9,7 @@ from .dev._notebook import read_notebook
 
 def publish(
     version: Optional[str] = None,
-    store_dependency: bool = True,
+    dependency: bool = True,
     integrity: bool = True,
 ):
     """Publish your notebook before sharing it to ensure it's reproducible.
@@ -23,7 +23,7 @@ def publish(
     Args:
         version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
             Otherwise sets the version to the passed version.
-        store_dependency: If `True`, writes `dependency.live` to `dependency.store`.
+        dependency: If `True`, writes `dependency.live` to `dependency.store`.
             If `False`, leaves the current `dependency.store` as is.
         integrity: If `False`, does not check integrity.
     """
@@ -57,7 +57,7 @@ def publish(
 
     info = f"Bumped notebook version to {version}."
 
-    if store_dependency:
+    if dependency:
         meta.store.dependency = meta.live.dependency
         info += " Wrote dependencies to dependency store."
 
