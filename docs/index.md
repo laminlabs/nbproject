@@ -5,9 +5,8 @@
 
 _For background, see [Lamin Reports #1 (2022)](https://lamin.ai/notes/2022/nbproject)._
 
-Track & reproduce notebooks through metadata like version, time stamps, dependencies, and integrity status.
-
-Monitor data flow in and out of notebooks by integrating with a data platform like [LaminDB](https://lamin.ai/lamindb).
+Manage reproducible notebooks with metadata, dependency, and integrity tracking.
+Share trustworthy published notebooks with collaborators.
 
 Supported editors:
 
