@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚚 Migrated test submodule to `nbproject_test` | [138](https://github.com/laminlabs/nbproject/pull/138) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 🚚  Remove mention of footer, lock in publish | [137](https://github.com/laminlabs/nbproject/pull/137) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 📝 Add a nutshell tutorial to demo canonical workflow | [135](https://github.com/laminlabs/nbproject/pull/135) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
 🚸 Turn `header()` from pseudo-module into function, remove `Header` class, keep auto-display upon import | [133](https://github.com/laminlabs/nbproject/pull/133) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
