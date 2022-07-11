@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:sparkles: Add last cell check to publish | [143](https://github.com/laminlabs/nbproject/pull/143) | [Koncopd](https://github.com/Koncopd) | 2022-07-11 |
 :memo: Add header() call to every notebook | [141](https://github.com/laminlabs/nbproject/pull/141) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 | 0.2.0
 🚸 Add `i_confirm_i_saved` arg to `publish()` for usage outside Jupyter Lab | [140](https://github.com/laminlabs/nbproject/pull/140) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 🚚 Migrated test submodule to `nbproject_test` | [138](https://github.com/laminlabs/nbproject/pull/138) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
