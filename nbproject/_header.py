@@ -21,7 +21,7 @@ def table_html(rows: list):
     html = "<table>"
     for row in rows:
         html += "<tr>"
-        html += f"<td'><b>{row.pop(0)}</b></td>"
+        html += f"<td><b>{row.pop(0)}</b></td>"
         for col in row:
             html += f"<td>{col}</td>"
         html += "</tr>"
