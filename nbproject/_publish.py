@@ -50,10 +50,10 @@ def publish(
             of the notebook.
     """
     meta = _load_meta()
-    if "calling_code" in kwargs:
-        calling_code = kwargs["calling_code"]
+    if "calling_statement" in kwargs:
+        calling_statement = kwargs["calling_statement"]
     else:
-        calling_code = "publish("
+        calling_statement = "publish("
 
     if meta._env == "lab":
         _save_notebook()
@@ -66,11 +66,11 @@ def publish(
 
     nb = read_notebook(meta._filepath)
 
-    if last_cell and not _check_last_cell(nb, calling_code):
+    if last_cell and not _check_last_cell(nb, calling_statement):
         raise RuntimeError("publish is not at the end of the current notebook.")
 
     if integrity:
-        check_integrity(nb, ignore_code=calling_code)
+        check_integrity(nb, ignore_code=calling_statement)
 
     if version is not None:
         meta.store.version = version
