@@ -34,7 +34,7 @@ def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> list:
         prev = ccount
 
     # ignore the very last code cell of the notebook
-    # which is where `check_integrity` is being run
+    # which is where `check_integrity` is being run during publish if last_cell is True
     # hence, that cell has ccount is None
     if ccount is None:
         violations.pop()
