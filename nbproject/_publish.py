@@ -20,13 +20,17 @@ def _check_last_cell(nb: Notebook, code: str) -> bool:
 
 
 def publish(
+    *,
     version: Optional[str] = None,
     dependency: bool = True,
     integrity: bool = True,
     i_confirm_i_saved: bool = False,
     last_cell: bool = True,
+    **kwargs,
 ):
     """Publish your notebook before sharing it to ensure it's reproducible.
+
+    This function should be called in the last code cell of the notebook!
 
     1. Sets the version.
     2. Stores dependencies.
@@ -46,6 +50,10 @@ def publish(
             of the notebook.
     """
     meta = _load_meta()
+    if "calling_statement" in kwargs:
+        calling_statement = kwargs["calling_statement"]
+    else:
+        calling_statement = "publish("
 
     if meta._env == "lab":
         _save_notebook()
@@ -58,11 +66,11 @@ def publish(
 
     nb = read_notebook(meta._filepath)
 
-    if last_cell and not _check_last_cell(nb, "publish("):
+    if last_cell and not _check_last_cell(nb, calling_statement):
         raise RuntimeError("publish is not at the end of the current notebook.")
 
     if integrity:
-        check_integrity(nb, ignore_code="publish(")
+        check_integrity(nb, ignore_code=calling_statement)
 
     if version is not None:
         meta.store.version = version

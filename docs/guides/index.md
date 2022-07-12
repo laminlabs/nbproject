@@ -16,4 +16,5 @@ example-after-init-set-filename
 example-after-init-without-title
 publish-without-saving
 publish-not-last-cell
+publish-wrapper
 ```
