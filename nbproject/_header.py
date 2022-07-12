@@ -18,14 +18,14 @@ _time_header_executed = None
 
 
 def table_html(rows: list):
-    html = "<table><tbody>"
+    html = "<table>"
     for row in rows:
         html += "<tr>"
-        html += f"<td style='text-align: left;'><b>{row.pop(0)}</b></td>"
+        html += f"<td'><b>{row.pop(0)}</b></td>"
         for col in row:
-            html += f"<td style='text-align: left;'>{col}</td>"
+            html += f"<td>{col}</td>"
         html += "</tr>"
-    html += "</tbody></table>"
+    html += "</table>"
     return html
 
 
