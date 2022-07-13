@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 |
 🚸 Add extra safety measures, better documentation, better logging, and a separate test to avoid invalid notebook states | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🚸 Clearer logging output upon init in VS Code and Classic Notebook | [152](https://github.com/laminlabs/nbproject/pull/152) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🔥 Remove automatically calling `header()` upon import | [151](https://github.com/laminlabs/nbproject/pull/151) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
