@@ -73,4 +73,4 @@ def test_cli():
                     f" is {ecode}."
                 )
 
-        check_notebooks(nb_folder, cleanup=["2022-07-13-my-task-x.ipynb"])
+        check_notebooks(nb_folder)
