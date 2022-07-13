@@ -5,7 +5,11 @@ from pydantic import BaseModel, Extra
 
 from .._logger import logger
 from ._dependency import infer_dependencies_from_file
-from ._jupyter_lab_commands import _reload_shutdown, _restart_notebook, _save_notebook
+from ._jupyter_lab_commands import (
+    _reload_and_restart_notebook,
+    _reload_shutdown,
+    _save_notebook,
+)
 from ._notebook import read_notebook, write_notebook
 
 
@@ -104,7 +108,7 @@ class MetaStore:
 
         if self._env == "lab":
             if restart:
-                _restart_notebook()
+                _reload_and_restart_notebook()
             else:
                 logger.info("Reload notebook from disk & shutdown kernel.")
                 _reload_shutdown()

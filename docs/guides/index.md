@@ -6,6 +6,10 @@ Look up guides for edges cases, warnings, and errors.
 
 - {doc}`example-after-init-set-filename` shows how to manually pass a notebook filename.
 - {doc}`example-after-init-without-title` shows how a lack of title leads to a warning.
+- {doc}`publish-without-saving`
+- {doc}`publish-not-last-cell`
+- {doc}`publish-wrapper`
+- {doc}`trigger-exit-upon-init`
 
 ```{toctree}
 :maxdepth: 1
@@ -17,4 +21,5 @@ example-after-init-without-title
 publish-without-saving
 publish-not-last-cell
 publish-wrapper
+trigger-exit-upon-init
 ```
