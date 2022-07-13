@@ -6,7 +6,7 @@
 _For background, see [Lamin Reports #1 (2022)](https://lamin.ai/notes/2022/nbproject)._
 
 Manage reproducible notebooks with metadata, dependency, and integrity tracking.
-Share trustworthy published notebooks with collaborators.
+Share notebooks your collaborators can trust.
 
 Supported editors:
 
