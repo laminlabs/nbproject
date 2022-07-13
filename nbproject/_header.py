@@ -133,11 +133,17 @@ def header(filepath=None, env=None):
         raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
     # initialize
     if "nbproject" not in nb.metadata:
-        logger.info(
-            "To initialize nbproject for this notebook:\n"  # noqa
-            "- In Jupyter Lab: Confirm restart when asked.\n"  # noqa
-            "- In VS Code & Classic Notebook: Save & reload from disk = *discard* editor content."  # noqa
-        )
+        if env == "lab":
+            msg = "Hit the restart button when asked."
+        else:
+            msg = (
+                "Hit save & reload from disk, i.e, *discard* editor content. If you do"
+                " not want to lose editor changes, hit save *before* running"
+                " `header()`. Consider using Jupyter Lab for a seamless interactive"
+                " experience."
+            )
+        logging_message = f"To initialize nbproject: {msg}"
+        logger.info(logging_message)
 
         if env == "lab":
             _save_notebook()
@@ -154,6 +160,8 @@ def header(filepath=None, env=None):
             # otherwise Jupyter lab notices the mismatch
             # and shows a confusing dialogue
             _reload_and_restart_notebook()
+        else:
+            raise SystemExit(f"Init complete. {msg}")
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
