@@ -155,6 +155,8 @@ def header(filepath=None, env=None):
         # write the file from the backend
         write_notebook(nb, filepath)
 
+        print(env)
+
         if env == "lab":
             # reload the notebook with metadata by the frontend
             # otherwise Jupyter lab notices the mismatch
