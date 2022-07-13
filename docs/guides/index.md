@@ -16,6 +16,7 @@ Look up guides for edges cases, warnings, and errors.
 :hidden:
 
 example-project/index
+example-project-uninitialized/index
 example-after-init-set-filename
 example-after-init-without-title
 publish-without-saving
