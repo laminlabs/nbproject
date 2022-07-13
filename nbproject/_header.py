@@ -201,9 +201,9 @@ def header(filepath=None, env=None):
 
         display_html(table_html(table))
 
-    # make filepath available through API
-    global _filepath
-    global _env
+        # make filepath available through API
+        global _filepath
+        global _env
 
-    _filepath = filepath
-    _env = env
+        _filepath = filepath
+        _env = env
