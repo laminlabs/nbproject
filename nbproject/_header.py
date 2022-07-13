@@ -14,7 +14,6 @@ from .dev._notebook import read_notebook, write_notebook
 _filepath = None
 _env = None
 _time_run = None
-_time_header_executed = None
 
 
 def table_html(rows: list):
@@ -112,12 +111,11 @@ def header(filepath=None, env=None):
     if filepath is None:
         filepath_env = notebook_path(return_env=True)
         if filepath_env is None:
-            if _time_header_executed is not None:
-                logger.info(
-                    "Can't infer the name of the current notebook, "
-                    "you are probably not inside a Jupyter notebook. "
-                    "Please call `header(filepath='your-file.ipynb')`."
-                )
+            logger.info(
+                "Can't infer the name of the current notebook, "
+                "you are probably not inside a Jupyter notebook. "
+                "Please call `header(filepath='your-file.ipynb')`."
+            )
             return None
         filepath = filepath_env[0]
 
