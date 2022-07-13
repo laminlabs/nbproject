@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🔥 Remove automatically calling `header()` upon import | [151](https://github.com/laminlabs/nbproject/pull/151) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 ♻️ Enable passing the calling_code statement to publish | [148](https://github.com/laminlabs/nbproject/pull/148) | [falexwolf](https://github.com/falexwolf) | 2022-07-12 | 0.2.1
 :sparkles: Add last cell check to publish | [143](https://github.com/laminlabs/nbproject/pull/143) | [Koncopd](https://github.com/Koncopd) | 2022-07-11 |
 :memo: Add header() call to every notebook | [141](https://github.com/laminlabs/nbproject/pull/141) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 | 0.2.0
