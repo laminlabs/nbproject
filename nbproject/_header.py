@@ -8,7 +8,7 @@ from ._logger import logger
 from .dev._dependency import infer_dependencies_from_nb
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import _restart_notebook, _save_notebook
+from .dev._jupyter_lab_commands import _reload_and_restart_notebook, _save_notebook
 from .dev._notebook import read_notebook, write_notebook
 
 _filepath = None
@@ -153,7 +153,7 @@ def header(filepath=None, env=None):
             # reload the notebook with metadata by the frontend
             # otherwise Jupyter lab notices the mismatch
             # and shows a confusing dialogue
-            _restart_notebook()
+            _reload_and_restart_notebook()
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:

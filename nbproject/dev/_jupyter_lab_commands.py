@@ -26,7 +26,7 @@ def _reload_shutdown():
     _app.commands.execute("kernelmenu:shutdown")
 
 
-def _restart_notebook():
+def _reload_and_restart_notebook():
     global _app
     if _app is None:
         _app = JupyterFrontEnd()
