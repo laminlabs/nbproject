@@ -135,8 +135,8 @@ def header(filepath=None, env=None):
     if "nbproject" not in nb.metadata:
         logger.info(
             "To initialize nbproject for this notebook:\n"  # noqa
-            "- In Jupyter Lab: confirm restart when asked.\n"
-            "- In Jupyter Notebook & VS Code: reload the notebook from disk."
+            "- In Jupyter Lab: Confirm restart when asked.\n"  # noqa
+            "- In VS Code & Classic Notebook: Save & reload from disk = *discard* editor content."  # noqa
         )
 
         if env == "lab":
