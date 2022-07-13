@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚸 Add extra safety measures, better documentation, better logging, and a separate test to avoid invalid notebook states | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🚸 Clearer logging output upon init in VS Code and Classic Notebook | [152](https://github.com/laminlabs/nbproject/pull/152) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🔥 Remove automatically calling `header()` upon import | [151](https://github.com/laminlabs/nbproject/pull/151) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 ♻️ Enable passing the calling_code statement to publish | [148](https://github.com/laminlabs/nbproject/pull/148) | [falexwolf](https://github.com/falexwolf) | 2022-07-12 | 0.2.1
