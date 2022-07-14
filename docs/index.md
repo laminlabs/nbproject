@@ -3,6 +3,8 @@
 :end-line: 4
 ```
 
+_Open-source ELN for the drylab._
+
 Manage reproducible notebooks with metadata, dependency, and integrity tracking.
 Share notebooks your collaborators can trust.
 
