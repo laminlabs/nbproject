@@ -12,18 +12,11 @@ from .dev._notebook import Notebook, read_notebook
 
 def get_title(nb: Notebook) -> Optional[str]:
     """Get title of the notebook."""
-    title_error = (
-        "Warning: No title! Please update & save your notebook so that it has a"
-        " markdown cell with the title: # My title"
-    )
-
     if nb.cells[0]["cell_type"] != "markdown":
-        logger.info(title_error)
         title = None
     else:
         title = nb.cells[0]["source"][0]
         if not title.startswith("# "):
-            logger.info(title_error)
             title = None
         else:
             title = title.lstrip("#").strip(" .")
