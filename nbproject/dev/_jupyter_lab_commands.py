@@ -32,7 +32,10 @@ def _reload_and_restart_notebook():
         _app = JupyterFrontEnd()
 
     _app.commands.execute("docmanager:reload")  # reload notebook from disk
-    _app.commands.execute("notebook:restart-and-run-to-selected")
+    _app.commands.execute("kernelmenu:restart")
+
+    # the below was useful for init, but is not viable for publish()
+    # _app.commands.execute("notebook:restart-and-run-to-selected")
     # It'd be nice to execute more cells here, but that's impossible
     # as the kernel is dead at this point
     #
