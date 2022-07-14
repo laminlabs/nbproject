@@ -32,9 +32,10 @@ def publish(
 
     This function should be called in the last code cell of the notebook!
 
-    1. Sets the version.
-    2. Stores dependencies.
-    3. Checks integrity, i.e., whether notebook cells were executed consecutively.
+    1. Checks that the notebook has a title.
+    2. Sets the version.
+    3. Stores dependencies.
+    4. Checks integrity, i.e., whether notebook cells were executed consecutively.
 
     Returns the integrity check result.
 
@@ -54,6 +55,15 @@ def publish(
         calling_statement = kwargs["calling_statement"]
     else:
         calling_statement = "publish("
+
+    notebook_title = meta.live.title
+    title_error = (
+        "Error: No title! Please update & save your notebook so that it has a"
+        " markdown cell with the title: # My title"
+    )
+
+    if notebook_title is None:
+        raise RuntimeError(title_error)
 
     if meta._env == "lab":
         _save_notebook()
