@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 |
+🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 | 0.2.3
 🚸 Remove execution of cells after metadata write | [159](https://github.com/laminlabs/nbproject/pull/159) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 |
 Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 | 0.2.2
 🚸 Add extra safety measures, better documentation, better logging, and a separate test to avoid invalid notebook states | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |

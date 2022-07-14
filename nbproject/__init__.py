@@ -40,7 +40,7 @@ For more fine-grained access, we offer a developer API:
    dev
 
 """
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 from . import dev
 from ._header import header  # noqa
