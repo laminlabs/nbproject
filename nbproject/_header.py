@@ -8,7 +8,7 @@ from ._logger import logger
 from .dev._dependency import infer_dependencies_from_nb
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import _reload_and_restart_notebook, _save_notebook
+from .dev._jupyter_lab_commands import _reload_notebook, _save_notebook
 from .dev._notebook import read_notebook, write_notebook
 
 _filepath = None
@@ -133,35 +133,25 @@ def header(filepath=None, env=None):
         raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
     # initialize
     if "nbproject" not in nb.metadata:
-        if env == "lab":
-            msg = "Hit the restart button when asked."
-        else:
-            msg = (
-                "Hit save & reload from disk, i.e, *discard* editor content. If you do"
-                " not want to lose editor changes, hit save *before* running"
-                " `header()`. Consider using Jupyter Lab for a seamless interactive"
-                " experience."
-            )
-        logging_message = f"To initialize nbproject: {msg}"
-        logger.info(logging_message)
+        logger.info("Initializing.")
 
         if env == "lab":
             _save_notebook()
             nb = read_notebook(filepath)
 
-        # write metadata from the backend
         nb.metadata["nbproject"] = initialize_metadata(nb).dict()
-
-        # write the file from the backend
         write_notebook(nb, filepath)
 
         if env == "lab":
-            # reload the notebook with metadata by the frontend
-            # otherwise Jupyter lab notices the mismatch
-            # and shows a confusing dialogue
-            _reload_and_restart_notebook()
+            _reload_notebook()
         else:
-            raise SystemExit(f"Init complete. {msg}")
+            logging_message = (
+                "Hit save & reload from disk, i.e, *discard* editor content. If you do"
+                " not want to lose editor changes, hit save *before* running"
+                " `header()`. Consider using Jupyter Lab for a seamless interactive"
+                " experience."
+            )
+            raise SystemExit(f"Init complete. {logging_message}")
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:

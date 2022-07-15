@@ -105,4 +105,4 @@ def publish(
 
     logger.info(info)
 
-    meta.store.write(restart=False)
+    meta.store.write()

@@ -5,11 +5,7 @@ from pydantic import BaseModel, Extra
 
 from .._logger import logger
 from ._dependency import infer_dependencies_from_file
-from ._jupyter_lab_commands import (
-    _reload_and_restart_notebook,
-    _reload_shutdown,
-    _save_notebook,
-)
+from ._jupyter_lab_commands import _reload_notebook, _save_notebook
 from ._notebook import read_notebook, write_notebook
 
 
@@ -88,12 +84,14 @@ class MetaStore:
         deps = infer_dependencies_from_file(self._filepath)
         deps_dict.update(deps)
 
-    def write(self, restart=True):
-        """Write to file and shutdown notebook kernel.
+    def write(self):
+        """Write to file.
 
         You can edit the nbproject metadata of the current notebook
         by changing `.store` fields and then using this function
-        to write the changes to the file. Save the notebook before writing.
+        to write the changes to the file.
+
+        Outside Jupyter Lab: Save the notebook before writing.
         """
         if self._env == "lab":
             _save_notebook()
@@ -107,15 +105,10 @@ class MetaStore:
         write_notebook(nb, self._filepath)
 
         if self._env == "lab":
-            if restart:
-                _reload_and_restart_notebook()
-            else:
-                logger.info("Reload notebook from disk & shutdown kernel.")
-                _reload_shutdown()
+            _reload_notebook()
         elif self._env != "test":
             logger.info(
-                "File changed on disk! Reload and restart the"
-                " notebook if you want to continue."
+                "File changed on disk! Reload the notebook if you want to continue."
             )
             # sys.exit(0)  # makes CI fail, need to think of a decent way of exiting
 
