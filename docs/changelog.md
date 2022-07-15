@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚸 Indent JSON just as editors do | [163](https://github.com/laminlabs/nbproject/pull/163) | [falexwolf](https://github.com/falexwolf) | 2022-07-15 |
 🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 | 0.2.3
 🚸 Remove execution of cells after metadata write | [159](https://github.com/laminlabs/nbproject/pull/159) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 |
 🚸 Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 | 0.2.2
