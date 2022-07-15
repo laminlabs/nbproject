@@ -5,22 +5,22 @@ Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
 🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 | 0.2.3
 🚸 Remove execution of cells after metadata write | [159](https://github.com/laminlabs/nbproject/pull/159) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 |
-Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 | 0.2.2
+🚸 Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 | 0.2.2
 🚸 Add extra safety measures, better documentation, better logging, and a separate test to avoid invalid notebook states | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🚸 Clearer logging output upon init in VS Code and Classic Notebook | [152](https://github.com/laminlabs/nbproject/pull/152) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🔥 Remove automatically calling `header()` upon import | [151](https://github.com/laminlabs/nbproject/pull/151) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 ♻️ Enable passing the calling_code statement to publish | [148](https://github.com/laminlabs/nbproject/pull/148) | [falexwolf](https://github.com/falexwolf) | 2022-07-12 | 0.2.1
-:sparkles: Add last cell check to publish | [143](https://github.com/laminlabs/nbproject/pull/143) | [Koncopd](https://github.com/Koncopd) | 2022-07-11 |
-:memo: Add header() call to every notebook | [141](https://github.com/laminlabs/nbproject/pull/141) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 | 0.2.0
+✨ Add last cell check to publish | [143](https://github.com/laminlabs/nbproject/pull/143) | [Koncopd](https://github.com/Koncopd) | 2022-07-11 |
+📝 Add header() call to every notebook | [141](https://github.com/laminlabs/nbproject/pull/141) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 | 0.2.0
 🚸 Add `i_confirm_i_saved` arg to `publish()` for usage outside Jupyter Lab | [140](https://github.com/laminlabs/nbproject/pull/140) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 🚚 Migrated test submodule to `nbproject_test` | [138](https://github.com/laminlabs/nbproject/pull/138) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
-🚚  Remove mention of footer, lock in publish | [137](https://github.com/laminlabs/nbproject/pull/137) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
+🚚 Remove mention of footer, lock in publish | [137](https://github.com/laminlabs/nbproject/pull/137) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 📝 Add a nutshell tutorial to demo canonical workflow | [135](https://github.com/laminlabs/nbproject/pull/135) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
 🚸 Turn `header()` from pseudo-module into function, remove `Header` class, keep auto-display upon import | [133](https://github.com/laminlabs/nbproject/pull/133) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
-:white_check_mark: Improve coverage | [130](https://github.com/laminlabs/nbproject/pull/130) | [Koncopd](https://github.com/Koncopd) | 2022-07-10 |
-🚸  More intuitive API for updating dependency store and writing it to file | [126](https://github.com/laminlabs/nbproject/pull/126) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
+✅ Improve coverage | [130](https://github.com/laminlabs/nbproject/pull/130) | [Koncopd](https://github.com/Koncopd) | 2022-07-10 |
+🚸 More intuitive API for updating dependency store and writing it to file | [126](https://github.com/laminlabs/nbproject/pull/126) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 ✨ Add a more convenient way of updating the dependency store | [125](https://github.com/laminlabs/nbproject/pull/125) | [Koncopd](https://github.com/Koncopd) | 2022-07-09 |
-:lipstick: Prettify logging during testing | [124](https://github.com/laminlabs/nbproject/pull/124) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
+💄 Prettify logging during testing | [124](https://github.com/laminlabs/nbproject/pull/124) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 📝 Add a published notebook | [120](https://github.com/laminlabs/nbproject/pull/120) | [falexwolf](https://github.com/falexwolf) | 2022-07-05 |
 ✅ Improve notebook testing API | [116](https://github.com/laminlabs/nbproject/pull/116) | [Koncopd](https://github.com/Koncopd) | 2022-07-03 | 0.1.6
 ✨ Publish notebooks from the CLI | [112](https://github.com/laminlabs/nbproject/pull/112) | [Koncopd](https://github.com/Koncopd) | 2022-07-01 |
