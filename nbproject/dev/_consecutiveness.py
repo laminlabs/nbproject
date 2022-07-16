@@ -5,8 +5,8 @@ from loguru import logger
 from ._notebook import Notebook
 
 
-def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> list:
-    """Get integrity status of the passed notebook.
+def check_consecutiveness(nb: Notebook, ignore_code: Optional[str] = None) -> list:
+    """Get consecutiveness status of the passed notebook.
 
     Returns those cell transitions that violate execution at increments of 1
     as a list of tuples.
@@ -34,7 +34,7 @@ def check_integrity(nb: Notebook, ignore_code: Optional[str] = None) -> list:
         prev = ccount
 
     # ignore the very last code cell of the notebook
-    # which is where `check_integrity` is being run during publish if last_cell is True
+    # `check_consecutiveness` is being run during publish if `last_cell`` is True
     # hence, that cell has ccount is None
     if ccount is None:
         violations.pop()

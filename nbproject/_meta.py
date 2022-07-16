@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, Union
 
 from ._logger import logger
-from .dev._integrity import check_integrity
+from .dev._consecutiveness import check_consecutiveness
 from .dev._jupyter_communicate import notebook_path
 from .dev._jupyter_lab_commands import _save_notebook
 from .dev._meta_store import MetaContainer, MetaStore
@@ -57,8 +57,8 @@ class MetaLive:
         return infer_dependencies_from_file(self._nb_path)
 
     @property
-    def integrity(self):
-        """Compute integrity of the notebook.
+    def consecutiveness(self):
+        """Compute consecutiveness of the notebook.
 
         Returns those cell transitions that violate execution at increments of 1
         as a list of tuples.
@@ -66,9 +66,9 @@ class MetaLive:
         if self._env == "lab":
             _save_notebook()
         elif self._env != "test":
-            logger.info("Save the notebook before running the integrity check.")
+            logger.info("Save the notebook before running the consecutiveness check.")
         nb = read_notebook(self._nb_path)
-        return check_integrity(nb, ignore_code=".live.integrity")
+        return check_consecutiveness(nb, ignore_code=".live.consecutiveness")
 
     @property
     def time_run(self):
