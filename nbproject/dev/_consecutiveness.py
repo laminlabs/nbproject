@@ -3,7 +3,7 @@ from loguru import logger
 from ._notebook import Notebook
 
 
-def check_consecutiveness(nb: Notebook) -> list:
+def check_consecutiveness(nb: Notebook, calling_statement=None) -> list:
     """Check whether code cells have been executed consecutively.
 
     Needs to be called in the last code cell of a notebook.
@@ -14,6 +14,7 @@ def check_consecutiveness(nb: Notebook) -> list:
 
     Args:
         nb: Notebook content.
+        calling_statement: The statement that calls this function.
     """
     cells = nb.cells
 
@@ -22,6 +23,11 @@ def check_consecutiveness(nb: Notebook) -> list:
 
     for cell in cells:
         if cell["cell_type"] != "code" or cell["source"] == []:
+            continue
+
+        if calling_statement is not None and calling_statement in "".join(
+            cell["source"]
+        ):
             continue
 
         ccount = cell["execution_count"]
