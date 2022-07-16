@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-♻️ Refactor `last_cell` check & `consecutiveness` check in `publish()` | [167](https://github.com/laminlabs/nbproject/pull/167) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
+♻️ Refactor `last_cell` check & `consecutiveness` check in `publish()` | [167](https://github.com/laminlabs/nbproject/pull/167) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.0
 🚚 Rename `integrity` to `consecutiveness` | [166](https://github.com/laminlabs/nbproject/pull/166) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
 🚸 Remove complexity of Jupyter Lab interaction | [164](https://github.com/laminlabs/nbproject/pull/164) | [falexwolf](https://github.com/falexwolf) | 2022-07-15 |
 🚸 Indent JSON just as editors do | [163](https://github.com/laminlabs/nbproject/pull/163) | [falexwolf](https://github.com/falexwolf) | 2022-07-15 |
