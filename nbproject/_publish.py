@@ -47,7 +47,9 @@ def publish(
 
     if meta._env == "lab":
         _save_notebook()
-    else:
+    elif (
+        not meta._env == "test"
+    ):  # We don't want to show `i_confirm_i_saved` in all docs
         if not i_confirm_i_saved:
             raise RuntimeError(
                 "Make sure you save the notebook in your editor before publishing!\n"
