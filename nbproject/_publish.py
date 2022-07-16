@@ -48,10 +48,15 @@ def publish(
 
     if meta._env == "lab":
         _save_notebook()
-    elif (
-        not meta._env == "test"
-    ):  # We don't want to show `i_confirm_i_saved` in all docs
-        if not i_confirm_i_saved:
+    else:
+        pretend_no_test_env = (
+            kwargs["pretend_no_test_env"] if "pretend_no_test_env" in kwargs else False
+        )
+        if (
+            meta._env == "test" and not pretend_no_test_env
+        ):  # do not raise error in test environment
+            pass
+        elif not i_confirm_i_saved:
             raise RuntimeError(
                 "Make sure you save the notebook in your editor before publishing!\n"
                 "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
