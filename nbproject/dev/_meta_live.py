@@ -92,4 +92,4 @@ class MetaLive:
         return (datetime.now(timezone.utc) - self._time_run).total_seconds()
 
     def __repr__(self):
-        return " ".join([key for key in dir(self) if key[0] != "_"])
+        return "Fields: " + " ".join([key for key in dir(self) if key[0] != "_"])
