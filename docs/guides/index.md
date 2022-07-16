@@ -13,6 +13,7 @@ Look up guides for edges cases, warnings, and errors.
 - {doc}`publish-not-last-cell`
 - {doc}`publish-wrapper`
 - {doc}`trigger-exit-upon-init`
+- {doc}`not-initialized`
 
 ```{toctree}
 :maxdepth: 1
@@ -27,4 +28,5 @@ publish-without-saving
 publish-not-last-cell
 publish-wrapper
 trigger-exit-upon-init
+not-initialized
 ```
