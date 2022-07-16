@@ -47,7 +47,7 @@ class meta:
         if env is None:
             env = filepath_env[1]
 
-        cls._filepath = _filepath
+        cls._filepath = filepath
         cls._env = env
         cls._time_run = _time_run
 
