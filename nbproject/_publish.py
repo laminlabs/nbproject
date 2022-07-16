@@ -13,17 +13,15 @@ def publish(
     version: Optional[str] = None,
     i_confirm_i_saved: bool = False,
     **kwargs,
-):
-    """Publish your notebook before sharing it to ensure it's reproducible.
+) -> None:
+    """Publish your notebook before sharing it.
 
-    This function should be called in the last code cell of the notebook!
+    1. Sets a version > "draft".
+    2. Stores dependencies.
+    3. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
+    4. Checks that the notebook has a title.
 
-    1. Checks that the notebook has a title.
-    2. Sets the version.
-    3. Stores dependencies.
-    4. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
-
-    Returns the consecutiveness check result.
+    This function has to be called in the last code cell of the notebook.
 
     Args:
         version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
