@@ -14,7 +14,7 @@ Use them with default arguments after importing them like this::
 
    from nbproject import header, publish
 
-For more fine-grained access, see:
+For more fine-grained access, use:
 
 .. autosummary::
    :toctree:
