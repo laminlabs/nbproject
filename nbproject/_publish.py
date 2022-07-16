@@ -4,28 +4,13 @@ from ._logger import logger
 from ._meta import _load_meta
 from .dev._consecutiveness import check_consecutiveness
 from .dev._jupyter_lab_commands import _save_notebook
-from .dev._notebook import Notebook, read_notebook
-
-
-def _check_last_cell(nb: Notebook, code: str) -> bool:
-    last_code_cell = None
-    for cell in nb.cells:
-        if cell["cell_type"] == "code" and cell["source"] != []:
-            last_code_cell = cell
-
-    if last_code_cell is not None and code in "".join(last_code_cell["source"]):
-        return True
-    else:
-        return False
+from .dev._notebook import read_notebook
 
 
 def publish(
     *,
     version: Optional[str] = None,
-    dependency: bool = True,
-    consecutiveness: bool = True,
     i_confirm_i_saved: bool = False,
-    last_cell: bool = True,
     **kwargs,
 ):
     """Publish your notebook before sharing it to ensure it's reproducible.
@@ -42,13 +27,8 @@ def publish(
     Args:
         version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
             Otherwise sets the version to the passed version.
-        dependency: If `True`, writes `dependency.live` to `dependency.store`.
-            If `False`, leaves the current `dependency.store` as is.
-        consecutiveness: If `False`, does not check consecutiveness.
         i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
             losing the editor buffer content because of accidentally publishing.
-        last_cell: If `True`, checks that `publish` is in the last code cell
-            of the notebook.
     """
     meta = _load_meta()
     if "calling_statement" in kwargs:
@@ -76,11 +56,7 @@ def publish(
 
     nb = read_notebook(meta._filepath)
 
-    if last_cell and not _check_last_cell(nb, calling_statement):
-        raise RuntimeError("publish is not at the end of the current notebook.")
-
-    if consecutiveness:
-        check_consecutiveness(nb, ignore_code=calling_statement)
+    check_consecutiveness(nb, calling_statement=calling_statement)
 
     if version is not None:
         meta.store.version = version
@@ -97,12 +73,7 @@ def publish(
                 " string."
             )
 
-    info = f"Bumped notebook version to {version}."
-
-    if dependency:
-        meta.store.dependency = meta.live.dependency
-        info += " Wrote dependencies to dependency store."
-
-    logger.info(info)
+    meta.store.dependency = meta.live.dependency
+    logger.info(f"Bumped notebook version to {version} & wrote dependencies.")
 
     meta.store.write()

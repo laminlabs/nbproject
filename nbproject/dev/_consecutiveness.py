@@ -5,16 +5,40 @@ from loguru import logger
 from ._notebook import Notebook
 
 
-def check_consecutiveness(nb: Notebook, ignore_code: Optional[str] = None) -> list:
-    """Get consecutiveness status of the passed notebook.
+def _check_last_cell(nb: Notebook, calling_statement: str) -> bool:
+    last_code_cell = None
+    for cell in nb.cells:
+        if cell["cell_type"] == "code" and cell["source"] != []:
+            last_code_cell = cell
 
-    Returns those cell transitions that violate execution at increments of 1
-    as a list of tuples.
+    if last_code_cell is not None and calling_statement in "".join(
+        last_code_cell["source"]
+    ):
+        return True
+    else:
+        return False
+
+
+def check_consecutiveness(
+    nb: Notebook, *, calling_statement: Optional[str] = None
+) -> list:
+    """Check whether code cells have been executed consecutively.
+
+    Needs to be called in the last code cell of a notebook.
+    Otherwise raises `RuntimeError`.
+
+    Returns cell transitions that violate execution at increments of 1 as a list
+    of tuples.
 
     Args:
-        nb: The notebook to check.
-        ignore_code: Ignore cells that contain this code.
+        nb: Notebook content.
+        calling_statement: Statement that calls `check_consecutiveness`.
     """
+    if _check_last_cell(nb, calling_statement):  # type: ignore
+        raise RuntimeError(
+            "Can only check consecutiveness from the last code cell of the notebook."
+        )
+
     cells = nb.cells
 
     violations = []
@@ -22,9 +46,6 @@ def check_consecutiveness(nb: Notebook, ignore_code: Optional[str] = None) -> li
 
     for cell in cells:
         if cell["cell_type"] != "code" or cell["source"] == []:
-            continue
-
-        if ignore_code is not None and ignore_code in "".join(cell["source"]):
             continue
 
         ccount = cell["execution_count"]
