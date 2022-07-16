@@ -1,27 +1,9 @@
-from typing import Optional
-
 from loguru import logger
 
 from ._notebook import Notebook
 
 
-def _check_last_cell(nb: Notebook, calling_statement: str) -> bool:
-    last_code_cell = None
-    for cell in nb.cells:
-        if cell["cell_type"] == "code" and cell["source"] != []:
-            last_code_cell = cell
-
-    if last_code_cell is not None and calling_statement in "".join(
-        last_code_cell["source"]
-    ):
-        return True
-    else:
-        return False
-
-
-def check_consecutiveness(
-    nb: Notebook, *, calling_statement: Optional[str] = None
-) -> list:
+def check_consecutiveness(nb: Notebook) -> list:
     """Check whether code cells have been executed consecutively.
 
     Needs to be called in the last code cell of a notebook.
@@ -34,11 +16,6 @@ def check_consecutiveness(
         nb: Notebook content.
         calling_statement: Statement that calls `check_consecutiveness`.
     """
-    if not _check_last_cell(nb, calling_statement):  # type: ignore
-        raise RuntimeError(
-            "Can only check consecutiveness from the last code cell of the notebook."
-        )
-
     cells = nb.cells
 
     violations = []

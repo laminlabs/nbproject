@@ -2,6 +2,7 @@ from typing import Optional
 
 from ._logger import logger
 from ._meta import _load_meta
+from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
 from .dev._jupyter_lab_commands import _save_notebook
 from .dev._notebook import read_notebook
@@ -57,8 +58,9 @@ def publish(
             )
 
     nb = read_notebook(meta._filepath)
-
-    check_consecutiveness(nb, calling_statement=calling_statement)
+    if not check_last_cell(nb, calling_statement):
+        raise RuntimeError("Can only publish from the last code cell of the notebook.")
+    check_consecutiveness(nb)
 
     if version is not None:
         meta.store.version = version
