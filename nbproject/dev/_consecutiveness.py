@@ -14,7 +14,6 @@ def check_consecutiveness(nb: Notebook) -> list:
 
     Args:
         nb: Notebook content.
-        calling_statement: Statement that calls `check_consecutiveness`.
     """
     cells = nb.cells
 
