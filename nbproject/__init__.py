@@ -22,7 +22,6 @@ To access metadata use the class instance `meta`::
    :toctree:
 
    meta
-   MetaLive
 
 For more fine-grained access, we offer a developer API:
 
@@ -35,6 +34,6 @@ For more fine-grained access, we offer a developer API:
 __version__ = "0.3.1"
 
 from . import dev
-from ._header import header  # noqa
-from ._meta import MetaLive, meta
+from ._header import header
+from ._meta import meta
 from ._publish import publish
