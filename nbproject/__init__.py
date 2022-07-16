@@ -22,14 +22,6 @@ To access metadata use the class instance `meta`::
    :toctree:
 
    Meta
-
-It offers access to `meta.store` and `meta.live`:
-
-.. autosummary::
-   :toctree:
-
-   MetaContainer
-   MetaStore
    MetaLive
 
 For more fine-grained access, we offer a developer API:
@@ -44,7 +36,7 @@ __version__ = "0.3.1"
 
 from . import dev
 from ._header import header  # noqa
-from ._meta import Meta, MetaContainer, MetaLive, MetaStore
+from ._meta import Meta, MetaLive
 from ._publish import publish
 
 _meta = None
