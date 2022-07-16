@@ -41,7 +41,7 @@ class MetaLive:
         self._time_run = time_run
 
     @property
-    def title(self):
+    def title(self) -> Optional[str]:
         """Get the title of the notebook.
 
         The first cell should contain markdown text formatted as a title.
@@ -57,18 +57,21 @@ class MetaLive:
         return infer_dependencies_from_file(self._nb_path)
 
     @property
-    def consecutiveness(self):
-        """Compute consecutiveness of the notebook.
+    def consecutive_cells(self) -> bool:
+        """Have notebook cells been consecutively executed?
 
-        Returns those cell transitions that violate execution at increments of 1
+        Logs cell transitions that violate execution at increments of 1
         as a list of tuples.
         """
         if self._env == "lab":
             _save_notebook()
         elif self._env != "test":
-            logger.info("Save the notebook before running the consecutiveness check.")
+            logger.info("Save the notebook before checking for consecutiveness.")
         nb = read_notebook(self._nb_path)
-        return check_consecutiveness(nb, ignore_code=".live.consecutiveness")
+        if len(check_consecutiveness(nb)) > 0:
+            return False
+        else:
+            return True
 
     @property
     def time_run(self):
