@@ -8,10 +8,11 @@ _Open-source ELN for the drylab._
 Manage reproducible notebooks with metadata, dependency, and consecutiveness tracking.
 Share notebooks your collaborators can trust.
 
-Supported editors:
+Supported editors & platforms:
 
-- Jupyter Lab (interactive experience)
-- VS Code & Jupyter Notebook (no interactive experience)
+- Jupyter Lab
+  - Google Cloud Vertex AI ([tested on 2022-07-16](https://github.com/laminlabs/nbproject/issues/170))
+- VS Code & Jupyter Notebook (**no** interactive experience! not recommended for production)
 
 Install:
 
