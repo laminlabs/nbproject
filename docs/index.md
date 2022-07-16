@@ -5,7 +5,7 @@
 
 _Open-source ELN for the drylab._
 
-Manage reproducible notebooks with metadata, dependency, and integrity tracking.
+Manage reproducible notebooks with metadata, dependency, and consecutiveness tracking.
 Share notebooks your collaborators can trust.
 
 Supported editors:
