@@ -2,7 +2,7 @@ import re
 import sys
 from ast import Import, ImportFrom, parse, walk
 from operator import gt, lt
-from typing import Iterable, List, Literal, Optional, Union  # noqa
+from typing import Iterable, List, Optional, Union  # noqa
 
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
@@ -130,9 +130,7 @@ def infer_dependencies_from_nb(
     return pkgs
 
 
-def resolve_versions(
-    notebooks_pkgs: List[dict], strategy: Literal["older", "newer"] = "newer"
-):
+def resolve_versions(notebooks_pkgs: List[dict], strategy="newer"):
     """Harmonize packages' versions from lists of packages."""
     import packaging.version
 
