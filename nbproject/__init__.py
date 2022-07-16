@@ -21,7 +21,7 @@ To access metadata use the class instance `meta`::
 .. autosummary::
    :toctree:
 
-   Meta
+   meta
    MetaLive
 
 For more fine-grained access, we offer a developer API:
@@ -36,19 +36,5 @@ __version__ = "0.3.1"
 
 from . import dev
 from ._header import header  # noqa
-from ._meta import Meta, MetaLive
+from ._meta import MetaLive, meta
 from ._publish import publish
-
-_meta = None
-# see this for context: https://stackoverflow.com/questions/880530
-def __getattr__(name):  # user experience is that of a property on a class!
-    global _meta
-
-    if name == "meta":
-        if _meta is None:
-            from ._meta import _load_meta
-
-            _meta = _load_meta()
-        return _meta
-
-    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")

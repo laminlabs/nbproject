@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 from typing import List, Mapping, Optional, Union
 
 from pydantic import BaseModel, Extra
@@ -45,7 +46,7 @@ class MetaStore:
     def __init__(
         self,
         meta_container: MetaContainer,
-        filepath: Optional[str] = None,
+        filepath: Union[str, Path, None] = None,
         env: Optional[str] = None,
     ):
         self._filepath = filepath

@@ -97,7 +97,7 @@ class MetaLive:
         return " ".join([key for key in dir(self) if key[0] != "_"])
 
 
-class Meta:
+class meta:
     """Access live and stored metadata.
 
     A metadata object has the `store` attribute to access the nbproject metadata
@@ -105,48 +105,57 @@ class Meta:
     derived from the notebook's content.
     """
 
-    def __init__(self, filepath, time_run, env):
-        filepath_env = filepath, env
+    _filepath: Union[str, Path, None] = None
+    _env = None
+    _time_run = None
+    _store: Union[MetaStore, None] = None
+    _live: Union[MetaLive, None] = None
+
+    @classmethod
+    def _get_env(cls):
+        from ._header import _env, _filepath, _time_run
+
+        env = _env
+        filepath = _filepath
+        filepath_env = _filepath, _env
 
         if filepath is None:
             filepath_env = notebook_path(return_env=True)
-
             if filepath_env is None:
                 filepath_env = None, None
-
             filepath = filepath_env[0]
 
         if env is None:
             env = filepath_env[1]
 
-        self._filepath = filepath
-        self._env = env
+        cls._filepath = _filepath
+        cls._env = env
+        cls._time_run = _time_run
 
-        self._live = MetaLive(filepath, time_run, env)
-
-        if self._filepath is not None:
-            nb_meta = read_notebook(filepath).metadata
-        else:
-            logger.warning("You are probably not inside a jupyter notebook.")
-            nb_meta = None
-
-        if nb_meta is not None and "nbproject" in nb_meta:
-            meta_container = MetaContainer(**nb_meta["nbproject"])
-        else:
-            empty = "not initialized"
-            meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
-
-        self._store = MetaStore(meta_container, filepath, env)
-
+    @classmethod
     @property
-    def store(self) -> MetaStore:
+    def store(cls) -> MetaStore:
         """Metadata stored in the notebook."""
-        return self._store
+        if cls._store is None:
+            cls._get_env()
+            nb_meta = read_notebook(cls._filepath).metadata  # type: ignore
 
+            if nb_meta is not None and "nbproject" in nb_meta:
+                meta_container = MetaContainer(**nb_meta["nbproject"])
+            else:
+                empty = "not initialized"
+                meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
+            cls._store = MetaStore(meta_container, cls._filepath, cls._env)
+        return cls._store
+
+    @classmethod
     @property
-    def live(self) -> MetaLive:
+    def live(cls) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
-        return self._live
+        if cls._live is None:
+            cls._get_env()
+            cls._live = MetaLive(cls._filepath, cls._time_run, cls._env)  # type: ignore
+        return cls._live
 
     def __repr__(self):
         return (
@@ -154,10 +163,3 @@ class Meta:
             f"  .store: {self.store}\n"
             f"  .live: {self.live}"
         )
-
-
-def _load_meta():
-    from ._header import _env, _filepath, _time_run
-
-    meta = Meta(_filepath, _time_run, _env)
-    return meta
