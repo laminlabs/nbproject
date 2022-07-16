@@ -17,11 +17,12 @@ class classproperty(object):
 
 
 class meta:
-    """Access live and stored metadata.
+    """Access `meta.live` and `meta.store`.
 
-    A metadata object has the `store` attribute to access the nbproject metadata
-    of the notebook and `live` for the execution info and properties
-    derived from the notebook's content.
+    - `meta.store` accesses the nbproject metadata of the ipynb file
+    - `meta.live` for the execution info and properties derived from notebook content
+
+    Is a static class (no need to initialize it).
     """
 
     _filepath: Union[str, Path, None] = None
