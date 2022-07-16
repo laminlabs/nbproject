@@ -34,7 +34,7 @@ def check_consecutiveness(
         nb: Notebook content.
         calling_statement: Statement that calls `check_consecutiveness`.
     """
-    if _check_last_cell(nb, calling_statement):  # type: ignore
+    if not _check_last_cell(nb, calling_statement):  # type: ignore
         raise RuntimeError(
             "Can only check consecutiveness from the last code cell of the notebook."
         )
