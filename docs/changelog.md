@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚚 Rename `integrity` to `consecutiveness` | [166](https://github.com/laminlabs/nbproject/pull/166) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
 🚸 Remove complexity of Jupyter Lab interaction | [164](https://github.com/laminlabs/nbproject/pull/164) | [falexwolf](https://github.com/falexwolf) | 2022-07-15 |
 🚸 Indent JSON just as editors do | [163](https://github.com/laminlabs/nbproject/pull/163) | [falexwolf](https://github.com/falexwolf) | 2022-07-15 |
 🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 | 0.2.3
