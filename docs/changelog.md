@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:sparkles: Changes to metadata table building and rebuilding for display | [177](https://github.com/laminlabs/nbproject/pull/177) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
 :recycle: Small changes for meta | [175](https://github.com/laminlabs/nbproject/pull/175) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
 🚸 More intuitive auto-lookup and API reference | [173](https://github.com/laminlabs/nbproject/pull/173) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
 👷 Introduce compatibility with Python 3.7 | [171](https://github.com/laminlabs/nbproject/pull/171) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.1
