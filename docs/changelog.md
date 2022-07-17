@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Simplify dependency display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 👷 Update CI with pyversions, update readme & docs with doi & clean-up | [179](https://github.com/laminlabs/nbproject/pull/179) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 :sparkles: Updates to `publish` and `test_cli` | [178](https://github.com/laminlabs/nbproject/pull/178) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
 :sparkles: Changes to metadata table building and rebuilding for display | [177](https://github.com/laminlabs/nbproject/pull/177) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
