@@ -55,6 +55,8 @@ class DisplayMeta:
     def parent(self):
         if "parent" in self.metadata:
             parent = self.metadata["parent"]
+            if parent is None:
+                return None
             if isinstance(parent, list):
                 return " ".join([color_id(id) for id in parent])
             else:
