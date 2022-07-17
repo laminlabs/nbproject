@@ -28,8 +28,7 @@ from nbproject import header; header()  # Initializes & displays metadata, start
 
 Documentation:
 
-- {doc}`nutshell`.
-- Learn usage in the [tutorials](tutorials/index).
+- [Quickstart](tutorials/quickstart) and more [tutorials](tutorials/index).
 - See the [API reference](api).
 - If you get stuck, see [guides](guides/index) for edge cases & errors.
 
