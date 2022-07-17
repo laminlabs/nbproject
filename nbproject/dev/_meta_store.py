@@ -4,10 +4,10 @@ from typing import List, Mapping, Optional, Union
 from pydantic import BaseModel, Extra
 
 from .._logger import logger
-from ._dependency import infer_dependencies_from_file
 from ._jupyter_lab_commands import _reload_notebook, _save_notebook
 from ._metadata_display import table_metadata
 from ._notebook import Notebook, read_notebook, write_notebook
+from ._pypackage import infer_pypackages_from_file
 
 
 def _change_display_table(metadata: Mapping, notebook: Notebook):
@@ -48,8 +48,8 @@ class MetaContainer(BaseModel):
     """A universal 8-digit base62 ID."""
     time_init: str
     """Time of nbproject init in UTC. Often coincides with notebook creation."""
-    dependency: Optional[Mapping[str, str]] = None
-    """Dictionary of notebook dependencies and their versions."""
+    pypackage: Optional[Mapping[str, str]] = None
+    """Dictionary of notebook pypackages and their versions."""
     version: str = "draft"
     """Published version of notebook."""
 
@@ -80,24 +80,24 @@ class MetaStore:
         else:
             self.__dict__[attr_name] = value
 
-    def add_dependencies(self, deps: List[str]):
-        """Manually add dependencies without versions."""
-        if self._meta_container.dependency is None:
-            self._meta_container.dependency = {}
+    def add_pypackages(self, deps: List[str]):
+        """Manually add pypackages without versions."""
+        if self._meta_container.pypackage is None:
+            self._meta_container.pypackage = {}
 
-        deps_dict = self._meta_container.dependency
+        deps_dict = self._meta_container.pypackage
 
         for dep in deps:
             if dep not in deps_dict:
                 deps_dict[dep] = ""  # type: ignore
 
-    def update_dependencies(self):
-        """Update dependencies in store with live dependencies."""
-        if self._meta_container.dependency is None:
-            self._meta_container.dependency = {}
+    def update_pypackages(self):
+        """Update pypackages in store with live pypackages."""
+        if self._meta_container.pypackage is None:
+            self._meta_container.pypackage = {}
 
-        deps_dict = self._meta_container.dependency
-        deps = infer_dependencies_from_file(self._filepath)
+        deps_dict = self._meta_container.pypackage
+        deps = infer_pypackages_from_file(self._filepath)
         deps_dict.update(deps)
 
     def write(self, **kwargs):

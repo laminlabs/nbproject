@@ -5,8 +5,8 @@
 Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 
 - {doc}`basic-metadata`
-- {doc}`dependency-tracking`
-- {doc}`add-dependencies`
+- {doc}`pypackage-tracking`
+- {doc}`add-pypackages`
 - {doc}`publish`
 - {doc}`published`
 
@@ -24,8 +24,8 @@ Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 
 ../nutshell
 basic-metadata
-dependency-tracking
-add-dependencies
+pypackage-tracking
+add-pypackages
 publish
 published
 cli

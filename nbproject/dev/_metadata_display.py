@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 from .._logger import logger
 from ._consecutiveness import check_consecutiveness
-from ._dependency import infer_dependencies_from_nb
 from ._notebook import Notebook
+from ._pypackage import infer_pypackages_from_nb
 
 
 def table_html(rows: list):
@@ -71,9 +71,9 @@ class DisplayMeta:
         else:
             return "draft"  # for backward-compat right now
 
-    def dependency(self, deps: Optional[Mapping] = None):
-        if deps is None and "dependency" in self.metadata:
-            deps = self.metadata["dependency"]
+    def pypackage(self, deps: Optional[Mapping] = None):
+        if deps is None and "pypackage" in self.metadata:
+            deps = self.metadata["pypackage"]
 
         if deps is None:
             return None
@@ -114,25 +114,25 @@ def table_metadata(
 
         table.append(["consecutive_cells", str(consecutiveness)])
 
-    dep_store = dm.dependency()
+    dep_store = dm.pypackage()
     if dep_store is not None:
         add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
     else:
         add_pkgs = None
-    dep_live = dm.dependency(
-        infer_dependencies_from_nb(notebook, add_pkgs, pin_versions=True)
+    dep_live = dm.pypackage(
+        infer_pypackages_from_nb(notebook, add_pkgs, pin_versions=True)
     )
 
-    # simplify display when stored & live dependencies match
+    # simplify display when stored & live pypackages match
     if dep_store is not None and dep_live is not None and dep_live == dep_store:
-        table.append(["dependency", " ".join(dep_store)])
+        table.append(["pypackage", " ".join(dep_store)])
     else:
         if dep_store is not None:
-            table.append(["dependency_store", " ".join(dep_store)])
+            table.append(["pypackage_store", " ".join(dep_store)])
             suffix = "_live"
         else:
             suffix = ""
         if dep_live is not None:
-            table.append([f"dependency{suffix}", " ".join(dep_live)])
+            table.append([f"pypackage{suffix}", " ".join(dep_live)])
 
     return table_html(table)

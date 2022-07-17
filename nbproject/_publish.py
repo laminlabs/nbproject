@@ -17,7 +17,7 @@ def publish(
     """Publish your notebook before sharing it.
 
     1. Sets a version > "draft".
-    2. Stores dependencies.
+    2. Stores pypackages.
     3. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
     4. Checks that the notebook has a title.
 
@@ -82,8 +82,8 @@ def publish(
                 " string."
             )
 
-    meta.store.dependency = meta.live.dependency  # type: ignore
-    logger.info(f"Bumped notebook version to {version} & wrote dependencies.")
+    meta.store.pypackage = meta.live.pypackage  # type: ignore
+    logger.info(f"Bumped notebook version to {version} & wrote pypackages.")
 
     meta.store.write(calling_statement=calling_statement)  # type: ignore
 

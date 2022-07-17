@@ -51,34 +51,34 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def infer_dependencies_from_file(filepath: str):
-    """Parse notebook file and infer all dependencies.
+def infer_pypackages_from_file(filepath: str):
+    """Parse notebook file and infer all pypackages.
 
-    This accounts for additional dependencies in the file metadata.
+    This accounts for additional pypackages in the file metadata.
     """
     nb = read_notebook(filepath)
     add_pkgs = None
-    if "nbproject" in nb.metadata and "dependency" in nb.metadata["nbproject"]:
-        if nb.metadata["nbproject"]["dependency"] is not None:
-            add_pkgs = nb.metadata["nbproject"]["dependency"].keys()
-    return infer_dependencies_from_nb(nb, add_pkgs, pin_versions=True)
+    if "nbproject" in nb.metadata and "pypackage" in nb.metadata["nbproject"]:
+        if nb.metadata["nbproject"]["pypackage"] is not None:
+            add_pkgs = nb.metadata["nbproject"]["pypackage"].keys()
+    return infer_pypackages_from_nb(nb, add_pkgs, pin_versions=True)
 
 
-def infer_dependencies_from_nb(
+def infer_pypackages_from_nb(
     content: Notebook,
     add_pkgs: Optional[Iterable] = None,
     pin_versions: bool = True,
 ):
-    """Parse notebook object and infer all dependencies.
+    """Parse notebook object and infer all pypackages.
 
     Args:
-        nb: A notebook to infer dependencies from.
+        nb: A notebook to infer pypackages from.
         add_pkgs: Additional packages to add.
         pin_versions: If `True`, fixes versions from the current environment.
 
     Examples:
-        >>> dependencies = nbproject.dev.infer_dependencies(nb)
-        >>> dependencies
+        >>> pypackages = nbproject.dev.infer_pypackages(nb)
+        >>> pypackages
         {"scanpy": "1.8.7", "pandas": "1.4.3"}
     """
     cells = content.cells

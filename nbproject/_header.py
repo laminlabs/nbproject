@@ -18,7 +18,7 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
 
     - Displays nbproject metadata fields for the current notebook.
     - If the notebook has no nbproject metadata, initializes & writes metadata to disk.
-    - Starts tracking dependencies.
+    - Starts tracking pypackages.
     """
     filepath_env = filepath, env
 
