@@ -3,11 +3,11 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-💄 Simplify dependency display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
+💄 Simplify dependency display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 | 0.3.2
 👷 Update CI with pyversions, update readme & docs with doi & clean-up | [179](https://github.com/laminlabs/nbproject/pull/179) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
-:sparkles: Updates to `publish` and `test_cli` | [178](https://github.com/laminlabs/nbproject/pull/178) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
-:sparkles: Changes to metadata table building and rebuilding for display | [177](https://github.com/laminlabs/nbproject/pull/177) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
-:recycle: Small changes for meta | [175](https://github.com/laminlabs/nbproject/pull/175) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
+✨ `publish()` and `test_cli` update | [178](https://github.com/laminlabs/nbproject/pull/178) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
+♻️ Refactored metadata display | [177](https://github.com/laminlabs/nbproject/pull/177) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
+♻️ Small changes for `meta` | [175](https://github.com/laminlabs/nbproject/pull/175) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
 🚸 More intuitive auto-lookup and API reference | [173](https://github.com/laminlabs/nbproject/pull/173) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
 👷 Introduce compatibility with Python 3.7 | [171](https://github.com/laminlabs/nbproject/pull/171) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.1
 ♻️ Refactor `last_cell` check & `consecutiveness` check in `publish()` | [167](https://github.com/laminlabs/nbproject/pull/167) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.0
