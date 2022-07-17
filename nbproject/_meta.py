@@ -30,11 +30,12 @@ class meta:
     _filepath: Union[str, Path, None] = None
     _env = None
     _time_run = None
+
     _store: Union[MetaStore, None] = None
     _live: Union[MetaLive, None] = None
 
     @classmethod
-    def _get_env(cls):
+    def _init_meta(cls):
         from ._header import _env, _filepath, _time_run
 
         env = _env
@@ -54,28 +55,30 @@ class meta:
         cls._env = env
         cls._time_run = _time_run
 
+        nb_meta = read_notebook(cls._filepath).metadata
+
+        if nb_meta is not None and "nbproject" in nb_meta:
+            meta_container = MetaContainer(**nb_meta["nbproject"])
+        else:
+            empty = "not initialized"
+            meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
+
+        cls._store = MetaStore(meta_container, cls._filepath, cls._env)
+        cls._live = MetaLive(cls._filepath, cls._time_run, cls._env)
+
     @classproperty
     def store(cls) -> MetaStore:
         """Metadata stored in the notebook."""
         if cls._store is None:
-            cls._get_env()
-            nb_meta = read_notebook(cls._filepath).metadata  # type: ignore
-
-            if nb_meta is not None and "nbproject" in nb_meta:
-                meta_container = MetaContainer(**nb_meta["nbproject"])
-            else:
-                empty = "not initialized"
-                meta_container = MetaContainer(id=empty, time_init=empty, version=empty)
-            cls._store = MetaStore(meta_container, cls._filepath, cls._env)
-        return cls._store
+            cls._init_meta()
+        return cls._store  # type: ignore
 
     @classproperty
     def live(cls) -> MetaLive:
         """Contains execution info and properties of the notebook content."""
         if cls._live is None:
-            cls._get_env()
-            cls._live = MetaLive(cls._filepath, cls._time_run, cls._env)  # type: ignore
-        return cls._live
+            cls._init_meta()
+        return cls._live  # type: ignore
 
     def __repr__(self):
         return (
