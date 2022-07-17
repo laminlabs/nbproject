@@ -2,10 +2,9 @@
 
 Look up guides for edges cases, warnings, and errors.
 
-{doc}`example-project/index`.
-
-{doc}`example-project-uninitialized/index`.
-
+- {doc}`initialize`
+- {doc}`example-project/index`
+- {doc}`example-project-uninitialized/index`
 - {doc}`example-after-init-set-filename`
 - {doc}`publish-set-version`
 - {doc}`publish-without-title`
@@ -19,6 +18,7 @@ Look up guides for edges cases, warnings, and errors.
 :maxdepth: 1
 :hidden:
 
+initialize
 example-project/index
 example-project-uninitialized/index
 example-after-init-set-filename

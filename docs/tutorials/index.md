@@ -4,7 +4,6 @@
 
 Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 
-- {doc}`initialize`
 - {doc}`basic-metadata`
 - {doc}`dependency-tracking`
 - {doc}`add-dependencies`
