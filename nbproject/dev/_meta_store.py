@@ -25,6 +25,22 @@ def _change_display_table(metadata: Mapping, notebook: Notebook):
                         break
 
 
+def _set_execution_count(calling_statement: str, notebook: Notebook):
+    cells = notebook.cells
+
+    prev = 0
+    for cell in cells:
+        if cell["cell_type"] != "code" or cell["source"] == []:
+            continue
+
+        if calling_statement in "".join(cell["source"]):
+            cell["execution_count"] = prev + 1
+
+        ccount = cell["execution_count"]
+        if ccount is not None:
+            prev = ccount
+
+
 class MetaContainer(BaseModel):
     """The metadata stored in the notebook file."""
 
@@ -84,7 +100,7 @@ class MetaStore:
         deps = infer_dependencies_from_file(self._filepath)
         deps_dict.update(deps)
 
-    def write(self):
+    def write(self, **kwargs):
         """Write to file.
 
         You can edit the nbproject metadata of the current notebook
@@ -102,6 +118,9 @@ class MetaStore:
         nb.metadata["nbproject"] = upd_metadata
 
         _change_display_table(upd_metadata, nb)
+
+        if "calling_statement" in kwargs:
+            _set_execution_count(kwargs["calling_statement"], nb)
 
         write_notebook(nb, self._filepath)
 

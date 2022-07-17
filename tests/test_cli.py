@@ -37,6 +37,7 @@ def test_cli():
 
     commands = dict(
         sync_noinit=["sync", "."],
+        reqs_noinit=["reqs", "."],
         init=["init"],
         sync=["sync", "."],
         sync_list=["sync"],
@@ -44,6 +45,7 @@ def test_cli():
         sync_d=["sync", ".", "-d"],
         reqs_list=["reqs"],
         reqs=["reqs", "."],
+        publish=["publish", "."],
     )
 
     for folder in folders:

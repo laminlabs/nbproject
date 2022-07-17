@@ -65,14 +65,14 @@ def infer_dependencies_from_file(filepath: str):
 
 
 def infer_dependencies_from_nb(
-    content: Union[Notebook, list],
+    content: Notebook,
     add_pkgs: Optional[Iterable] = None,
     pin_versions: bool = True,
 ):
     """Parse notebook object and infer all dependencies.
 
     Args:
-        nb: A notebook or a list of cells to parse for dependencies.
+        nb: A notebook to infer dependencies from.
         add_pkgs: Additional packages to add.
         pin_versions: If `True`, fixes versions from the current environment.
 
@@ -81,12 +81,7 @@ def infer_dependencies_from_nb(
         >>> dependencies
         {"scanpy": "1.8.7", "pandas": "1.4.3"}
     """
-    if isinstance(content, Notebook):
-        cells = content.cells
-    elif isinstance(content, list) and len(content) > 0 and "cell_type" in content[0]:
-        cells = content
-    else:
-        raise ValueError("Invalid content - neither notebook nor cells.")
+    cells = content.cells
 
     if std_libs is None or pkgs_dists is None:
         _load_pkgs_info()
