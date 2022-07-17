@@ -1,4 +1,3 @@
-import re
 from pathlib import Path
 from typing import List, Mapping, Optional, Union
 
@@ -7,20 +6,22 @@ from pydantic import BaseModel, Extra
 from .._logger import logger
 from ._dependency import infer_dependencies_from_file
 from ._jupyter_lab_commands import _reload_notebook, _save_notebook
-from ._notebook import read_notebook, write_notebook
+from ._metadata_display import table_metadata
+from ._notebook import Notebook, read_notebook, write_notebook
 
 
-def _change_display_version(cells: list, version):
+def _change_display_table(metadata: Mapping, notebook: Notebook):
+    cells = notebook.cells
+
+    table_html = table_metadata(metadata, notebook)
+
     for cell in cells:
         if cell["cell_type"] == "code":
             for out in cell["outputs"]:
                 if "data" in out and "text/html" in out["data"]:
                     html = out["data"]["text/html"][0]
                     if "<b>version</b>" in html:
-                        pattern = r"(.+version.+?<td.+?>).+?(</td>.+)"
-                        html = re.sub(pattern, rf"\1!!!!{version}\2", html)
-                        html = html.replace("!!!!", "")
-                        out["data"]["text/html"][0] = html
+                        out["data"]["text/html"][0] = table_html
                         break
 
 
@@ -96,10 +97,11 @@ class MetaStore:
             _save_notebook()
 
         nb = read_notebook(self._filepath)
-        nb.metadata["nbproject"] = self._meta_container.dict()
-        # also update displayed version number
-        # this is ugly right now but important
-        _change_display_version(nb.cells, self._meta_container.version)
+
+        upd_metadata = self._meta_container.dict()
+        nb.metadata["nbproject"] = upd_metadata
+
+        _change_display_table(upd_metadata, nb)
 
         write_notebook(nb, self._filepath)
 

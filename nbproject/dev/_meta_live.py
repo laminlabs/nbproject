@@ -66,13 +66,10 @@ class MetaLive:
         elif self._env != "test":
             logger.info("Save the notebook before checking for consecutiveness.")
         nb = read_notebook(self._nb_path)
-        violations = check_consecutiveness(
+        consecutiveness = check_consecutiveness(
             nb, calling_statement=".live.consecutive_cells"
         )
-        if len(violations) > 0:
-            return False
-        else:
-            return True
+        return consecutiveness
 
     @property
     def time_run(self):
