@@ -46,12 +46,14 @@ class MetaContainer(BaseModel):
 
     id: str
     """A universal 8-digit base62 ID."""
+    version: str = "draft"
+    """Published version of notebook."""
     time_init: str
     """Time of nbproject init in UTC. Often coincides with notebook creation."""
     pypackage: Optional[Mapping[str, str]] = None
     """Dictionary of notebook pypackages and their versions."""
-    version: str = "draft"
-    """Published version of notebook."""
+    parent: Union[str, list[str], None] = None
+    """One or more nbproject ids of direct ancestors in a notebook pipeline."""
 
     class Config:  # noqa
         extra = Extra.allow

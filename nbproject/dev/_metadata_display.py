@@ -34,6 +34,10 @@ class DisplayConf(BaseModel):
     time_run: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore # noqa
 
 
+def color_id(id: str):
+    return f"{id[:4]}<span style='opacity:0.3'>{id[4:]}</span>"
+
+
 # displays fields within the ipynb metadata section and on-the-fly computed
 class DisplayMeta:
     def __init__(self, metadata: Mapping):
@@ -43,7 +47,22 @@ class DisplayMeta:
     def id(self):
         """Shorten ID display."""
         id = self.metadata["id"] if "id" in self.metadata else self.metadata["uid"]
-        return f"{id[:4]}<span style='opacity:0.3'>{id[4:]}"
+        return color_id(id)
+
+    def version(self):
+        return self.metadata["version"]
+
+    def parent(self):
+        if "parent" in self.metadata:
+            parent = self.metadata["parent"]
+            if parent is None:
+                return None
+            if isinstance(parent, list):
+                return " ".join([color_id(id) for id in parent])
+            else:
+                return color_id(parent)
+        else:
+            return None
 
     def time_init(self):
         """Shorten ID display."""
@@ -64,12 +83,6 @@ class DisplayMeta:
             return dt.strftime(
                 "%Y-%m-%d %H:%M"
             )  # probably something more reduced is better
-
-    def version(self):
-        if "version" in self.metadata:
-            return self.metadata["version"]
-        else:
-            return "draft"  # for backward-compat right now
 
     def pypackage(self, deps: Optional[Mapping] = None):
         if deps is None and "pypackage" in self.metadata:
@@ -106,6 +119,9 @@ def table_metadata(
     if time_run is None:
         time_run = datetime.now(timezone.utc)
     table.append(["time_run", dm.time_run(time_run)])
+
+    if dm.parent() is not None:
+        table.append(["parent", dm.parent()])
 
     if version != "draft":
         logger.disable("nbproject.dev._consecutiveness")
