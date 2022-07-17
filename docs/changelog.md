@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:recycle: Small changes for meta | [175](https://github.com/laminlabs/nbproject/pull/175) | [Koncopd](https://github.com/Koncopd) | 2022-07-17 |
 🚸 More intuitive auto-lookup and API reference | [173](https://github.com/laminlabs/nbproject/pull/173) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 |
 👷 Introduce compatibility with Python 3.7 | [171](https://github.com/laminlabs/nbproject/pull/171) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.1
 ♻️ Refactor `last_cell` check & `consecutiveness` check in `publish()` | [167](https://github.com/laminlabs/nbproject/pull/167) | [falexwolf](https://github.com/falexwolf) | 2022-07-16 | 0.3.0
