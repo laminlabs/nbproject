@@ -1,20 +1,17 @@
 # Tutorials
 
-## Manage tutorials interactively (#1)
+## Manage notebooks interactively (#1)
 
-Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
-
+- {doc}`quickstart`
+- {doc}`received`
 - {doc}`basic-metadata`
-- {doc}`pypackage-tracking`
 - {doc}`add-pypackages`
-- {doc}`publish`
-- {doc}`published`
 
-## Manage a collection of existing notebooks (#3)
+## Manage a collection of notebooks (#2)
 
 - {doc}`cli`
 
-## Build APIs on top of nbproject metadata (#4)
+## Build on the metadata API (#3)
 
 - {doc}`meta`
 
@@ -22,12 +19,10 @@ Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 :maxdepth: 1
 :hidden:
 
-../nutshell
+quickstart
+received
 basic-metadata
-pypackage-tracking
 add-pypackages
-publish
-published
 cli
 meta
 ```
