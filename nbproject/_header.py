@@ -67,14 +67,8 @@ def header(
             _save_notebook()
             nb = read_notebook(filepath)  # type: ignore
 
-        nb.metadata["nbproject"] = initialize_metadata(nb).dict()
+        nb.metadata["nbproject"] = initialize_metadata(nb, parent=parent).dict()
         write_notebook(nb, filepath)  # type: ignore
-
-        if parent is not None:
-            from nbproject import meta
-
-            meta.store.parent = parent
-            meta.store.write()
 
         if env == "lab":
             _reload_notebook()
