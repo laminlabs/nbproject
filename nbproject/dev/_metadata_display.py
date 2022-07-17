@@ -113,7 +113,7 @@ def table_metadata(
         consecutiveness = check_consecutiveness(notebook)
         logger.enable("nbproject.dev._consecutiveness")
 
-        table.append(["consecutiveness", str(consecutiveness)])
+        table.append(["consecutive_cells", str(consecutiveness)])
 
     dep_store = dm.dependency()
 
