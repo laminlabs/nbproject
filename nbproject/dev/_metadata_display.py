@@ -99,14 +99,13 @@ def table_metadata(
 
     table = []
     table.append(["id", dm.id()])
+    version = dm.version()
+    table.append(["version", version])
     table.append(["time_init", dm.time_init()])
 
     if time_run is None:
         time_run = datetime.now(timezone.utc)
     table.append(["time_run", dm.time_run(time_run)])
-
-    version = dm.version()
-    table.append(["version", version])
 
     if version != "draft":
         logger.disable("nbproject.dev._consecutiveness")
