@@ -4,6 +4,7 @@ from typing import Mapping, Optional
 
 from pydantic import BaseModel
 
+from .._logger import logger
 from ._consecutiveness import check_consecutiveness
 from ._dependency import infer_dependencies_from_nb
 from ._notebook import Notebook
@@ -108,7 +109,11 @@ def table_metadata(
     table.append(["version", version])
 
     if version != "draft":
-        table.append(["consecutiveness", str(check_consecutiveness(notebook))])
+        logger.disable("nbproject.dev._consecutiveness")
+        consecutiveness = check_consecutiveness(notebook)
+        logger.enable("nbproject.dev._consecutiveness")
+
+        table.append(["consecutiveness", str(consecutiveness)])
 
     dep_store = dm.dependency()
 

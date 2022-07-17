@@ -75,12 +75,8 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
         global _time_run
         _time_run = time_run
 
-        logger.disable("nbproject.dev._consecutiveness")
-
         table = table_metadata(nb.metadata["nbproject"], nb, time_run)
         display_html(table)
-
-        logger.enable("nbproject.dev._consecutiveness")
 
         # make filepath available through API
         global _filepath
