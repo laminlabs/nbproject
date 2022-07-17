@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+📝 Simplify tutorials | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 ✨ Add a parent field to metadata and corresponding arg to `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 🚚 Rename `dependency` to `pypackage` | [181](https://github.com/laminlabs/nbproject/pull/181) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 💄 Simplify pypackage display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 | 0.3.2
