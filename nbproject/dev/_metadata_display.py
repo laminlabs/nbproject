@@ -99,14 +99,13 @@ def table_metadata(
 
     table = []
     table.append(["id", dm.id()])
+    version = dm.version()
+    table.append(["version", version])
     table.append(["time_init", dm.time_init()])
 
     if time_run is None:
         time_run = datetime.now(timezone.utc)
     table.append(["time_run", dm.time_run(time_run)])
-
-    version = dm.version()
-    table.append(["version", version])
 
     if version != "draft":
         logger.disable("nbproject.dev._consecutiveness")
@@ -116,20 +115,24 @@ def table_metadata(
         table.append(["consecutive_cells", str(consecutiveness)])
 
     dep_store = dm.dependency()
-
     if dep_store is not None:
-        table.append(["dependency_store", " ".join(dep_store)])
-
         add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
-        suffix = "_live"
     else:
         add_pkgs = None
-        suffix = ""
-
     dep_live = dm.dependency(
         infer_dependencies_from_nb(notebook, add_pkgs, pin_versions=True)
     )
-    if dep_live is not None:
-        table.append([f"dependency{suffix}", " ".join(dep_live)])
+
+    # simplify display when stored & live dependencies match
+    if dep_store is not None and dep_live is not None and dep_live == dep_store:
+        table.append(["dependency", " ".join(dep_store)])
+    else:
+        if dep_store is not None:
+            table.append(["dependency_store", " ".join(dep_store)])
+            suffix = "_live"
+        else:
+            suffix = ""
+        if dep_live is not None:
+            table.append([f"dependency{suffix}", " ".join(dep_live)])
 
     return table_html(table)
