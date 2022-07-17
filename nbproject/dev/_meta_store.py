@@ -63,17 +63,15 @@ class MetaStore:
         else:
             self.__dict__[attr_name] = value
 
-    def add_dependencies(self, deps: Union[List[str], Mapping[str, str]]):
-        """Manually add dependencies."""
+    def add_dependencies(self, deps: List[str]):
+        """Manually add dependencies without versions."""
         if self._meta_container.dependency is None:
             self._meta_container.dependency = {}
 
         deps_dict = self._meta_container.dependency
 
-        if isinstance(deps, dict):
-            deps_dict.update(deps)  # type: ignore
-        elif isinstance(deps, list):
-            for dep in deps:
+        for dep in deps:
+            if dep not in deps_dict:
                 deps_dict[dep] = ""  # type: ignore
 
     def update_dependencies(self):
