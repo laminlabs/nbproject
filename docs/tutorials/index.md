@@ -23,7 +23,6 @@ Tutorial 1 is a step-wise walk through features displayed in {doc}`../nutshell`.
 :hidden:
 
 ../nutshell
-initialize
 basic-metadata
 dependency-tracking
 add-dependencies
