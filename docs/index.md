@@ -11,8 +11,8 @@ Share reproducible notebooks with context.
 Supported editors & platforms:
 
 - Jupyter Lab
-  - Google Cloud Vertex AI ([tested on 2022-07-16](https://github.com/laminlabs/nbproject/issues/170))
-- VS Code & Jupyter Notebook (**no** interactive experience! not recommended for production)
+  - Google Cloud Vertex AI ([2022-07-16](https://github.com/laminlabs/nbproject/issues/170))
+- VS Code & Jupyter Notebook (no interactive experience, not recommended for production)
 
 Install:
 
@@ -23,10 +23,8 @@ pip install nbproject
 Get started:
 
 ```
-from nbproject import header; header()
+from nbproject import header; header()  # Initializes & displays metadata, starts tracking. Done. 😅
 ```
-
-→ This will initialize nbproject, display notebook metadata, and start tracking! Done. 😅
 
 Documentation:
 
