@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Union
 
 from ._logger import logger
 from .dev._initialize import initialize_metadata
@@ -13,12 +13,20 @@ _env = None
 _time_run = None
 
 
-def header(filepath: Optional[str] = None, env: Optional[str] = None):
-    """Display metadata and start tracking.
+def header(
+    *,
+    parent: Union[str, list[str], None] = None,
+    filepath: Union[str, None] = None,
+    env: Union[str, None] = None,
+):
+    """Display metadata and start tracking dependencies.
 
-    - Displays nbproject metadata fields for the current notebook.
-    - If the notebook has no nbproject metadata, initializes & writes metadata to disk.
-    - Starts tracking pypackages.
+    If the notebook has no nbproject metadata, initializes & writes metadata to disk.
+
+    Args:
+        parent: One or more nbproject ids of direct ancestors in a notebook pipeline.
+        filepath: Filepath of notebook. Only needed if automatic inference fails.
+        env: Editor environment. Only needed if automatic inference fails.
     """
     filepath_env = filepath, env
 
@@ -35,8 +43,8 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
 
     if env is None:
         env = filepath_env[1]
-    # This is a quirk we run into when passing filepath manually!
-    # We just assume jupyter lab as an environment for now
+    # The following occurs when passing filepath manually
+    # We assume Jupyter Lab as an environment for now
     if env is None:
         env = "lab"
         logger.info("Assuming editor is Jupyter Lab.")
@@ -45,6 +53,12 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
         nb = read_notebook(filepath)  # type: ignore
     except FileNotFoundError:
         raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
+
+    # make time_run available through API
+    time_run = datetime.now(timezone.utc)
+    global _time_run, _filepath, _env
+    _time_run, _filepath, _env = time_run, filepath, env
+
     # initialize
     if "nbproject" not in nb.metadata:
         logger.info("Initializing.")
@@ -55,6 +69,12 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
 
         nb.metadata["nbproject"] = initialize_metadata(nb).dict()
         write_notebook(nb, filepath)  # type: ignore
+
+        if parent is not None:
+            from nbproject import meta
+
+            meta.store.parent = parent
+            meta.store.write()
 
         if env == "lab":
             _reload_notebook()
@@ -69,18 +89,5 @@ def header(filepath: Optional[str] = None, env: Optional[str] = None):
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
-        # make time_run available through API
-        time_run = datetime.now(timezone.utc)
-
-        global _time_run
-        _time_run = time_run
-
         table = table_metadata(nb.metadata["nbproject"], nb, time_run)
         display_html(table)
-
-        # make filepath available through API
-        global _filepath
-        global _env
-
-        _filepath = filepath
-        _env = env
