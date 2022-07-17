@@ -48,11 +48,11 @@ class MetaLive:
         return get_title(nb)
 
     @property
-    def dependency(self):
-        """Infer dependencies for the notebook on access."""
-        from ._dependency import infer_dependencies_from_file
+    def pypackage(self):
+        """Infer pypackages for the notebook on access."""
+        from ._pypackage import infer_pypackages_from_file
 
-        return infer_dependencies_from_file(self._nb_path)
+        return infer_pypackages_from_file(self._nb_path)
 
     @property
     def consecutive_cells(self) -> bool:

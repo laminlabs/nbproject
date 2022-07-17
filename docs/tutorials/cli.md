@@ -2,7 +2,7 @@
 
 Here we consider that you have a collection of existing notebooks that you'd like to become
 
-- more reproducible through dependency tracking
+- more reproducible through pypackage tracking
 - more findable & integrated through project management metadata
 
 ```{warning}
@@ -40,21 +40,21 @@ synchronized my_notebook_collection/nbproject_metadata.yml
 Passing `.` to `nbproject sync` synchronizes the whole root directory of you project.
 You can also pass a list of paths within you project to synchronize only specific notebooks.
 
-## Infer dependencies
+## Infer pypackages
 
-To automatically infer dependencies from the notebooks of your project, use the option `--deps` (or `-d`):
+To automatically infer pypackages from the notebooks of your project, use the option `--deps` (or `-d`):
 
 ```
 $ nbproject sync . --deps
 synchronized my_notebook_collection/nbproject_metadata.yml
 ```
 
-This command parses the notebooks, infers all dependencies within the notebooks with their versions
+This command parses the notebooks, infers all pypackages within the notebooks with their versions
 from the current python environment and writes them to metadata of the notebooks.
 
-## Pin dependencies
+## Pin pypackages
 
-If you want to avoid pining the dependencies versions, use the option `--no-versions` (or `-nv`):
+If you want to avoid pining the pypackages versions, use the option `--no-versions` (or `-nv`):
 
 ```
 $ nbproject sync . --deps --no-versions

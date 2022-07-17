@@ -59,11 +59,11 @@ class NBRecord:
         return version
 
     @property
-    def dependency(self):
-        if "dependency" in self.__dict__:
-            return self.__dict__["dependency"]
-        elif hasattr(self, "_dependency"):
-            return self._dependency
+    def pypackage(self):
+        if "pypackage" in self.__dict__:
+            return self.__dict__["pypackage"]
+        elif hasattr(self, "_pypackage"):
+            return self._pypackage
         else:
             return None
 

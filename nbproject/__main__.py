@@ -20,7 +20,7 @@ def main():
         "-d",
         action="store_true",
         help=(
-            "parse dependencies from the notebooks and pin versions from the current"
+            "parse pypackages from the notebooks and pin versions from the current"
             " environment"
         ),
     )

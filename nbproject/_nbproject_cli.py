@@ -7,8 +7,8 @@ import yaml  # type: ignore
 
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
-from .dev._dependency import infer_dependencies_from_nb, resolve_versions
 from .dev._notebook import read_notebook, write_notebook
+from .dev._pypackage import infer_pypackages_from_nb, resolve_versions
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -97,8 +97,8 @@ def sync(
         yaml_record = YAMLRecord(nb_path, nbproj_record, yaml_proj)
 
         if parse_deps:
-            deps = infer_dependencies_from_nb(nb, pin_versions=pin_versions)
-            yaml_record.dependency = deps  # type: ignore
+            deps = infer_pypackages_from_nb(nb, pin_versions=pin_versions)
+            yaml_record.pypackage = deps  # type: ignore
 
         yaml_record.put_metadata()
         yaml_record.put_yaml()
@@ -128,8 +128,8 @@ def reqs(files_dirs: Iterator[str]):
             )
             return
         nbproj_metadata = nb.metadata["nbproject"]
-        if "dependency" in nbproj_metadata:
-            gather_deps.append(nbproj_metadata["dependency"])
+        if "pypackage" in nbproj_metadata:
+            gather_deps.append(nbproj_metadata["pypackage"])
 
     deps = resolve_versions(gather_deps)
     deps = [pkg + f"=={ver}" if ver != "" else pkg for pkg, ver in deps.items()]
@@ -153,9 +153,9 @@ def publish(files_dirs: Iterator[str]):
         if "nbproject" in nb.metadata:
             nbproject_meta = nb.metadata["nbproject"]
             add_pkgs = None
-            if "dependency" in nbproject_meta:
-                add_pkgs = nbproject_meta["dependency"].keys()
-            nbproject_meta["dependency"] = infer_dependencies_from_nb(
+            if "pypackage" in nbproject_meta:
+                add_pkgs = nbproject_meta["pypackage"].keys()
+            nbproject_meta["pypackage"] = infer_pypackages_from_nb(
                 nb, add_pkgs, pin_versions=True
             )
 
