@@ -3,8 +3,8 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-:lipstick: Polish quickstart and received | [191](https://github.com/laminlabs/nbproject/pull/191) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
-✨ Allow passing pypackage to init, add consistency checks, and user advice in logging for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
+💄 Polish docs | [191](https://github.com/laminlabs/nbproject/pull/191) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 | 0.4.0
+✨ Allow passing `pypackage` to `header()`, add consistency checks, and logs for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
 💚 Fix the 3.7 & 3.8 tests | [186](https://github.com/laminlabs/nbproject/pull/186) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 📝 Simplify tutorials | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 ✨ Add a parent field to metadata and corresponding arg to `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |

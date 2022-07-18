@@ -23,7 +23,7 @@ For more fine-grained access, use:
    dev
 
 """
-__version__ = "0.3.2"
+__version__ = "0.4.0"
 
 from . import dev
 from ._header import header
