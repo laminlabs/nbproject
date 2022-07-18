@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Logging with icons | [193](https://github.com/laminlabs/nbproject/pull/193) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-18 |
 :sparkles: Small changes to header, `add_pypackages` infers versions | [190](https://github.com/laminlabs/nbproject/pull/190) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 💄 Polish docs | [191](https://github.com/laminlabs/nbproject/pull/191) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 | 0.4.0
 ✨ Allow passing `pypackage` to `header()`, add consistency checks, and logs for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
