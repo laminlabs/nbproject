@@ -114,9 +114,8 @@ def header(
 
         metadata = initialize_metadata(nb, parent=parent, pypackage=pypackage).dict()
         nb.metadata["nbproject"] = metadata
-        # no need to build table if no header found - jupyter notebook without saving
-        if env == "lab":
-            _output_table(nb, table_metadata(metadata, nb, time_run))
+
+        _output_table(nb, table_metadata(metadata, nb, time_run))
 
         write_notebook(nb, filepath)  # type: ignore
 
