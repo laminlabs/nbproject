@@ -1,7 +1,6 @@
 import re
 import sys
 from ast import Import, ImportFrom, parse, walk
-from operator import gt, lt
 from typing import Iterable, List, Optional, Union  # noqa
 
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
@@ -125,18 +124,11 @@ def infer_pypackages_from_nb(
     return pkgs
 
 
-def resolve_versions(notebooks_pkgs: List[dict], strategy="newer"):
+def resolve_versions(notebooks_pkgs: List[dict]):
     """Harmonize packages' versions from lists of packages."""
     import packaging.version
 
     parse_version = packaging.version.parse
-
-    if strategy == "newer":
-        cmp = gt
-    elif strategy == "older":
-        cmp = lt
-    else:
-        raise ValueError("Unknown package resolution strategy.")
 
     def resolve(a, b):
         if a == "":
@@ -144,7 +136,7 @@ def resolve_versions(notebooks_pkgs: List[dict], strategy="newer"):
         elif b == "":
             return a
         else:
-            return a if cmp(parse_version(a), parse_version(b)) else b
+            return a if parse_version(a) > parse_version(b) else b
 
     resolved = {}
     for pkgs in notebooks_pkgs:
