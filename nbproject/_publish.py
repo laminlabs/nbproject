@@ -63,7 +63,23 @@ def publish(
     if not check_last_cell(nb, calling_statement):
         raise RuntimeError("Can only publish from the last code cell of the notebook.")
 
-    check_consecutiveness(nb)
+    consecutiveness = check_consecutiveness(nb)
+
+    if not consecutiveness:
+        if meta._env == "test":
+            decide = "y"
+        else:
+            decide = input(
+                "The cells in the notebook were not run consecutively, do you want to"
+                " proceed with publishing? (y/n) "
+            )
+
+        if decide == "n":
+            return
+        elif decide != "y":
+            raise ValueError(
+                "Unrecognized input, please use n to abort publishing or y to proceed."
+            )
 
     if version is not None:
         meta.store.version = version  # type: ignore

@@ -6,7 +6,7 @@ from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
 from .dev._jupyter_lab_commands import _reload_notebook, _save_notebook
 from .dev._metadata_display import display_html, table_metadata
-from .dev._notebook import read_notebook, write_notebook
+from .dev._notebook import Notebook, read_notebook, write_notebook
 
 _filepath = None
 _env = None
@@ -30,6 +30,30 @@ def msg_inconsistent_pypackage(pypackage):
         "Argument pypackage is inconsistent with metadata store.\nPlease update"
         f' metadata: meta.store.add_pypackages("{pypackage}"); meta.store.write()'
     )
+
+
+def _output_table(notebook: Notebook, table: str):
+    out = {
+        "data": {
+            "text/html": [table],
+            "text/plain": ["<IPython.core.display.HTML object>"],
+        },
+        "metadata": {},
+        "output_type": "display_data",
+    }
+
+    ccount = 0
+    for cell in notebook.cells:
+        if cell["cell_type"] != "code":
+            continue
+        elif cell["execution_count"] is not None:
+            ccount = cell["execution_count"]
+
+        if "header(" in "".join(cell["source"]):
+            cell["outputs"] = [out]
+            cell["execution_count"] = ccount + 1
+            # update only once
+            break
 
 
 def header(
@@ -88,9 +112,11 @@ def header(
             _save_notebook()
             nb = read_notebook(filepath)  # type: ignore
 
-        nb.metadata["nbproject"] = initialize_metadata(
-            nb, parent=parent, pypackage=pypackage
-        ).dict()
+        metadata = initialize_metadata(nb, parent=parent, pypackage=pypackage).dict()
+        nb.metadata["nbproject"] = metadata
+
+        _output_table(nb, table_metadata(metadata, nb, time_run))
+
         write_notebook(nb, filepath)  # type: ignore
 
         if env == "lab":
