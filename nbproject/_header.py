@@ -16,6 +16,7 @@ _time_run = None
 def header(
     *,
     parent: Union[str, List[str], None] = None,
+    pypackage: Union[str, List[str], None] = None,
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
 ):
@@ -25,6 +26,7 @@ def header(
 
     Args:
         parent: One or more nbproject ids of direct ancestors in a notebook pipeline.
+        pypackage: One or more python packages to track.
         filepath: Filepath of notebook. Only needed if automatic inference fails.
         env: Editor environment. Only needed if automatic inference fails.
     """
@@ -67,7 +69,9 @@ def header(
             _save_notebook()
             nb = read_notebook(filepath)  # type: ignore
 
-        nb.metadata["nbproject"] = initialize_metadata(nb, parent=parent).dict()
+        nb.metadata["nbproject"] = initialize_metadata(
+            nb, parent=parent, pypackage=pypackage
+        ).dict()
         write_notebook(nb, filepath)  # type: ignore
 
         if env == "lab":
