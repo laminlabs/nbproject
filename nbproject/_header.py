@@ -75,6 +75,11 @@ def header(
     except FileNotFoundError:
         raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
 
+    # make time_run available through API
+    time_run = datetime.now(timezone.utc)
+    global _time_run, _filepath, _env
+    _time_run, _filepath, _env = time_run, filepath, env
+
     # initialize
     if "nbproject" not in nb.metadata:
         logger.info("Initializing.")
@@ -95,11 +100,6 @@ def header(
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
-        # make time_run available through API
-        time_run = datetime.now(timezone.utc)
-        global _time_run, _filepath, _env
-        _time_run, _filepath, _env = time_run, filepath, env
-
         metadata = nb.metadata["nbproject"]
         table = table_metadata(metadata, nb, time_run)
         display_html(table)
