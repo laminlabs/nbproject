@@ -106,15 +106,11 @@ def header(
 
         # check whether updates to init are needed
         if parent is not None:
-            if "parent" not in metadata:
-                logger.info(msg_inconsistent_parent)
-            elif metadata["parent"] != parent:
+            if "parent" not in metadata or metadata["parent"] != parent:
                 logger.info(msg_inconsistent_parent)
         if pypackage is not None:
             pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
-            if "pypackage" not in metadata or metadata["pypackage"] is None:
-                logger.info(msg_inconsistent_pypackage(pypackage[0]))
-            else:
-                for pkg in pypackage:
-                    if pkg not in metadata["pypackage"]:
-                        logger.info(msg_inconsistent_pypackage(pypackage))
+            is_empty = "pypackage" not in metadata or metadata["pypackage"] is None
+            for pkg in pypackage:
+                if is_empty or pkg not in metadata["pypackage"]:
+                    logger.info(msg_inconsistent_pypackage(pkg))

@@ -7,6 +7,7 @@ from .._logger import logger
 from ._jupyter_lab_commands import _reload_notebook, _save_notebook
 from ._metadata_display import table_metadata
 from ._notebook import Notebook, read_notebook, write_notebook
+from ._pypackage import _get_version
 
 
 def _change_display_table(metadata: Mapping, notebook: Notebook):
@@ -81,16 +82,19 @@ class MetaStore:
         else:
             self.__dict__[attr_name] = value
 
-    def add_pypackages(self, deps: List[str]):
+    def add_pypackages(self, deps: Union[List[str], str]):
         """Manually add pypackages without versions."""
         if self._meta_container.pypackage is None:
             self._meta_container.pypackage = {}
 
         deps_dict = self._meta_container.pypackage
 
+        if isinstance(deps, str):
+            deps = [deps]
+
         for dep in deps:
             if dep not in deps_dict:
-                deps_dict[dep] = ""  # type: ignore
+                deps_dict[dep] = _get_version(dep)  # type: ignore
 
     def write(self, **kwargs):
         """Write to file.
