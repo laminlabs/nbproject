@@ -13,7 +13,7 @@ def publish(
     version: Optional[str] = None,
     i_confirm_i_saved: bool = False,
     **kwargs,
-) -> bool:
+) -> None:
     """Publish your notebook before sharing it.
 
     1. Sets a version > "draft".
@@ -63,7 +63,7 @@ def publish(
     if not check_last_cell(nb, calling_statement):
         raise RuntimeError("Can only publish from the last code cell of the notebook.")
 
-    consecutiveness = check_consecutiveness(nb)
+    check_consecutiveness(nb)
 
     if version is not None:
         meta.store.version = version  # type: ignore
@@ -86,5 +86,3 @@ def publish(
     logger.info(f"Bumped notebook version to {version} & wrote pypackages.")
 
     meta.store.write(calling_statement=calling_statement)  # type: ignore
-
-    return consecutiveness
