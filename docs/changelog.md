@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💚 Fix the 3.7 & 3.8 tests | [186](https://github.com/laminlabs/nbproject/pull/186) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 📝 Simplify tutorials | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 ✨ Add a parent field to metadata and corresponding arg to `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 🚚 Rename `dependency` to `pypackage` | [181](https://github.com/laminlabs/nbproject/pull/181) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
