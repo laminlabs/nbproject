@@ -89,3 +89,21 @@ def header(
     else:
         table = table_metadata(nb.metadata["nbproject"], nb, time_run)
         display_html(table)
+
+        # check whether updates to init are needed
+        if parent is not None:
+            if nb.metadata["nbproject"]["parent"] != parent:
+                logger.info(
+                    "Header arg parent is inconsistent with store.\nPlease update"
+                    " metadata with new values for parent:"
+                    " `meta.store.parent.append(parent); meta.store.write()`"
+                )
+        if pypackage is not None:
+            pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
+            for pkg in pypackage:
+                if pkg not in nb.metadata["nbproject"]["pypackage"]:
+                    logger.info(
+                        "Header arg pypackage is inconsistent with store!\nPlease"
+                        " update metadata with additional pypackage:"
+                        " `meta.store.pypackage[pypackage] = ; meta.store.write()`"
+                    )
