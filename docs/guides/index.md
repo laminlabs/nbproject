@@ -3,7 +3,8 @@
 Look up guides for edges cases, warnings, and errors.
 
 - {doc}`initialize`
-- {doc}`inconsistent-packages-parents`
+- {doc}`inconsistent-packages-parents-store`
+- {doc}`inconsistent-packages-parents-no-store`
 - {doc}`example-project/index`
 - {doc}`example-project-uninitialized/index`
 - {doc}`example-after-init-set-filename`
@@ -20,7 +21,8 @@ Look up guides for edges cases, warnings, and errors.
 :hidden:
 
 initialize
-inconsistent-packages-parents
+inconsistent-packages-parents-store
+inconsistent-packages-parents-no-store
 example-project/index
 example-project-uninitialized/index
 example-after-init-set-filename
