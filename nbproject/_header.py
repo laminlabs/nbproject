@@ -13,9 +13,29 @@ _env = None
 _time_run = None
 
 
+msg_init_complete = (
+    "Init complete. Hit save & reload from disk, i.e, *discard* editor content. If you"
+    " do not want to lose editor changes, hit save *before* running `header()`."
+    " Consider using Jupyter Lab for a seamless interactive experience."
+)
+
+msg_inconsistent_parent = (
+    "Argument parent is inconsistent with store.\nPlease update"
+    " metadata, e.g.: meta.store.parent = parent; meta.store.write()"
+)
+
+
+def msg_inconsistent_pypackage(pypackage):
+    return (
+        "Argument pypackage is inconsistent with metadata store.\nPlease update"
+        f' metadata: meta.store.add_pypackages("{pypackage}"); meta.store.write()'
+    )
+
+
 def header(
     *,
     parent: Union[str, List[str], None] = None,
+    pypackage: Union[str, List[str], None] = None,
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
 ):
@@ -25,6 +45,7 @@ def header(
 
     Args:
         parent: One or more nbproject ids of direct ancestors in a notebook pipeline.
+        pypackage: One or more python packages to track.
         filepath: Filepath of notebook. Only needed if automatic inference fails.
         env: Editor environment. Only needed if automatic inference fails.
     """
@@ -67,21 +88,33 @@ def header(
             _save_notebook()
             nb = read_notebook(filepath)  # type: ignore
 
-        nb.metadata["nbproject"] = initialize_metadata(nb, parent=parent).dict()
+        nb.metadata["nbproject"] = initialize_metadata(
+            nb, parent=parent, pypackage=pypackage
+        ).dict()
         write_notebook(nb, filepath)  # type: ignore
 
         if env == "lab":
             _reload_notebook()
         else:
-            logging_message = (
-                "Hit save & reload from disk, i.e, *discard* editor content. If you do"
-                " not want to lose editor changes, hit save *before* running"
-                " `header()`. Consider using Jupyter Lab for a seamless interactive"
-                " experience."
-            )
-            raise SystemExit(f"Init complete. {logging_message}")
+            raise SystemExit(msg_init_complete)
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
-        table = table_metadata(nb.metadata["nbproject"], nb, time_run)
+        metadata = nb.metadata["nbproject"]
+        table = table_metadata(metadata, nb, time_run)
         display_html(table)
+
+        # check whether updates to init are needed
+        if parent is not None:
+            if "parent" not in metadata:
+                logger.info(msg_inconsistent_parent)
+            elif metadata["parent"] != parent:
+                logger.info(msg_inconsistent_parent)
+        if pypackage is not None:
+            pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
+            if "pypackage" not in metadata or metadata["pypackage"] is None:
+                logger.info(msg_inconsistent_pypackage(pypackage[0]))
+            else:
+                for pkg in pypackage:
+                    if pkg not in metadata["pypackage"]:
+                        logger.info(msg_inconsistent_pypackage(pypackage))

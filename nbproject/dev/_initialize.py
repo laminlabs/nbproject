@@ -17,24 +17,27 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
 
 def initialize_metadata(
     nb: Optional[Notebook] = None,
-    pypackage=False,
+    pypackage: Union[str, List[str], None] = None,
     parent: Union[str, List[str], None] = None,
 ) -> MetaContainer:
     """Initialize nbproject metadata.
 
     Args:
         nb: If a notebook is provided, also infer pypackages from the notebook.
-        pypackage: If `True` and `nb` provided, infer pypackages.
+        pypackage: One or more python packages to track.
         parent: One or more nbproject ids of direct ancestors in a notebook pipeline.
     """
     meta = MetaContainer(
         id=nbproject_id(), time_init=datetime.now(timezone.utc).isoformat()
     )
 
-    if nb is not None and pypackage:
+    pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
+    if nb is not None and isinstance(pypackage, list):
         from ._pypackage import infer_pypackages_from_nb
 
-        meta.pypackage = infer_pypackages_from_nb(nb, pin_versions=True)
+        meta.pypackage = infer_pypackages_from_nb(
+            nb, add_pkgs=pypackage, pin_versions=True
+        )
 
     if parent is not None:
         meta.parent = parent
