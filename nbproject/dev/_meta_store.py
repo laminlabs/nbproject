@@ -52,7 +52,7 @@ class MetaContainer(BaseModel):
     """Time of nbproject init in UTC. Often coincides with notebook creation."""
     pypackage: Optional[Mapping[str, str]] = None
     """Dictionary of notebook pypackages and their versions."""
-    parent: Union[str, list[str], None] = None
+    parent: Union[str, List[str], None] = None
     """One or more nbproject ids of direct ancestors in a notebook pipeline."""
 
     class Config:  # noqa
