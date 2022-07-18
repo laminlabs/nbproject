@@ -124,26 +124,27 @@ def infer_pypackages_from_nb(
     return pkgs
 
 
-def resolve_versions(notebooks_pkgs: List[dict]):
-    """Harmonize packages' versions from lists of packages."""
+def _resolve(a, b):
     import packaging.version
 
     parse_version = packaging.version.parse
 
-    def resolve(a, b):
-        if a == "":
-            return b
-        elif b == "":
-            return a
-        else:
-            return a if parse_version(a) > parse_version(b) else b
+    if a == "":
+        return b
+    elif b == "":
+        return a
+    else:
+        return a if parse_version(a) > parse_version(b) else b
 
+
+def resolve_versions(notebooks_pkgs: List[dict]):
+    """Harmonize packages' versions from lists of packages."""
     resolved = {}
     for pkgs in notebooks_pkgs:
         for pkg, ver in pkgs.items():
             if pkg not in resolved:
                 resolved[pkg] = ver
             else:
-                resolved[pkg] = resolve(resolved[pkg], ver)
+                resolved[pkg] = _resolve(resolved[pkg], ver)
 
     return resolved
