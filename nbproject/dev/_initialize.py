@@ -39,10 +39,6 @@ def initialize_metadata(
             nb, add_pkgs=pypackage, pin_versions=True
         )
 
-        for dep in pypackage:
-            if dep not in meta.pypackage:  # type: ignore
-                meta.pypackage[dep] = ""  # type: ignore
-
     if parent is not None:
         meta.parent = parent
 
