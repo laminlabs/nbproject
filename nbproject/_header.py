@@ -13,6 +13,25 @@ _env = None
 _time_run = None
 
 
+msg_init_complete = (
+    "Init complete. Hit save & reload from disk, i.e, *discard* editor content. If you"
+    " do not want to lose editor changes, hit save *before* running `header()`."
+    " Consider using Jupyter Lab for a seamless interactive experience."
+)
+
+msg_inconsistent_parent = (
+    "Argument parent is inconsistent with store.\nPlease update"
+    " metadata: meta.store.parent.append(parent); meta.store.write()"
+)
+
+
+def msg_inconsistent_pypackage(pypackage):
+    return (
+        "Argument pypackage is inconsistent with metadata store.\nPlease update"
+        f' metadata: meta.store.add_pypackages("{pypackage}"); meta.store.write()'
+    )
+
+
 def header(
     *,
     parent: Union[str, List[str], None] = None,
@@ -77,33 +96,25 @@ def header(
         if env == "lab":
             _reload_notebook()
         else:
-            logging_message = (
-                "Hit save & reload from disk, i.e, *discard* editor content. If you do"
-                " not want to lose editor changes, hit save *before* running"
-                " `header()`. Consider using Jupyter Lab for a seamless interactive"
-                " experience."
-            )
-            raise SystemExit(f"Init complete. {logging_message}")
+            raise SystemExit(msg_init_complete)
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
-        table = table_metadata(nb.metadata["nbproject"], nb, time_run)
+        metadata = nb.metadata["nbproject"]
+        table = table_metadata(metadata, nb, time_run)
         display_html(table)
 
         # check whether updates to init are needed
         if parent is not None:
-            if nb.metadata["nbproject"]["parent"] != parent:
-                logger.info(
-                    "Header arg parent is inconsistent with store.\nPlease update"
-                    " metadata with new values for parent:"
-                    " `meta.store.parent.append(parent); meta.store.write()`"
-                )
+            if "parent" not in metadata:
+                logger.info(msg_inconsistent_parent)
+            elif metadata["parent"] != parent:
+                logger.info(msg_inconsistent_parent)
         if pypackage is not None:
             pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
-            for pkg in pypackage:
-                if pkg not in nb.metadata["nbproject"]["pypackage"]:
-                    logger.info(
-                        "Header arg pypackage is inconsistent with store!\nPlease"
-                        " update metadata with additional pypackage:"
-                        " `meta.store.pypackage[pypackage] = ; meta.store.write()`"
-                    )
+            if "pypackage" not in metadata or metadata["pypackage"] is None:
+                logger.info(msg_inconsistent_pypackage(pypackage[0]))
+            else:
+                for pkg in pypackage:
+                    if pkg not in metadata["pypackage"]:
+                        logger.info(msg_inconsistent_pypackage(pypackage))
