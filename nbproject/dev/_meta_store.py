@@ -81,12 +81,15 @@ class MetaStore:
         else:
             self.__dict__[attr_name] = value
 
-    def add_pypackages(self, deps: List[str]):
+    def add_pypackages(self, deps: Union[List[str], str]):
         """Manually add pypackages without versions."""
         if self._meta_container.pypackage is None:
             self._meta_container.pypackage = {}
 
         deps_dict = self._meta_container.pypackage
+
+        if isinstance(deps, str):
+            deps = [deps]
 
         for dep in deps:
             if dep not in deps_dict:
