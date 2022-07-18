@@ -19,9 +19,11 @@ def pytest_sessionfinish(session, exitstatus):
     nbproj_file = (
         test_cli_folder / "example-project-uninitialized/nbproject_metadata.yml"
     )
-    nbproj_file.unlink()
+    if nbproj_file.is_file():
+        nbproj_file.unlink()
 
     reqs_subfolders = ["example-project-uninitialized/", "example-project/"]
     for reqs_subfolder in reqs_subfolders:
         reqs_file = test_cli_folder / (reqs_subfolder + "requirments.txt")
-        reqs_file.unlink()
+        if reqs_file.is_file():
+            reqs_file.unlink()
