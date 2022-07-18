@@ -1,7 +1,7 @@
 import secrets
 import string
 from datetime import datetime, timezone
-from typing import Optional, Union
+from typing import List, Optional, Union
 
 from ._meta_store import MetaContainer
 from ._notebook import Notebook
@@ -18,7 +18,7 @@ def nbproject_id():  # rename to nbproject_id also in metadata slot?
 def initialize_metadata(
     nb: Optional[Notebook] = None,
     pypackage=False,
-    parent: Union[str, list[str], None] = None,
+    parent: Union[str, List[str], None] = None,
 ) -> MetaContainer:
     """Initialize nbproject metadata.
 

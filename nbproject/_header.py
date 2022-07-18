@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Union
+from typing import List, Union
 
 from ._logger import logger
 from .dev._initialize import initialize_metadata
@@ -15,7 +15,7 @@ _time_run = None
 
 def header(
     *,
-    parent: Union[str, list[str], None] = None,
+    parent: Union[str, List[str], None] = None,
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
 ):
