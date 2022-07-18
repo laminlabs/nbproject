@@ -65,11 +65,15 @@ def publish(
 
     consecutiveness = check_consecutiveness(nb)
 
-    if not consecutiveness and meta._env != "test":
-        decide = input(
-            "The cells in the notebook were not run consecutively, do you want to"
-            " proceed with publishing? (y/n) "
-        )
+    if not consecutiveness:
+        if meta._env == "test":
+            decide = "y"
+        else:
+            decide = input(
+                "The cells in the notebook were not run consecutively, do you want to"
+                " proceed with publishing? (y/n) "
+            )
+
         if decide == "n":
             return
         elif decide != "y":
