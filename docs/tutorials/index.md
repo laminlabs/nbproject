@@ -5,7 +5,7 @@
 - {doc}`quickstart`
 - {doc}`received`
 - {doc}`basic-metadata`
-- {doc}`add-pypackages`
+- {doc}`update-metadata`
 
 ## Manage a collection of notebooks (#2)
 
@@ -22,7 +22,7 @@
 quickstart
 received
 basic-metadata
-add-pypackages
+update-metadata
 cli
 meta
 ```
