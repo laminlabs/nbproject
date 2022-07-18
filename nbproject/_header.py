@@ -113,4 +113,4 @@ def header(
             is_empty = "pypackage" not in metadata or metadata["pypackage"] is None
             for pkg in pypackage:
                 if is_empty or pkg not in metadata["pypackage"]:
-                    logger.info(msg_inconsistent_pypackage(pypackage))
+                    logger.info(msg_inconsistent_pypackage(pkg))
