@@ -3,6 +3,7 @@
 Look up guides for edges cases, warnings, and errors.
 
 - {doc}`initialize`
+- {doc}`inconsistent-packages-parents`
 - {doc}`example-project/index`
 - {doc}`example-project-uninitialized/index`
 - {doc}`example-after-init-set-filename`
@@ -19,6 +20,7 @@ Look up guides for edges cases, warnings, and errors.
 :hidden:
 
 initialize
+inconsistent-packages-parents
 example-project/index
 example-project-uninitialized/index
 example-after-init-set-filename

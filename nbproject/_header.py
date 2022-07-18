@@ -21,7 +21,7 @@ msg_init_complete = (
 
 msg_inconsistent_parent = (
     "Argument parent is inconsistent with store.\nPlease update"
-    " metadata: meta.store.parent.append(parent); meta.store.write()"
+    " metadata, e.g.: meta.store.parent = parent; meta.store.write()"
 )
 
 
