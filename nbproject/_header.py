@@ -28,7 +28,7 @@ msg_inconsistent_parent = (
 def msg_inconsistent_pypackage(pypackage):
     return (
         "Argument pypackage is inconsistent with metadata store.\nPlease update"
-        f' metadata: meta.store.add_pypackages("{pypackage}"); meta.store.write()'
+        f' metadata: meta.store.add_pypackages("{pypackage}").write()'
     )
 
 
