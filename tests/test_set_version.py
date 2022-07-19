@@ -6,4 +6,4 @@ def test_set_version():
     assert set_version(None, "1.2") == "manual-version"
     assert set_version(None, "draft") == "1"
     assert set_version(None, "1") == "2"
-    assert set_version("1.2.3") == "1.2.3"
+    assert set_version("1.2.3", "draft") == "1.2.3"
