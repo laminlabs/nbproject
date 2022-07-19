@@ -44,7 +44,7 @@ def publish(
 
     if notebook_title is None:
         logger.error(title_error)
-        return "no_title"
+        return "no-title"
 
     if meta._env == "lab":
         _save_notebook()
@@ -77,9 +77,10 @@ def publish(
         if decide == "n":
             return "aborted"
         elif decide != "y":
-            raise ValueError(
-                "Unrecognized input, please use n to abort publishing or y to proceed."
+            logger.error(
+                "Unrecognized input: please use 'n' to abort or 'y' to proceed."
             )
+            return "unrecognized-input"
 
     if version is not None:
         meta.store.version = version
@@ -88,13 +89,11 @@ def publish(
             if meta.store.version == "draft":
                 version = "1"
             else:
-                version = str(int(meta.store.version) + 1)  # bump version by 1
+                version = str(int(meta.store.version) + 1)  # increment version by 1
             meta.store.version = version
         except ValueError:
-            raise ValueError(
-                "The nbproject version cannot be cast to integer. Please pass a version"
-                " string."
-            )
+            logger.error("The version cannot be auto-set. Please pass a version.")
+            return "manual-version"
 
     meta.store.pypackage = meta.live.pypackage
     logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
