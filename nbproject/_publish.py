@@ -79,7 +79,7 @@ def publish(
             logger.warning("Aborted!")
             return "aborted"
 
-    set_version(version)
+    meta.store.version = set_version(version)
 
     meta.store.pypackage = meta.live.pypackage
     logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
