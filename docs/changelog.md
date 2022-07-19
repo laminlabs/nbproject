@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Added ✅ for success logging | [197](https://github.com/laminlabs/nbproject/pull/197) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 💄 Prettified logging alignment | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 :sparkles: Show table on initialization, ask to publish if cells not consecutive | [194](https://github.com/laminlabs/nbproject/pull/194) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 💄 Logging with icons | [193](https://github.com/laminlabs/nbproject/pull/193) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-18 |
