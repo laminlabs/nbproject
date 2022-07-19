@@ -6,6 +6,7 @@ from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
 from .dev._jupyter_lab_commands import _save_notebook
 from .dev._notebook import read_notebook
+from .dev._set_version import set_version
 
 
 def publish(
@@ -78,18 +79,7 @@ def publish(
             logger.warning("Aborted!")
             return "aborted"
 
-    if version is not None:
-        meta.store.version = version
-    else:
-        try:
-            if meta.store.version == "draft":
-                version = "1"
-            else:
-                version = str(int(meta.store.version) + 1)  # increment version by 1
-            meta.store.version = version
-        except ValueError:
-            logger.error("The version cannot be auto-set. Please pass a version.")
-            return "manual-version"
+    set_version(version)
 
     meta.store.pypackage = meta.live.pypackage
     logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
