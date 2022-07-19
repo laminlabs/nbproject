@@ -82,19 +82,25 @@ class MetaStore:
         else:
             self.__dict__[attr_name] = value
 
-    def add_pypackages(self, deps: Union[List[str], str]):
-        """Manually add pypackages without versions."""
+    def add_pypackages(self, packages: Union[List[str], str]) -> "MetaStore":
+        """Manually add pypackages to track.
+
+        Pass a string or a list of strings representing package names.
+
+        Returns self.
+        """
         if self._meta_container.pypackage is None:
             self._meta_container.pypackage = {}
 
         deps_dict = self._meta_container.pypackage
 
-        if isinstance(deps, str):
-            deps = [deps]
+        if isinstance(packages, str):
+            packages = [packages]
 
-        for dep in deps:
+        for dep in packages:
             if dep not in deps_dict:
                 deps_dict[dep] = _get_version(dep)  # type: ignore
+        return self
 
     def write(self, **kwargs):
         """Write to file.
