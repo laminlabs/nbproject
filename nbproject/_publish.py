@@ -16,7 +16,7 @@ def publish(
 ) -> None:
     """Publish your notebook before sharing it.
 
-    1. Sets a version > "draft".
+    1. Sets version.
     2. Stores pypackages.
     3. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
     4. Checks that the notebook has a title.
@@ -41,7 +41,8 @@ def publish(
     )
 
     if notebook_title is None:
-        raise RuntimeError(title_error)
+        logger.error(title_error)
+        return None
 
     if meta._env == "lab":
         _save_notebook()
@@ -69,10 +70,7 @@ def publish(
         if meta._env == "test":
             decide = "y"
         else:
-            decide = input(
-                "   The cells in the notebook were not run consecutively, do you want"
-                " to proceed with publishing? (y/n) "
-            )
+            decide = input("   Do you still want to proceed with publishing? (y/n) ")
 
         if decide == "n":
             return
@@ -99,8 +97,6 @@ def publish(
             )
 
     meta.store.pypackage = meta.live.pypackage  # type: ignore
-    logger.info(
-        f"Bumped notebook version to {colors.bold(version)} & wrote pypackages."
-    )
+    logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
 
     meta.store.write(calling_statement=calling_statement)  # type: ignore
