@@ -8,6 +8,7 @@ default_handler = dict(
 )
 
 logger.configure(handlers=[default_handler])
+logger.level("SUCCESS", icon="✅")
 logger.level("WARNING", icon="🔶")
 
 # ANSI color code: https://gist.github.com/iansan5653/c4a0b9f5c30d74258c5f132084b78db9
