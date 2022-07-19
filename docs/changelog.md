@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+♻️ Refactor and test `set_version` | [198](https://github.com/laminlabs/nbproject/pull/198) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 |
 🚸 Prettify logging and do not raise error upon no-title, instead return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.1
 💄 Added ✅ for success logging | [197](https://github.com/laminlabs/nbproject/pull/197) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 💄 Prettified logging | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
