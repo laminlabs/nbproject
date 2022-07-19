@@ -95,9 +95,9 @@ class MetaStore:
         deps_dict = self._meta_container.pypackage
 
         if isinstance(packages, str):
-            deps = [packages]
+            packages = [packages]
 
-        for dep in deps:
+        for dep in packages:
             if dep not in deps_dict:
                 deps_dict[dep] = _get_version(dep)  # type: ignore
         return self
