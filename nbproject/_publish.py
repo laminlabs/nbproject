@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from ._logger import colors, logger
 from ._meta import meta
@@ -13,7 +13,7 @@ def publish(
     version: Optional[str] = None,
     i_confirm_i_saved: bool = False,
     **kwargs,
-) -> None:
+) -> Union[None, str]:
     """Publish your notebook before sharing it.
 
     1. Sets version.
@@ -22,6 +22,8 @@ def publish(
     4. Checks that the notebook has a title.
 
     This function has to be called in the last code cell of the notebook.
+
+    Returns `None` upon success and an error code otherwise.
 
     Args:
         version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
@@ -34,7 +36,7 @@ def publish(
     else:
         calling_statement = "publish("
 
-    notebook_title = meta.live.title  # type: ignore
+    notebook_title = meta.live.title
     title_error = (
         "Error: No title! Please update & save your notebook so that it has a"
         " markdown cell with the title: # My title"
@@ -42,7 +44,7 @@ def publish(
 
     if notebook_title is None:
         logger.error(title_error)
-        return None
+        return "no_title"
 
     if meta._env == "lab":
         _save_notebook()
@@ -73,30 +75,29 @@ def publish(
             decide = input("   Do you still want to proceed with publishing? (y/n) ")
 
         if decide == "n":
-            return
+            return "aborted"
         elif decide != "y":
             raise ValueError(
                 "Unrecognized input, please use n to abort publishing or y to proceed."
             )
 
     if version is not None:
-        meta.store.version = version  # type: ignore
+        meta.store.version = version
     else:
         try:
-            if meta.store.version == "draft":  # type: ignore
+            if meta.store.version == "draft":
                 version = "1"
             else:
-                version = str(
-                    int(meta.store.version) + 1  # type: ignore
-                )  # bump version by 1
-            meta.store.version = version  # type: ignore
+                version = str(int(meta.store.version) + 1)  # bump version by 1
+            meta.store.version = version
         except ValueError:
             raise ValueError(
                 "The nbproject version cannot be cast to integer. Please pass a version"
                 " string."
             )
 
-    meta.store.pypackage = meta.live.pypackage  # type: ignore
+    meta.store.pypackage = meta.live.pypackage
     logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
 
-    meta.store.write(calling_statement=calling_statement)  # type: ignore
+    meta.store.write(calling_statement=calling_statement)
+    return None
