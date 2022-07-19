@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ._logger import logger
+from ._logger import colors, logger
 from ._meta import meta
 from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
@@ -70,8 +70,8 @@ def publish(
             decide = "y"
         else:
             decide = input(
-                "The cells in the notebook were not run consecutively, do you want to"
-                " proceed with publishing? (y/n) "
+                "   The cells in the notebook were not run consecutively, do you want"
+                " to proceed with publishing? (y/n) "
             )
 
         if decide == "n":
@@ -99,6 +99,8 @@ def publish(
             )
 
     meta.store.pypackage = meta.live.pypackage  # type: ignore
-    logger.info(f"Bumped notebook version to {version} & wrote pypackages.")
+    logger.info(
+        f"Bumped notebook version to {colors.bold(version)} & wrote pypackages."
+    )
 
     meta.store.write(calling_statement=calling_statement)  # type: ignore
