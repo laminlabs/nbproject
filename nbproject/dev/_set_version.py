@@ -20,14 +20,14 @@ def set_version(
         stored_version = meta.store.version
 
     if version is not None:
-        meta.store.version = version
+        return version
     else:
         try:
             if stored_version == "draft":
                 version = "1"
             else:
                 version = str(int(stored_version) + 1)  # increment version by 1
-            meta.store.version = version
+            return version
         except ValueError:
             logger.error("The version cannot be auto-set. Please pass a version.")
             return "manual-version"

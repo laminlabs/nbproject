@@ -67,9 +67,7 @@ def publish(
     if not check_last_cell(nb, calling_statement):
         raise RuntimeError("Can only publish from the last code cell of the notebook.")
 
-    consecutiveness = check_consecutiveness(nb)
-
-    if not consecutiveness:
+    if not check_consecutiveness(nb):
         if meta._env == "test":
             decide = "y"
         else:
@@ -79,10 +77,11 @@ def publish(
             logger.warning("Aborted!")
             return "aborted"
 
-    set_version(version)
-
+    meta.store.version = set_version(version)
     meta.store.pypackage = meta.live.pypackage
-    logger.info(f"Set notebook version to {colors.bold(version)} & wrote pypackages.")
+    logger.info(
+        f"Set notebook version to {colors.bold(meta.store.version)} & wrote pypackages."
+    )
 
     meta.store.write(calling_statement=calling_statement)
     return None
