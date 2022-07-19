@@ -3,12 +3,12 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-:children_crossing: Prettify logging and do not raise error upon no-title, instead return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 |
+🚸 Prettify logging and do not raise error upon no-title, instead return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.1
 💄 Added ✅ for success logging | [197](https://github.com/laminlabs/nbproject/pull/197) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
-💄 Prettified logging alignment | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
-:sparkles: Show table on initialization, ask to publish if cells not consecutive | [194](https://github.com/laminlabs/nbproject/pull/194) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
+💄 Prettified logging | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
+🚸 Show table on initialization, ask to publish if cells not consecutive | [194](https://github.com/laminlabs/nbproject/pull/194) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 💄 Logging with icons | [193](https://github.com/laminlabs/nbproject/pull/193) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-18 |
-:sparkles: Small changes to header, `add_pypackages` infers versions | [190](https://github.com/laminlabs/nbproject/pull/190) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
+🚸 Small changes to header, `add_pypackages` infers versions | [190](https://github.com/laminlabs/nbproject/pull/190) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 💄 Polish docs | [191](https://github.com/laminlabs/nbproject/pull/191) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 | 0.4.0
 ✨ Allow passing `pypackage` to `header()`, add consistency checks, and logs for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
 💚 Fix the 3.7 & 3.8 tests | [186](https://github.com/laminlabs/nbproject/pull/186) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
