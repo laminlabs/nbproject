@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Prettified logging alignment | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 :sparkles: Show table on initialization, ask to publish if cells not consecutive | [194](https://github.com/laminlabs/nbproject/pull/194) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 💄 Logging with icons | [193](https://github.com/laminlabs/nbproject/pull/193) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-18 |
 :sparkles: Small changes to header, `add_pypackages` infers versions | [190](https://github.com/laminlabs/nbproject/pull/190) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
