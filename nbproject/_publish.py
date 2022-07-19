@@ -38,7 +38,7 @@ def publish(
 
     notebook_title = meta.live.title
     title_error = (
-        "Error: No title! Please update & save your notebook so that it has a"
+        "No title! Please update & save your notebook so that it has a"
         " markdown cell with the title: # My title"
     )
 
@@ -74,13 +74,9 @@ def publish(
         else:
             decide = input("   Do you still want to proceed with publishing? (y/n) ")
 
-        if decide == "n":
+        if decide != "y":
+            logger.warning("Aborted!")
             return "aborted"
-        elif decide != "y":
-            logger.error(
-                "Unrecognized input: please use 'n' to abort or 'y' to proceed."
-            )
-            return "unrecognized-input"
 
     if version is not None:
         meta.store.version = version
