@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+💄 Allow chaining in `add_pypackages` and prettify logging message | [200](https://github.com/laminlabs/nbproject/pull/200) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 |
 ♻️ Add return value for `set_version` | [199](https://github.com/laminlabs/nbproject/pull/199) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.3
 ♻️ Refactor and test `set_version` | [198](https://github.com/laminlabs/nbproject/pull/198) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.2
 🚸 Prettify logging and do not raise error upon no-title, instead return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.1
