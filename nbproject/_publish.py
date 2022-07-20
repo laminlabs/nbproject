@@ -39,8 +39,8 @@ def publish(
 
     notebook_title = meta.live.title
     title_error = (
-        "No title! Please update & save your notebook so that it has a"
-        " markdown cell with the title: # My title"
+        f"No title! Update & {colors.bold('save')} your notebook with a title '# My"
+        " title' in the first cell."
     )
 
     if notebook_title is None:
