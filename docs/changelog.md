@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-:children_crossing: Add logging to `notebook_path` | [204](https://github.com/laminlabs/nbproject/pull/204) | [Koncopd](https://github.com/Koncopd) | 2022-07-20 |
+🚸 Add logging to `notebook_path` | [204](https://github.com/laminlabs/nbproject/pull/204) | [Koncopd](https://github.com/Koncopd) | 2022-07-20 | 0.4.5
 🚸 Better logging on no-title error | [203](https://github.com/laminlabs/nbproject/pull/203) | [falexwolf](https://github.com/falexwolf) | 2022-07-20 | 0.4.4
 💄 Allow chaining in `add_pypackages` and prettify logging message | [200](https://github.com/laminlabs/nbproject/pull/200) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 |
 ♻️ Add return value for `set_version` | [199](https://github.com/laminlabs/nbproject/pull/199) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.3
