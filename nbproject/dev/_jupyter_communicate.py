@@ -5,6 +5,8 @@ from urllib import request
 
 import orjson
 
+from .._logger import logger
+
 DIR_KEYS = ("notebook_dir", "root_dir")
 
 
@@ -70,22 +72,26 @@ def notebook_path(return_env=False):
 
     # no running servers
     if servers_nbapp == [] and servers_juserv == []:
+        logger.warning("Can not find any servers running.")
         return None
 
     try:
         from IPython import get_ipython
     except ModuleNotFoundError:
+        logger.warning("Can not import get_ipython.")
         return None
 
     ipython_instance = get_ipython()
 
     # not in an ipython kernel
     if ipython_instance is None:
+        logger.warning("The IPython instance is empty.")
         return None
 
     config = ipython_instance.config
     # not in a jupyter notebook
     if "IPKernelApp" not in config:
+        logger.warning("IPKernelApp is not in ipython_instance.config.")
         return None
 
     kernel_id = (
@@ -113,4 +119,5 @@ def notebook_path(return_env=False):
                         else:
                             return nb_path
 
+    logger.warning("Can not find the notebook in any server session.")
     return None
