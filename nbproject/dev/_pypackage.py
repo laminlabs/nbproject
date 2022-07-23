@@ -60,7 +60,7 @@ def infer_pypackages(
     This does not account for additional packages in file metadata.
 
     For the user-facing functionality,
-    see :meth:`~nbproject.dev._meta_live.MetaLive.pypackage`.
+    see :meth:`~nbproject.dev.MetaLive.pypackage`.
 
     Args:
         nb: A notebook to infer pypackages from.
