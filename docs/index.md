@@ -28,7 +28,7 @@ from nbproject import header; header()  # Initializes & displays metadata, start
 
 Documentation:
 
-- [Quickstart](tutorials/quickstart) and more [tutorials](tutorials/index).
+- [Quickstart](quickstart) and more [tutorials](tutorials/index).
 - See the [API reference](api).
 - If you get stuck, see [guides](guides/index) for edge cases & errors.
 
