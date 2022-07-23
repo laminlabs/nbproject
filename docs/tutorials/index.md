@@ -2,7 +2,7 @@
 
 ## Manage notebooks interactively (#1)
 
-- {doc}`quickstart`
+- {doc}`../quickstart`
 - {doc}`received`
 - {doc}`basic-metadata`
 - {doc}`update-metadata`
@@ -19,7 +19,7 @@
 :maxdepth: 1
 :hidden:
 
-quickstart
+../quickstart
 received
 basic-metadata
 update-metadata
