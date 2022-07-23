@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+:adhesive_bandage: Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
 🔥 Switched logger to use lamin-logger | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
 📝 Polish `basic-metadata` and `update-metadata` tutorials | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 :memo: Add gif to quickstart | [208](https://github.com/laminlabs/nbproject/pull/208) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
