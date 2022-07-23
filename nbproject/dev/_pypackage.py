@@ -5,7 +5,7 @@ from typing import Iterable, List, Optional, Union  # noqa
 
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
-from ._notebook import Notebook, read_notebook
+from ._notebook import Notebook
 
 std_libs = None
 pkgs_dists = None
@@ -50,25 +50,17 @@ def cell_imports(cell_source: str):
                 yield name
 
 
-def infer_pypackages_from_file(filepath: str):
-    """Parse notebook file and infer all pypackages.
-
-    This accounts for additional pypackages in the file metadata.
-    """
-    nb = read_notebook(filepath)
-    add_pkgs = None
-    if "nbproject" in nb.metadata and "pypackage" in nb.metadata["nbproject"]:
-        if nb.metadata["nbproject"]["pypackage"] is not None:
-            add_pkgs = nb.metadata["nbproject"]["pypackage"].keys()
-    return infer_pypackages_from_nb(nb, add_pkgs, pin_versions=True)
-
-
-def infer_pypackages_from_nb(
+def infer_pypackages(
     content: Notebook,
     add_pkgs: Optional[Iterable] = None,
     pin_versions: bool = True,
 ):
     """Parse notebook object and infer all pypackages.
+
+    This does not account for additional packages in file metadata.
+
+    For the user-facing functionality,
+    see :meth:`~nbproject.dev._meta_live.MetaLive.pypackage`.
 
     Args:
         nb: A notebook to infer pypackages from.

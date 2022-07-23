@@ -33,11 +33,9 @@ def initialize_metadata(
 
     pypackage = [pypackage] if isinstance(pypackage, str) else pypackage
     if nb is not None and isinstance(pypackage, list):
-        from ._pypackage import infer_pypackages_from_nb
+        from ._pypackage import infer_pypackages
 
-        meta.pypackage = infer_pypackages_from_nb(
-            nb, add_pkgs=pypackage, pin_versions=True
-        )
+        meta.pypackage = infer_pypackages(nb, add_pkgs=pypackage, pin_versions=True)
 
     if parent is not None:
         meta.parent = parent
