@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+📝 Polish `basic-metadata` and `update-metadata` tutorials | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 :memo: Add gif to quickstart | [208](https://github.com/laminlabs/nbproject/pull/208) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 ♻️ Refactor exposure of `infer_pypackages` | [206](https://github.com/laminlabs/nbproject/pull/206) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 🚸 Add logging to `notebook_path` | [204](https://github.com/laminlabs/nbproject/pull/204) | [Koncopd](https://github.com/Koncopd) | 2022-07-20 | 0.4.5
