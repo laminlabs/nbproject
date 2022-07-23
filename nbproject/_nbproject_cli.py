@@ -8,7 +8,7 @@ import yaml  # type: ignore
 from ._logger import logger
 from ._schemas import NBRecord, YAMLRecord
 from .dev._notebook import read_notebook, write_notebook
-from .dev._pypackage import infer_pypackages_from_nb, resolve_versions
+from .dev._pypackage import infer_pypackages, resolve_versions
 
 
 def find_upwards(cwd: Path, filename: str):
@@ -97,7 +97,7 @@ def sync(
         yaml_record = YAMLRecord(nb_path, nbproj_record, yaml_proj)
 
         if parse_deps:
-            deps = infer_pypackages_from_nb(nb, pin_versions=pin_versions)
+            deps = infer_pypackages(nb, pin_versions=pin_versions)
             yaml_record.pypackage = deps  # type: ignore
 
         yaml_record.put_metadata()
@@ -155,7 +155,7 @@ def publish(files_dirs: Iterator[str]):
             add_pkgs = None
             if "pypackage" in nbproject_meta:
                 add_pkgs = nbproject_meta["pypackage"].keys()
-            nbproject_meta["pypackage"] = infer_pypackages_from_nb(
+            nbproject_meta["pypackage"] = infer_pypackages(
                 nb, add_pkgs, pin_versions=True
             )
 

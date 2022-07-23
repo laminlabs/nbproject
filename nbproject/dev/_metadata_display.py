@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from .._logger import logger
 from ._consecutiveness import check_consecutiveness
 from ._notebook import Notebook
-from ._pypackage import infer_pypackages_from_nb
+from ._pypackage import infer_pypackages
 
 
 def table_html(rows: list):
@@ -135,9 +135,7 @@ def table_metadata(
         add_pkgs = [pkg.partition("==")[0] for pkg in dep_store]
     else:
         add_pkgs = None
-    dep_live = dm.pypackage(
-        infer_pypackages_from_nb(notebook, add_pkgs, pin_versions=True)
-    )
+    dep_live = dm.pypackage(infer_pypackages(notebook, add_pkgs, pin_versions=True))
 
     # simplify display when stored & live pypackages match
     if dep_store is not None and dep_live is not None and dep_live == dep_store:

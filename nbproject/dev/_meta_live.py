@@ -6,6 +6,7 @@ from .._logger import logger
 from ._consecutiveness import check_consecutiveness
 from ._jupyter_lab_commands import _save_notebook
 from ._notebook import Notebook, read_notebook
+from ._pypackage import infer_pypackages
 
 
 def get_title(nb: Notebook) -> Optional[str]:
@@ -49,10 +50,16 @@ class MetaLive:
 
     @property
     def pypackage(self):
-        """Infer pypackages for the notebook on access."""
-        from ._pypackage import infer_pypackages_from_file
+        """Infer pypackages for the notebook.
 
-        return infer_pypackages_from_file(self._nb_path)
+        This accounts for additional pypackages in the file metadata.
+        """
+        nb = read_notebook(self._nb_path)
+        add_pkgs = None
+        if "nbproject" in nb.metadata and "pypackage" in nb.metadata["nbproject"]:
+            if nb.metadata["nbproject"]["pypackage"] is not None:
+                add_pkgs = nb.metadata["nbproject"]["pypackage"].keys()
+        return infer_pypackages(nb, add_pkgs, pin_versions=True)
 
     @property
     def consecutive_cells(self) -> bool:
