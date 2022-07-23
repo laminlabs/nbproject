@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
-    "loguru",
+    "lamin_logger",
     "pydantic",
     "pyyaml",
     "packaging",
