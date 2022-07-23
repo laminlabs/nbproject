@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 from typing import List, Union
 
@@ -42,6 +43,7 @@ def _output_table(notebook: Notebook, table: str):
         "output_type": "display_data",
     }
 
+    header_re = re.compile(r"^[^#]*header\(", flags=re.MULTILINE)
     ccount = 0
     for cell in notebook.cells:
         if cell["cell_type"] != "code":
@@ -49,7 +51,7 @@ def _output_table(notebook: Notebook, table: str):
         elif cell["execution_count"] is not None:
             ccount = cell["execution_count"]
 
-        if "header(" in "".join(cell["source"]):
+        if header_re.match("".join(cell["source"])) is not None:
             cell["outputs"] = [out]
             cell["execution_count"] = ccount + 1
             # update only once
