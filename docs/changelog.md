@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+⬆️ Upgrade to logger 0.1.1 & polish quickstart | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
 :adhesive_bandage: Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
 🔥 Switched logger to use lamin-logger | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
 📝 Polish `basic-metadata` and `update-metadata` tutorials | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
