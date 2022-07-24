@@ -15,13 +15,15 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
-    "lamin_logger",
     "pydantic",
     "pyyaml",
     "packaging",
     "orjson",
     "ipylab",
+    "importlib-metadata",
+    "stdlib_list; python_version < '3.10'",
     "nbproject_test",
+    "lamin_logger",
 ]
 
 [project.urls]
