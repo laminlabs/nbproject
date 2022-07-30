@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🏗️  Metadata-aware tests (take 1) | [9](https://github.com/laminlabs/nbproject/pull/9) | [Koncopd](https://github.com/Koncopd) | 2022-04-07 |
 Add time_init & time_edit fields | [6](https://github.com/laminlabs/nbproject/pull/6) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 Display only 4 digits, use pydantic, autodetect filename | [5](https://github.com/laminlabs/nbproject/pull/5) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 Update readme during kick-off meeting | [2](https://github.com/laminlabs/nbproject/pull/2) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
