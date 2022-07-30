@@ -3,15 +3,11 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-🏗️  Metadata-aware tests (take 1) | [9](https://github.com/laminlabs/nbproject/pull/9) | [Koncopd](https://github.com/Koncopd) | 2022-04-07 |
-Add time_init & time_edit fields | [6](https://github.com/laminlabs/nbproject/pull/6) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
-Display only 4 digits, use pydantic, autodetect filename | [5](https://github.com/laminlabs/nbproject/pull/5) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
-Update readme during kick-off meeting | [2](https://github.com/laminlabs/nbproject/pull/2) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
-⬆️ Upgrade to logger 0.1.1 & polish quickstart | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
-:adhesive_bandage: Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
-🔥 Switched logger to use lamin-logger | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
+⬆️ Upgrade to logger 0.1.1 & polish `quickstart` | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
+🩹 Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
+🔥 Switched logger to use `lamin_logger` | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
 📝 Polish `basic-metadata` and `update-metadata` tutorials | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
-:memo: Add gif to quickstart | [208](https://github.com/laminlabs/nbproject/pull/208) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
+📝 Add gif to quickstart | [208](https://github.com/laminlabs/nbproject/pull/208) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 ♻️ Refactor exposure of `infer_pypackages` | [206](https://github.com/laminlabs/nbproject/pull/206) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 🚸 Add logging to `notebook_path` | [204](https://github.com/laminlabs/nbproject/pull/204) | [Koncopd](https://github.com/Koncopd) | 2022-07-20 | 0.4.5
 🚸 Better logging on no-title error | [203](https://github.com/laminlabs/nbproject/pull/203) | [falexwolf](https://github.com/falexwolf) | 2022-07-20 | 0.4.4
@@ -98,3 +94,7 @@ Update readme during kick-off meeting | [2](https://github.com/laminlabs/nbproje
 ✨ Project initialization with CLI | [21](https://github.com/laminlabs/nbproject/pull/21) | [Koncopd](https://github.com/Koncopd) | 2022-04-29 |
 🎨 Move all jupyter related functionality to one file | [19](https://github.com/laminlabs/nbproject/pull/19) | [Koncopd](https://github.com/Koncopd) | 2022-04-18 |
 🏗️ Metadata-aware tests | [9](https://github.com/laminlabs/nbproject/pull/9) | [Koncopd](https://github.com/Koncopd) | 2022-04-07 |
+🏗️  Metadata-aware tests (take 1) | [9](https://github.com/laminlabs/nbproject/pull/9) | [Koncopd](https://github.com/Koncopd) | 2022-04-07 |
+✨ Add `time_init` & `time_edit` fields | [6](https://github.com/laminlabs/nbproject/pull/6) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
+💄 Display only 4 digits, use pydantic, autodetect filename | [5](https://github.com/laminlabs/nbproject/pull/5) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
+📝 Update readme | [2](https://github.com/laminlabs/nbproject/pull/2) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
