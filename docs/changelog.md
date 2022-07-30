@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+Add time_init & time_edit fields | [6](https://github.com/laminlabs/nbproject/pull/6) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 Display only 4 digits, use pydantic, autodetect filename | [5](https://github.com/laminlabs/nbproject/pull/5) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 Update readme during kick-off meeting | [2](https://github.com/laminlabs/nbproject/pull/2) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 ⬆️ Upgrade to logger 0.1.1 & polish quickstart | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
