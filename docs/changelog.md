@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+Display only 4 digits, use pydantic, autodetect filename | [5](https://github.com/laminlabs/nbproject/pull/5) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 Update readme during kick-off meeting | [2](https://github.com/laminlabs/nbproject/pull/2) | [falexwolf](https://github.com/falexwolf) | 2022-03-23 |
 ⬆️ Upgrade to logger 0.1.1 & polish quickstart | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
 :adhesive_bandage: Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
