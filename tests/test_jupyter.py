@@ -6,7 +6,11 @@ from nbproject.dev._jupyter_communicate import (
     query_server,
     running_servers,
 )
-from nbproject.dev._jupyter_lab_commands import _reload_notebook, _save_notebook
+from nbproject.dev._jupyter_lab_commands import (
+    _check_frontend,
+    _reload_notebook,
+    _save_notebook,
+)
 
 
 def test_jupyter_not_running():
@@ -37,3 +41,5 @@ def test_jupyter_not_running():
 def test_juplab_nothing_happens():
     _save_notebook()
     _reload_notebook()
+
+    assert not _check_frontend()
