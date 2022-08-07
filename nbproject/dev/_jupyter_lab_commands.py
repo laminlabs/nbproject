@@ -20,3 +20,11 @@ def _reload_notebook():
         app = JupyterFrontEnd()
 
     app.commands.execute("docmanager:reload")
+
+
+def _check_frontend():
+    global app
+    if app is None:
+        app = JupyterFrontEnd()
+
+    return app.version != ""
