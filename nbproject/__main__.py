@@ -1,6 +1,6 @@
 import argparse
 
-from ._nbproject_cli import init, publish, reqs, sync
+from ._cli import init, publish, reqs, sync
 
 
 def main():
