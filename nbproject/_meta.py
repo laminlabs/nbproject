@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Union
 
 from .dev._jupyter_communicate import notebook_path
+from .dev._jupyter_lab_commands import _check_frontend
 from .dev._meta_live import MetaLive
 from .dev._meta_store import MetaContainer, MetaStore
 from .dev._notebook import read_notebook
@@ -50,6 +51,9 @@ class meta:
 
         if env is None:
             env = filepath_env[1]
+
+            if env == "lab":
+                env = "lab" if _check_frontend() else "notebook"
 
         cls._filepath = filepath
         cls._env = env

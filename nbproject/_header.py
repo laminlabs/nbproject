@@ -5,7 +5,7 @@ from typing import List, Union
 from ._logger import logger
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import _reload_notebook, _save_notebook
+from .dev._jupyter_lab_commands import _check_frontend, _reload_notebook, _save_notebook
 from .dev._metadata_display import display_html, table_metadata
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
@@ -90,6 +90,9 @@ def header(
 
     if env is None:
         env = filepath_env[1]
+
+        if env == "lab":
+            env = "lab" if _check_frontend() else "notebook"
     # The following occurs when passing filepath manually
     # We assume Jupyter Lab as an environment for now
     if env is None:
