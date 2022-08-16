@@ -38,6 +38,8 @@ def publish(
     else:
         calling_statement = "publish("
 
+    meta._init_meta()
+
     if meta._env == "lab":
         _juplab._save_notebook()
     elif meta._env == "notebook":
