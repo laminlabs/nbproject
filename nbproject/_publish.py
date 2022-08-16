@@ -68,7 +68,9 @@ def publish(
         raise RuntimeError("Can only publish from the last code cell of the notebook.")
 
     if not check_consecutiveness(nb):
-        if meta.env == "test":
+        if "proceed_consecutiveness" in kwargs:
+            decide = kwargs["proceed_consecutiveness"]
+        elif meta.env == "test":
             decide = "y"
         else:
             decide = input("   Do you still want to proceed with publishing? (y/n) ")
