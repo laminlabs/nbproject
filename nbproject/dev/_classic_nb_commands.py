@@ -1,8 +1,14 @@
 from time import sleep
 
+from .._logger import logger
+
 
 def _save_notebook():
-    from IPython.display import Javascript, display
+    try:
+        from IPython.display import Javascript, display
+    except ModuleNotFoundError:
+        logger.warning("Can not import from IPython.")
+        return None
 
     js = Javascript("IPython.notebook.save_notebook()")
     display(js)
@@ -11,7 +17,11 @@ def _save_notebook():
 
 
 def _reload_notebook():
-    from IPython.display import Javascript, display
+    try:
+        from IPython.display import Javascript, display
+    except ModuleNotFoundError:
+        logger.warning("Can not import from IPython.")
+        return None
 
     js = Javascript("IPython.notebook.load_notebook(IPython.notebook.notebook_path)")
     display(js)
