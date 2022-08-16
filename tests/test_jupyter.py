@@ -1,12 +1,14 @@
 from pytest import raises
 
+from nbproject.dev import _classic_nb_commands as _clsnbk
+from nbproject.dev import _jupyter_lab_commands as _juplab
+from nbproject.dev._frontend_commands import _reload_notebook, _save_notebook
 from nbproject.dev._jupyter_communicate import (
     notebook_path,
     prepare_url,
     query_server,
     running_servers,
 )
-from nbproject.dev._jupyter_lab_commands import _reload_notebook, _save_notebook
 
 
 def test_jupyter_not_running():
@@ -34,6 +36,19 @@ def test_jupyter_not_running():
     )
 
 
-def test_juplab_nothing_happens():
-    _save_notebook()
-    _reload_notebook()
+def test_juplab_clsnbk_nothing_happens():
+    _juplab._save_notebook()
+    _juplab._reload_notebook()
+
+    _clsnbk._save_notebook()
+    _clsnbk._reload_notebook()
+
+    for env in ("lab", "notebook"):
+        _save_notebook(env)
+        _reload_notebook(env)
+
+    with raises(ValueError):
+        _save_notebook("nonexistent_env")
+
+    with raises(ValueError):
+        _reload_notebook("nonexistent_env")

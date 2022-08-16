@@ -4,7 +4,7 @@ from ._logger import colors, logger
 from ._meta import meta
 from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
-from .dev._jupyter_lab_commands import _save_notebook
+from .dev._frontend_commands import _save_notebook
 from .dev._notebook import read_notebook
 from .dev._set_version import set_version
 
@@ -37,6 +37,22 @@ def publish(
     else:
         calling_statement = "publish("
 
+    if meta.env in ("lab", "notebook"):
+        _save_notebook(meta.env)
+    else:
+        pretend_no_test_env = (
+            kwargs["pretend_no_test_env"] if "pretend_no_test_env" in kwargs else False
+        )
+        if (
+            meta.env == "test" and not pretend_no_test_env
+        ):  # do not raise error in test environment
+            pass
+        elif not i_confirm_i_saved:
+            raise RuntimeError(
+                "Make sure you save the notebook in your editor before publishing!\n"
+                "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
+            )
+
     notebook_title = meta.live.title
     title_error = (
         f"No title! Update & {colors.bold('save')} your notebook with a title '# My"
@@ -47,28 +63,14 @@ def publish(
         logger.error(title_error)
         return "no-title"
 
-    if meta._env == "lab":
-        _save_notebook()
-    else:
-        pretend_no_test_env = (
-            kwargs["pretend_no_test_env"] if "pretend_no_test_env" in kwargs else False
-        )
-        if (
-            meta._env == "test" and not pretend_no_test_env
-        ):  # do not raise error in test environment
-            pass
-        elif not i_confirm_i_saved:
-            raise RuntimeError(
-                "Make sure you save the notebook in your editor before publishing!\n"
-                "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
-            )
-
     nb = read_notebook(meta._filepath)  # type: ignore
     if not check_last_cell(nb, calling_statement):
         raise RuntimeError("Can only publish from the last code cell of the notebook.")
 
     if not check_consecutiveness(nb):
-        if meta._env == "test":
+        if "proceed_consecutiveness" in kwargs:
+            decide = kwargs["proceed_consecutiveness"]
+        elif meta.env == "test":
             decide = "y"
         else:
             decide = input("   Do you still want to proceed with publishing? (y/n) ")

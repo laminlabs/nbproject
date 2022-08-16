@@ -80,6 +80,13 @@ class meta:
             cls._init_meta()
         return cls._live  # type: ignore
 
+    @classproperty
+    def env(cls):
+        """Contains info about execution environment."""
+        if cls._env is None:
+            cls._init_meta()
+        return cls._env
+
     def __repr__(self):
         return (
             "Metadata object with .live and .store metadata fields:\n"

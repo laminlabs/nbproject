@@ -3,6 +3,7 @@
 Look up guides for edges cases, warnings, and errors.
 
 - {doc}`initialize`
+- {doc}`initialize-set-env`
 - {doc}`inconsistent-packages-parents-store`
 - {doc}`inconsistent-packages-parents-no-store`
 - {doc}`example-project/index`
@@ -21,6 +22,7 @@ Look up guides for edges cases, warnings, and errors.
 :hidden:
 
 initialize
+initialize-set-env
 inconsistent-packages-parents-store
 inconsistent-packages-parents-no-store
 example-project/index
