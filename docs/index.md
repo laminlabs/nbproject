@@ -12,7 +12,8 @@ Supported editors & platforms:
 
 - Jupyter Lab
   - Google Cloud Vertex AI ([2022-07-16](https://github.com/laminlabs/nbproject/issues/170))
-- VS Code & Jupyter Notebook (no interactive experience, not recommended for production)
+- Jupyter Notebook
+- VS Code (no interactive experience, not recommended for production)
 
 Install:
 
