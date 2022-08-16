@@ -46,3 +46,9 @@ def test_juplab_clsnbk_nothing_happens():
     for env in ("lab", "notebook"):
         _save_notebook(env)
         _reload_notebook(env)
+
+    with raises(ValueError):
+        _save_notebook("nonexistent_env")
+
+    with raises(ValueError):
+        _reload_notebook("nonexistent_env")
