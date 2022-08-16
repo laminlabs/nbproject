@@ -4,7 +4,8 @@ from typing import List, Mapping, Optional, Union
 from pydantic import BaseModel, Extra
 
 from .._logger import logger
-from ._jupyter_lab_commands import _reload_notebook, _save_notebook
+from . import _classic_nb_commands as _clsnbk
+from . import _jupyter_lab_commands as _juplab
 from ._metadata_display import table_metadata
 from ._notebook import Notebook, read_notebook, write_notebook
 from ._pypackage import _get_version
@@ -112,7 +113,9 @@ class MetaStore:
         Outside Jupyter Lab: Save the notebook before writing.
         """
         if self._env == "lab":
-            _save_notebook()
+            _juplab._save_notebook()
+        elif self._env == "notebook":
+            _clsnbk._save_notebook()
 
         nb = read_notebook(self._filepath)
 
@@ -127,7 +130,9 @@ class MetaStore:
         write_notebook(nb, self._filepath)
 
         if self._env == "lab":
-            _reload_notebook()
+            _juplab._reload_notebook()
+        elif self._env == "notebook":
+            _clsnbk._reload_notebook()
         elif self._env != "test":
             logger.info(
                 "File changed on disk! Reload the notebook if you want to continue."

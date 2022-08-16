@@ -2,9 +2,10 @@ from typing import Optional, Union
 
 from ._logger import colors, logger
 from ._meta import meta
+from .dev import _classic_nb_commands as _clsnbk
+from .dev import _jupyter_lab_commands as _juplab
 from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
-from .dev._jupyter_lab_commands import _save_notebook
 from .dev._notebook import read_notebook
 from .dev._set_version import set_version
 
@@ -37,18 +38,10 @@ def publish(
     else:
         calling_statement = "publish("
 
-    notebook_title = meta.live.title
-    title_error = (
-        f"No title! Update & {colors.bold('save')} your notebook with a title '# My"
-        " title' in the first cell."
-    )
-
-    if notebook_title is None:
-        logger.error(title_error)
-        return "no-title"
-
     if meta._env == "lab":
-        _save_notebook()
+        _juplab._save_notebook()
+    elif meta._env == "notebook":
+        _clsnbk._save_notebook()
     else:
         pretend_no_test_env = (
             kwargs["pretend_no_test_env"] if "pretend_no_test_env" in kwargs else False
@@ -62,6 +55,16 @@ def publish(
                 "Make sure you save the notebook in your editor before publishing!\n"
                 "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
             )
+
+    notebook_title = meta.live.title
+    title_error = (
+        f"No title! Update & {colors.bold('save')} your notebook with a title '# My"
+        " title' in the first cell."
+    )
+
+    if notebook_title is None:
+        logger.error(title_error)
+        return "no-title"
 
     nb = read_notebook(meta._filepath)  # type: ignore
     if not check_last_cell(nb, calling_statement):
