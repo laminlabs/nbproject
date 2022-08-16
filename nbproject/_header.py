@@ -3,9 +3,10 @@ from datetime import datetime, timezone
 from typing import List, Union
 
 from ._logger import logger
+from .dev import _classic_nb_commands as _clsnbk
+from .dev import _jupyter_lab_commands as _juplab
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
-from .dev._jupyter_lab_commands import _reload_notebook, _save_notebook
 from .dev._metadata_display import display_html, table_metadata
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
@@ -110,8 +111,16 @@ def header(
     if "nbproject" not in nb.metadata:
         logger.info("Initializing.")
 
+        is_interactive = False  # todo: add checks for lab and notebook
+
         if env == "lab":
-            _save_notebook()
+            _juplab._save_notebook()
+            is_interactive = True
+        elif env == "notebook":
+            _clsnbk._save_notebook()
+            is_interactive = True
+
+        if is_interactive:
             nb = read_notebook(filepath)  # type: ignore
 
         metadata = initialize_metadata(nb, parent=parent, pypackage=pypackage).dict()
@@ -122,7 +131,9 @@ def header(
         write_notebook(nb, filepath)  # type: ignore
 
         if env == "lab":
-            _reload_notebook()
+            _juplab._reload_notebook()
+        elif env == "notebook":
+            _clsnbk._reload_notebook()
         else:
             raise SystemExit(msg_init_complete)
 
