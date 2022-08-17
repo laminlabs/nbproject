@@ -3,8 +3,8 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
-:sparkles: Add interactivity for classic jupyter notebooks | [219](https://github.com/laminlabs/nbproject/pull/219) | [Koncopd](https://github.com/Koncopd) | 2022-08-16 |
-:recycle: Clean up code | [215](https://github.com/laminlabs/nbproject/pull/215) | [Koncopd](https://github.com/Koncopd) | 2022-08-07 |
+✨ Add interactivity for classic jupyter notebooks | [219](https://github.com/laminlabs/nbproject/pull/219) | [Koncopd](https://github.com/Koncopd) | 2022-08-16 | 0.5.0
+♻️ Clean up code | [215](https://github.com/laminlabs/nbproject/pull/215) | [Koncopd](https://github.com/Koncopd) | 2022-08-07 |
 ⬆️ Upgrade to logger 0.1.1 & polish `quickstart` | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
 🩹 Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
 🔥 Switched logger to use `lamin_logger` | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
