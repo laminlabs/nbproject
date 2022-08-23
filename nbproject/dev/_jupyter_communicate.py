@@ -108,8 +108,15 @@ def notebook_path(return_env=False):
         config["IPKernelApp"]["connection_file"].partition("-")[2].split(".", -1)[0]
     )
 
+    server_exception = None
+
     for server in chain(servers_nbapp, servers_juserv):
-        session = query_server(server)
+        try:
+            session = query_server(server)
+        except Exception as e:
+            server_exception = e
+            continue
+
         for notebook in session:
             if notebook["kernel"]["id"] == kernel_id:
                 for dir_key in DIR_KEYS:
@@ -128,6 +135,9 @@ def notebook_path(return_env=False):
                             )
                         else:
                             return nb_path
+
+    if server_exception is not None:
+        raise server_exception
 
     logger.warning("Can not find the notebook in any server session.")
     return None
