@@ -37,9 +37,12 @@ def query_server(server: dict):
 
 def running_servers():
     """Return the info about running jupyter servers."""
+    nbapp_import = False
+
     try:
         from notebook.notebookapp import list_running_servers
 
+        nbapp_import = True
         servers_nbapp = list_running_servers()
     except ModuleNotFoundError:
         servers_nbapp = []
@@ -50,6 +53,13 @@ def running_servers():
         servers_juserv = list_running_servers()
     except ModuleNotFoundError:
         servers_juserv = []
+
+        if not nbapp_import:
+            logger.warning(
+                "It looks like you are running jupyter lab "
+                "but don't have jupyter-server module installed."
+                "Please install it via pip install jupyter-server"
+            )
 
     return servers_nbapp, servers_juserv
 
