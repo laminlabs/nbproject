@@ -96,6 +96,11 @@ def header(
         env = "lab"
         logger.info("Assuming editor is Jupyter Lab.")
 
+    if env == "lab":
+        from .dev._jupyter_lab_commands import _init_frontend
+
+        _init_frontend()
+
     try:
         nb = read_notebook(filepath)  # type: ignore
     except FileNotFoundError:
