@@ -6,6 +6,7 @@ from urllib import request
 import orjson
 
 from .._logger import logger
+from ._jupyter_lab_commands import _lab_notebook_path
 
 DIR_KEYS = ("notebook_dir", "root_dir")
 
@@ -135,6 +136,11 @@ def notebook_path(return_env=False):
                             )
                         else:
                             return nb_path
+
+    # last chance, trying to get the path through ipylab
+    nb_path = _lab_notebook_path()
+    if nb_path is not None:
+        return (nb_path, "lab") if return_env else nb_path
 
     if server_exception is not None:
         raise server_exception
