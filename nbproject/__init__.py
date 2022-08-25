@@ -25,6 +25,12 @@ For more fine-grained access, use:
 """
 __version__ = "0.5.0"
 
+# init jupyter lab frontend immediately on import
+# nothing happens if this is not jupyter lab
+from .dev._jupyter_lab_commands import _init_frontend
+
+_init_frontend()
+
 from . import dev
 from ._header import header
 from ._meta import meta

@@ -6,6 +6,7 @@ from urllib import request
 import orjson
 
 from .._logger import logger
+from ._jupyter_lab_commands import _lab_notebook_path
 
 DIR_KEYS = ("notebook_dir", "root_dir")
 
@@ -37,9 +38,12 @@ def query_server(server: dict):
 
 def running_servers():
     """Return the info about running jupyter servers."""
+    nbapp_import = False
+
     try:
         from notebook.notebookapp import list_running_servers
 
+        nbapp_import = True
         servers_nbapp = list_running_servers()
     except ModuleNotFoundError:
         servers_nbapp = []
@@ -50,6 +54,13 @@ def running_servers():
         servers_juserv = list_running_servers()
     except ModuleNotFoundError:
         servers_juserv = []
+
+        if not nbapp_import:
+            logger.warning(
+                "It looks like you are running jupyter lab "
+                "but don't have jupyter-server module installed."
+                "Please install it via pip install jupyter-server"
+            )
 
     return servers_nbapp, servers_juserv
 
@@ -98,8 +109,15 @@ def notebook_path(return_env=False):
         config["IPKernelApp"]["connection_file"].partition("-")[2].split(".", -1)[0]
     )
 
+    server_exception = None
+
     for server in chain(servers_nbapp, servers_juserv):
-        session = query_server(server)
+        try:
+            session = query_server(server)
+        except Exception as e:
+            server_exception = e
+            continue
+
         for notebook in session:
             if notebook["kernel"]["id"] == kernel_id:
                 for dir_key in DIR_KEYS:
@@ -118,6 +136,14 @@ def notebook_path(return_env=False):
                             )
                         else:
                             return nb_path
+
+    # last chance, trying to get the path through ipylab
+    nb_path = _lab_notebook_path()
+    if nb_path is not None:
+        return (nb_path, "lab") if return_env else nb_path
+
+    if server_exception is not None:
+        raise server_exception
 
     logger.warning("Can not find the notebook in any server session.")
     return None

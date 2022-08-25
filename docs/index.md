@@ -10,7 +10,7 @@ Sketch pipelines and share reproducible notebooks with context.
 
 Supported editors & platforms:
 
-- Jupyter Lab
+- Jupyter Lab (there could be problems with non-pip/conda installations)
   - Google Cloud Vertex AI ([2022-07-16](https://github.com/laminlabs/nbproject/issues/170))
 - Jupyter Notebook
 - VS Code (no interactive experience, not recommended for production)
