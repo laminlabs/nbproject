@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | User | Date | Patch
 --- | --- | --- | --- | ---
+🚸 Additional warnings and safety features | [220](https://github.com/laminlabs/nbproject/pull/220) | [Koncopd](https://github.com/Koncopd) | 2022-08-25 |
 ✨ Add interactivity for classic jupyter notebooks | [219](https://github.com/laminlabs/nbproject/pull/219) | [Koncopd](https://github.com/Koncopd) | 2022-08-16 | 0.5.0
 ♻️ Clean up code | [215](https://github.com/laminlabs/nbproject/pull/215) | [Koncopd](https://github.com/Koncopd) | 2022-08-07 |
 ⬆️ Upgrade to logger 0.1.1 & polish `quickstart` | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
