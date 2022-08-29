@@ -1,6 +1,10 @@
 # Guides
 
-Look up guides for edges cases, warnings, and errors.
+Setup & installation guide:
+
+- {doc}`setup`
+
+Guides for edges cases, warnings, and errors:
 
 - {doc}`initialize`
 - {doc}`initialize-set-env`
@@ -22,6 +26,7 @@ Look up guides for edges cases, warnings, and errors.
 :maxdepth: 1
 :hidden:
 
+setup
 initialize
 initialize-set-env
 inconsistent-packages-parents-store
