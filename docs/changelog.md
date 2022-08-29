@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🎨 Strip quickstart output, upgrade `nbproject_test` | [227](https://github.com/laminlabs/nbproject/pull/227) | [falexwolf](https://github.com/falexwolf) | 2022-08-29 |
 📝 Make a setup guide | [226](https://github.com/laminlabs/nbproject/pull/226) | [falexwolf](https://github.com/falexwolf) | 2022-08-29 |
 📝 Installation instructions and other things | [225](https://github.com/laminlabs/nbproject/pull/225) | [Koncopd](https://github.com/Koncopd) | 2022-08-28 | 0.5.1
 🚸 Additional warnings and safety features | [220](https://github.com/laminlabs/nbproject/pull/220) | [Koncopd](https://github.com/Koncopd) | 2022-08-25 |
