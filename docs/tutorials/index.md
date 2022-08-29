@@ -1,17 +1,17 @@
 # Tutorials
 
-## Manage notebooks interactively (#1)
+Manage notebooks interactively:
 
 - {doc}`../quickstart`
 - {doc}`received`
 - {doc}`basic-metadata`
 - {doc}`update-metadata`
 
-## Manage a collection of notebooks (#2)
+Manage a collection of notebooks:
 
 - {doc}`cli`
 
-## Build on the metadata API (#3)
+Build on the metadata API:
 
 - {doc}`meta`
 
