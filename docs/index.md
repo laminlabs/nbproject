@@ -10,27 +10,17 @@ Sketch pipelines and share reproducible notebooks with context.
 
 Supported editors & platforms:
 
-- Jupyter Lab (there could be problems with non-pip/conda installations)
-  - Google Cloud Vertex AI
+- Jupyter Lab
+  - Google Cloud Vertex AI (see [setup instructions](guides/setup))
+  - brew-installed Jupyter Lab may give problems, please install via `pip install jupyterlab` or conda
 - Jupyter Notebook
 - VS Code (no interactive experience, not recommended for production)
 
 Install:
 
-Local:
-
 ```
 pip install nbproject
 ```
-
-Google Cloud Vertex AI (both managed and user-managed notebooks):
-
-```
-pip install ipylab==0.5.2 --user
-pip install nbproject
-```
-
-After the installation, close the Vertex jupyter lab interface page and open it back.
 
 Get started:
 
