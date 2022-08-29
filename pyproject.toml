@@ -22,7 +22,7 @@ dependencies = [
     "ipylab",
     "importlib-metadata",
     "stdlib_list; python_version < '3.10'",
-    "nbproject_test",
+    "nbproject_test >= 0.2.0",
     "lamin_logger",
 ]
 
