@@ -32,6 +32,14 @@ Notebook file helpers
    read_notebook
    write_notebook
 
+Testing
+-------
+
+.. autosummary::
+   :toctree:
+
+   test
+
 """
 import nbproject_test as test
 
