@@ -50,7 +50,8 @@ def publish(
         elif not i_confirm_i_saved:
             raise RuntimeError(
                 "Make sure you save the notebook in your editor before publishing!\n"
-                "You can avoid the need for manually saving in Jupyter Lab, which auto-saves the buffer during publish."  # noqa
+                "You can avoid the need for manually saving in Jupyter Lab or Notebook,"
+                " which auto-save the buffer during publish."
             )
 
     notebook_title = meta.live.title
