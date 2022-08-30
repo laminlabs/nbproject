@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+📝 Add GitHub stars to docs | [229](https://github.com/laminlabs/nbproject/pull/229) | [falexwolf](https://github.com/falexwolf) | 2022-08-30 |
 :adhesive_bandage: Identify VS Code as an environment | [228](https://github.com/laminlabs/nbproject/pull/228) | [Koncopd](https://github.com/Koncopd) | 2022-08-30 |
 🎨 Strip quickstart output, upgrade `nbproject_test` | [227](https://github.com/laminlabs/nbproject/pull/227) | [falexwolf](https://github.com/falexwolf) | 2022-08-29 |
 📝 Make a setup guide | [226](https://github.com/laminlabs/nbproject/pull/226) | [falexwolf](https://github.com/falexwolf) | 2022-08-29 |
