@@ -125,10 +125,14 @@ def notebook_path(return_env=False):
                         nb_path = (
                             PurePath(server[dir_key]) / notebook["notebook"]["path"]
                         )
+
                         # VScode adaption through "-jvsc-"
-                        if "-jvsc-" in str(nb_path):
-                            split = str(nb_path).split("-jvsc-")
+                        nb_path_str = str(nb_path)
+                        if "-jvsc-" in nb_path_str:
+                            split = nb_path_str.split("-jvsc-")
                             nb_path = PurePath(f"{split[0]}.ipynb")
+                            return (nb_path, "vs_code") if return_env else nb_path
+
                         if return_env:
                             return (
                                 nb_path,
