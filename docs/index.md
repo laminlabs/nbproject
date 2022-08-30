@@ -1,6 +1,6 @@
 ```{include} ../README.md
 :start-line: 0
-:end-line: 6
+:end-line: 7
 ```
 
 _Open-source ELN for the drylab._
