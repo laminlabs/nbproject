@@ -1,4 +1,4 @@
-# Tutorials
+# Guide
 
 Manage notebooks interactively:
 
