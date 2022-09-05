@@ -1,4 +1,4 @@
-# Setup instructions
+# Setup guide
 
 ## Google Cloud Vertex AI
 
