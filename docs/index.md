@@ -30,16 +30,16 @@ from nbproject import header; header()  # Initializes & displays metadata, start
 
 Documentation:
 
-- [Quickstart](quickstart) and more [tutorials](tutorials/index).
+- [Quickstart](quickstart) and [guide](guide/index).
 - See the [API reference](api).
-- If you get stuck, see [guides](guides/index) for edge cases & errors.
+- If you get stuck, see [FAQ](faq/index) for edge cases & errors.
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
-tutorials/index
+guide/index
 api
-guides/index
+faq/index
 changelog
 ```
