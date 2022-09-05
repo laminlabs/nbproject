@@ -11,7 +11,7 @@ Sketch pipelines and share reproducible notebooks with context.
 Supported editors & platforms:
 
 - Jupyter Lab
-  - Google Cloud Vertex AI (see [setup guide](guides/setup))
+  - Google Cloud Vertex AI (see [setup guide](faq/setup))
   - brew-installed Jupyter Lab may give problems, please install via `pip install jupyterlab` or conda
 - Jupyter Notebook
 - VS Code (no interactive experience, not recommended for production)

@@ -1,10 +1,10 @@
-# Guides
+# FAQ
 
 Setup & installation guide:
 
 - {doc}`setup`
 
-Guides for edges cases, warnings, and errors:
+Edges cases, warnings, and errors:
 
 - {doc}`initialize`
 - {doc}`initialize-set-env`

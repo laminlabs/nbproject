@@ -80,7 +80,7 @@ Name | PR | Developer | Date | Version
 ✨ Add field `version` and display live pypackages in header | [102](https://github.com/laminlabs/nbproject/pull/102) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 👷 Update coverage CI setup | [101](https://github.com/laminlabs/nbproject/pull/101) | [falexwolf](https://github.com/falexwolf) | 2022-06-26 |
 👷 Integrate Codecov to CI | [100](https://github.com/laminlabs/nbproject/pull/100) | [sunnyosun](https://github.com/sunnyosun) | 2022-06-26 |
-📝 Re-organize API documentation and clean up guides | [97](https://github.com/laminlabs/nbproject/pull/97) | [falexwolf](https://github.com/falexwolf) | 2022-06-24 | 0.1.0
+📝 Re-organize API documentation and clean up faq | [97](https://github.com/laminlabs/nbproject/pull/97) | [falexwolf](https://github.com/falexwolf) | 2022-06-24 | 0.1.0
 ♻️ Restructure dev submodule | [93](https://github.com/laminlabs/nbproject/pull/93) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a3
 🐛 Fix the case when a notebook filename is specified | [94](https://github.com/laminlabs/nbproject/pull/94) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a2
 ♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 | 0.1a1
