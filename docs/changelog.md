@@ -14,7 +14,7 @@ Name | PR | Developer | Date | Version
 ⬆️ Upgrade to logger 0.1.1 & polish `quickstart` | [212](https://github.com/laminlabs/nbproject/pull/212) | [falexwolf](https://github.com/falexwolf) | 2022-07-24 |
 🩹 Safer interactive header update on initialization | [211](https://github.com/laminlabs/nbproject/pull/211) | [Koncopd](https://github.com/Koncopd) | 2022-07-23 |
 🔥 Switched logger to use `lamin_logger` | [210](https://github.com/laminlabs/nbproject/pull/210) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-23 |
-📝 Polish `basic-metadata` and `update-metadata` tutorials | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
+📝 Polish `basic-metadata` and `update-metadata` guide | [209](https://github.com/laminlabs/nbproject/pull/209) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 📝 Add gif to quickstart | [208](https://github.com/laminlabs/nbproject/pull/208) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 ♻️ Refactor exposure of `infer_pypackages` | [206](https://github.com/laminlabs/nbproject/pull/206) | [falexwolf](https://github.com/falexwolf) | 2022-07-23 |
 🚸 Add logging to `notebook_path` | [204](https://github.com/laminlabs/nbproject/pull/204) | [Koncopd](https://github.com/Koncopd) | 2022-07-20 | 0.4.5
@@ -31,7 +31,7 @@ Name | PR | Developer | Date | Version
 💄 Polish docs | [191](https://github.com/laminlabs/nbproject/pull/191) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 | 0.4.0
 ✨ Allow passing `pypackage` to `header()`, add consistency checks, and logs for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
 💚 Fix the 3.7 & 3.8 tests | [186](https://github.com/laminlabs/nbproject/pull/186) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
-📝 Simplify tutorials | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
+📝 Simplify guide | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 ✨ Add a parent field to metadata and corresponding arg to `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 🚚 Rename `dependency` to `pypackage` | [181](https://github.com/laminlabs/nbproject/pull/181) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 💄 Simplify pypackage display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 | 0.3.2
@@ -74,13 +74,13 @@ Name | PR | Developer | Date | Version
 🚸 Improve user experience during publishing | [109](https://github.com/laminlabs/nbproject/pull/109) | [falexwolf](https://github.com/falexwolf) | 2022-07-01 | 0.1.2
 ✨ Add VS Code integration | [107](https://github.com/laminlabs/nbproject/pull/107) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 | 0.1.1
 ✨ Implement the publish function | [106](https://github.com/laminlabs/nbproject/pull/106) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
-📝 Add proper tutorials | [105](https://github.com/laminlabs/nbproject/pull/105) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
+📝 Add proper guide | [105](https://github.com/laminlabs/nbproject/pull/105) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 📝 Prototype the `nbproject.publish` workflow | [103](https://github.com/laminlabs/nbproject/pull/103) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 ✨ Take into account packages from store for live pypackages | [104](https://github.com/laminlabs/nbproject/pull/104) | [Koncopd](https://github.com/Koncopd) | 2022-06-29 |
 ✨ Add field `version` and display live pypackages in header | [102](https://github.com/laminlabs/nbproject/pull/102) | [falexwolf](https://github.com/falexwolf) | 2022-06-29 |
 👷 Update coverage CI setup | [101](https://github.com/laminlabs/nbproject/pull/101) | [falexwolf](https://github.com/falexwolf) | 2022-06-26 |
 👷 Integrate Codecov to CI | [100](https://github.com/laminlabs/nbproject/pull/100) | [sunnyosun](https://github.com/sunnyosun) | 2022-06-26 |
-📝 Re-organize API documentation and clean up guides | [97](https://github.com/laminlabs/nbproject/pull/97) | [falexwolf](https://github.com/falexwolf) | 2022-06-24 | 0.1.0
+📝 Re-organize API documentation and clean up faq | [97](https://github.com/laminlabs/nbproject/pull/97) | [falexwolf](https://github.com/falexwolf) | 2022-06-24 | 0.1.0
 ♻️ Restructure dev submodule | [93](https://github.com/laminlabs/nbproject/pull/93) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a3
 🐛 Fix the case when a notebook filename is specified | [94](https://github.com/laminlabs/nbproject/pull/94) | [Koncopd](https://github.com/Koncopd) | 2022-06-23 | 0.1a2
 ♻️ Re-design package and introduce large parts of the API | [90](https://github.com/laminlabs/nbproject/pull/90) | [Koncopd](https://github.com/Koncopd) | 2022-06-21 | 0.1a1

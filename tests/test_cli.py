@@ -33,7 +33,7 @@ def check_notebooks(nb_folder: Path, cleanup: Optional[Sequence] = None):
 
 def test_cli():
     main_folder = Path(__file__).parents[1] / "docs"
-    folders = ["guides/example-project-uninitialized", "guides/example-project"]
+    folders = ["faq/example-project-uninitialized", "faq/example-project"]
 
     commands = dict(
         sync_noinit=["sync", "."],
