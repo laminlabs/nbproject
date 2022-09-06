@@ -7,3 +7,5 @@
 # nbproject: Manage Jupyter notebooks
 
 Read the [docs](https://lamin.ai/docs/nbproject).
+
+Read the [report](https://lamin.ai/reports/2022/nbproject).
