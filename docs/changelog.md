@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-:truck: Rename tutorials to guide, guides to FAQ | [230](https://github.com/laminlabs/nbproject/pull/230) | [falexwolf](https://github.com/falexwolf) | 2022-09-05 |
+🚚 Rename tutorials to guide, guides to FAQ | [230](https://github.com/laminlabs/nbproject/pull/230) | [falexwolf](https://github.com/falexwolf) | 2022-09-05 |
 📝 Add GitHub stars to docs | [229](https://github.com/laminlabs/nbproject/pull/229) | [falexwolf](https://github.com/falexwolf) | 2022-08-30 | 0.5.2
 🩹 Identify VS Code as an environment | [228](https://github.com/laminlabs/nbproject/pull/228) | [Koncopd](https://github.com/Koncopd) | 2022-08-30 |
 🎨 Strip quickstart output, upgrade `nbproject_test` | [227](https://github.com/laminlabs/nbproject/pull/227) | [falexwolf](https://github.com/falexwolf) | 2022-08-29 |
