@@ -1,12 +1,14 @@
 ```{include} ../README.md
 :start-line: 0
-:end-line: 7
+:end-line: 6
 ```
 
-_Open-source ELN for the drylab._
+Open-source ELN for the drylab.
 
-Manage notebooks with metadata, dependency, and integrity tracking.
-Sketch pipelines and share reproducible notebooks with context.
+- Manage notebooks with metadata, dependency, and integrity tracking.
+- Sketch pipelines and share reproducible notebooks with context.
+
+Why? Read the [report](https://lamin.ai/reports/2022/nbproject).
 
 Supported editors & platforms:
 
@@ -16,7 +18,7 @@ Supported editors & platforms:
 - Jupyter Notebook
 - VS Code (no interactive experience, not recommended for production)
 
-Install:
+Install: ![pyversions](https://img.shields.io/pypi/pyversions/nbproject)
 
 ```
 pip install nbproject
