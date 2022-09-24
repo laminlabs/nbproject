@@ -18,7 +18,7 @@ def get_title(nb: Notebook) -> Optional[str]:
         if not title.startswith("# "):
             title = None
         else:
-            title = title.lstrip("#").strip(" .")
+            title = title.lstrip("#").strip(" .").strip("\n")
     return title
 
 
