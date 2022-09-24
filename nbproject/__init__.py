@@ -23,7 +23,7 @@ For more fine-grained access, use:
    dev
 
 """
-__version__ = "0.5.2"
+__version__ = "0.5.3"
 
 # init jupyter lab frontend immediately on import
 # nothing happens if this is not jupyter lab
