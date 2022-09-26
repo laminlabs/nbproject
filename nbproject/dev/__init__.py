@@ -18,6 +18,7 @@ Functionality
 
    infer_pypackages
    check_consecutiveness
+   check_last_cell
    set_version
 
 Notebook file helpers
@@ -43,6 +44,7 @@ Testing
 """
 import nbproject_test as test
 
+from ._check_last_cell import check_last_cell
 from ._consecutiveness import check_consecutiveness
 from ._initialize import initialize_metadata
 from ._jupyter_communicate import notebook_path
