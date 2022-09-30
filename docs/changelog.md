@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+:sparkles: Allow setting nbproject `env` via environment variable | [236](https://github.com/laminlabs/nbproject/pull/236) | [Koncopd](https://github.com/Koncopd) | 2022-09-30 |
 :memo: Expand some docstrings. | [235](https://github.com/laminlabs/nbproject/pull/235) | [Koncopd](https://github.com/Koncopd) | 2022-09-30 |
 💄 Strip newline from title | [234](https://github.com/laminlabs/nbproject/pull/234) | [falexwolf](https://github.com/falexwolf) | 2022-09-24 | 0.5.3
 🚚 Rename tutorials to guide, guides to FAQ | [230](https://github.com/laminlabs/nbproject/pull/230) | [falexwolf](https://github.com/falexwolf) | 2022-09-05 |
