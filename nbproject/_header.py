@@ -74,6 +74,9 @@ def header(
         pypackage: One or more python packages to track.
         filepath: Filepath of notebook. Only needed if automatic inference fails.
         env: Editor environment. Only needed if automatic inference fails.
+            Pass `'lab'` for jupyter lab and `'notebook'` for jupyter notebook,
+            this can help to identify the correct mechanism for interactivity
+            when automatic inference fails.
     """
     filepath_env = filepath, env
 
