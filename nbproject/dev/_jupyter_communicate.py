@@ -72,10 +72,14 @@ def notebook_path(return_env=False):
         return_env: If `True`, return the environment of execution:
             `'lab'` for jupyter lab and `'notebook'` for jupyter notebook.
     """
+    env = None
+    if "NBPRJ_TEST_NBENV" in os.environ:
+        env = os.environ["NBPRJ_TEST_NBENV"]
+
     if "NBPRJ_TEST_NBPATH" in os.environ:
         nb_path = os.environ["NBPRJ_TEST_NBPATH"]
         if return_env:
-            return nb_path, "test"
+            return nb_path, "test" if env is None else env
         else:
             return nb_path
 
@@ -131,20 +135,24 @@ def notebook_path(return_env=False):
                         if "-jvsc-" in nb_path_str:
                             split = nb_path_str.split("-jvsc-")
                             nb_path = PurePath(f"{split[0]}.ipynb")
-                            return (nb_path, "vs_code") if return_env else nb_path
+                            if return_env:
+                                return nb_path, "vs_code" if env is None else env
+                            else:
+                                return nb_path
 
                         if return_env:
-                            return (
-                                nb_path,
-                                "lab" if dir_key == "root_dir" else "notebook",
-                            )
+                            if env is None:
+                                rt_env = "lab" if dir_key == "root_dir" else "notebook"
+                            else:
+                                rt_env = env
+                            return nb_path, rt_env
                         else:
                             return nb_path
 
     # last chance, trying to get the path through ipylab
     nb_path = _lab_notebook_path()
     if nb_path is not None:
-        return (nb_path, "lab") if return_env else nb_path
+        return (nb_path, "lab" if env is None else env) if return_env else nb_path
 
     if server_exception is not None:
         raise server_exception
