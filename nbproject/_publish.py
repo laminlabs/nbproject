@@ -9,34 +9,10 @@ from .dev._notebook import read_notebook
 from .dev._set_version import set_version
 
 
-def publish(
-    *,
-    version: Optional[str] = None,
-    i_confirm_i_saved: bool = False,
-    **kwargs,
-) -> Union[None, str]:
-    """Publish your notebook before sharing it.
-
-    1. Sets version.
-    2. Stores pypackages.
-    3. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
-    4. Checks that the notebook has a title.
-
-    This function has to be called in the last code cell of the notebook.
-
-    Returns `None` upon success and an error code otherwise.
-
-    Args:
-        version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
-            Otherwise sets the version to the passed version.
-        i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
-            losing the editor buffer content because of accidentally publishing.
-    """
-    if "calling_statement" in kwargs:
-        calling_statement = kwargs["calling_statement"]
-    else:
-        calling_statement = "publish("
-
+def run_checks_for_publish(
+    *, calling_statement: str, i_confirm_i_saved: bool = False, **kwargs
+):
+    """Runs all checks for publishing."""
     if meta.env in ("lab", "notebook"):
         _save_notebook(meta.env)
     else:
@@ -80,11 +56,54 @@ def publish(
             logger.warning("Aborted!")
             return "aborted"
 
+    return "checks-passed"
+
+
+def finalize_publish(*, calling_statement: str, version: Optional[str] = None):
     meta.store.version = set_version(version)
     meta.store.pypackage = meta.live.pypackage
     logger.info(
         f"Set notebook version to {colors.bold(meta.store.version)} & wrote pypackages."
     )
-
     meta.store.write(calling_statement=calling_statement)
     return None
+
+
+def publish(
+    *,
+    version: Optional[str] = None,
+    i_confirm_i_saved: bool = False,
+    **kwargs,
+) -> Union[None, str]:
+    """Publish the notebook.
+
+    Runs these checks:
+    1. Checks consecutiveness, i.e., whether notebook cells were executed consecutively.
+    2. Checks that the notebook has a title.
+    3. Checks that the notebook is published from its last cell.
+
+    Writes these data:
+    1. Sets version.
+    2. Stores currently imported python packages with their versions.
+
+    Returns `None` upon success and an error code otherwise.
+
+    Args:
+        version: If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
+            Otherwise sets the version to the passed version.
+        i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
+            losing the editor buffer content because of accidentally publishing.
+    """
+    if "calling_statement" in kwargs:
+        calling_statement = kwargs["calling_statement"]
+    else:
+        calling_statement = "publish("
+    result = run_checks_for_publish(
+        i_confirm_i_saved=i_confirm_i_saved,
+        calling_statement=calling_statement,
+        **kwargs,
+    )
+    if result == "checks-passed":
+        return finalize_publish(version=version, calling_statement=calling_statement)
+    else:
+        return result
