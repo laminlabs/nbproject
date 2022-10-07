@@ -25,10 +25,6 @@ def build(session):
         "--cov-report=term-missing",
     )
     session.run("coverage", "xml")
-
-
-@nox.session
-def docs(session):
     prefix = "." if Path("./lndocs").exists() else ".."
     session.install(f"{prefix}/lndocs")
     session.run("lndocs")

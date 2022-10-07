@@ -49,10 +49,6 @@ jobs:
       - name: Build
         run: |
           nox -s build --python ${{ matrix.python-version }}
-      - name: Docs
-        if: matrix.python-version == '3.9'
-        run: |
-          nox -s docs
       - name: Codecov
         if: matrix.python-version == '3.9'
         uses: codecov/codecov-action@v2
