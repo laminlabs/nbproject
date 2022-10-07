@@ -95,7 +95,7 @@ def publish(
             losing the editor buffer content because of accidentally publishing.
     """
     if "calling_statement" in kwargs:
-        calling_statement = kwargs["calling_statement"]
+        calling_statement = kwargs.pop("calling_statement")
     else:
         calling_statement = "publish("
     result = run_checks_for_publish(
