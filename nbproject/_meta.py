@@ -16,7 +16,17 @@ class classproperty(object):
         return self.fget(owner_cls)
 
 
-class meta:
+# https://stackoverflow.com/questions/8955754/can-i-define-a-repr-for-a-class-rather-than-an-instance
+class MetaRepr(type):
+    def __repr__(cls):
+        return (
+            "Metadata object with .live and .store metadata fields:\n"
+            f"  .store: {cls.store}\n"
+            f"  .live: {cls.live}"
+        )
+
+
+class meta(metaclass=MetaRepr):
     """Access `meta.store` and `meta.live`.
 
     - `meta.store` - nbproject metadata of the ipynb file, see
@@ -89,10 +99,3 @@ class meta:
         if cls._env is None:
             cls._init_meta()
         return cls._env
-
-    def __repr__(self):
-        return (
-            "Metadata object with .live and .store metadata fields:\n"
-            f"  .store: {self.store}\n"
-            f"  .live: {self.live}"
-        )
