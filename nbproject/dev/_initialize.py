@@ -40,4 +40,14 @@ def initialize_metadata(
     if parent is not None:
         meta.parent = parent
 
+    try:
+        from lndb_setup import settings
+
+        user_handle, user_id = settings.user.handle, settings.user.id
+        if user_handle is not None and user_id is not None:
+            meta.user_handle = user_handle
+            meta.user_id = user_id
+    except ModuleNotFoundError:
+        pass
+
     return meta

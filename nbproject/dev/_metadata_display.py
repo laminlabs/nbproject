@@ -104,6 +104,15 @@ class DisplayMeta:
             deps_list.sort()
             return deps_list
 
+    def author(self):
+        user_handle = self.metadata.get("user_handle", None)
+        user_id = self.metadata.get("user_id", None)
+
+        if user_handle is not None and user_id is not None:
+            return f"{user_handle} ({user_id})"
+        else:
+            return None
+
 
 def table_metadata(
     metadata: Mapping, notebook: Notebook, time_run: Optional[datetime] = None
@@ -114,6 +123,11 @@ def table_metadata(
     table.append(["id", dm.id()])
     version = dm.version()
     table.append(["version", version])
+
+    author = dm.author()
+    if author is not None:
+        table.append(["author", author])
+
     table.append(["time_init", dm.time_init()])
 
     if time_run is None:
