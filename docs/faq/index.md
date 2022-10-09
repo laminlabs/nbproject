@@ -22,6 +22,7 @@ Edges cases, warnings, and errors:
 - {doc}`not-initialized`
 - {doc}`internal-functions`
 - {doc}`set-env-via-environment-var`
+- {doc}`header-author-field`
 
 ```{toctree}
 :maxdepth: 1
@@ -44,4 +45,5 @@ trigger-exit-upon-init
 not-initialized
 internal-functions
 set-env-via-environment-var
+header-author-field
 ```
