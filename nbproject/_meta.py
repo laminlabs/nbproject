@@ -55,7 +55,10 @@ class meta:
         cls._env = env
         cls._time_run = _time_run
 
-        nb_meta = read_notebook(cls._filepath).metadata
+        if cls._filepath is not None:
+            nb_meta = read_notebook(cls._filepath).metadata
+        else:
+            nb_meta = None
 
         if nb_meta is not None and "nbproject" in nb_meta:
             meta_container = MetaContainer(**nb_meta["nbproject"])
