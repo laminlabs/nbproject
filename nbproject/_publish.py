@@ -62,6 +62,9 @@ def run_checks_for_publish(
 def finalize_publish(*, calling_statement: str, version: Optional[str] = None):
     meta.store.version = set_version(version)
     meta.store.pypackage = meta.live.pypackage
+    meta.store.user_handle = meta.live.user_handle
+    meta.store.user_id = meta.live.user_id
+    meta.store.user_name = meta.live.user_name
     logger.info(
         f"Set notebook version to {colors.bold(meta.store.version)} & wrote pypackages."
     )

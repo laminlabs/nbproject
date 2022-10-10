@@ -6,6 +6,7 @@ from pydantic import BaseModel
 
 from .._logger import logger
 from ._consecutiveness import check_consecutiveness
+from ._lamin_communicate import lamin_user_name, lamin_user_settings
 from ._notebook import Notebook
 from ._pypackage import infer_pypackages
 
@@ -104,6 +105,25 @@ class DisplayMeta:
             deps_list.sort()
             return deps_list
 
+    def author(self):
+        user_handle = self.metadata.get("user_handle", None)
+        user_id = self.metadata.get("user_id", None)
+        user_name = self.metadata.get("user_name", None)
+
+        if user_handle is None and user_id is None:
+            user_handle, user_id = lamin_user_settings()
+
+        if user_name is None:
+            user_name = lamin_user_name(user_id)
+
+        if user_name is not None and user_handle is not None:
+            return f"{user_name} ({user_handle})"
+
+        if user_handle is not None and user_id is not None:
+            return f"{user_handle} ({user_id})"
+
+        return None
+
 
 def table_metadata(
     metadata: Mapping, notebook: Notebook, time_run: Optional[datetime] = None
@@ -111,9 +131,15 @@ def table_metadata(
     dm = DisplayMeta(metadata)
 
     table = []
+
+    author = dm.author()
+    if author is not None:
+        table.append(["author", author])
+
     table.append(["id", dm.id()])
     version = dm.version()
     table.append(["version", version])
+
     table.append(["time_init", dm.time_init()])
 
     if time_run is None:

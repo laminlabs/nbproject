@@ -54,6 +54,12 @@ class MetaContainer(BaseModel):
     """Dictionary of notebook pypackages and their versions."""
     parent: Union[str, List[str], None] = None
     """One or more nbproject ids of direct ancestors in a notebook pipeline."""
+    user_handle: Optional[str] = None
+    """User handle from lamindb."""
+    user_id: Optional[str] = None
+    """User ID from lamindb."""
+    user_name: Optional[str] = None
+    """User name from lamindb."""
 
     class Config:  # noqa
         extra = Extra.allow
