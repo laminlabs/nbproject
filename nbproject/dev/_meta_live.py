@@ -5,7 +5,7 @@ from typing import Optional, Union
 from .._logger import logger
 from ._consecutiveness import check_consecutiveness
 from ._jupyter_lab_commands import _save_notebook
-from ._lamin_communicate import lamin_user_name, lamin_user_settings
+from ._lamin_communicate import lamin_user_settings
 from ._notebook import Notebook, read_notebook
 from ._pypackage import infer_pypackages
 
@@ -99,17 +99,17 @@ class MetaLive:
     @property
     def user_handle(self):
         """User handle from lamindb."""
-        return lamin_user_settings()[0]
+        return lamin_user_settings().handle
 
     @property
     def user_id(self):
         """User ID from lamindb."""
-        return lamin_user_settings()[1]
+        return lamin_user_settings().id
 
     @property
     def user_name(self):
         """User name from lamindb."""
-        return lamin_user_name()
+        return lamin_user_settings().name
 
     def __repr__(self):
         return "Fields: " + " ".join([key for key in dir(self) if key[0] != "_"])

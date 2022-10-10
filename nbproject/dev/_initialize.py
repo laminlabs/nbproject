@@ -3,7 +3,7 @@ import string
 from datetime import datetime, timezone
 from typing import List, Optional, Union
 
-from ._lamin_communicate import lamin_user_name, lamin_user_settings
+from ._lamin_communicate import lamin_user_settings
 from ._meta_store import MetaContainer
 from ._notebook import Notebook
 
@@ -41,13 +41,12 @@ def initialize_metadata(
     if parent is not None:
         meta.parent = parent
 
-    user_handle, user_id = lamin_user_settings()
-    if user_handle is not None and user_id is not None:
-        meta.user_handle = user_handle
-        meta.user_id = user_id
-
-        user_name = lamin_user_name(user_id)
-        if user_name is not None:
-            meta.user_name = user_name
+    user = lamin_user_settings()
+    if user.handle is not None:
+        meta.user_handle = user.handle
+    if user.id is not None:
+        meta.user_id = user.id
+    if user.name is not None:
+        meta.user_name = user.name
 
     return meta
