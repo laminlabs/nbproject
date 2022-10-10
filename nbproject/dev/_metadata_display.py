@@ -108,6 +108,25 @@ class DisplayMeta:
         user_handle = self.metadata.get("user_handle", None)
         user_id = self.metadata.get("user_id", None)
 
+        user_name = None
+        # the whole try block is about retrieving a user name from a local database
+        try:
+            import lndb_setup
+            import lnschema_core as schema_core
+            import sqlmodel as sqm
+
+            settings = lndb_setup.settings
+
+            if settings.instance.name is not None and settings.user.id is not None:
+                with sqm.Session(settings.instance.db_engine()) as session:
+                    user = session.get(schema_core.user, user_id)
+                if user.name is None:
+                    user_name = user.name
+        except ImportError:
+            pass
+
+        if user_name is not None and user_handle is not None:
+            return f"{user_name} ({user_handle})"
         if user_handle is not None and user_id is not None:
             return f"{user_handle} ({user_id})"
         else:
