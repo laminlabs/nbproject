@@ -1,5 +1,16 @@
 # Setup guide
 
+## Local installation
+
+Jupyter Lab:
+
+- any pip or conda installation
+- brew installation may give a problems
+
+Jupyter Notebook:
+
+- any pip or conda installation
+
 ## Saturn Cloud
 
 Runs [out-of-the-box](https://github.com/laminlabs/run-lamin-on-saturn).
