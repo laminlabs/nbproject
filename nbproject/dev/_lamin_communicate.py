@@ -1,3 +1,6 @@
+from collections import namedtuple
+
+
 def lamin_user_settings():
     """Returns user settings."""
     try:
@@ -5,4 +8,5 @@ def lamin_user_settings():
 
         return settings.user
     except ImportError:
-        return None, None, None
+        MockUserSettings = namedtuple("MockUserSettings", ["id", "handle", "name"])
+        return MockUserSettings(id=None, handle=None, name=None)
