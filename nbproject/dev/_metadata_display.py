@@ -131,13 +131,14 @@ def table_metadata(
     dm = DisplayMeta(metadata)
 
     table = []
-    table.append(["id", dm.id()])
-    version = dm.version()
-    table.append(["version", version])
 
     author = dm.author()
     if author is not None:
         table.append(["author", author])
+
+    table.append(["id", dm.id()])
+    version = dm.version()
+    table.append(["version", version])
 
     table.append(["time_init", dm.time_init()])
 
