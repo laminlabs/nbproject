@@ -1,5 +1,9 @@
 # Setup guide
 
+## Saturn Cloud
+
+Runs [out-of-the-box](https://github.com/laminlabs/run-lamin-on-saturn).
+
 ## Google Cloud Vertex AI
 
 For both managed and user-managed notebooks:

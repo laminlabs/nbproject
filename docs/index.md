@@ -13,8 +13,9 @@ Why? Read the [report](https://lamin.ai/reports/2022/nbproject).
 Supported editors & platforms:
 
 - Jupyter Lab
-  - Google Cloud Vertex AI (see [setup guide](faq/setup))
-  - brew-installed Jupyter Lab may give problems, please install via `pip install jupyterlab` or conda
+  - any pip or conda installation, a brew installation may give a problems
+  - Saturn Cloud ([run](https://github.com/laminlabs/run-lamin-on-saturn))
+  - Google Cloud Vertex AI (see [setup faq](faq/setup))
 - Jupyter Notebook
 - VS Code (no interactive experience, not recommended for production)
 
