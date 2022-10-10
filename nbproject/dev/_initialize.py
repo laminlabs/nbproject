@@ -42,7 +42,7 @@ def initialize_metadata(
         meta.parent = parent
 
     user_handle, user_id = lamin_user_settings()
-    if user_handle is None and user_id is None:
+    if user_handle is not None and user_id is not None:
         meta.user_handle = user_handle
         meta.user_id = user_id
 
