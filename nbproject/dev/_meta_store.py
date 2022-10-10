@@ -58,6 +58,8 @@ class MetaContainer(BaseModel):
     """User handle from lamindb."""
     user_id: Optional[str] = None
     """User ID from lamindb."""
+    user_name: Optional[str] = None
+    """User name from lamindb."""
 
     class Config:  # noqa
         extra = Extra.allow
