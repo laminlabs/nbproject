@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from .._logger import logger
 from ._consecutiveness import check_consecutiveness
-from ._lamin_communicate import lamin_user_name, lamin_user_settings
+from ._lamin_communicate import lamin_user_settings
 from ._notebook import Notebook
 from ._pypackage import infer_pypackages
 
@@ -110,17 +110,16 @@ class DisplayMeta:
         user_id = self.metadata.get("user_id", None)
         user_name = self.metadata.get("user_name", None)
 
-        if user_handle is None and user_id is None:
-            user_handle, user_id = lamin_user_settings()
+        if any((user_handle is None, user_id is None, user_name is None)):
+            user = lamin_user_settings()
+            user_handle, user_id, user_name = user.handle, user.id, user.name
 
-        if user_name is None:
-            user_name = lamin_user_name(user_id)
-
+        # preferred display
         if user_name is not None and user_handle is not None:
             return f"{user_name} ({user_handle})"
-
-        if user_handle is not None and user_id is not None:
-            return f"{user_handle} ({user_id})"
+        # fallback display (only handle)
+        elif user_handle is not None:
+            return f"{user_handle}"
 
         return None
 
