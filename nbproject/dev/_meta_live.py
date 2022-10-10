@@ -97,9 +97,19 @@ class MetaLive:
         return (datetime.now(timezone.utc) - self._time_run).total_seconds()
 
     @property
-    def author(self):
-        """User settings from LaminDB."""
-        return lamin_user_settings()
+    def user_handle(self):
+        """User handle from lamindb."""
+        return lamin_user_settings().handle
+
+    @property
+    def user_id(self):
+        """User ID from lamindb."""
+        return lamin_user_settings().id
+
+    @property
+    def user_name(self):
+        """User name from lamindb."""
+        return lamin_user_settings().name
 
     def __repr__(self):
         return "Fields: " + " ".join([key for key in dir(self) if key[0] != "_"])
