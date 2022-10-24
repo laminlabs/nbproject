@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+💄 Fix PyPI badge color & change badge order | [242](https://github.com/laminlabs/nbproject/pull/242) | [falexwolf](https://github.com/falexwolf) | 2022-10-24 |
 ♻️ Read user name from settings | [239](https://github.com/laminlabs/nbproject/pull/239) | [falexwolf](https://github.com/falexwolf) | 2022-10-10 | 0.7.0
 ✨ Add `author` field and a few fixes | [238](https://github.com/laminlabs/nbproject/pull/238) | [Koncopd](https://github.com/Koncopd) | 2022-10-10 | 0.5.5
 ♻️ Refactor publish | [237](https://github.com/laminlabs/nbproject/pull/237) | [falexwolf](https://github.com/falexwolf) | 2022-10-07 | 0.5.4
