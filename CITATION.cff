@@ -5,7 +5,7 @@ authors:
   given-names: Sergei
   orcid: https://orcid.org/0000-0002-4944-6586
 - family-names: Wolf
-  given-names: F. Alexander
+  given-names: Alex
   orcid: https://orcid.org/0000-0002-8760-7838
 url: https://github.com/laminlabs/nbproject
 preferred-citation:
@@ -19,7 +19,7 @@ preferred-citation:
     given-names: Lukas
     orcid: https://orcid.org/0000-0002-8937-3457
   - family-names: Wolf
-    given-names: F. Alexander
+    given-names: Alex
     orcid: https://orcid.org/0000-0002-8760-7838
   doi: 10.56528/nbp
   journal: Lamin Reports
