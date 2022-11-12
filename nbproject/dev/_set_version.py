@@ -9,7 +9,7 @@ def set_version(
 ):
     """(Auto-) set version.
 
-    If `None`, bumps the version from "draft" to "1", from "1" to "2", etc.
+    If `None`, bumps the version from "0" to "1", from "1" to "2", etc.
     Otherwise sets the version to the passed version.
 
     Args:
@@ -23,7 +23,7 @@ def set_version(
         return version
     else:
         try:
-            if stored_version == "draft":
+            if stored_version == "0":
                 version = "1"
             else:
                 version = str(int(stored_version) + 1)  # increment version by 1

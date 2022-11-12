@@ -148,7 +148,7 @@ def table_metadata(
     if dm.parent() is not None:
         table.append(["parent", dm.parent()])
 
-    if version != "draft":
+    if version != "0":
         logger.disable("nbproject.dev._consecutiveness")
         consecutiveness = check_consecutiveness(notebook)
         logger.enable("nbproject.dev._consecutiveness")
