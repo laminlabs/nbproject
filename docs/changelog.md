@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🚸 Do no longer auto-bump `version` upon `publish()` | [244](https://github.com/laminlabs/nbproject/pull/244) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
 🚚 Rename version 'draft' to '0' | [243](https://github.com/laminlabs/nbproject/pull/243) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
 💄 Fix PyPI badge color & change badge order | [242](https://github.com/laminlabs/nbproject/pull/242) | [falexwolf](https://github.com/falexwolf) | 2022-10-24 |
 ♻️ Read user name from settings | [239](https://github.com/laminlabs/nbproject/pull/239) | [falexwolf](https://github.com/falexwolf) | 2022-10-10 | 0.7.0
