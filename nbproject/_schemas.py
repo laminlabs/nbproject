@@ -63,8 +63,8 @@ class NBRecord:
     def version(self):
         version = self.check_attr("_version")
         if version is None:
-            version = "draft"
-            self._version = "draft"
+            version = "0"
+            self._version = "0"
         return version
 
     @property
