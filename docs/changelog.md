@@ -3,8 +3,8 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-🚸 Do no longer auto-bump `version` upon `publish()` | [244](https://github.com/laminlabs/nbproject/pull/244) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
-🚚 Rename version 'draft' to '0' | [243](https://github.com/laminlabs/nbproject/pull/243) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
+🚸 Do no longer auto-bump `version` upon `publish()` <span class="badge badge-warning">Breaking</span> | [244](https://github.com/laminlabs/nbproject/pull/244) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 | 0.8.0
+🚚 Rename `version` 'draft' to '0' <span class="badge badge-warning">Breaking</span> | [243](https://github.com/laminlabs/nbproject/pull/243) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
 💄 Fix PyPI badge color & change badge order | [242](https://github.com/laminlabs/nbproject/pull/242) | [falexwolf](https://github.com/falexwolf) | 2022-10-24 |
 ♻️ Read user name from settings | [239](https://github.com/laminlabs/nbproject/pull/239) | [falexwolf](https://github.com/falexwolf) | 2022-10-10 | 0.7.0
 ✨ Add `author` field and a few fixes | [238](https://github.com/laminlabs/nbproject/pull/238) | [Koncopd](https://github.com/Koncopd) | 2022-10-10 | 0.5.5
@@ -32,7 +32,7 @@ Name | PR | Developer | Date | Version
 💄 Allow chaining in `add_pypackages` and prettify logging message | [200](https://github.com/laminlabs/nbproject/pull/200) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 |
 ♻️ Add return value for `set_version` | [199](https://github.com/laminlabs/nbproject/pull/199) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.3
 ♻️ Refactor and test `set_version` | [198](https://github.com/laminlabs/nbproject/pull/198) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.2
-🚸 Prettify logging and do not raise error upon no-title, instead return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.1
+🚸 Do not raise error upon no-title, return code | [196](https://github.com/laminlabs/nbproject/pull/196) | [falexwolf](https://github.com/falexwolf) | 2022-07-19 | 0.4.1
 💄 Added ✅ for success logging | [197](https://github.com/laminlabs/nbproject/pull/197) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 💄 Prettified logging | [195](https://github.com/laminlabs/nbproject/pull/195) | [sunnyosun](https://github.com/sunnyosun) | 2022-07-19 |
 🚸 Show table on initialization, ask to publish if cells not consecutive | [194](https://github.com/laminlabs/nbproject/pull/194) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
@@ -42,7 +42,7 @@ Name | PR | Developer | Date | Version
 ✨ Allow passing `pypackage` to `header()`, add consistency checks, and logs for how to update metadata | [188](https://github.com/laminlabs/nbproject/pull/188) | [falexwolf](https://github.com/falexwolf) | 2022-07-18 |
 💚 Fix the 3.7 & 3.8 tests | [186](https://github.com/laminlabs/nbproject/pull/186) | [Koncopd](https://github.com/Koncopd) | 2022-07-18 |
 📝 Simplify guide | [185](https://github.com/laminlabs/nbproject/pull/185) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
-✨ Add a parent field to metadata and corresponding arg to `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
+✨ Add a parent field to metadata and `header()` | [183](https://github.com/laminlabs/nbproject/pull/183) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 🚚 Rename `dependency` to `pypackage` | [181](https://github.com/laminlabs/nbproject/pull/181) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
 💄 Simplify pypackage display & make version the 2nd field to be displayed | [180](https://github.com/laminlabs/nbproject/pull/180) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 | 0.3.2
 👷 Update CI with pyversions, update readme & docs with doi & clean-up | [179](https://github.com/laminlabs/nbproject/pull/179) | [falexwolf](https://github.com/falexwolf) | 2022-07-17 |
@@ -58,7 +58,7 @@ Name | PR | Developer | Date | Version
 🚸 Raise error upon publishing notebook without title | [161](https://github.com/laminlabs/nbproject/pull/161) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 | 0.2.3
 🚸 Remove execution of cells after metadata write | [159](https://github.com/laminlabs/nbproject/pull/159) | [falexwolf](https://github.com/falexwolf) | 2022-07-14 |
 🚸 Add an uninitialized project for `test_cli` and a small fix to `header` | [154](https://github.com/laminlabs/nbproject/pull/154) | [Koncopd](https://github.com/Koncopd) | 2022-07-13 | 0.2.2
-🚸 Add extra safety measures, better documentation, better logging, and a separate test to avoid invalid notebook states | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
+🚸 Add safety measures, better documentation & logging & tests | [153](https://github.com/laminlabs/nbproject/pull/153) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🚸 Clearer logging output upon init in VS Code and Classic Notebook | [152](https://github.com/laminlabs/nbproject/pull/152) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 🔥 Remove automatically calling `header()` upon import | [151](https://github.com/laminlabs/nbproject/pull/151) | [falexwolf](https://github.com/falexwolf) | 2022-07-13 |
 ♻️ Enable passing the calling_code statement to publish | [148](https://github.com/laminlabs/nbproject/pull/148) | [falexwolf](https://github.com/falexwolf) | 2022-07-12 | 0.2.1
@@ -68,7 +68,7 @@ Name | PR | Developer | Date | Version
 🚚 Migrated test submodule to `nbproject_test` | [138](https://github.com/laminlabs/nbproject/pull/138) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 🚚 Remove mention of footer, lock in publish | [137](https://github.com/laminlabs/nbproject/pull/137) | [falexwolf](https://github.com/falexwolf) | 2022-07-11 |
 📝 Add a nutshell tutorial to demo canonical workflow | [135](https://github.com/laminlabs/nbproject/pull/135) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
-🚸 Turn `header()` from pseudo-module into function, remove `Header` class, keep auto-display upon import | [133](https://github.com/laminlabs/nbproject/pull/133) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
+🚸 Turn `header()` from pseudo-module into function, remove `Header` class | [133](https://github.com/laminlabs/nbproject/pull/133) | [falexwolf](https://github.com/falexwolf) | 2022-07-10 |
 ✅ Improve coverage | [130](https://github.com/laminlabs/nbproject/pull/130) | [Koncopd](https://github.com/Koncopd) | 2022-07-10 |
 🚸 More intuitive API for updating pypackage store and writing it to file | [126](https://github.com/laminlabs/nbproject/pull/126) | [falexwolf](https://github.com/falexwolf) | 2022-07-09 |
 ✨ Add a more convenient way of updating the pypackage store | [125](https://github.com/laminlabs/nbproject/pull/125) | [Koncopd](https://github.com/Koncopd) | 2022-07-09 |
@@ -99,7 +99,7 @@ Name | PR | Developer | Date | Version
 💚 Remove server initialization from tests | [83](https://github.com/laminlabs/nbproject/pull/83) | [Koncopd](https://github.com/Koncopd) | 2022-06-09 |
 🏗️ Always infer & display pypackages | [80](https://github.com/laminlabs/nbproject/pull/80) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.9
 🩹 Fix `meta.title` formatting | [79](https://github.com/laminlabs/nbproject/pull/79) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 |
-✨ Expose title in `nbproject.meta` & refactor to loading it dynamically | [77](https://github.com/laminlabs/nbproject/pull/77) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.8
+✨ Expose title in `nbproject.meta` & refactor to loading dynamically | [77](https://github.com/laminlabs/nbproject/pull/77) | [falexwolf](https://github.com/falexwolf) | 2022-06-08 | 0.0.8
 ♻️ Rename `meta.uid` to `meta.id` | [75](https://github.com/laminlabs/nbproject/pull/75) | [falexwolf](https://github.com/falexwolf) | 2022-06-08
 ✨ Infer pypackages on header import | [65](https://github.com/laminlabs/nbproject/pull/65) | [Koncopd](https://github.com/Koncopd) | 2022-06-07 |
 🏗️ Access metadata through API | [59](https://github.com/laminlabs/nbproject/pull/59) | [falexwolf](https://github.com/falexwolf) | 2022-06-06 |
