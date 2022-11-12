@@ -92,8 +92,8 @@ def publish(
     Returns `None` upon success and an error code otherwise.
 
     Args:
-        version: If `None`, bumps the version from "0" to "1", from "1" to "2", etc.
-            Otherwise sets the version to the passed version.
+        version: If `None`, leaves the version at its current value. Otherwise
+            sets the version to the passed version. Consider semantic versioning.
         i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
             losing the editor buffer content because of accidentally publishing.
     """
