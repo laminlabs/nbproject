@@ -1,14 +1,18 @@
+import os
 from pathlib import Path
 from time import sleep
 
 from ipylab import JupyterFrontEnd
 
+from .._is_run_from_ipython import is_run_from_ipython
+
 app = None
 
 
 def _init_frontend():
+    valid_env = "NBPRJ_TEST_NBENV" in os.environ or is_run_from_ipython
     global app
-    if app is None:
+    if app is None and valid_env:
         app = JupyterFrontEnd()
 
 

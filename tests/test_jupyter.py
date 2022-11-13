@@ -1,3 +1,5 @@
+import os
+
 from pytest import raises
 
 from nbproject.dev import _classic_nb_commands as _clsnbk
@@ -9,6 +11,8 @@ from nbproject.dev._jupyter_communicate import (
     query_server,
     running_servers,
 )
+
+os.environ["NBPRJ_TEST_NBENV"] = "test"
 
 
 def test_jupyter_not_running():
