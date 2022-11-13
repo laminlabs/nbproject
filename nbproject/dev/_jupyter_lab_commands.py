@@ -3,12 +3,14 @@ from time import sleep
 
 from ipylab import JupyterFrontEnd
 
+from .._is_run_from_ipython import is_run_from_ipython
+
 app = None
 
 
 def _init_frontend():
     global app
-    if app is None:
+    if app is None and is_run_from_ipython:
         app = JupyterFrontEnd()
 
 
