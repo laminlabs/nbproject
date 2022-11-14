@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from time import sleep
 
@@ -10,27 +9,31 @@ app = None
 
 
 def _init_frontend():
-    valid_env = "NBPRJ_TEST_NBENV" in os.environ or is_run_from_ipython
     global app
-    if app is None and valid_env:
+    if app is None and is_run_from_ipython:
         app = JupyterFrontEnd()
 
 
 def _save_notebook():
     _init_frontend()
 
-    app.commands.execute("docmanager:save")
-    sleep(1)
+    if app is not None:
+        app.commands.execute("docmanager:save")
+        sleep(1)
 
 
 def _reload_notebook():
     _init_frontend()
 
-    app.commands.execute("docmanager:reload")
+    if app is not None:
+        app.commands.execute("docmanager:reload")
 
 
 def _lab_notebook_path():
     _init_frontend()
+
+    if app is None:
+        return None
 
     current_session = app.sessions.current_session
 
