@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+:zap: Do nothing with ipylab when not in ipython | [247](https://github.com/laminlabs/nbproject/pull/247) | [Koncopd](https://github.com/Koncopd) | 2022-11-14 |
 🚸 Only init `JupyterFrontEnd` if run within ipython | [246](https://github.com/laminlabs/nbproject/pull/246) | [falexwolf](https://github.com/falexwolf) | 2022-11-13 | 0.8.1
 🚸 Do no longer auto-bump `version` upon `publish()` <span class="badge badge-warning">Breaking</span> | [244](https://github.com/laminlabs/nbproject/pull/244) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 | 0.8.0
 🚚 Rename `version` 'draft' to '0' <span class="badge badge-warning">Breaking</span> | [243](https://github.com/laminlabs/nbproject/pull/243) | [falexwolf](https://github.com/falexwolf) | 2022-11-12 |
