@@ -34,8 +34,8 @@ from nbproject import header; header()  # Initializes & displays metadata, start
 Documentation:
 
 - [Quickstart](quickstart) and [guide](guide/index).
-- See the [API reference](api).
-- If you get stuck, see [FAQ](faq/index) for edge cases & errors.
+- See the [API reference](api) and the [FAQ](faq/index) for edge cases & errors.
+- See the [source code](https://github.com/laminlabs/nbproject) on GitHub.
 
 ```{toctree}
 :maxdepth: 1
