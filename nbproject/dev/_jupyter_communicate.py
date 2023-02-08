@@ -123,6 +123,8 @@ def notebook_path(return_env=False):
             continue
 
         for notebook in session:
+            if "kernel" not in notebook or "notebook" not in notebook:
+                continue
             if notebook["kernel"]["id"] == kernel_id:
                 for dir_key in DIR_KEYS:
                     if dir_key in server:
