@@ -125,7 +125,7 @@ def notebook_path(return_env=False):
         for notebook in session:
             if "kernel" not in notebook or "notebook" not in notebook:
                 continue
-            if notebook["kernel"]["id"] == kernel_id:
+            if notebook["kernel"].get("id", None) == kernel_id:
                 for dir_key in DIR_KEYS:
                     if dir_key in server:
                         nb_path = (
