@@ -31,7 +31,7 @@ def query_server(server: dict):
     except Exception:
         CONN_ERROR = (
             "Unable to access server;\n"
-            "ipynbname requires either no security or token based security."
+            "querying requires either no security or token based security."
         )
         raise Exception(CONN_ERROR)
 
