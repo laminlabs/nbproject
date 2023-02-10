@@ -35,7 +35,7 @@ def test_jupyter_not_running():
 
     assert (
         e_info.value.args[0]
-        == "Unable to access server;\nipynbname requires either no security or token"  # noqa
+        == "Unable to access server;\nquerying requires either no security or token"  # noqa
         " based security."
     )
 

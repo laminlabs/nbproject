@@ -31,7 +31,7 @@ def query_server(server: dict):
     except Exception:
         CONN_ERROR = (
             "Unable to access server;\n"
-            "ipynbname requires either no security or token based security."
+            "querying requires either no security or token based security."
         )
         raise Exception(CONN_ERROR)
 
@@ -85,11 +85,6 @@ def notebook_path(return_env=False):
 
     servers_nbapp, servers_juserv = running_servers()
 
-    # no running servers
-    if servers_nbapp == [] and servers_juserv == []:
-        logger.warning("Can not find any servers running.")
-        return None
-
     try:
         from IPython import get_ipython
     except ModuleNotFoundError:
@@ -125,7 +120,7 @@ def notebook_path(return_env=False):
         for notebook in session:
             if "kernel" not in notebook or "notebook" not in notebook:
                 continue
-            if notebook["kernel"]["id"] == kernel_id:
+            if notebook["kernel"].get("id", None) == kernel_id:
                 for dir_key in DIR_KEYS:
                     if dir_key in server:
                         nb_path = (
@@ -151,13 +146,29 @@ def notebook_path(return_env=False):
                         else:
                             return nb_path
 
-    # last chance, trying to get the path through ipylab
+    # trying to get the path through ipylab
     nb_path = _lab_notebook_path()
     if nb_path is not None:
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
 
+    # for newer versions of lab, less safe as it stays the same after file rename
+    if "JPY_SESSION_NAME" in os.environ:
+        nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
+        return (nb_path, "lab" if env is None else env) if return_env else nb_path
+
+    # vs code specific
+    if "__vsc_ipynb_file__" in globals():
+        nb_path = PurePath(__vsc_ipynb_file__)  # noqa
+        return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
+
     if server_exception is not None:
         raise server_exception
 
-    logger.warning("Can not find the notebook in any server session.")
+    # no running servers
+    if servers_nbapp == [] and servers_juserv == []:
+        logger.warning("Can not find any servers running.")
+
+    logger.warning(
+        "Can not find the notebook in any server session or by using other methods."
+    )
     return None
