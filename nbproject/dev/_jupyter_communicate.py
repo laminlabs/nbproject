@@ -169,6 +169,6 @@ def notebook_path(return_env=False):
         logger.warning("Can not find any servers running.")
 
     logger.warning(
-        "Can not find the notebook in any server session or using other methods."
+        "Can not find the notebook in any server session or by using other methods."
     )
     return None
