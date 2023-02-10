@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+✨ Safer notebook path inference and more ways to do it | [251](https://github.com/laminlabs/nbproject/pull/251) | [Koncopd](https://github.com/Koncopd) | 2023-02-10 |
 🐛 Check keys before accessing in `notebook_path` | [250](https://github.com/laminlabs/nbproject/pull/250) | [Koncopd](https://github.com/Koncopd) | 2023-02-08 |
 :zap: Do nothing with ipylab when not in ipython | [247](https://github.com/laminlabs/nbproject/pull/247) | [Koncopd](https://github.com/Koncopd) | 2022-11-14 |
 🚸 Only init `JupyterFrontEnd` if run within ipython | [246](https://github.com/laminlabs/nbproject/pull/246) | [falexwolf](https://github.com/falexwolf) | 2022-11-13 | 0.8.1
