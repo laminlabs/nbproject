@@ -85,11 +85,6 @@ def notebook_path(return_env=False):
 
     servers_nbapp, servers_juserv = running_servers()
 
-    # no running servers
-    if servers_nbapp == [] and servers_juserv == []:
-        logger.warning("Can not find any servers running.")
-        return None
-
     try:
         from IPython import get_ipython
     except ModuleNotFoundError:
@@ -169,5 +164,11 @@ def notebook_path(return_env=False):
     if server_exception is not None:
         raise server_exception
 
-    logger.warning("Can not find the notebook in any server session.")
+    # no running servers
+    if servers_nbapp == [] and servers_juserv == []:
+        logger.warning("Can not find any servers running.")
+
+    logger.warning(
+        "Can not find the notebook in any server session or using other methods."
+    )
     return None
