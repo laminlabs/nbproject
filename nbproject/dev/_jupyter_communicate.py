@@ -151,10 +151,20 @@ def notebook_path(return_env=False):
                         else:
                             return nb_path
 
-    # last chance, trying to get the path through ipylab
+    # trying to get the path through ipylab
     nb_path = _lab_notebook_path()
     if nb_path is not None:
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
+
+    # for newer versions of lab, less safe as it stays the same after file rename
+    if "JPY_SESSION_NAME" in os.environ:
+        nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
+        return (nb_path, "lab" if env is None else env) if return_env else nb_path
+
+    # vs code specific
+    if "__vsc_ipynb_file__" in globals():
+        nb_path = PurePath(__vsc_ipynb_file__)  # noqa
+        return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
 
     if server_exception is not None:
         raise server_exception
