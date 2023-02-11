@@ -25,11 +25,14 @@ For more fine-grained access, use:
 """
 __version__ = "0.8.1"
 
-# init jupyter lab frontend immediately on import
-# nothing happens if this is not jupyter lab
+from .dev._classic_nb_commands import _set_nbclassic_path
 from .dev._jupyter_lab_commands import _init_frontend
 
+# init jupyter lab frontend immediately on import
+# nothing happens if this is not jupyter lab
 _init_frontend()
+# tries to set the NBCLASSIC_PATH env variable for classical notebook or nbclassic
+_set_nbclassic_path()
 
 from . import dev
 from ._header import header

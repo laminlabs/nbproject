@@ -1,6 +1,6 @@
 import os
 from itertools import chain
-from pathlib import PurePath
+from pathlib import Path
 from urllib import request
 
 import orjson
@@ -83,6 +83,10 @@ def notebook_path(return_env=False):
         else:
             return nb_path
 
+    # this allows to set the right env for nbclassic
+    if "NBCLASSIC_PATH" in os.environ and env is None:
+        env = "notebook"
+
     servers_nbapp, servers_juserv = running_servers()
 
     try:
@@ -123,15 +127,13 @@ def notebook_path(return_env=False):
             if notebook["kernel"].get("id", None) == kernel_id:
                 for dir_key in DIR_KEYS:
                     if dir_key in server:
-                        nb_path = (
-                            PurePath(server[dir_key]) / notebook["notebook"]["path"]
-                        )
+                        nb_path = Path(server[dir_key]) / notebook["notebook"]["path"]
 
                         # VScode adaption through "-jvsc-"
                         nb_path_str = str(nb_path)
                         if "-jvsc-" in nb_path_str:
                             split = nb_path_str.split("-jvsc-")
-                            nb_path = PurePath(f"{split[0]}.ipynb")
+                            nb_path = Path(f"{split[0]}.ipynb")
                             if return_env:
                                 return nb_path, "vs_code" if env is None else env
                             else:
@@ -146,6 +148,11 @@ def notebook_path(return_env=False):
                         else:
                             return nb_path
 
+    # set path for classic notebook or nbclassic if server querying fails
+    if "NBCLASSIC_PATH" in os.environ:
+        nb_path = Path.cwd() / os.environ["NBCLASSIC_PATH"]
+        return (nb_path, "notebook" if env is None else env) if return_env else nb_path
+
     # trying to get the path through ipylab
     nb_path = _lab_notebook_path()
     if nb_path is not None:
@@ -153,12 +160,12 @@ def notebook_path(return_env=False):
 
     # for newer versions of lab, less safe as it stays the same after file rename
     if "JPY_SESSION_NAME" in os.environ:
-        nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
+        nb_path = Path(os.environ["JPY_SESSION_NAME"])
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
 
     # vs code specific
     if "__vsc_ipynb_file__" in globals():
-        nb_path = PurePath(__vsc_ipynb_file__)  # noqa
+        nb_path = Path(__vsc_ipynb_file__)  # noqa
         return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
 
     if server_exception is not None:
