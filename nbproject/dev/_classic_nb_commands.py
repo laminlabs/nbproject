@@ -5,7 +5,7 @@ from .._logger import logger
 
 def _set_nbclassic_path():
     try:
-        from IPython.display import Javascript, display_javascript
+        from IPython.display import Javascript, clear_output, display_javascript
     except ModuleNotFoundError:
         logger.warning("Can not import from IPython.")
         return None
@@ -16,6 +16,7 @@ def _set_nbclassic_path():
         ' + "\'")}'
     )
     display_javascript(js)
+    clear_output()
 
 
 def _save_notebook():
