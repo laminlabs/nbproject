@@ -4,7 +4,7 @@ from collections import namedtuple
 def lamin_user_settings():
     """Returns user settings."""
     try:
-        from lndb_setup import settings
+        from lndb import settings
 
         return settings.user
     except ImportError:
