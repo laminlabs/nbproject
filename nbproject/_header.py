@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, timezone
-from typing import List, Union
+from typing import List, Mapping, Optional, Union
 
 from ._logger import logger
 from .dev._frontend_commands import _reload_notebook, _save_notebook
@@ -64,7 +64,8 @@ def header(
     pypackage: Union[str, List[str], None] = None,
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
-):
+    display: bool = True,
+) -> Optional[Mapping]:
     """Display metadata and start tracking dependencies.
 
     If the notebook has no nbproject metadata, initializes & writes metadata to disk.
@@ -77,6 +78,7 @@ def header(
             Pass `'lab'` for jupyter lab and `'notebook'` for jupyter notebook,
             this can help to identify the correct mechanism for interactivity
             when automatic inference fails.
+        display: Whether or not to display metadata as table.
     """
     filepath_env = filepath, env
 
@@ -133,7 +135,8 @@ def header(
     else:
         metadata = nb.metadata["nbproject"]
         table = table_metadata(metadata, nb, time_run)
-        display_html(table)
+        if display:
+            display_html(table)
 
         # check whether updates to init are needed
         if parent is not None:
@@ -145,3 +148,8 @@ def header(
             for pkg in pypackage:
                 if is_empty or pkg not in metadata["pypackage"]:
                     logger.info(msg_inconsistent_pypackage(pkg))
+
+        if not display:
+            return metadata
+
+    return None
