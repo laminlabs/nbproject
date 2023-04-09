@@ -123,6 +123,7 @@ def header(
         metadata = initialize_metadata(nb, parent=parent, pypackage=pypackage).dict()
 
         if metadata_only:
+            # True here means that the metdata has been initialized now
             return metadata, True
         else:
             nb.metadata["nbproject"] = metadata
@@ -153,6 +154,7 @@ def header(
                     logger.info(msg_inconsistent_pypackage(pkg))
 
         if metadata_only:
+            # False here means that the notebook has the metadata already
             return metadata, False
 
     return None
