@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, timezone
-from typing import List, Mapping, Optional, Union
+from typing import List, Mapping, Optional, Tuple, Union
 
 from ._logger import logger
 from .dev._frontend_commands import _reload_notebook, _save_notebook
@@ -64,8 +64,8 @@ def header(
     pypackage: Union[str, List[str], None] = None,
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
-    display: bool = True,
-) -> Optional[Mapping]:
+    metadata_only: bool = False,
+) -> Optional[Tuple[Mapping, bool]]:
     """Display metadata and start tracking dependencies.
 
     If the notebook has no nbproject metadata, initializes & writes metadata to disk.
@@ -78,7 +78,8 @@ def header(
             Pass `'lab'` for jupyter lab and `'notebook'` for jupyter notebook,
             this can help to identify the correct mechanism for interactivity
             when automatic inference fails.
-        display: Whether or not to display metadata as table.
+        metadata_only: Whether or not to return only metadata
+            without writing or displaying anything.
     """
     filepath_env = filepath, env
 
@@ -120,22 +121,25 @@ def header(
             nb = read_notebook(filepath)  # type: ignore
 
         metadata = initialize_metadata(nb, parent=parent, pypackage=pypackage).dict()
-        nb.metadata["nbproject"] = metadata
 
-        _output_table(nb, table_metadata(metadata, nb, time_run))
-
-        write_notebook(nb, filepath)  # type: ignore
-
-        if env in ("lab", "notebook"):
-            _reload_notebook(env)
+        if metadata_only:
+            # True here means that the metdata has been initialized now
+            return metadata, True
         else:
-            raise SystemExit(msg_init_complete)
+            nb.metadata["nbproject"] = metadata
+            _output_table(nb, table_metadata(metadata, nb, time_run))
+            write_notebook(nb, filepath)  # type: ignore
+
+            if env in ("lab", "notebook"):
+                _reload_notebook(env)
+            else:
+                raise SystemExit(msg_init_complete)
 
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
         metadata = nb.metadata["nbproject"]
         table = table_metadata(metadata, nb, time_run)
-        if display:
+        if not metadata_only:
             display_html(table)
 
         # check whether updates to init are needed
@@ -149,7 +153,8 @@ def header(
                 if is_empty or pkg not in metadata["pypackage"]:
                     logger.info(msg_inconsistent_pypackage(pkg))
 
-        if not display:
-            return metadata
+        if metadata_only:
+            # False here means that the notebook has the metadata already
+            return metadata, False
 
     return None
