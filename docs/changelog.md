@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-♻️ Replace display with metadata_only option in header | [257](https://github.com/laminlabs/nbproject/pull/257) | [Koncopd](https://github.com/Koncopd) | 2023-04-10 |
+♻️ Replace display with metadata_only option in header | [257](https://github.com/laminlabs/nbproject/pull/257) | [Koncopd](https://github.com/Koncopd) | 2023-04-10 | 0.8.4
 🚸 Allow to not display metadata | [255](https://github.com/laminlabs/nbproject/pull/255) | [falexwolf](https://github.com/falexwolf) | 2023-03-12 | 0.8.3
 ⬆️ Observe `lndb-setup` rename to `lndb` | [253](https://github.com/laminlabs/nbproject/pull/253) | [bpenteado](https://github.com/bpenteado) | 2023-02-16 | 0.8.2
 ✨ Safer notebook path inference and more ways to do it | [251](https://github.com/laminlabs/nbproject/pull/251) | [Koncopd](https://github.com/Koncopd) | 2023-02-10 |
