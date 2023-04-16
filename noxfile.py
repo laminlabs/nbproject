@@ -1,30 +1,19 @@
-from pathlib import Path
-
 import nox
+from laminci import move_built_docs_to_docs_slash_project_slug, upload_docs_artifact
+from laminci.nox import build_docs, run_pre_commit, run_pytest
 
 nox.options.reuse_existing_virtualenvs = True
 
 
 @nox.session
 def lint(session: nox.Session) -> None:
-    session.install("pre-commit")
-    session.run("pre-commit", "install")
-    session.run("pre-commit", "run", "--all-files")
+    run_pre_commit(session)
 
 
-@nox.session(python=["3.7", "3.8", "3.9", "3.10"])
+@nox.session(python=["3.7", "3.8", "3.9", "3.10", "3.11"])
 def build(session):
     session.install(".[dev,test]")
-    session.run(
-        "python",
-        "-m",
-        "pytest",
-        "-s",
-        "--cov=nbproject",
-        "--cov-append",
-        "--cov-report=term-missing",
-    )
-    session.run("coverage", "xml")
-    prefix = "." if Path("./lndocs").exists() else ".."
-    session.install(f"{prefix}/lndocs")
-    session.run("lndocs")
+    run_pytest(session)
+    build_docs(session)
+    upload_docs_artifact()
+    move_built_docs_to_docs_slash_project_slug()
