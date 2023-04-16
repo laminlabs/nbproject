@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10"]
 
     steps:
       - name: Checkout main
@@ -27,22 +27,26 @@ jobs:
           path: lndocs
           ref: main
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Cache
+          cache: "pip"
+          cache-dependency-path: ".github/workflows/build.yml" # See dependencies below
+      - name: Cache nox
         uses: actions/cache@v3
-        env:
-          cache-name: cache-1
         with:
-          path: |
-            .nox
-            ~/.cache/pre-commit
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('.pre-commit-config.yaml') }}-${{ hashFiles('pyproject.yaml') }}
-      - name: Install pip and nox
+          path: .nox
+          key: nox-${{ runner.os }}
+      - name: Cache pre-commit
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install nox
+          python -m pip install -U pip
+          pip install -U laminci
+          pip install -U lamindb
       - name: Lint
         run: |
           nox -s lint
@@ -61,12 +65,6 @@ jobs:
         with:
           file: lamin-project.yaml
           project_slug: project_slug
-      - name: Change base URL to project-slug
-        if: github.event_name == 'push' && matrix.python-version == '3.9'
-        run: |
-          mv _build/html _build/${{ steps.lamin-project.outputs.project_slug }}
-          mkdir -p _build/html/docs
-          mv _build/${{ steps.lamin-project.outputs.project_slug }} _build/html/docs
       - name: Deploy docs
         if: matrix.python-version == '3.9'
         id: netlify

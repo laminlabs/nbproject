@@ -5,6 +5,37 @@
 
 # nbproject: Manage Jupyter notebooks
 
-Read the [docs](https://lamin.ai/docs/nbproject).
+Track & publish notebooks with their metadata, dependencies, and consecutiveness.
 
-Read the [report](https://lamin.ai/reports/2022/nbproject).
+Why? Read the [blog post](https://lamin.ai/blog/2022/nbproject).
+
+Supported editors & platforms:
+
+- Jupyter Lab
+  - any pip or conda installation, a brew installation may give a problems
+  - Saturn Cloud ([run](https://github.com/laminlabs/run-lamin-on-saturn))
+  - Google Cloud Vertex AI (see [setup faq](faq/setup))
+- Jupyter Notebook
+- VS Code (no interactive experience, not recommended for production)
+
+For broader support and features, see `lamindb.track()`.
+
+Install: ![pyversions](https://img.shields.io/pypi/pyversions/nbproject)
+
+```
+pip install nbproject
+```
+
+Get started:
+
+```
+import nbproject
+
+nbproject.header()  # Tracks notebook, displays metadata.
+
+# do things
+
+nbproject.publish()  # Checks consecutiveness
+```
+
+More: Read the [docs](https://lamin.ai/docs/nbproject).
