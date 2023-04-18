@@ -29,7 +29,11 @@ __version__ = "0.8.5"
 # nothing happens if this is not jupyter lab
 from .dev._jupyter_lab_commands import _init_frontend
 
-_init_frontend()
+# trying to init ipylab JupyterFrontEnd can lead to errors on jupyter notebook
+try:
+    _init_frontend()
+except:
+    pass
 
 from . import dev
 from ._header import header
