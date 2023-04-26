@@ -5,15 +5,15 @@
 
 # nbproject: Light-weight Jupyter notebook tracker
 
-Track & publish notebooks with their metadata, dependencies, and integrity.
+Track & publish notebooks with their metadata, dependencies & integrity.
 
-💡 Consider [lamindb.track](https://lamin.ai/docs/lamindb.track) instead of nbproject:
+💡 Consider [lamindb.track()](https://lamin.ai/docs/lamindb.track) instead of nbproject for these improvements:
 
-- `nbproject` will mostly be maintained as a backend for `lamindb.track()`
-- `lamindb.track()` consistently tracks data sources across notebooks, pipelines & apps
-- `lamindb` gives you full provenance for datasets that you pull and push from a notebook
-- `lamindb.track()` also knows how to manage _duplicated_ notebooks & integrates with Google Colab
-- Like `nbproject`, `lamindb` is open-source
+- consistently track data sources across notebooks, pipelines & apps
+- full provenance for datasets that you pull and push from notebooks
+- manage _duplicated_ notebooks & integrate with Google Colab
+
+Like `nbproject`, `lamindb` is open-source. `nbproject` will mostly be maintained as a backend for `lamindb`.
 
 ---
 
