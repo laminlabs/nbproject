@@ -11,7 +11,7 @@ Track & publish notebooks with their metadata, dependencies & integrity.
 
 - consistently track data sources across notebooks, pipelines & apps
 - full provenance for datasets that you pull and push from notebooks
-- manage _duplicated_ notebooks & integrate with Google Colab
+- manage notebook copying & integrate with Google Colab
 
 Like `nbproject`, `lamindb` is open-source. `nbproject` will mostly be maintained as a backend for `lamindb`.
 
