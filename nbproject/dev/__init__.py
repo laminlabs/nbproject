@@ -33,17 +33,7 @@ Notebook file helpers
    read_notebook
    write_notebook
 
-Testing
--------
-
-.. autosummary::
-   :toctree:
-
-   test
-
 """
-import nbproject_test as test
-
 from ._check_last_cell import check_last_cell
 from ._consecutiveness import check_consecutiveness
 from ._initialize import initialize_metadata
