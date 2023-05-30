@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+➖ Remove nbproject-test from dependencies | [262](https://github.com/laminlabs/nbproject/pull/262) | [Koncopd](https://github.com/Koncopd) | 2023-05-30 |
 🐛 Safer ipylab initialization | [263](https://github.com/laminlabs/nbproject/pull/263) | [Koncopd](https://github.com/Koncopd) | 2023-04-18 | 0.8.6
 🐛 Fix VS Code integration for recent VS Code versions | [260](https://github.com/laminlabs/nbproject/pull/260) | [Koncopd](https://github.com/Koncopd) | 2023-04-17 | 0.8.5
 ♻️ Replace `display` with `metadata_only` arg in `header` | [257](https://github.com/laminlabs/nbproject/pull/257) | [Koncopd](https://github.com/Koncopd) | 2023-04-10 | 0.8.4
