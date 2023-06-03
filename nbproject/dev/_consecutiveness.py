@@ -1,5 +1,4 @@
-from loguru import logger
-
+from .._logger import logger
 from ._notebook import Notebook
 
 
