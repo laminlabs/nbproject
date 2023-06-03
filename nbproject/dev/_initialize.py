@@ -3,6 +3,7 @@ import string
 from datetime import datetime, timezone
 from typing import List, Optional, Union
 
+from .._logger import logger
 from ._lamin_communicate import lamin_user_settings
 from ._meta_store import MetaContainer
 from ._notebook import Notebook
@@ -36,7 +37,10 @@ def initialize_metadata(
     if nb is not None and isinstance(pypackage, list):
         from ._pypackage import infer_pypackages
 
-        meta.pypackage = infer_pypackages(nb, add_pkgs=pypackage, pin_versions=True)
+        try:
+            meta.pypackage = infer_pypackages(nb, add_pkgs=pypackage, pin_versions=True)
+        except:  # noqa
+            logger.warning("Failed to parse the notebook for python packages.")
 
     if parent is not None:
         meta.parent = parent
