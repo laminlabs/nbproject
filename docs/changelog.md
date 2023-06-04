@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-🦺 Safer parsing during initialization | [266](https://github.com/laminlabs/nbproject/pull/266) | [Koncopd](https://github.com/Koncopd) | 2023-06-03 |
+🦺 Safer parsing during initialization | [266](https://github.com/laminlabs/nbproject/pull/266) | [Koncopd](https://github.com/Koncopd) | 2023-06-03 | 0.8.7
 ➖ Remove nbproject-test from dependencies | [262](https://github.com/laminlabs/nbproject/pull/262) | [Koncopd](https://github.com/Koncopd) | 2023-05-30 |
 🐛 Safer ipylab initialization | [263](https://github.com/laminlabs/nbproject/pull/263) | [Koncopd](https://github.com/Koncopd) | 2023-04-18 | 0.8.6
 🐛 Fix VS Code integration for recent VS Code versions | [260](https://github.com/laminlabs/nbproject/pull/260) | [Koncopd](https://github.com/Koncopd) | 2023-04-17 | 0.8.5
