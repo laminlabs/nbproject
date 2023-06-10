@@ -58,7 +58,7 @@ def running_servers():
         if not nbapp_import:
             logger.warning(
                 "It looks like you are running jupyter lab "
-                "but don't have jupyter-server module installed."
+                "but don't have jupyter-server module installed. "
                 "Please install it via pip install jupyter-server"
             )
 
@@ -83,8 +83,6 @@ def notebook_path(return_env=False):
         else:
             return nb_path
 
-    servers_nbapp, servers_juserv = running_servers()
-
     try:
         from IPython import get_ipython
     except ModuleNotFoundError:
@@ -98,6 +96,12 @@ def notebook_path(return_env=False):
         logger.warning("The IPython instance is empty.")
         return None
 
+    # vs code specific
+    user_ns = ipython_instance.__dict__.get("user_ns", {})
+    if "__vsc_ipynb_file__" in user_ns:
+        nb_path = PurePath(user_ns["__vsc_ipynb_file__"])
+        return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
+
     config = ipython_instance.config
     # not in a jupyter notebook
     if "IPKernelApp" not in config:
@@ -107,6 +111,8 @@ def notebook_path(return_env=False):
     kernel_id = (
         config["IPKernelApp"]["connection_file"].partition("-")[2].split(".", -1)[0]
     )
+
+    servers_nbapp, servers_juserv = running_servers()
 
     server_exception = None
 
@@ -145,12 +151,6 @@ def notebook_path(return_env=False):
     if "JPY_SESSION_NAME" in os.environ:
         nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
-
-    # vs code specific
-    user_ns = ipython_instance.__dict__.get("user_ns", {})
-    if "__vsc_ipynb_file__" in user_ns:
-        nb_path = PurePath(user_ns["__vsc_ipynb_file__"])
-        return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
 
     if server_exception is not None:
         raise server_exception
