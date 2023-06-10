@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🩹 Try to get vs code path first | [267](https://github.com/laminlabs/nbproject/pull/267) | [Koncopd](https://github.com/Koncopd) | 2023-06-10 |
 🦺 Safer parsing during initialization | [266](https://github.com/laminlabs/nbproject/pull/266) | [Koncopd](https://github.com/Koncopd) | 2023-06-03 | 0.8.7
 ➖ Remove nbproject-test from dependencies | [262](https://github.com/laminlabs/nbproject/pull/262) | [Koncopd](https://github.com/Koncopd) | 2023-05-30 |
 🐛 Safer ipylab initialization | [263](https://github.com/laminlabs/nbproject/pull/263) | [Koncopd](https://github.com/Koncopd) | 2023-04-18 | 0.8.6
