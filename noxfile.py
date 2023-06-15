@@ -13,7 +13,7 @@ def lint(session: nox.Session) -> None:
 @nox.session
 def build(session):
     login_testuser1(session)
-    session.install(".[dev,test]")
+    session.run(*"pip install .[dev]".split())
     run_pytest(session)
     build_docs(session)
     upload_docs_artifact()

@@ -31,8 +31,6 @@ Home = "https://github.com/laminlabs/nbproject"
 dev = [
     "pre-commit",
     "black",
-]
-test = [
     "pytest>=6.0",
     "pytest-cov",
     "pandas",
