@@ -3,11 +3,19 @@
 [![pypi](https://img.shields.io/pypi/v/nbproject?color=blue&label=pypi%20package)](https://pypi.org/project/nbproject)
 [![doi](https://img.shields.io/badge/doi-10.56528%2Fnbp-lightgrey)](https://doi.org/10.56528/nbp)
 
-# nbproject: Manage Jupyter notebooks
+# nbproject: Light-weight Jupyter notebook tracker
 
-Track & publish notebooks with their metadata, dependencies, and consecutiveness.
+Track & publish notebooks with their metadata, dependencies & integrity.
 
-Why? Read the [blog post](https://lamin.ai/blog/2022/nbproject).
+💡 Consider [lamindb.track()](https://lamin.ai/docs/lamindb.track) instead of nbproject for these improvements:
+
+- consistently track data sources across notebooks, pipelines & apps
+- full provenance for datasets that you pull and push from notebooks
+- manage notebook copying & integrate with Google Colab
+
+Like `nbproject`, `lamindb` is open-source. `nbproject` will mostly be maintained as a backend for `lamindb`.
+
+---
 
 Supported editors & platforms:
 
@@ -31,11 +39,11 @@ Get started:
 ```
 import nbproject
 
-nbproject.header()  # Tracks notebook, displays metadata.
+nbproject.header()  # Tracks notebook, displays metadata
 
 # do things
 
-nbproject.publish()  # Checks consecutiveness
+nbproject.publish()  # Checks consecutiveness, bumps version
 ```
 
 More: Read the [docs](https://lamin.ai/docs/nbproject).
