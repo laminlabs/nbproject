@@ -65,7 +65,7 @@ def header(
     filepath: Union[str, None] = None,
     env: Union[str, None] = None,
     metadata_only: bool = False,
-) -> Optional[Tuple[Mapping, bool]]:
+) -> Optional[Tuple[Mapping, bool, Notebook]]:
     """Display metadata and start tracking dependencies.
 
     If the notebook has no nbproject metadata, initializes & writes metadata to disk.
@@ -124,7 +124,7 @@ def header(
 
         if metadata_only:
             # True here means that the metdata has been initialized now
-            return metadata, True
+            return metadata, True, nb
         else:
             nb.metadata["nbproject"] = metadata
             _output_table(nb, table_metadata(metadata, nb, time_run))
@@ -138,8 +138,8 @@ def header(
     # read from ipynb metadata and add on-the-fly computed metadata
     else:
         metadata = nb.metadata["nbproject"]
-        table = table_metadata(metadata, nb, time_run)
         if not metadata_only:
+            table = table_metadata(metadata, nb, time_run)
             display_html(table)
 
         # check whether updates to init are needed
@@ -155,6 +155,6 @@ def header(
 
         if metadata_only:
             # False here means that the notebook has the metadata already
-            return metadata, False
+            return metadata, False, nb
 
     return None
