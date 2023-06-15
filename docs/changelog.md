@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+📝 Position nbproject | [264](https://github.com/laminlabs/nbproject/pull/264) | [falexwolf](https://github.com/falexwolf) | 2023-06-15 |
 🩹 Try to get vs code path first | [267](https://github.com/laminlabs/nbproject/pull/267) | [Koncopd](https://github.com/Koncopd) | 2023-06-10 |
 🦺 Safer parsing during initialization | [266](https://github.com/laminlabs/nbproject/pull/266) | [Koncopd](https://github.com/Koncopd) | 2023-06-03 | 0.8.7
 ➖ Remove nbproject-test from dependencies | [262](https://github.com/laminlabs/nbproject/pull/262) | [Koncopd](https://github.com/Koncopd) | 2023-05-30 |
