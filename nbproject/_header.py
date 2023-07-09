@@ -114,7 +114,7 @@ def header(
 
     # initialize
     if "nbproject" not in nb.metadata:
-        logger.info("Initializing.")
+        logger.info("Attaching notebook metadata")
 
         if env in ("lab", "notebook"):
             _save_notebook(env)
