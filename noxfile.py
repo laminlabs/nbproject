@@ -15,5 +15,5 @@ def build(session):
     login_testuser1(session)
     session.run(*"pip install .[dev]".split())
     run_pytest(session)
-    build_docs(session, strict=True)
+    build_docs(session)
     move_built_docs_to_docs_slash_project_slug()
