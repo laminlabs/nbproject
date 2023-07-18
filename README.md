@@ -9,7 +9,7 @@ Light-weight Jupyter notebook manager. Track metadata, imports, and integrity.
 
 ---
 
-💡 We recommend [lamindb.track()](docs:lamindb.track) instead of `nbproject` to:
+💡 We recommend [lamindb.track()](https://lamin.ai/docs/ref/lamindb.track) instead of `nbproject` to:
 
 - consistently track data sources across notebooks, pipelines & apps
 - full provenance for datasets that you pull and push from notebooks
