@@ -14,23 +14,13 @@ Light-weight Jupyter notebook manager. Track metadata, imports, and integrity.
 - consistently track data sources across notebooks, pipelines & apps
 - full provenance for datasets that you pull and push from notebooks
 - manage notebook copying & integrate with Google Colab
+- broader compatibility
 
 Like `nbproject`, `lamindb` is open-source.
 
 `nbproject` will continue to be maintained as a utility for `lamindb`.
 
 ---
-
-Supported editors & platforms:
-
-- Jupyter Lab
-  - any pip or conda installation, a brew installation may give a problems
-  - Saturn Cloud ([run](https://github.com/laminlabs/run-lamin-on-saturn))
-  - Google Cloud Vertex AI (see [setup faq](faq/setup))
-- Jupyter Notebook
-- VS Code (no interactive experience, not recommended for production)
-
-For broader support and features, see `lamindb.track()`.
 
 Install: ![pyversions](https://img.shields.io/pypi/pyversions/nbproject)
 

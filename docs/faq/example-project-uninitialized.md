@@ -6,5 +6,5 @@ There is just a single notebook here right now.
 :glob:
 :reversed:
 
-*
+example-project-uninitialized/*
 ```

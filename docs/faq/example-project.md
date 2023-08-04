@@ -6,5 +6,5 @@ There are two notebooks here right now.
 :glob:
 :reversed:
 
-*
+example-project/*
 ```

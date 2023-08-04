@@ -7,8 +7,8 @@
 :maxdepth: 1
 :hidden:
 
-guide/index
+guide
 reference
-faq/index
+faq
 changelog
 ```
