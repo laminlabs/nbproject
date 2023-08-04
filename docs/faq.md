@@ -10,8 +10,8 @@ Edges cases, warnings, and errors:
 - {doc}`faq/initialize-set-env`
 - {doc}`faq/inconsistent-packages-parents-store`
 - {doc}`faq/inconsistent-packages-parents-no-store`
-- {doc}`faq/example-project/index`
-- {doc}`faq/example-project-uninitialized/index`
+- {doc}`faq/example-project`
+- {doc}`faq/example-project-uninitialized`
 - {doc}`faq/example-after-init-set-filename`
 - {doc}`faq/publish-set-version`
 - {doc}`faq/publish-without-title`
@@ -33,8 +33,8 @@ faq/initialize
 faq/initialize-set-env
 faq/inconsistent-packages-parents-store
 faq/inconsistent-packages-parents-no-store
-faq/example-project/index
-faq/example-project-uninitialized/index
+faq/example-project
+faq/example-project-uninitialized
 faq/example-after-init-set-filename
 faq/publish-set-version
 faq/publish-without-title

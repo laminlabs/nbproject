@@ -9,16 +9,15 @@ Manage notebooks interactively:
 
 Build on the metadata API:
 
-- {doc}`meta`
+- {doc}`guide/meta`
 
 ```{toctree}
 :maxdepth: 1
 :hidden:
 
-../quickstart
-received
-basic-metadata
-update-metadata
-cli
-meta
+quickstart
+guide/received
+guide/basic-metadata
+guide/update-metadata
+guide/meta
 ```
