@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-📝 Simplify docs, adopt new lamin.ai static site architecture | [269](https://github.com/laminlabs/nbproject/pull/269) | [falexwolf](https://github.com/falexwolf) | 2023-08-04 |
+📝 Simplify docs, adopt new lamin.ai static site architecture | [269](https://github.com/laminlabs/nbproject/pull/269) | [falexwolf](https://github.com/falexwolf) | 2023-08-04 | 0.9.1
 ♻️ Remove loguru-dependent call, expand `metadata_only` return signature | [268](https://github.com/laminlabs/nbproject/pull/268) | [falexwolf](https://github.com/falexwolf) | 2023-06-15 | 0.9.0
 📝 Position nbproject | [264](https://github.com/laminlabs/nbproject/pull/264) | [falexwolf](https://github.com/falexwolf) | 2023-06-15 |
 🩹 Try to get vs code path first | [267](https://github.com/laminlabs/nbproject/pull/267) | [Koncopd](https://github.com/Koncopd) | 2023-06-10 |
