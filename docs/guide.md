@@ -2,14 +2,10 @@
 
 Manage notebooks interactively:
 
-- {doc}`../quickstart`
-- {doc}`received`
-- {doc}`basic-metadata`
-- {doc}`update-metadata`
-
-Manage a collection of notebooks:
-
-- {doc}`cli`
+- {doc}`quickstart`
+- {doc}`guide/received`
+- {doc}`guide/basic-metadata`
+- {doc}`guide/update-metadata`
 
 Build on the metadata API:
 
