@@ -16,7 +16,7 @@ def get_title(nb: Notebook) -> Optional[str]:
     for cell in nb.cells:
         # only consider markdown
         if cell["cell_type"] == "markdown":
-            # grap source
+            # grab source
             text = cell["source"][0]
             # loop through lines
             for line in text.split("\n"):
