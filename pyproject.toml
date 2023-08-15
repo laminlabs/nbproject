@@ -36,6 +36,7 @@ dev = [
     "pandas",
     "nbformat",
     "nbproject_test >= 0.4.5",
+    "laminci",
 ]
 
 [project.scripts]
