@@ -14,9 +14,10 @@ Edges cases, warnings, and errors:
 - {doc}`faq/example-project-uninitialized`
 - {doc}`faq/example-after-init-set-filename`
 - {doc}`faq/publish-set-version`
-- {doc}`faq/publish-without-title`
+- [Publish without title](faq/publish-without-title)
 - {doc}`faq/publish-without-saving`
 - {doc}`faq/publish-not-last-cell`
+- {doc}`faq/title-not-at-top`
 - {doc}`faq/publish-wrapper`
 - {doc}`faq/trigger-exit-upon-init`
 - {doc}`faq/not-initialized`
@@ -41,6 +42,7 @@ faq/publish-without-title
 faq/publish-without-saving
 faq/publish-not-last-cell
 faq/publish-wrapper
+faq/title-not-at-top
 faq/trigger-exit-upon-init
 faq/not-initialized
 faq/internal-functions
