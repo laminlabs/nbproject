@@ -12,15 +12,19 @@ from ._pypackage import infer_pypackages
 
 def get_title(nb: Notebook) -> Optional[str]:
     """Get title of the notebook."""
-    if nb.cells[0]["cell_type"] != "markdown":
-        title = None
-    else:
-        title = nb.cells[0]["source"][0]
-        if not title.startswith("# "):
-            title = None
-        else:
-            title = title.lstrip("#").strip(" .").strip("\n")
-    return title
+    # loop through all cells
+    for cell in nb.cells:
+        # only consider markdown
+        if cell["cell_type"] == "markdown":
+            # grap source
+            text = cell["source"][0]
+            # loop through lines
+            for line in text.split("\n"):
+                # if finding a level-1 heading, consider it a title
+                if line.startswith("# "):
+                    title = line.lstrip("#").strip(" .").strip("\n")
+                    return title
+    return None
 
 
 class MetaLive:
