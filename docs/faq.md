@@ -14,7 +14,7 @@ Edges cases, warnings, and errors:
 - {doc}`faq/example-project-uninitialized`
 - {doc}`faq/example-after-init-set-filename`
 - {doc}`faq/publish-set-version`
-- {doc}`faq/publish-without-title`
+- [Publish without title](faq/publish-without-title)
 - {doc}`faq/publish-without-saving`
 - {doc}`faq/publish-not-last-cell`
 - {doc}`faq/title-not-at-top`
