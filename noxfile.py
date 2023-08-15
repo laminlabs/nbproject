@@ -1,6 +1,6 @@
 import nox
 from laminci import move_built_docs_to_docs_slash_project_slug
-from laminci.nox import build_docs, login_testuser1, run_pre_commit, run_pytest
+from laminci.nox import build_docs, run_pre_commit, run_pytest
 
 nox.options.default_backend = "none"
 
@@ -12,7 +12,6 @@ def lint(session: nox.Session) -> None:
 
 @nox.session
 def build(session):
-    login_testuser1(session)
     session.run(*"pip install .[dev]".split())
     run_pytest(session)
     build_docs(session)
