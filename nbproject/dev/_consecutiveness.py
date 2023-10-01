@@ -20,6 +20,8 @@ def check_consecutiveness(nb: Notebook, calling_statement: str = None) -> bool:
     violations = []
     prev = 0
 
+    ccount = 0  # need to initialize because notebook might note have code cells
+    # and below, we check if ccount is None
     for cell in cells:
         if cell["cell_type"] != "code" or cell["source"] == []:
             continue
