@@ -51,8 +51,7 @@ def run_checks_for_publish(
             decide = "y"
         else:
             decide = input("   Do you still want to proceed with publishing? (y/n) ")
-
-        if decide not in ("y", "Y", "yes", "Yes", "YES"):
+        if decide != "y":
             logger.warning("Aborted!")
             return "aborted"
 
