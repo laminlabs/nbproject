@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🩹 Account for empty notebook in consecutiveness check | [272](https://github.com/laminlabs/nbproject/pull/272) | [falexwolf](https://github.com/falexwolf) | 2023-10-01 |
 :memo: Fix image link | [271](https://github.com/laminlabs/nbproject/pull/271) | [falexwolf](https://github.com/falexwolf) | 2023-09-18 |
 🚸 More robust title parsing | [270](https://github.com/laminlabs/nbproject/pull/270) | [falexwolf](https://github.com/falexwolf) | 2023-08-15 | 0.9.2
 📝 Simplify docs, adopt new lamin.ai static site architecture | [269](https://github.com/laminlabs/nbproject/pull/269) | [falexwolf](https://github.com/falexwolf) | 2023-08-04 | 0.9.1
