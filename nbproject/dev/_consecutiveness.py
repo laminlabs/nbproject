@@ -45,8 +45,8 @@ def check_consecutiveness(nb: Notebook, calling_statement: str = None) -> bool:
 
     any_violations = len(violations) > 0
     if any_violations:
-        logger.warning(f"Cells {violations} were not run consecutively.")
+        logger.warning(f"cells {violations} were not run consecutively")
     else:
-        logger.success("Cell numbers increase consecutively: Awesome!")
+        logger.success("cell execution numbers increase consecutively")
 
     return not any_violations
