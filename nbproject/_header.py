@@ -105,7 +105,9 @@ def header(
     try:
         nb = read_notebook(filepath)  # type: ignore
     except FileNotFoundError:
-        raise RuntimeError("Try passing the filepath manually to nbproject.Header().")
+        raise RuntimeError(
+            "Try passing the filepath manually to nbproject.Header()."
+        ) from None
 
     # make time_run available through API
     time_run = datetime.now(timezone.utc)

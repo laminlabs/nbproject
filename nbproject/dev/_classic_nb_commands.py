@@ -1,6 +1,6 @@
 from time import sleep
 
-from .._logger import logger
+from nbproject._logger import logger
 
 
 def _save_notebook():

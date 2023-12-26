@@ -1,7 +1,5 @@
 import os
 
-from pytest import raises
-
 from nbproject.dev import _classic_nb_commands as _clsnbk
 from nbproject.dev import _jupyter_lab_commands as _juplab
 from nbproject.dev._frontend_commands import _reload_notebook, _save_notebook
@@ -11,6 +9,7 @@ from nbproject.dev._jupyter_communicate import (
     query_server,
     running_servers,
 )
+from pytest import raises
 
 os.environ["NBPRJ_TEST_NBENV"] = "test"
 
@@ -23,11 +22,11 @@ def test_jupyter_not_running():
     assert list(servers_nbapp) == []
     assert list(servers_juserv) == []
 
-    server = dict(token="test", url="localhost/")
+    server = {"token": "test", "url": "localhost/"}
 
     assert (
         prepare_url(server, "/test_query")
-        == "localhost/api/sessions/test_query?token=test"  # noqa
+        == "localhost/api/sessions/test_query?token=test"
     )
 
     with raises(Exception) as e_info:
@@ -35,7 +34,7 @@ def test_jupyter_not_running():
 
     assert (
         e_info.value.args[0]
-        == "Unable to access server;\nquerying requires either no security or token"  # noqa
+        == "Unable to access server;\nquerying requires either no security or token"
         " based security."
     )
 

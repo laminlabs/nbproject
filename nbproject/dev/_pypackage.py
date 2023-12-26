@@ -1,7 +1,7 @@
 import re
 import sys
 from ast import Import, ImportFrom, parse, walk
-from typing import Iterable, List, Optional, Union  # noqa
+from typing import Iterable, List, Optional, Union
 
 from importlib_metadata import PackageNotFoundError, packages_distributions, version
 
@@ -63,7 +63,7 @@ def infer_pypackages(
     see :meth:`~nbproject.dev.MetaLive.pypackage`.
 
     Args:
-        nb: A notebook to infer pypackages from.
+        content: A notebook to infer pypackages from.
         add_pkgs: Additional packages to add.
         pin_versions: If `True`, fixes versions from the current environment.
 

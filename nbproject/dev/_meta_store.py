@@ -3,7 +3,8 @@ from typing import List, Mapping, Optional, Union
 
 from pydantic import BaseModel, Extra
 
-from .._logger import logger
+from nbproject._logger import logger
+
 from ._frontend_commands import _reload_notebook, _save_notebook
 from ._metadata_display import table_metadata
 from ._notebook import Notebook, read_notebook, write_notebook
@@ -61,7 +62,7 @@ class MetaContainer(BaseModel):
     user_name: Optional[str] = None
     """User name from lamindb."""
 
-    class Config:  # noqa
+    class Config:
         extra = Extra.allow
 
 
