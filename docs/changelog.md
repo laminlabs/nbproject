@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+Ruff and 3.11 | [276](https://github.com/laminlabs/nbproject/pull/276) | [Zethson](https://github.com/Zethson) | 2023-12-26 |
 🩹 Account for empty notebook in consecutiveness check | [272](https://github.com/laminlabs/nbproject/pull/272) | [falexwolf](https://github.com/falexwolf) | 2023-10-01 |
 :memo: Fix image link | [271](https://github.com/laminlabs/nbproject/pull/271) | [falexwolf](https://github.com/falexwolf) | 2023-09-18 |
 🚸 More robust title parsing | [270](https://github.com/laminlabs/nbproject/pull/270) | [falexwolf](https://github.com/falexwolf) | 2023-08-15 | 0.9.2
