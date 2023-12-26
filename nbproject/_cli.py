@@ -81,7 +81,7 @@ def sync(
     else:
         logger.info(f"Yaml of the project is: {yaml_file.as_posix()}.")
 
-    with open(yaml_file, "r") as stream:
+    with open(yaml_file) as stream:
         yaml_proj = yaml.load(stream, Loader=yaml.FullLoader)
 
     nbs = notebooks_from_files_dirs(files_dirs)

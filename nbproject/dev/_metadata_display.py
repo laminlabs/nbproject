@@ -30,8 +30,8 @@ def display_html(html: str):
 
 # display configuration
 class DisplayConf(BaseModel):
-    time_init: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore # noqa
-    time_run: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore # noqa
+    time_init: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore
+    time_run: Enum("choice", ["date", "datetime"]) = "datetime"  # type: ignore
 
 
 def color_id(id: str):

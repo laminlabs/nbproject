@@ -3,7 +3,8 @@ import string
 from datetime import datetime, timezone
 from typing import List, Optional, Union
 
-from .._logger import logger
+from nbproject._logger import logger
+
 from ._lamin_communicate import lamin_user_settings
 from ._meta_store import MetaContainer
 from ._notebook import Notebook

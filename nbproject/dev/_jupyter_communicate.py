@@ -5,7 +5,8 @@ from urllib import request
 
 import orjson
 
-from .._logger import logger
+from nbproject._logger import logger
+
 from ._jupyter_lab_commands import _lab_notebook_path
 
 DIR_KEYS = ("notebook_dir", "root_dir")
@@ -33,7 +34,7 @@ def query_server(server: dict):
             "Unable to access server;\n"
             "querying requires either no security or token based security."
         )
-        raise Exception(CONN_ERROR)
+        raise Exception(CONN_ERROR) from None
 
 
 def running_servers():

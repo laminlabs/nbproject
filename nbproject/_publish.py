@@ -95,6 +95,7 @@ def publish(
             sets the version to the passed version. Consider semantic versioning.
         i_confirm_i_saved: Only relevant outside Jupyter Lab as a safeguard against
             losing the editor buffer content because of accidentally publishing.
+        kwargs: Additional arguments for publishing.
     """
     if "calling_statement" in kwargs:
         calling_statement = kwargs.pop("calling_statement")

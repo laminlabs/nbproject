@@ -2,7 +2,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
 
-from .._logger import logger
+from nbproject._logger import logger
+
 from ._consecutiveness import check_consecutiveness
 from ._jupyter_lab_commands import _save_notebook
 from ._lamin_communicate import lamin_user_settings

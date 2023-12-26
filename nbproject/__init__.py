@@ -32,7 +32,7 @@ from .dev._jupyter_lab_commands import _init_frontend
 # trying to init ipylab JupyterFrontEnd can lead to errors on jupyter notebook
 try:
     _init_frontend()
-except:
+except:  # noqa: E722
     pass
 
 from . import dev

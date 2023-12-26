@@ -1,6 +1,6 @@
 from typing import Union
 
-from .._meta import meta
+from nbproject._meta import meta
 
 
 def set_version(

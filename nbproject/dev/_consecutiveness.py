@@ -1,4 +1,5 @@
-from .._logger import logger
+from nbproject._logger import logger
+
 from ._notebook import Notebook
 
 

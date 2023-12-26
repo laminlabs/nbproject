@@ -35,18 +35,18 @@ def test_cli():
     main_folder = Path(__file__).parents[1] / "docs"
     folders = ["faq/example-project-uninitialized", "faq/example-project"]
 
-    commands = dict(
-        sync_noinit=["sync", "."],
-        reqs_noinit=["reqs", "."],
-        init=["init"],
-        sync=["sync", "."],
-        sync_list=["sync"],
-        sync_d_nv=["sync", ".", "-d", "-nv"],
-        sync_d=["sync", ".", "-d"],
-        reqs_list=["reqs"],
-        reqs=["reqs", "."],
-        publish=["publish", "."],
-    )
+    commands = {
+        "sync_noinit": ["sync", "."],
+        "reqs_noinit": ["reqs", "."],
+        "init": ["init"],
+        "sync": ["sync", "."],
+        "sync_list": ["sync"],
+        "sync_d_nv": ["sync", ".", "-d", "-nv"],
+        "sync_d": ["sync", ".", "-d"],
+        "reqs_list": ["reqs"],
+        "reqs": ["reqs", "."],
+        "publish": ["publish", "."],
+    }
 
     for folder in folders:
         nb_folder = main_folder / folder

@@ -8,7 +8,7 @@ from .dev._notebook import read_notebook
 
 
 # https://stackoverflow.com/questions/128573/using-property-on-classmethods/64738850#64738850
-class classproperty(object):
+class classproperty:
     def __init__(self, fget):
         self.fget = fget
 
