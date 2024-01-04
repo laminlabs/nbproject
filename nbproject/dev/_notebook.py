@@ -21,7 +21,14 @@ def read_notebook(filepath: Union[str, Path]) -> Notebook:
         filepath: A path to the notebook to read.
     """
     with open(filepath, "rb") as f:
-        nb = orjson.loads(f.read())
+        try:
+            nb = orjson.loads(f.read())
+        except orjson.JSONDecodeError as e:
+            if "Input is a zero-length, empty document" in str(e):
+                raise ValueError("Notebook cannot be empty. It must have at least a title cell.")
+            else:
+                raise
+            
 
     return Notebook(**nb)
 
