@@ -3,11 +3,11 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-🚸 Init version at 1 and also stop auto-bumping version in CLI | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 |
-Improve error message when empty notebook is passed | [275](https://github.com/laminlabs/nbproject/pull/275) | [Zethson](https://github.com/Zethson) | 2024-01-04 |
-Ruff and 3.11 | [276](https://github.com/laminlabs/nbproject/pull/276) | [Zethson](https://github.com/Zethson) | 2023-12-26 |
+🚸 Init version at 1 | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 | 0.10.0
+🚸 Improve error message when empty notebook is passed | [275](https://github.com/laminlabs/nbproject/pull/275) | [Zethson](https://github.com/Zethson) | 2024-01-04 |
+👷 Ruff and 3.11 | [276](https://github.com/laminlabs/nbproject/pull/276) | [Zethson](https://github.com/Zethson) | 2023-12-26 |
 🩹 Account for empty notebook in consecutiveness check | [272](https://github.com/laminlabs/nbproject/pull/272) | [falexwolf](https://github.com/falexwolf) | 2023-10-01 |
-:memo: Fix image link | [271](https://github.com/laminlabs/nbproject/pull/271) | [falexwolf](https://github.com/falexwolf) | 2023-09-18 |
+📝 Fix image link | [271](https://github.com/laminlabs/nbproject/pull/271) | [falexwolf](https://github.com/falexwolf) | 2023-09-18 |
 🚸 More robust title parsing | [270](https://github.com/laminlabs/nbproject/pull/270) | [falexwolf](https://github.com/falexwolf) | 2023-08-15 | 0.9.2
 📝 Simplify docs, adopt new lamin.ai static site architecture | [269](https://github.com/laminlabs/nbproject/pull/269) | [falexwolf](https://github.com/falexwolf) | 2023-08-04 | 0.9.1
 ♻️ Remove loguru-dependent call, expand `metadata_only` return signature | [268](https://github.com/laminlabs/nbproject/pull/268) | [falexwolf](https://github.com/falexwolf) | 2023-06-15 | 0.9.0
