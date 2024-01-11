@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🚸 Init version at 1 and also stop auto-bumping version in CLI | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 |
 Improve error message when empty notebook is passed | [275](https://github.com/laminlabs/nbproject/pull/275) | [Zethson](https://github.com/Zethson) | 2024-01-04 |
 Ruff and 3.11 | [276](https://github.com/laminlabs/nbproject/pull/276) | [Zethson](https://github.com/Zethson) | 2023-12-26 |
 🩹 Account for empty notebook in consecutiveness check | [272](https://github.com/laminlabs/nbproject/pull/272) | [falexwolf](https://github.com/falexwolf) | 2023-10-01 |
