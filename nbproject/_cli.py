@@ -159,10 +159,9 @@ def publish(files_dirs: Iterator[str]):
                 nb, add_pkgs, pin_versions=True
             )
 
-            version = "0"
+            version = "1"
             if "version" in nbproject_meta:
                 version = nbproject_meta["version"]
-            version = "1" if version == "0" else str(int(version) + 1)
             nbproject_meta["version"] = version
 
             write_notebook(nb, nb_path)

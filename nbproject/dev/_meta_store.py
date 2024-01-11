@@ -47,7 +47,7 @@ class MetaContainer(BaseModel):
 
     id: str
     """A universal 8-digit base62 ID."""
-    version: str = "0"
+    version: str = "1"
     """Published version of notebook."""
     time_init: str
     """Time of nbproject init in UTC. Often coincides with notebook creation."""
