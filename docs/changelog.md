@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🔇 Silence erroneous logging | [279](https://github.com/laminlabs/nbproject/pull/279) | [falexwolf](https://github.com/falexwolf) | 2024-02-27 |
 🚸 Init version at 1 | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 | 0.10.0
 🚸 Improve error message when empty notebook is passed | [275](https://github.com/laminlabs/nbproject/pull/275) | [Zethson](https://github.com/Zethson) | 2024-01-04 |
 👷 Ruff and 3.11 | [276](https://github.com/laminlabs/nbproject/pull/276) | [Zethson](https://github.com/Zethson) | 2023-12-26 |
