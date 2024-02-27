@@ -100,7 +100,8 @@ def header(
     # We assume Jupyter Lab as an environment for now
     if env is None:
         env = "lab"
-        logger.info("Assuming editor is Jupyter Lab.")
+        # this logs "jupyter lab" in vscode and hence, is confusing
+        # logger.info("Assuming editor is Jupyter Lab.")
 
     try:
         nb = read_notebook(filepath)  # type: ignore
