@@ -19,6 +19,7 @@ dependencies = [
     "pyyaml",
     "packaging",
     "orjson",
+    "nbformat",
     "ipylab",
     "importlib-metadata",
     "stdlib_list; python_version < '3.10'",
