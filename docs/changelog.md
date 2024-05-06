@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+♻️ Make ipylab an optional dependency | [282](https://github.com/laminlabs/nbproject/pull/282) | [falexwolf](https://github.com/falexwolf) | 2024-05-06 |
 🔇 Silence erroneous logging | [279](https://github.com/laminlabs/nbproject/pull/279) | [falexwolf](https://github.com/falexwolf) | 2024-02-27 | 0.10.1
 🚸 Init version at 1 | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 | 0.10.0
 🚸 Improve error message when empty notebook is passed | [275](https://github.com/laminlabs/nbproject/pull/275) | [Zethson](https://github.com/Zethson) | 2024-01-04 |
