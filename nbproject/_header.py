@@ -100,8 +100,6 @@ def header(
     # We assume Jupyter Lab as an environment for now
     if env is None:
         env = "lab"
-        # this logs "jupyter lab" in vscode and hence, is confusing
-        # logger.info("Assuming editor is Jupyter Lab.")
 
     try:
         nb = read_notebook(filepath)  # type: ignore
@@ -117,8 +115,6 @@ def header(
 
     # initialize
     if "nbproject" not in nb.metadata:
-        logger.info("Attaching notebook metadata")
-
         if env in ("lab", "notebook"):
             _save_notebook(env)
             nb = read_notebook(filepath)  # type: ignore

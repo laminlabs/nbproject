@@ -1,14 +1,14 @@
 from pathlib import Path
 from time import sleep
 
-from ipylab import JupyterFrontEnd
-
 from nbproject._is_run_from_ipython import is_run_from_ipython
 
 app = None
 
 
 def _init_frontend():
+    from ipylab import JupyterFrontEnd
+
     global app
     if app is None and is_run_from_ipython:
         app = JupyterFrontEnd()
