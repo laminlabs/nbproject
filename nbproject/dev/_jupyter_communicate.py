@@ -7,7 +7,7 @@ import orjson
 
 from nbproject._logger import logger
 
-from ._jupyter_lab_commands import _lab_notebook_path
+from ._jupyter_lab_commands import _ipylab_is_installed, _lab_notebook_path
 
 DIR_KEYS = ("notebook_dir", "root_dir")
 
@@ -163,4 +163,9 @@ def notebook_path(return_env=False):
     logger.warning(
         "Can not find the notebook in any server session or by using other methods."
     )
+    if not _ipylab_is_installed():
+        logger.warning(
+            "Consider installing ipylab (pip install ipylab) if you use jupyter lab."
+        )
+
     return None
