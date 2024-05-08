@@ -6,6 +6,7 @@ from ._logger import logger
 from .dev._frontend_commands import _reload_notebook, _save_notebook
 from .dev._initialize import initialize_metadata
 from .dev._jupyter_communicate import notebook_path
+from .dev._jupyter_lab_commands import _ipylab_is_installed
 from .dev._metadata_display import display_html, table_metadata
 from .dev._notebook import Notebook, read_notebook, write_notebook
 
@@ -17,7 +18,7 @@ _time_run = None
 msg_init_complete = (
     "Init complete. Hit save & reload from disk, i.e, *discard* editor content. If you"
     " do not want to lose editor changes, hit save *before* running `header()`."
-    " Consider using Jupyter Lab for a seamless interactive experience."
+    " Consider using Jupyter Lab with ipylab installed for a seamless interactive experience."
 )
 
 msg_inconsistent_parent = (
@@ -113,9 +114,13 @@ def header(
     global _time_run, _filepath, _env
     _time_run, _filepath, _env = time_run, filepath, env
 
+    interactive_envs = ["notebook"]
+    if _ipylab_is_installed():
+        interactive_envs.append("lab")
+
     # initialize
     if "nbproject" not in nb.metadata:
-        if env in ("lab", "notebook"):
+        if env in interactive_envs:
             _save_notebook(env)
             nb = read_notebook(filepath)  # type: ignore
 
@@ -129,7 +134,7 @@ def header(
             _output_table(nb, table_metadata(metadata, nb, time_run))
             write_notebook(nb, filepath)  # type: ignore
 
-            if env in ("lab", "notebook"):
+            if env in interactive_envs:
                 _reload_notebook(env)
             else:
                 raise SystemExit(msg_init_complete)
