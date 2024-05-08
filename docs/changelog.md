@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
-⚡️ Warn instead of raising the exception when ipylab is not installed | [283](https://github.com/laminlabs/nbproject/pull/283) | [Koncopd](https://github.com/Koncopd) | 2024-05-08 |
+⚡️ Warn instead of raising the exception when ipylab is not installed | [283](https://github.com/laminlabs/nbproject/pull/283) | [Koncopd](https://github.com/Koncopd) | 2024-05-08 | 0.10.3
 ♻️ Make ipylab an optional dependency | [282](https://github.com/laminlabs/nbproject/pull/282) | [falexwolf](https://github.com/falexwolf) | 2024-05-06 |
 🔇 Silence erroneous logging | [279](https://github.com/laminlabs/nbproject/pull/279) | [falexwolf](https://github.com/falexwolf) | 2024-02-27 | 0.10.1
 🚸 Init version at 1 | [277](https://github.com/laminlabs/nbproject/pull/277) | [falexwolf](https://github.com/falexwolf) | 2024-01-11 | 0.10.0
