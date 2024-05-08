@@ -5,6 +5,7 @@ from ._meta import meta
 from .dev._check_last_cell import check_last_cell
 from .dev._consecutiveness import check_consecutiveness
 from .dev._frontend_commands import _save_notebook
+from .dev._jupyter_lab_commands import _ipylab_is_installed
 from .dev._notebook import read_notebook
 from .dev._set_version import set_version
 
@@ -13,7 +14,7 @@ def run_checks_for_publish(
     *, calling_statement: str, i_confirm_i_saved: bool = False, **kwargs
 ):
     """Runs all checks for publishing."""
-    if meta.env in ("lab", "notebook"):
+    if meta.env == "notebook" or (meta.env == "lab" and _ipylab_is_installed()):
         _save_notebook(meta.env)
     else:
         pretend_no_test_env = (
@@ -26,8 +27,8 @@ def run_checks_for_publish(
         elif not i_confirm_i_saved:
             raise RuntimeError(
                 "Make sure you save the notebook in your editor before publishing!\n"
-                "You can avoid the need for manually saving in Jupyter Lab or Notebook,"
-                " which auto-save the buffer during publish."
+                "You can avoid the need for manually saving in Jupyter Lab with ipylab installed"
+                " or Notebook, which auto-save the buffer during publish."
             )
 
     notebook_title = meta.live.title

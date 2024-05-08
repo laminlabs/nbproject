@@ -4,6 +4,8 @@ from typing import Mapping, Optional
 
 from pydantic import BaseModel
 
+from nbproject._logger import logger
+
 from ._consecutiveness import check_consecutiveness
 from ._lamin_communicate import lamin_user_settings
 from ._notebook import Notebook
@@ -147,8 +149,9 @@ def table_metadata(
     if dm.parent() is not None:
         table.append(["parent", dm.parent()])
 
-    if version != "0":
-        consecutiveness = check_consecutiveness(notebook)
+    if version not in {"0", "1"}:
+        with logger.mute():
+            consecutiveness = check_consecutiveness(notebook)
         table.append(["consecutive_cells", str(consecutiveness)])
 
     dep_store = dm.pypackage()

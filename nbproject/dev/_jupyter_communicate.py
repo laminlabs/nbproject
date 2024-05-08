@@ -7,7 +7,7 @@ import orjson
 
 from nbproject._logger import logger
 
-from ._jupyter_lab_commands import _lab_notebook_path
+from ._jupyter_lab_commands import _ipylab_is_installed, _lab_notebook_path
 
 DIR_KEYS = ("notebook_dir", "root_dir")
 
@@ -153,9 +153,6 @@ def notebook_path(return_env=False):
         nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
 
-    if server_exception is not None:
-        raise server_exception
-
     # no running servers
     if servers_nbapp == [] and servers_juserv == []:
         logger.warning("Can not find any servers running.")
@@ -163,4 +160,12 @@ def notebook_path(return_env=False):
     logger.warning(
         "Can not find the notebook in any server session or by using other methods."
     )
+    if not _ipylab_is_installed():
+        logger.warning(
+            "Consider installing ipylab (pip install ipylab) if you use jupyter lab."
+        )
+
+    if server_exception is not None:
+        raise server_exception
+
     return None

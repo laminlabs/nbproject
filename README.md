@@ -28,6 +28,13 @@ Install: ![pyversions](https://img.shields.io/pypi/pyversions/nbproject)
 pip install nbproject
 ```
 
+Also consider installing `ipylab` for interactive features
+if you use `nbpoject` on `jupyter lab`
+
+```
+pip install ipylab
+```
+
 Get started:
 
 ```
