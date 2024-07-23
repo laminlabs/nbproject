@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Mapping, Optional, Union
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 
 from nbproject._logger import logger
 
@@ -61,9 +61,7 @@ class MetaContainer(BaseModel):
     """User ID from lamindb."""
     user_name: Optional[str] = None
     """User name from lamindb."""
-
-    class Config:
-        extra = Extra.allow
+    model_config = ConfigDict(extra="allow")
 
 
 class MetaStore:
