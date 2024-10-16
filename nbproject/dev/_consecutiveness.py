@@ -24,12 +24,11 @@ def check_consecutiveness(nb: Notebook, calling_statement: str = None) -> bool:
     ccount = 0  # need to initialize because notebook might note have code cells
     # and below, we check if ccount is None
     for cell in cells:
-        if cell["cell_type"] != "code" or cell["source"] == []:
+        cell_source = "".join(cell["source"])
+        if cell["cell_type"] != "code" or cell_source == "":
             continue
 
-        if calling_statement is not None and calling_statement in "".join(
-            cell["source"]
-        ):
+        if calling_statement is not None and calling_statement in cell_source:
             continue
 
         ccount = cell["execution_count"]

@@ -24,6 +24,7 @@ Edges cases, warnings, and errors:
 - {doc}`faq/internal-functions`
 - {doc}`faq/set-env-via-environment-var`
 - {doc}`faq/header-author-field`
+- {doc}`faq/cell-source-string`
 
 ```{toctree}
 :maxdepth: 1
@@ -48,4 +49,5 @@ faq/not-initialized
 faq/internal-functions
 faq/set-env-via-environment-var
 faq/header-author-field
+faq/cell-source-string
 ```
