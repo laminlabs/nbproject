@@ -21,7 +21,8 @@ repos:
         exclude: |
           (?x)(
               docs/examples/|
-              docs/notes/
+              docs/notes/|
+              cell-source-string.ipynb
           )
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.7
