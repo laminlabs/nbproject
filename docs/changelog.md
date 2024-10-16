@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🐛 Account for cell source being a string | [286](https://github.com/laminlabs/nbproject/pull/286) | [Koncopd](https://github.com/Koncopd) | 2024-10-16 |
 ⬆️ Upgrade to pydantic v2 | [284](https://github.com/laminlabs/nbproject/pull/284) | [falexwolf](https://github.com/falexwolf) | 2024-07-23 |
 ⚡️ Warn instead of raising the exception when ipylab is not installed | [283](https://github.com/laminlabs/nbproject/pull/283) | [Koncopd](https://github.com/Koncopd) | 2024-05-08 | 0.10.3
 ♻️ Make ipylab an optional dependency | [282](https://github.com/laminlabs/nbproject/pull/282) | [falexwolf](https://github.com/falexwolf) | 2024-05-06 |
