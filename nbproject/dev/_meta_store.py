@@ -31,10 +31,12 @@ def _set_execution_count(calling_statement: str, notebook: Notebook):
 
     prev = 0
     for cell in cells:
-        if cell["cell_type"] != "code" or cell["source"] == []:
+        cell_source = "".join(cell["source"])
+
+        if cell["cell_type"] != "code" or cell_source == "":
             continue
 
-        if calling_statement in "".join(cell["source"]):
+        if calling_statement in cell_source:
             cell["execution_count"] = prev + 1
 
         ccount = cell["execution_count"]

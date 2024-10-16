@@ -18,7 +18,7 @@ def get_title(nb: Notebook) -> Optional[str]:
         # only consider markdown
         if cell["cell_type"] == "markdown":
             # grab source
-            text = cell["source"][0]
+            text = "".join(cell["source"])
             # loop through lines
             for line in text.split("\n"):
                 # if finding a level-1 heading, consider it a title
