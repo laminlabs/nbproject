@@ -23,7 +23,7 @@ For more fine-grained access, use:
    dev
 
 """
-__version__ = "0.10.4"
+__version__ = "0.10.5"
 
 from .dev._jupyter_lab_commands import _init_frontend
 
