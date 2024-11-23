@@ -47,4 +47,4 @@ nbproject.header()  # Tracks notebook, displays metadata
 nbproject.publish()  # Checks consecutiveness & title, sets version & imported python packages
 ```
 
-More: Read the [docs](https://lamin.ai/docs/nbproject).
+More: Read the [docs](https://nbproject.lamin.ai).
