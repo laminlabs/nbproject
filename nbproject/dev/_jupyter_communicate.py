@@ -1,4 +1,5 @@
 import os
+import sys
 from itertools import chain
 from pathlib import PurePath
 from urllib import request
@@ -90,18 +91,21 @@ def notebook_path(return_env=False):
         logger.warning("Can not import get_ipython.")
         return None
 
+    # vs code specific
+    if "__main__" in sys.modules:
+        main_module = sys.modules["__main__"]
+        if hasattr(main_module, "__vsc_ipynb_file__"):
+            nb_path = main_module.__vsc_ipynb_file__
+            return (
+                (nb_path, "vs_code" if env is None else env) if return_env else nb_path
+            )
+
     ipython_instance = get_ipython()
 
     # not in an ipython kernel
     if ipython_instance is None:
         logger.warning("The IPython instance is empty.")
         return None
-
-    # vs code specific
-    user_ns = ipython_instance.__dict__.get("user_ns", {})
-    if "__vsc_ipynb_file__" in user_ns:
-        nb_path = PurePath(user_ns["__vsc_ipynb_file__"])
-        return (nb_path, "vs_code" if env is None else env) if return_env else nb_path
 
     config = ipython_instance.config
     # not in a jupyter notebook
