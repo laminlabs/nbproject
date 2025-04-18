@@ -39,6 +39,7 @@ dev = [
     "nbproject_test >= 0.4.5",
     "laminci",
     "ipylab",
+    "nbconvert",
 ]
 
 [project.scripts]
