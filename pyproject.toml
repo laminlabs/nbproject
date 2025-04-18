@@ -19,6 +19,7 @@ dependencies = [
     "pyyaml",
     "packaging",
     "orjson",
+    "psutil",
     "importlib-metadata",
     "stdlib_list; python_version < '3.10'",
     "lamin_utils>=0.13.2",

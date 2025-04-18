@@ -1,7 +1,7 @@
 import os
 import sys
 from itertools import chain
-from pathlib import PurePath
+from pathlib import Path, PurePath
 from urllib import request
 
 import orjson
@@ -65,6 +65,113 @@ def running_servers():
             )
 
     return servers_nbapp, servers_juserv
+
+
+def find_nb_path_via_parent_process():
+    """Tries to find the notebook path by inspecting the parent process's command line.
+
+    Requires the 'psutil' library. Heuristic and potentially fragile.
+    """
+    import psutil
+
+    try:
+        current_process = psutil.Process(os.getpid())
+        parent_process = current_process.parent()
+
+        if parent_process is None:
+            logger.warning("psutil: Could not get parent process.")
+            return None
+
+        # Get parent command line arguments
+        cmdline = parent_process.cmdline()
+        if not cmdline:
+            logger.warning(
+                f"psutil: Parent process ({parent_process.pid}) has empty cmdline."
+            )
+            # Maybe check grandparent? This gets complicated quickly.
+            return None
+
+        logger.info(f"psutil: Parent cmdline: {cmdline}")
+
+        # Heuristic parsing: Look for 'nbconvert' and '.ipynb'
+        # This is fragile and depends on how nbconvert was invoked.
+        is_nbconvert_call = False
+        potential_path = None
+
+        for i, arg in enumerate(cmdline):
+            # Check if 'nbconvert' command is present
+            if "nbconvert" in arg.lower():
+                # Check if it's the main command (e.g. /path/to/jupyter-nbconvert)
+                # or a subcommand (e.g. ['jupyter', 'nbconvert', ...])
+                # or a module call (e.g. ['python', '-m', 'nbconvert', ...])
+                base_arg = os.path.basename(arg).lower()  # noqa: PTH119
+                if (
+                    "jupyter-nbconvert" in base_arg
+                    or arg == "nbconvert"
+                    or (
+                        cmdline[i - 1].endswith("python")
+                        and arg == "-m"
+                        and cmdline[i + 1] == "nbconvert"
+                    )
+                ):
+                    is_nbconvert_call = True
+
+            # Find the argument ending in .ipynb AFTER 'nbconvert' is likely found
+            # Or just find the last argument ending in .ipynb as a guess
+            if arg.endswith(".ipynb"):
+                potential_path = arg  # Store the last one found
+
+        if is_nbconvert_call and potential_path:
+            # We found something that looks like an nbconvert call and an ipynb file
+            # The path might be relative to the parent process's CWD.
+            # Try to resolve it. Parent CWD might not be notebook dir if called like
+            # jupyter nbconvert --execute /abs/path/to/notebook.ipynb
+            try:
+                # Get parent's CWD
+                parent_cwd = parent_process.cwd()
+                resolved_path = Path(parent_cwd) / Path(potential_path)
+                if resolved_path.is_file():
+                    logger.info(f"psutil: Found potential path: {resolved_path}")
+                    return resolved_path.resolve()  # Return absolute path
+                else:
+                    # Maybe the path was already absolute?
+                    abs_path = Path(potential_path)
+                    if abs_path.is_absolute() and abs_path.is_file():
+                        logger.info(
+                            f"psutil: Found potential absolute path: {abs_path}"
+                        )
+                        return abs_path.resolve()
+                    else:
+                        logger.warning(
+                            f"psutil: Potential path '{potential_path}' not found relative to parent CWD '{parent_cwd}' or as absolute path."
+                        )
+                        return None
+
+            except psutil.AccessDenied:
+                logger.warning("psutil: Access denied when getting parent CWD.")
+                # Fallback: assume path might be relative to kernel's CWD (less likely)
+                maybe_path = Path(potential_path)
+                if maybe_path.is_file():
+                    return maybe_path.resolve()
+                return None  # Give up trying to resolve relative path
+            except Exception as e:
+                logger.warning(f"psutil: Error resolving path '{potential_path}': {e}")
+                return None
+
+        logger.warning(
+            "psutil: Could not reliably identify notebook path from parent cmdline."
+        )
+        return None
+
+    except ImportError:
+        logger.warning("psutil library not found. Cannot inspect parent process.")
+        return None
+    except psutil.Error as e:
+        logger.warning(f"psutil error: {e}")
+        return None
+    except Exception as e:
+        logger.warning(f"Unexpected error during psutil check: {e}")
+        return None
 
 
 def notebook_path(return_env=False):
@@ -156,6 +263,16 @@ def notebook_path(return_env=False):
     if "JPY_SESSION_NAME" in os.environ:
         nb_path = PurePath(os.environ["JPY_SESSION_NAME"])
         return (nb_path, "lab" if env is None else env) if return_env else nb_path
+
+    # try inspecting parent process using psutil, needed if notebook is run via nbconvert
+    nb_path_psutil = find_nb_path_via_parent_process()
+    if nb_path_psutil is not None:
+        logger.info("Detected path via psutil parent process inspection.")
+        return (
+            (nb_path_psutil, "nbconvert" if env is None else env)
+            if return_env
+            else nb_path_psutil
+        )
 
     # no running servers
     if servers_nbapp == [] and servers_juserv == []:
