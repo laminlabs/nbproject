@@ -3,6 +3,7 @@
 <!-- prettier-ignore -->
 Name | PR | Developer | Date | Version
 --- | --- | --- | --- | ---
+🚸 Support inferring notebook path when executed through nbconvert | [288](https://github.com/laminlabs/nbproject/pull/288) | [falexwolf](https://github.com/falexwolf) | 2025-04-18 |
 🐛 Fix `__vsc_ipynb_file__` unaccessible through `get_ipython().user_ns` in VS Code | [287](https://github.com/laminlabs/nbproject/pull/287) | [Koncopd](https://github.com/Koncopd) | 2025-03-08 |
 🐛 Account for cell source being a string | [286](https://github.com/laminlabs/nbproject/pull/286) | [Koncopd](https://github.com/Koncopd) | 2024-10-16 |
 ⬆️ Upgrade to pydantic v2 | [284](https://github.com/laminlabs/nbproject/pull/284) | [falexwolf](https://github.com/falexwolf) | 2024-07-23 |
