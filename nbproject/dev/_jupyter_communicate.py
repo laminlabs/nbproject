@@ -122,7 +122,9 @@ def find_nb_path_via_parent_process():
                 potential_path = arg  # Store the last one found
 
         if is_nbconvert_call and "--inplace" not in cmdline:
-            raise ValueError("Please execute 'nbconvert' with option '--inplace'.")
+            raise ValueError(
+                "Please execute notebook 'nbconvert' by passing option '--inplace'."
+            )
 
         if is_nbconvert_call and potential_path:
             # We found something that looks like an nbconvert call and an ipynb file
