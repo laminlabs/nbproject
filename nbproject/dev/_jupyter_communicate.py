@@ -121,6 +121,11 @@ def find_nb_path_via_parent_process():
             if arg.endswith(".ipynb"):
                 potential_path = arg  # Store the last one found
 
+        if is_nbconvert_call and "--inplace" not in cmdline:
+            raise ValueError(
+                "Please execute notebook 'nbconvert' by passing option '--inplace'."
+            )
+
         if is_nbconvert_call and potential_path:
             # We found something that looks like an nbconvert call and an ipynb file
             # The path might be relative to the parent process's CWD.
@@ -169,6 +174,8 @@ def find_nb_path_via_parent_process():
     except psutil.Error as e:
         logger.warning(f"psutil error: {e}")
         return None
+    except ValueError as ve:  # Explicitly catch and re-raise the intended error
+        raise ve
     except Exception as e:
         logger.warning(f"Unexpected error during psutil check: {e}")
         return None
