@@ -105,33 +105,21 @@ def find_nb_path_via_parent_process():
                 # or a subcommand (e.g. ['jupyter', 'nbconvert', ...])
                 # or a module call (e.g. ['python', '-m', 'nbconvert', ...])
                 base_arg = os.path.basename(arg).lower()  # noqa: PTH119
-                # Refined check for context (ensure imports like os are present)
-                is_direct_call = ("jupyter-nbconvert" in base_arg and i == 0) or (
-                    "nbconvert" in base_arg and i == 0
-                )
-                # Handle potential IndexError for cmdline[i-1], cmdline[i+1]
-                is_jupyter_subcommand = (
-                    i > 0
-                    and arg.lower() == "nbconvert"
-                    and "jupyter" in os.path.basename(cmdline[i - 1]).lower()  # noqa: PTH119
-                )
-                is_python_m_call = (
-                    i > 1
-                    and arg.lower() == "nbconvert"
-                    and cmdline[i - 1] == "-m"
-                    and "python" in os.path.basename(cmdline[i - 2]).lower()  # noqa: PTH119
-                )
-
-                if is_direct_call or is_jupyter_subcommand or is_python_m_call:
+                if (
+                    "jupyter-nbconvert" in base_arg
+                    or arg == "nbconvert"
+                    or (
+                        cmdline[i - 1].endswith("python")
+                        and arg == "-m"
+                        and cmdline[i + 1] == "nbconvert"
+                    )
+                ):
                     is_nbconvert_call = True
 
             # Find the argument ending in .ipynb AFTER 'nbconvert' is likely found
             # Or just find the last argument ending in .ipynb as a guess
             if arg.endswith(".ipynb"):
                 potential_path = arg  # Store the last one found
-
-        if is_nbconvert_call and "--inplace" not in cmdline:
-            raise ValueError("Please execute 'nbconvert' with option '--inplace'.")
 
         if is_nbconvert_call and potential_path:
             # We found something that looks like an nbconvert call and an ipynb file
@@ -141,7 +129,6 @@ def find_nb_path_via_parent_process():
             try:
                 # Get parent's CWD
                 parent_cwd = parent_process.cwd()
-                # Ensure Path is imported from pathlib
                 resolved_path = Path(parent_cwd) / Path(potential_path)
                 if resolved_path.is_file():
                     logger.info(f"psutil: Found potential path: {resolved_path}")
@@ -171,11 +158,8 @@ def find_nb_path_via_parent_process():
                 logger.warning(f"psutil: Error resolving path '{potential_path}': {e}")
                 return None
 
-        # This warning might now be less relevant if error is raised above,
-        # but kept as per "no other changes" request for the case where nbconvert
-        # wasn't detected at all.
         logger.warning(
-            "psutil: Could not reliably identify notebook path from parent cmdline OR requirements not met."
+            "psutil: Could not reliably identify notebook path from parent cmdline."
         )
         return None
 
@@ -185,8 +169,6 @@ def find_nb_path_via_parent_process():
     except psutil.Error as e:
         logger.warning(f"psutil error: {e}")
         return None
-    except ValueError as ve:  # Explicitly catch and re-raise the intended error
-        raise ve
     except Exception as e:
         logger.warning(f"Unexpected error during psutil check: {e}")
         return None
