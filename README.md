@@ -9,16 +9,16 @@ Light-weight Jupyter notebook manager. Track metadata, imports, and integrity.
 
 ---
 
-💡 We recommend [lamindb.track()](https://lamin.ai/docs/lamindb.track) instead of `nbproject` to:
+💡 We recommend [lamindb.track()](https://docs.lamin.ai/lamindb.track) instead of `nbproject` to:
 
 - consistently track data sources across notebooks, pipelines & apps
 - full provenance for datasets that you pull and push from notebooks
 - manage notebook copying & integrate with Google Colab
 - broader compatibility
 
-Like `nbproject`, `lamindb` is open-source.
+Like `nbproject`, `lamindb` is open-source: https://github.com/laminlabs/lamindb
 
-`nbproject` will continue to be maintained as a utility for `lamindb`.
+`nbproject` has been archived as an independent package and is now fully integrated into `lamindb`.
 
 ---
 
